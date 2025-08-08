@@ -1,6 +1,6 @@
 // components/Layout.js
 import Head from 'next/head';
-import Navbar from '@/components/Header/Navbar';
+import Navbar from '../components/Header/Navbar';
 // app/layout.tsx
 
 // import Footer from '@/components/Footer/Footer';

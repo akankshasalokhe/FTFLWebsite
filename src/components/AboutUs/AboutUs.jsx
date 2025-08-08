@@ -36,15 +36,15 @@ const AboutUsSection = () => {
       {/* Stat Cards */}
       <div className={styles.stats} data-aos="zoom-in">
         <div className={`${styles.statCircle} ${styles.blue}`}>
-          <h3><CountUp end={150} duration={3} />+</h3>
+          <h3><CountUp end={150} duration={8} style={{fontSize: "30px"}}/>+</h3>
           <span>Projects Completed</span>
         </div>
         <div className={`${styles.statCircle} ${styles.purple}`}>
-          <h3><CountUp end={50} duration={3} />+</h3>
+          <h3><CountUp end={50} duration={10} style={{fontSize: "30px"}}/>+</h3>
           <span>Happy Clients</span>
         </div>
         <div className={`${styles.statCircle} ${styles.orange}`}>
-          <h3><CountUp end={10} duration={3} />+</h3>
+          <h3><CountUp end={10} duration={12} style={{fontSize: "30px"}}/>+</h3>
           <span>Years of Experience</span>
         </div>
       </div>
