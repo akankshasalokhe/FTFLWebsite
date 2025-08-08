@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import styles from "./OurServices.module.css"; 
 
 export default function OurServices() {
   useEffect(() => {
@@ -48,10 +49,10 @@ export default function OurServices() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-gray-100" id="services">
-      <div className="max-w-7xl mx-auto px-6 text-center">
+    <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-50" id="services">
+      <div className="max-w-7xl mx-auto px-5 text-center">
         <motion.h2
-          className="text-4xl font-extrabold text-gray-800 mb-4"
+          className="text-4xl font-extrabold text-blue-800 mb-4"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -72,21 +73,29 @@ export default function OurServices() {
           {services.map((service, index) => (
             <motion.div
               key={index}
-              className={`relative group rounded-2xl shadow-xl overflow-hidden bg-white/30 backdrop-blur-lg p-8 border border-white/20 hover:shadow-2xl transition-all duration-500`}
+              className="relative group rounded-2xl overflow-hidden p-8 border border-white/20 bg-white/30 backdrop-blur-lg shadow-2xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
+              transition={{ delay: index * 0.15, duration: 0.6 }}
               data-aos="fade-up"
+              whileHover={{ rotateX: 5, rotateY: -5 }}
             >
-              {/* Icon Circle */}
-              <div
-                className={`mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-r ${service.color} flex items-center justify-center text-white text-4xl transform transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-lg`}
+              {/* Icon Floating Animation */}
+              <motion.div
+                className={`mx-auto mb-6 w-20 h-20 rounded-full bg-gradient-to-r ${service.color} flex items-center justify-center text-white text-4xl shadow-lg`}
+                animate={{ y: [0, -8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut",
+                  delay: index * 0.2,
+                }}
               >
                 {service.icon}
-              </div>
+              </motion.div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold mb-3 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 {service.title}
               </h3>
 
@@ -95,8 +104,13 @@ export default function OurServices() {
                 {service.description}
               </p>
 
-              {/* Hover Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              {/* Glow Border */}
+              <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:${styles.borderGlow}`}></div>
+
+              {/* Shine Reflection */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className={`absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/30 to-transparent transform skew-x-12 group-hover:${styles.shine}`}></div>
+              </div>
             </motion.div>
           ))}
         </div>

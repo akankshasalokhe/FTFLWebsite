@@ -13,10 +13,12 @@ const AboutUsSection = () => {
 
   return (
     <section className={styles.aboutSection}>
+      <h1 className={styles.title}>Who We Are</h1>
+
       <div className={styles.container}>
         {/* Left Text */}
         <div className={styles.textContent} data-aos="fade-right">
-          <h2 className={styles.title}>About Our Company</h2>
+          <h2 className={styles.subtitle}>About Our Company</h2>
           <p className={styles.description}>
             We are a passionate IT solutions company delivering modern web, mobile,
             and cloud-based applications. Our goal is to help businesses achieve

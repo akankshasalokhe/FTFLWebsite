@@ -1,0 +1,18 @@
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+.shine {
+  animation: shine 1.2s ease forwards;
+}
+
+@keyframes borderGlow {
+  0% { border-color: rgba(255,255,255,0.2); }
+  50% { border-color: rgba(59,130,246,0.8); }
+  100% { border-color: rgba(255,255,255,0.2); }
+}
+
+.borderGlow {
+  animation: borderGlow 2s infinite ease-in-out;
+}
