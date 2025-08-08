@@ -172,9 +172,10 @@
 .design { border-top: 5px solid #eab308; }
 
 /* -------------------- RESPONSIVE -------------------- */
-@media (max-width: 1024px) {
+@media (max-width: 1300px) {
   .stats {
-    gap: 100px;
+    flex-direction: row;
+    gap: 130px;
   }
 }
 

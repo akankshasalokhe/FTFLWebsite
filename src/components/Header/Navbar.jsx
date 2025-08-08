@@ -61,11 +61,6 @@ const Navbar = () => {
               <Link href="/services/app">App Development</Link>
             </div>
           </li>
-
-          <li><Link href="/products" className={isActive("/products") ? styles.activeLink : ""}>Products</Link></li>
-          <li><Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""}>Careers</Link></li>
-          <li><Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""}>Blog</Link></li>
-
           {/* Courses Dropdown */}
           <li className={styles.dropdown}>
             <span
@@ -85,6 +80,13 @@ const Navbar = () => {
               <Link href="/courses/app-development">App Development</Link>
             </div>
           </li>
+          <li><Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""}>Careers</Link></li>
+          <li><Link href="/products" className={isActive("/products") ? styles.activeLink : ""}>Products</Link></li>
+          <li><Link href="/staffing" className={isActive("/staffing") ? styles.activeLink : ""}>Staffing</Link></li>
+
+          <li><Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""}>Blog</Link></li>
+
+          
 
           <li><Link href="/contact" className={isActive("/contact") ? styles.activeLink : ""}>Contact</Link></li>
         </ul>
