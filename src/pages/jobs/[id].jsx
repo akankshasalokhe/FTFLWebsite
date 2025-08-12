@@ -168,7 +168,46 @@ const jobOpenings = [
         "Quarterly team retreats"
       ]
     }
-  }
+  },
+  {
+    id: 5,
+    title: "Developer",
+    type: "Full-time",
+    location: "Remote",
+    salary: "$90,000 - $120,000",
+    department: "Engineering",
+    description: "Build beautiful, responsive interfaces with React and Next.js",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    postedDate: "2025-11-15",
+    deadline: "2025-12-15",
+    details: {
+      about: "Join our engineering team to build cutting-edge web applications that serve millions of users worldwide. We value clean code, thoughtful architecture, and exceptional user experiences.",
+      responsibilities: [
+        "Develop and maintain user interfaces using React and Next.js",
+        "Collaborate with designers to implement pixel-perfect designs",
+        "Optimize applications for maximum performance",
+        "Write clean, maintainable, and efficient code",
+        "Participate in code reviews and architectural discussions"
+      ],
+      requirements: [
+        "3+ years of experience with React",
+        "Proficient in TypeScript",
+        "Experience with modern CSS frameworks (Tailwind CSS preferred)",
+        "Familiarity with RESTful APIs",
+        "Strong problem-solving skills",
+        "Experience with testing frameworks (Jest, Cypress)"
+      ],
+      benefits: [
+        "Competitive salary and equity options",
+        "Fully remote work environment",
+        "Flexible working hours",
+        "Health, dental, and vision insurance",
+        "Professional development budget",
+        "Quarterly team retreats"
+      ]
+    }
+  },
+  
 ];
 
 export default function SingleJobView() {
@@ -196,6 +235,13 @@ export default function SingleJobView() {
 
   const jobId = Number(id);
   const job = jobOpenings.find(job => job.id === jobId);
+
+  // Find similar jobs (same department and type, excluding current job)
+  const similarJobs = jobOpenings.filter(
+    j => j.id !== jobId && 
+         j.department === job?.department && 
+         j.type === job?.type
+  ).slice(0, 3);
 
   if (!job) {
     return (
@@ -387,27 +433,79 @@ export default function SingleJobView() {
                   <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">Ready to apply?</h3>
                   <p className="text-gray-600 max-w-2xl">We're excited to hear from you! Submit your application before {formatDate(job.deadline)} and our team will review it shortly.</p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Link href={`/apply?id=${job.id}`} passHref>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
-                    >
-                      Apply Now <FiBriefcase />
-                    </motion.button>
-                  </Link>
-                  <button
-                    onClick={() => router.push('/careers')}
-                    className="px-6 py-3 border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                <Link href={`/apply?id=${job.id}`} passHref>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
                   >
-                    Browse Other Jobs
-                  </button>
-                </div>
+                    Apply Now <FiBriefcase />
+                  </motion.button>
+                </Link>
               </div>
             </div>
           </div>
         </motion.div>
+
+        {/* Similar Jobs Section */}
+        {similarJobs.length > 0 && (
+          <div className="mt-12  mx-auto max-w-7xl">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Similar Jobs</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {similarJobs.map((similarJob) => (
+                <Link 
+                  href={`/jobs/${similarJob.id}`}
+                  key={similarJob.id}
+                  legacyBehavior
+                >
+                  <motion.a
+                    whileHover={{ y: -5 }}
+                    className="block bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200/50 hover:shadow-md transition-all h-full cursor-pointer"
+                  >
+                    <div className="p-6 h-full flex flex-col">
+                      <div className="flex-grow">
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                          <span className={`inline-block px-3 py-1 text-xs font-semibold text-white ${
+                            similarJob.department === 'Engineering' ? 'bg-blue-600' : 
+                            similarJob.department === 'Design' ? 'bg-purple-600' : 'bg-gray-600'
+                          } rounded-full`}>
+                            {similarJob.department}
+                          </span>
+                          <span className="text-sm text-gray-500 flex items-center gap-1">
+                            <FiClock className="text-gray-400" />
+                            {similarJob.type}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">{similarJob.title}</h3>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {similarJob.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {similarJob.tags.slice(0, 3).map((tag, i) => (
+                            <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-auto">
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                          <span className="text-sm text-gray-500 flex items-center gap-1">
+                            <FiMapPin className="text-gray-400" />
+                            {similarJob.location}
+                          </span>
+                          <span className="text-sm font-medium text-blue-600">
+                            {getDaysRemaining(similarJob.deadline)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

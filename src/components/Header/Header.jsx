@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Styles from "./Header.module.css"; 
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
@@ -14,16 +15,16 @@ const HeroSection = () => {
   return (
     <section
       ref={ref}
-      className="relative text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className={`relative text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden ${Styles.hero}`}
       style={{
-        height: "calc(100vh - 80px)", // Adjust based on your navbar height
+        height: "calc(100vh - 80px)",
         minHeight: "500px",
         maxHeight: "1200px"
       }}
     >
       {/* Background Image with Enhanced Parallax Effect */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center z-0"
+        className="absolute inset-0 bg-inherit bg-center z-0"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
           backgroundPosition: "center center",

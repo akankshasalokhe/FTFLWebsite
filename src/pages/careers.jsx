@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 import { motion } from 'framer-motion';
 import JoinOurTeam from '@/components/JoinOurTeam/JoinOurTeam';
 import OpenPositions from '@/components/OpenPositions/OpenPositions';
@@ -6,7 +8,9 @@ import ApplyPage from './apply';
 
 const ROLES = ['Developers', 'Designers', 'Marketers', 'Engineers'];
 function careers() {
-   const [currentRole, setCurrentRole] = useState(0);
+  const router = useRouter();
+
+  const [currentRole, setCurrentRole] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
@@ -56,13 +60,17 @@ function careers() {
               Build the future with us. Grow your career in an innovative environment.
             </motion.p>
 
+              
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onHoverStart={() => setIsHovered(true)}
               onHoverEnd={() => setIsHovered(false)}
             >
-              <button className="bg-[#298CF3] hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30">
+              <button 
+              //  onClick={() => router.push('/OpenPositions')}
+              className="bg-[#298CF3] hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
+              >
                 <span className="flex items-center gap-2">
                   View Open Positions
                   <motion.span
@@ -74,6 +82,7 @@ function careers() {
                 </span>
               </button>
             </motion.div>
+
           </motion.div>
 
           {/* Image/Illustration */}

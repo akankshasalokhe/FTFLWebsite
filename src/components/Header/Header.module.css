@@ -159,9 +159,9 @@
 } */
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 425px) {
   .hero{
-    height: 60vh;
+    height: 60vh !important;
   }
   /* .typewriter {
     font-size: 1.8rem;
