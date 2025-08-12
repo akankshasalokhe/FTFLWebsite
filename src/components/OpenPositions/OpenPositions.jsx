@@ -443,9 +443,11 @@ export default function JobListings() {
               We're always interested in meeting talented people. Join our talent network and we'll contact you when matching positions open up.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors">
-                Submit General Application
-              </button>
+              <Link href="jobs/generalApplication" passHref>
+                <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors">
+                  Submit General Application
+                </button>
+              </Link>
               <button className="px-6 py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-xl font-medium transition-colors">
                 Join Talent Network
               </button>

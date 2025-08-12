@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import JoinOurTeam from '@/components/JoinOurTeam/JoinOurTeam';
 import OpenPositions from '@/components/OpenPositions/OpenPositions';
+import ApplyPage from './apply';
 
 const ROLES = ['Developers', 'Designers', 'Marketers', 'Engineers'];
 function careers() {
@@ -96,6 +97,7 @@ function careers() {
     </div>
     <JoinOurTeam />
     <OpenPositions />
+    {/* <ApplyPage /> */}
     </div>
   )
 }
