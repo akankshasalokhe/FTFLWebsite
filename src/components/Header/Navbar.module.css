@@ -1,5 +1,5 @@
 .navbar {
-  background: linear-gradient(to right, #dbeafe, #e0f2fe);
+  background: linear-gradient(to right, #eef0f3, #f8f9fa);
   backdrop-filter: blur(6px);
   padding: 15px 30px;
   position: sticky;
@@ -10,7 +10,7 @@
 
 .navContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
   position: relative;
 }
@@ -42,9 +42,10 @@
 
 .navMenu {
   display: flex;
-  gap: 35px;
+  gap: 40px;
   list-style: none;
   margin: 0;
+  font-size: 18px;
 }
 
 .navMenu li {
@@ -67,6 +68,7 @@
   color: #0284c7;
 }
 
+
 .activeLink::after {
   content: "";
   position: absolute;
@@ -76,6 +78,7 @@
   height: 2px;
   background-color: #0284c7;
   border-radius: 1px;
+
 }
 
 /* Dropdown */

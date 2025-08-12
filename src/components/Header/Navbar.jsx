@@ -41,28 +41,55 @@ const Navbar = () => {
         <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
           <li><Link href="/" className={isActive("/") ? styles.activeLink : ""}>Home</Link></li>
           <li><Link href="/about" className={isActive("/about") ? styles.activeLink : ""}>About</Link></li>
-
+          {/* <li><Link href="/services" className={isActive("/services") ? styles.activeLink : ""}>Services</Link></li> */}
           {/* Services Dropdown */}
           <li className={styles.dropdown}>
-            <span
-              onClick={() => isMobile && toggleDropdown("services")}
-              onMouseEnter={() => !isMobile && setOpenDropdown("services")}
-              onMouseLeave={() => !isMobile && setOpenDropdown(null)}
-              className={`${isActive("/services") ? styles.activeLink : ""}`}
-            >
-              Services
-            </span>
-            <div
-              className={`${styles.dropdownContent} ${
-                openDropdown === "services" ? styles.dropdownActive : ""
-              }`}
-            >
-              <Link href="/services/web">Web Development</Link>
-              <Link href="/services/app">App Development</Link>
-            </div>
-          </li>
+  <span
+    onClick={() => isMobile && toggleDropdown("services")}
+    onMouseEnter={() => !isMobile && setOpenDropdown("services")}
+    onMouseLeave={() => !isMobile && setOpenDropdown(null)}
+    className={`${isActive("/services") ? styles.activeLink : ""}`}
+  >
+    Services
+    {isMobile && ( // Show arrow only on mobile
+      <span className={styles.dropdownArrow}>
+        {openDropdown === "services" ? "▲" : "▼"}
+      </span>
+    )}
+  </span>
+  
+  <div
+    className={`${styles.dropdownContent} ${
+      openDropdown === "services" ? styles.dropdownActive : ""
+    }`}
+    onMouseLeave={() => !isMobile && setOpenDropdown(null)}
+  >
+    {/* Department 1: Development */}
+    <div className={styles.dropdownSection}>
+      <h4 className={styles.dropdownHeader}>Development</h4>
+      <Link href="/services/web">Web Development</Link>
+      <Link href="/services/app">App Development</Link>
+      <Link href="/services/api">API Integration</Link>
+    </div>
+
+    {/* Department 2: Design */}
+    <div className={styles.dropdownSection}>
+      <h4 className={styles.dropdownHeader}>Design</h4>
+      <Link href="/services/ui-ux">UI/UX Design</Link>
+      <Link href="/services/graphic">Graphic Design</Link>
+      <Link href="/services/logo">Logo Design</Link>
+    </div>
+
+    {/* Department 3: Video */}
+    <div className={styles.dropdownSection}>
+      <h4 className={styles.dropdownHeader}>Video</h4>
+      <Link href="/services/editing">Video Editing</Link>
+      <Link href="/services/motion">Motion Graphics</Link>
+    </div>
+  </div>
+</li>
           {/* Courses Dropdown */}
-          <li className={styles.dropdown}>
+          {/* <li className={styles.dropdown}>
             <span
               onClick={() => isMobile && toggleDropdown("courses")}
               onMouseEnter={() => !isMobile && setOpenDropdown("courses")}
@@ -79,7 +106,7 @@ const Navbar = () => {
               <Link href="/courses/web-development">Web Development</Link>
               <Link href="/courses/app-development">App Development</Link>
             </div>
-          </li>
+          </li> */}
           <li><Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""}>Careers</Link></li>
           <li><Link href="/products" className={isActive("/products") ? styles.activeLink : ""}>Products</Link></li>
           <li><Link href="/staffing" className={isActive("/staffing") ? styles.activeLink : ""}>Staffing</Link></li>

@@ -1,0 +1,198 @@
+/* app/about/about.module.css */
+
+/* Base Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 80px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+}
+
+.sectionTitle {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #2c3e50;
+  font-size: 2.5rem;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/about/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.heroContent h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.heroContent p {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+/* Text and Image Layout */
+.textContent {
+  flex: 1;
+  min-width: 300px;
+}
+
+.textContent h2 {
+  color: #298cf3;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.textContent p {
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.imageWrapper {
+  flex: 1;
+  min-width: 300px;
+}
+
+.roundedImage {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Mission Section */
+.missionSection {
+  background-color: #f8f9fa;
+  padding: 80px 20px;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+.missionCard {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.missionCard:hover {
+  transform: translateY(-5px);
+}
+
+.missionCard h3 {
+  color: #298cf3;
+  margin-bottom: 15px;
+}
+
+/* Stats Section */
+.statsSection {
+  background-color: #298cf3;
+  color: white;
+  padding: 80px 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.statCard {
+  padding: 30px 20px;
+}
+
+.statIcon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.statLabel {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Team Section */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* CTA Section */
+.ctaSection {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #f8f9fa;
+}
+
+.ctaSection h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.ctaSection p {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: #7f8c8d;
+}
+
+.ctaButton {
+  background-color: #298cf3;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background-color: #1a6fc9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(41, 140, 243, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+    padding: 60px 0;
+  }
+  
+  .heroContent h1 {
+    font-size: 2.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}

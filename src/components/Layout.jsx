@@ -1,6 +1,8 @@
 // components/Layout.js
 import Head from 'next/head';
 import Navbar from '../components/Header/Navbar';
+import Footer from '../components/Footer/Footer';
+import { ParallaxProvider } from 'react-scroll-parallax';
 // app/layout.tsx
 
 // import Footer from '@/components/Footer/Footer';
@@ -15,8 +17,10 @@ const Layout = ({ children, title, description, keywords }) => {
       </Head>
 
       <Navbar />
+      <ParallaxProvider>
       <main>{children}</main>
-      {/* <Footer /> */}
+      </ParallaxProvider>
+      <Footer />
     </>
   );
 };

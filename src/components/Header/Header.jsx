@@ -1,100 +1,121 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-// import styles from "/Header.module.css"
+import { useInView } from "react-intersection-observer";
 
 const HeroSection = () => {
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true
+  });
+
   return (
     <section
-      className={`relative text-white text-center mt-1 px-4 lg:px-8 md:px-6 h-100 sm:px-4 sm:h-50 bg-inherit overflow-hidden `}
+      ref={ref}
+      className="relative text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden"
       style={{
-        height: "90vh",
+        height: "calc(100vh - 80px)", // Adjust based on your navbar height
+        minHeight: "500px",
+        maxHeight: "1200px"
       }}
     >
-      {/* Background Image with Parallax Effect */}
+      {/* Background Image with Enhanced Parallax Effect */}
       <motion.div
-        className="absolute lg:h-full inset-0 bg-cover bg-center z-0 object-cover md:h-120 w-full lg:w-full sm:h-50 sm:w-full"
+        className="absolute inset-0 bg-cover bg-center z-0"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
+          backgroundPosition: "center center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat"
         }}
-        initial={{ scale: 1.2, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        initial={{ scale: 1.3, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ 
+          duration: 1.5, 
+          ease: [0.16, 0.77, 0.47, 0.97],
+          opacity: { duration: 1.2 }
+        }}
       />
 
-      {/* Gradient Overlay */}
-      <div
-        className="absolute lg:h-full inset-0 z-10 md:h-120 sm:h-50"
+      {/* Gradient Overlay with Animation */}
+      <motion.div
+        className="absolute inset-0 z-10"
         style={{
-          background: "linear-gradient(to right, rgba(0,0,0,0.75), rgba(20,20,20,0.5))",
-          backdropFilter: "blur(2px)",
+          background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
         }}
-      ></div>
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2, delay: 0.3 }}
+      />
 
       {/* Content */}
-      <div
-        className="relative z-20 max-w-4xl mx-auto flex flex-col items-center justify-center"
-        style={{
-          height: "100%",
-          paddingTop: "60px",
-          paddingBottom: "40px",
-        }}
-      >
-        <motion.h1
-          className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight"
-          initial={{ y: 60, opacity: 0, scale: 0.95 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-                        {/* FTFL Technology turns your boldest visions into digital reality. */}
-
-          FTFL Technology <span className="text-blue-400">turns your boldest visions into digital reality.</span>
-        </motion.h1>
-
-        <motion.p
-          className="text-lg md:text-xl mb-8 max-w-2xl"
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-            We craft future-ready IT solutions that scale with your business — blending creativity, code, and cloud innovation.
-        </motion.p>
-
-        <motion.div
-          className="flex flex-wrap justify-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Link
-            href="/services"
-            className="bg-blue-600 text-white px-6 py-3 rounded shadow hover:scale-105 hover:bg-blue-700 transition duration-300 font-semibold"
+      <div className="relative z-20 h-full flex flex-col items-center justify-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={inView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mb-4 sm:mb-6 md:mb-8 w-full"
           >
-            Explore Services
-          </Link>
-          <Link
-            href="/about"
-            className="border border-white text-white px-6 py-3 rounded shadow hover:bg-white hover:text-blue-700 transition duration-300 font-semibold"
+            {/* <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-blue-900 bg-opacity-40 rounded-full backdrop-blur-sm mb-4 sm:mb-6 border border-blue-700">
+              <span className="text-blue-300 font-medium text-sm sm:text-base">Innovating Since 2015</span>
+            </div> */}
+            
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
+            >
+              <span className="block">FTFL Technology</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                Turns visions into digital reality
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl sm:max-w-3xl mx-auto text-gray-300 px-2 sm:px-4"
+              initial={{ y: 20, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              We craft future-ready IT solutions that scale with your business — blending creativity, code, and cloud innovation.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 w-full px-2 sm:px-4"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
-            Learn More
-          </Link>
-        </motion.div>
+            <Link
+              href="/services"
+              className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:from-blue-700 group-hover:to-cyan-600 transition-all duration-300"></span>
+              <span className="relative flex items-center justify-center gap-2">
+                Explore Services
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </span>
+            </Link>
+
+            <Link
+              href="/about"
+              className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base border-2 border-blue-400"
+            >
+              <span className="absolute inset-0 bg-blue-900 bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 backdrop-blur-sm"></span>
+              <span className="relative flex items-center justify-center gap-2">
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+                </svg>
+              </span>
+            </Link>
+          </motion.div>
+        </div>
       </div>
-
-      {/* Responsive Height */}
-      {/* <style jsx>{`
-        @media (max-width: 768px) {
-          section {
-            height: 80vh;
-          }
-        }
-        @media (max-width: 425px) {
-          section {
-            height: 60vh;
-          }
-        }
-      `}</style> */}
     </section>
   );
 };
