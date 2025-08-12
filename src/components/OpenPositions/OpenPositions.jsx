@@ -274,7 +274,7 @@ export default function JobListings() {
         </motion.div>
 
         {/* Job Listings */}
-        <div className="grid gap-6">
+        <div className="grid gap-8">
           {filteredJobs.length > 0 ? (
             filteredJobs.map((job, index) => (
               <motion.div
@@ -303,6 +303,8 @@ export default function JobListings() {
                     </div>
                     
                     <p className="text-gray-600 mb-4">{job.description}</p>
+
+                    
                     
                     {/* View Details Button - Mobile */}
                     <div className="md:hidden mb-4">
@@ -310,7 +312,7 @@ export default function JobListings() {
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
-                          className="w-full md:w-auto px-6 py-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                          className=" w-full md:w-auto px-6 py-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
                         >
                           View Details <FiEye />
                         </motion.button>
@@ -318,13 +320,23 @@ export default function JobListings() {
                     </div>
                     
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2 mb-5">
                       {job.tags.map((tag, i) => (
                         <span key={i} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
                           {tag}
                         </span>
                       ))}
                     </div>
+
+                     <Link href={`/apply?id=${job.id}`} passHref >
+                        <motion.button
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="mt-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                        >
+                          Apply Now <FiBriefcase />
+                        </motion.button>
+                      </Link>
                     
                     {/* Meta info - mobile view */}
                     <div className="md:hidden grid grid-cols-2 gap-3">
@@ -383,22 +395,14 @@ export default function JobListings() {
                           <motion.button
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.97 }}
-                            className="w-full px-6 py-3 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                            className="w-full  px-6 py-3 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
                           >
                             View Details <FiEye />
                           </motion.button>
                         </Link>
                       </div>
 
-                      <Link href={`/apply?id=${job.id}`} passHref>
-                        <motion.button
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
-                        >
-                          Apply Now <FiBriefcase />
-                        </motion.button>
-                      </Link>
+                     
                     </div>
                   </div>
                 </div>
