@@ -1,201 +1,155 @@
-import { useState, useEffect } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FiZap, 
-  FiShield, 
-  FiCloud, 
-  FiSmartphone,
-  FiCheck 
+  FiAward,
+  FiUsers,
+  FiClock,
+  FiTrendingUp,
+  FiCheck,
+  FiArrowRight
 } from 'react-icons/fi';
 
 const WhyChooseUs = () => {
-  const [activeFeature, setActiveFeature] = useState(0);
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-    triggerOnce: false
-  });
+  const [activeReason, setActiveReason] = useState(0);
 
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    } else {
-      controls.start('hidden');
-    }
-  }, [controls, inView]);
-
-  const features = [
+  const reasons = [
     {
-      icon: <FiZap className="h-8 w-8" />,
-      title: "Lightning Fast",
-      description: "Our optimized solutions deliver blazing fast performance with minimal load times.",
-      color: "from-blue-50 to-[#298cf3]",
-      highlightColor: "bg-blue-50",
+      icon: <FiAward className="h-8 w-8" />,
+      title: "Award-Winning Quality",
+      description: "Consistently recognized for excellence in digital solutions",
       highlights: [
-        "90% faster than industry standards",
-        "Optimized for low-power devices",
-        "CDN-powered global delivery",
-        "Real-time performance monitoring"
-      ]
+        "5+ industry awards won",
+        "98% client satisfaction rate",
+        "Rigorous quality assurance",
+        "Best practices compliance"
+      ],
+      color: "from-blue-500/10 to-blue-600/20"
     },
     {
-      icon: <FiShield className="h-8 w-8" />,
-      title: "Secure by Design",
-      description: "Built with security first approach to protect your data and privacy.",
-      color: "from-blue-100 to-[#298cf3]",
-      highlightColor: "bg-blue-100",
+      icon: <FiUsers className="h-8 w-8" />,
+      title: "Expert Team",
+      description: "Hand-picked specialists with proven track records",
       highlights: [
-        "End-to-end encryption",
-        "Regular security audits",
-        "GDPR & HIPAA compliant",
-        "Zero-trust architecture"
-      ]
+        "10+ years average experience",
+        "Diverse skill sets",
+        "Continuous training",
+        "Dedicated project managers"
+      ],
+      color: "from-blue-500/10 to-blue-600/20"
     },
     {
-      icon: <FiCloud className="h-8 w-8" />,
-      title: "Cloud Powered",
-      description: "Leveraging cloud technology for scalability and reliability.",
-      color: "from-blue-200 to-[#298cf3]",
-      highlightColor: "bg-blue-200",
+      icon: <FiClock className="h-8 w-8" />,
+      title: "Timely Delivery",
+      description: "We respect deadlines and deliver as promised",
       highlights: [
-        "Auto-scaling infrastructure",
-        "Multi-region deployment",
-        "Disaster recovery ready",
-        "Pay-as-you-grow pricing"
-      ]
+        "95% on-time delivery rate",
+        "Agile methodology",
+        "Transparent timelines",
+        "Rapid prototyping"
+      ],
+      color: "from-blue-500/10 to-blue-600/20"
     },
     {
-      icon: <FiSmartphone className="h-8 w-8" />,
-      title: "Mobile First",
-      description: "Designed for the modern world with mobile-first approaches.",
-      color: "from-blue-300 to-[#298cf3]",
-      highlightColor: "bg-blue-300",
+      icon: <FiTrendingUp className="h-8 w-8" />,
+      title: "Proven Results",
+      description: "Solutions that drive measurable business impact",
       highlights: [
-        "Progressive Web App ready",
-        "Touch-optimized interfaces",
-        "Offline-first capability",
-        "Battery-efficient design"
-      ]
+        "Average 40% performance improvement",
+        "Data-driven approach",
+        "ROI-focused solutions",
+        "Post-launch support"
+      ],
+      color: "from-blue-500/10 to-blue-600/20"
     }
   ];
 
-  const variants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    },
-    hidden: {
-      opacity: 0,
-      y: 50
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    })
-  };
-
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white" ref={ref} id="features">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial="hidden"
-          animate={controls}
-          variants={variants}
-          className="text-center mb-16"
-        >
-          <span className="inline-block mb-4 text-sm font-semibold tracking-wider uppercase text-[#298cf3]">
-            Why we stand out
+        <div className="text-center mb-16">
+          <span className="inline-block mb-4 text-sm font-semibold tracking-wider uppercase text-blue-600">
+            Why Choose Us
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Designed for <span className="text-[#298cf3]">modern needs</span>
+            The <span className="text-blue-600">Right Choice</span> For Your Digital Success
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We combine innovation, expertise, and passion to deliver exceptional results.
+            We go beyond standard services to deliver exceptional value and results.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {features.map((feature, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {reasons.map((reason, index) => (
             <motion.div
               key={index}
-              custom={index}
-              initial="hidden"
-              animate={controls}
-              variants={itemVariants}
               whileHover={{ y: -5 }}
-              className={`bg-white rounded-2xl shadow-sm overflow-hidden cursor-pointer border border-gray-200 ${
-                activeFeature === index ? 'ring-1 ring-[#298cf3]' : ''
+              whileTap={{ scale: 0.98 }}
+              className={`p-6 rounded-xl cursor-pointer transition-all ${
+                activeReason === index 
+                  ? 'bg-white shadow-lg border border-blue-200' 
+                  : 'bg-white/80 hover:bg-white shadow-sm border border-gray-200'
               }`}
-              onClick={() => setActiveFeature(index)}
+              onClick={() => setActiveReason(index)}
             >
-              <div className={`p-5 bg-gradient-to-r ${feature.color} flex justify-center`}>
-                <div className="bg-white/30 rounded-lg p-3 backdrop-blur-sm">
-                  {feature.icon}
-                </div>
+              <div className={`w-12 h-12 mb-4 rounded-lg flex items-center justify-center ${
+                activeReason === index 
+                  ? 'bg-blue-100 text-blue-600' 
+                  : 'bg-gray-100 text-gray-600'
+              }`}>
+                {reason.icon}
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
-              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">{reason.title}</h3>
+              <p className="text-gray-600 text-sm">{reason.description}</p>
             </motion.div>
           ))}
         </div>
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeFeature}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-200"
+            key={activeReason}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
           >
             <div className="flex flex-col lg:flex-row">
-              <div className={`lg:w-2/5 p-8 md:p-10 bg-gradient-to-br ${features[activeFeature].color} flex items-center justify-center`}>
-                <div className="text-white text-center">
-                  <div className="mb-6 mx-auto w-24 h-24 flex items-center justify-center bg-white/20 rounded-2xl backdrop-blur-sm">
-                    <div className="text-4xl">
-                      {features[activeFeature].icon}
+              <div className={`lg:w-2/5 p-8 md:p-10 bg-gradient-to-br ${reasons[activeReason].color}`}>
+                <div className="text-gray-900">
+                  <div className="w-20 h-20 mb-6 flex items-center justify-center bg-white/20 rounded-2xl backdrop-blur-sm">
+                    <div className="text-3xl">
+                      {reasons[activeReason].icon}
                     </div>
                   </div>
-                  <h3 className="text-3xl font-bold mb-3">{features[activeFeature].title}</h3>
-                  <p className="text-white/90">{features[activeFeature].description}</p>
+                  <h3 className="text-3xl font-bold mb-3">{reasons[activeReason].title}</h3>
+                  <p className="text-gray-700">{reasons[activeReason].description}</p>
                 </div>
               </div>
+              
               <div className="lg:w-3/5 p-8 md:p-10">
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {features[activeFeature].highlights.map((item, i) => (
-                    <motion.li 
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className={`flex items-start ${features[activeFeature].highlightColor} p-4 rounded-lg`}
-                    >
-                      <div className={`bg-[#298cf3] rounded-full p-1.5 mr-3`}>
-                        <FiCheck className="h-4 w-4 text-white" />
+                <h4 className="text-xl font-semibold mb-6 text-gray-900">How This Benefits You:</h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                  {reasons[activeReason].highlights.map((item, i) => (
+                    <div key={i} className="flex items-start bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-blue-100 rounded-full p-1.5 mr-3 flex-shrink-0">
+                        <FiCheck className="h-4 w-4 text-blue-600" />
                       </div>
                       <span className="font-medium text-gray-700">{item}</span>
-                    </motion.li>
+                    </div>
                   ))}
-                </ul>
-                <div className="mt-8 flex justify-center lg:justify-start">
-                  <button className="px-6 py-2.5 bg-[#298cf3] text-white font-medium rounded-lg hover:bg-blue-600 transition-colors">
-                    Learn more about {features[activeFeature].title.toLowerCase()}
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+                  >
+                    Get Started <FiArrowRight />
+                  </motion.button>
+                  <button className="px-6 py-3 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                    View Case Studies
                   </button>
                 </div>
               </div>
