@@ -176,7 +176,7 @@ export default function JobListings() {
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             <span className="relative inline-block">
-              <span className="relative z-10">Join Our Team</span>
+              <span className="relative z-10">Career Opportunities</span>
               <span className="absolute bottom-0 left-0 w-full h-3 bg-blue-400/30 -z-0"></span>
             </span>
           </h2>
