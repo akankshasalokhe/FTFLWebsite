@@ -272,7 +272,20 @@ const OurProducts = () => {
         </motion.div>
 
         {/* Enterprise CTA */}
-        <motion.div
+        <motion.div>
+          <div className="text-center mb-16">
+             <Link href="/products" passHref>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className=" px-8 py-3.5 bg-indigo-600 text-white rounded-lg font-medium"
+                >
+                  Explore All Products
+                </motion.button>
+              </Link>
+          </div>    
+        </motion.div>
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
@@ -305,7 +318,7 @@ const OurProducts = () => {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
