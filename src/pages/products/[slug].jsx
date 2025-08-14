@@ -58,43 +58,43 @@ const products = {
       { value: '95%', label: 'Efficiency Gain' },
       { value: '4.9★', label: 'Rating' }
     ],
-    testimonials: [
-      {
-        quote: "Fetch True transformed our 50-location franchise operation. We've seen a 40% increase in profitability since implementation.",
-        author: "Sarah Chen",
-        role: "COO, FoodChain Inc.",
-        rating: 5
-      },
-      {
-        quote: "The automation features saved us over 200 admin hours per month. Game-changing technology for franchise businesses.",
-        author: "Michael Rodriguez",
-        role: "Franchise Owner",
-        rating: 5
-      }
-    ],
-    pricing: {
-      plans: [
-        {
-          name: "Starter",
-          price: "$99/month",
-          features: ["Up to 3 locations", "Basic analytics", "Email support"],
-          cta: "Start Free Trial"
-        },
-        {
-          name: "Professional",
-          price: "$299/month",
-          features: ["Up to 10 locations", "Advanced analytics", "Priority support"],
-          cta: "Most Popular",
-          highlighted: true
-        },
-        {
-          name: "Enterprise",
-          price: "Custom",
-          features: ["Unlimited locations", "AI forecasting", "Dedicated account manager"],
-          cta: "Contact Sales"
-        }
-      ]
-    },
+    // testimonials: [
+    //   {
+    //     quote: "Fetch True transformed our 50-location franchise operation. We've seen a 40% increase in profitability since implementation.",
+    //     author: "Sarah Chen",
+    //     role: "COO, FoodChain Inc.",
+    //     rating: 5
+    //   },
+    //   {
+    //     quote: "The automation features saved us over 200 admin hours per month. Game-changing technology for franchise businesses.",
+    //     author: "Michael Rodriguez",
+    //     role: "Franchise Owner",
+    //     rating: 5
+    //   }
+    // ],
+    // pricing: {
+    //   plans: [
+    //     {
+    //       name: "Starter",
+    //       price: "$99/month",
+    //       features: ["Up to 3 locations", "Basic analytics", "Email support"],
+    //       cta: "Start Free Trial"
+    //     },
+    //     {
+    //       name: "Professional",
+    //       price: "$299/month",
+    //       features: ["Up to 10 locations", "Advanced analytics", "Priority support"],
+    //       cta: "Most Popular",
+    //       highlighted: true
+    //     },
+    //     {
+    //       name: "Enterprise",
+    //       price: "Custom",
+    //       features: ["Unlimited locations", "AI forecasting", "Dedicated account manager"],
+    //       cta: "Contact Sales"
+    //     }
+    //   ]
+    // },
     appStoreLink: '#',
     playStoreLink: '#',
     demoVideo: '#',
@@ -155,43 +155,43 @@ const products = {
       { value: '4.8★', label: 'Rating' },
       { value: '90%', label: 'Verified' }
     ],
-    testimonials: [
-      {
-        quote: "I met my partner on Spark after just two weeks. The verification system made me feel safe and the matching was spot-on.",
-        author: "Priya Patel",
-        role: "Spark User",
-        rating: 5
-      },
-      {
-        quote: "As a woman dating online, Spark's verification system gives me peace of mind I haven't found on other apps.",
-        author: "Jessica Lin",
-        role: "Spark User",
-        rating: 4
-      }
-    ],
-    pricing: {
-      plans: [
-        {
-          name: "Free",
-          price: "$0",
-          features: ["Basic matching", "Limited messages", "Ad-supported"],
-          cta: "Get Started"
-        },
-        {
-          name: "Premium",
-          price: "$19.99/month",
-          features: ["Unlimited likes", "Video calls", "Ad-free experience"],
-          cta: "Most Popular",
-          highlighted: true
-        },
-        {
-          name: "VIP",
-          price: "$49.99/month",
-          features: ["Priority matching", "Profile boost", "Exclusive events"],
-          cta: "Upgrade Now"
-        }
-      ]
-    },
+    // testimonials: [
+    //   {
+    //     quote: "I met my partner on Spark after just two weeks. The verification system made me feel safe and the matching was spot-on.",
+    //     author: "Priya Patel",
+    //     role: "Spark User",
+    //     rating: 5
+    //   },
+    //   {
+    //     quote: "As a woman dating online, Spark's verification system gives me peace of mind I haven't found on other apps.",
+    //     author: "Jessica Lin",
+    //     role: "Spark User",
+    //     rating: 4
+    //   }
+    // ],
+    // pricing: {
+    //   plans: [
+    //     {
+    //       name: "Free",
+    //       price: "$0",
+    //       features: ["Basic matching", "Limited messages", "Ad-supported"],
+    //       cta: "Get Started"
+    //     },
+    //     {
+    //       name: "Premium",
+    //       price: "$19.99/month",
+    //       features: ["Unlimited likes", "Video calls", "Ad-free experience"],
+    //       cta: "Most Popular",
+    //       highlighted: true
+    //     },
+    //     {
+    //       name: "VIP",
+    //       price: "$49.99/month",
+    //       features: ["Priority matching", "Profile boost", "Exclusive events"],
+    //       cta: "Upgrade Now"
+    //     }
+    //   ]
+    // },
     appStoreLink: '#',
     playStoreLink: '#',
     demoVideo: '#',
@@ -429,7 +429,7 @@ export default function ProductDetails() {
           <div className="lg:w-2/3">
             {/* Navigation Tabs */}
             <div className="flex overflow-x-auto pb-2 mb-8 scrollbar-hide">
-              {['overview', 'features', 'screenshots', 'testimonials', 'pricing'].map((tab) => (
+              {['overview', 'features', 'screenshots'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -554,7 +554,7 @@ export default function ProductDetails() {
               )}
 
               {/* Testimonials Tab */}
-              {activeTab === 'testimonials' && (
+              {/* {activeTab === 'testimonials' && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -593,10 +593,10 @@ export default function ProductDetails() {
                     ))}
                   </div>
                 </motion.div>
-              )}
+              )} */}
 
               {/* Pricing Tab */}
-              {activeTab === 'pricing' && (
+              {/* {activeTab === 'pricing' && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -637,7 +637,7 @@ export default function ProductDetails() {
                     ))}
                   </div>
                 </motion.div>
-              )}
+              )} */}
             </div>
           </div>
 
