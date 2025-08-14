@@ -60,7 +60,7 @@ const TechStack = () => {
   };
 
   return (
-    <section ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-blue-800">
+    <section ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-800">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
