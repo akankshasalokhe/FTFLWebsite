@@ -2,7 +2,8 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MissionSection = () => {
   const [ref, inView] = useInView({
@@ -11,11 +12,52 @@ const MissionSection = () => {
   });
   const controls = useAnimation();
 
+  const [content, setContent] = useState([]);
+
   useEffect(() => {
     if (inView) {
       controls.start("visible");
     }
   }, [controls, inView]);
+
+  useEffect(() => {
+    // 🔹 Backend se data fetch
+    axios.get("https://landing-page-yclw.vercel.app/api/about") // 👉 apna backend endpoint yaha daalo
+      .then((res) => {
+        if (res.data.success) {
+          const apiData = res.data.data;
+
+          // 🔹 Mapping backend data to frontend structure
+          const mappedData = apiData.map((item) => {
+            let color = "from-blue-500 to-blue-600";
+            let reverse = false;
+
+            if (item.typeData === "vision") {
+              color = "from-purple-500 to-purple-600";
+              reverse = true;
+            }
+            if (item.typeData === "corevalues") {
+              color = "from-emerald-500 to-emerald-600";
+            }
+
+            return {
+              title: item.title,
+              description: item.description,
+              image: item.mainImage,
+              color,
+              reverse,
+              typeData: item.typeData
+            };
+          });
+
+          setContent(mappedData);
+        }
+      })
+      .catch((err) => {
+        console.log("Error fetching mission/vision/core values:", err);
+        console.error("Error fetching mission/vision/core values:", err);
+      });
+  }, []);
 
   const containerVariants = {
     visible: {
@@ -36,28 +78,6 @@ const MissionSection = () => {
       }
     }
   };
-
-  const content = [
-    {
-      title: "Our Mission",
-      description: "At FTFL Technology, our mission is to empower businesses with cutting-edge technology solutions that drive innovation, efficiency, and growth. We are committed to delivering high-quality digital products, seamless user experiences, and strategic IT consulting to help our clients succeed in the ever-evolving tech landscape. By leveraging the latest advancements in technology, we create scalable solutions tailored to unique business needs. Our dedication to excellence and continuous improvement ensures long-term success for our clients.",
-      image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
-      color: "from-blue-500 to-blue-600"
-    },
-    {
-      title: "Our Vision",
-      description: "We focus on their special needs and, therefore, carry out customized IT, branding, and marketing services to serve our clients. Our agile approach ensures flexibility, scalability, and continuous growth, further helping businesses thrive under these ever-changing digital circumstances. By staying ahead of industry trends, we empower businesses to achieve sustained success in a competitive landscape.",
-      image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80",
-      color: "from-purple-500 to-purple-600",
-      reverse: true
-    },
-    {
-      title: "Core Values",
-      description: "Innovation, Integrity, Collaboration, Excellence, and Customer-Centric approach guide everything we do.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-      color: "from-emerald-500 to-emerald-600"
-    }
-  ];
 
   return (
     <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white" ref={ref}>
@@ -122,7 +142,7 @@ const MissionSection = () => {
                 <p className="text-lg text-gray-600 mb-6">
                   {item.description}
                 </p>
-                {item.title === "Core Values" && (
+                {item.typeData === "corevalues" && (
                   <ul className="grid grid-cols-2 gap-3">
                     {["Innovation", "Integrity", "Collaboration", "Excellence", "Customer Focus"].map((value, i) => (
                       <motion.li
