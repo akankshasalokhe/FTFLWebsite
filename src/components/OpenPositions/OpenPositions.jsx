@@ -10,7 +10,9 @@ import {
   FiEye, 
   FiSearch, 
   FiCalendar,
-  FiFilter
+  FiFilter,
+  FiChevronDown,
+  FiAlertTriangle
 } from 'react-icons/fi';
 
 const jobOpenings = [
@@ -23,7 +25,7 @@ const jobOpenings = [
     department: "Engineering",
     description: "Build beautiful, responsive interfaces with React and Next.js",
     tags: ["React", "TypeScript", "Tailwind CSS"],
-    postedDate: "2023-11-15",
+    postedDate: "2025-11-15",
     deadline: "2023-12-15",
     category: "job",
     details: {
@@ -125,339 +127,304 @@ const jobOpenings = [
   }
 ];
 
+const Select = ({ options, icon, value, onChange, placeholder = "Select..." }) => (
+  <div className="relative">
+    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+      {icon}
+    </div>
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg appearance-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+    >
+      <option value="">{placeholder}</option>
+      {options.map(option => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+    </select>
+    <FiChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
+  </div>
+);
+
 export default function JobListings() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState('All');
-  const [locationFilter, setLocationFilter] = useState('All');
-  const [jobTypeFilter, setJobTypeFilter] = useState('All');
+  const [departmentFilter, setDepartmentFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  const [jobTypeFilter, setJobTypeFilter] = useState('');
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
-  const getDaysRemaining = (deadline) => {
+  const getDeadlineStatus = (deadline) => {
     const today = new Date();
     const deadlineDate = new Date(deadline);
     const diffTime = deadlineDate - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays > 0 ? `${diffDays} days left` : 'Closed';
+    
+    if (diffDays <= 0) {
+      return {
+        text: 'Closed',
+        className: 'bg-red-100 text-red-800',
+        icon: <FiAlertTriangle className="mr-1" />
+      };
+    } else if (diffDays <= 7) {
+      return {
+        text: `${diffDays} day${diffDays !== 1 ? 's' : ''} left`,
+        className: 'bg-orange-100 text-orange-800',
+        icon: <FiClock className="mr-1" />
+      };
+    } else {
+      return {
+        text: `${diffDays} days left`,
+        className: 'bg-green-100 text-green-800',
+        icon: <FiCalendar className="mr-1" />
+      };
+    }
+  };
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setDepartmentFilter('');
+    setLocationFilter('');
+    setJobTypeFilter('');
   };
 
   const filteredJobs = jobOpenings.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          job.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDepartment = departmentFilter === 'All' || job.department === departmentFilter;
-    const matchesLocation = locationFilter === 'All' || job.location.includes(locationFilter);
-    const matchesJobType = jobTypeFilter === 'All' || 
-                          (jobTypeFilter === 'intern' && job.category === 'intern') ||
-                          (jobTypeFilter === 'job' && job.category !== 'intern');
+    const matchesDepartment = !departmentFilter || job.department === departmentFilter;
+    const matchesLocation = !locationFilter || job.location.includes(locationFilter);
+    const matchesJobType = !jobTypeFilter || 
+                         (jobTypeFilter === 'Internship' && job.category === 'intern') ||
+                         (jobTypeFilter === 'Jobs' && job.category !== 'intern');
     
     return matchesSearch && matchesDepartment && matchesLocation && matchesJobType;
   });
 
   const departments = [...new Set(jobOpenings.map(job => job.department))];
   const locations = [...new Set(jobOpenings.map(job => job.location.split(' ')[0]))];
+  const jobTypes = ['Jobs', 'Internship'];
+
+  const isNew = (postedDate) => {
+    const today = new Date();
+    const postDate = new Date(postedDate);
+    const diffTime = today - postDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays <= 7;
+  };
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white relative">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-blue-500/5 blur-3xl -z-0"></div>
-      <div className="absolute bottom-1/4 left-0 w-32 h-32 rounded-full bg-blue-500/5 blur-3xl -z-0"></div>
-      
-      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 md:mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+    <section className="py-8 md:py-12 bg-gray-50">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
             <span className="relative inline-block">
-              <span className="relative z-10">Career Opportunities</span>
-              <span className="absolute bottom-0 left-0 w-full h-3 bg-blue-400/30 -z-0"></span>
+              <span className="relative z-10">Join Our Team</span>
+              <span className="absolute bottom-0 left-0 w-full h-2 bg-blue-400/20 -z-0"></span>
             </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explore opportunities to grow your career with us
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Discover opportunities to grow your career with us
           </p>
-        </motion.div>
+        </div>
 
-        {/* Job Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-200/50"
-        >
-          <div className="flex flex-col gap-6">
-            <div className="relative">
-              <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input 
-                type="text" 
-                placeholder="Search positions..." 
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        {/* Filters */}
+        <div className="bg-white p-4 md:p-6 rounded-xl shadow-xs border border-gray-200 mb-8 md:mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+            <div className="md:col-span-5 relative">
+              <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search job titles or keywords..."
+                className="w-full pl-10 pr-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                <div className="relative">
-                  <select 
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 appearance-none"
-                    value={departmentFilter}
-                    onChange={(e) => setDepartmentFilter(e.target.value)}
-                  >
-                    <option value="All">All Departments</option>
-                    {departments.map(dept => (
-                      <option key={dept} value={dept}>{dept}</option>
-                    ))}
-                  </select>
-                  <FiFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
-                </div>
-              </div>
-              
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                <div className="relative">
-                  <select 
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 appearance-none"
-                    value={locationFilter}
-                    onChange={(e) => setLocationFilter(e.target.value)}
-                  >
-                    <option value="All">All Locations</option>
-                    {locations.map(loc => (
-                      <option key={loc} value={loc}>{loc}</option>
-                    ))}
-                  </select>
-                  <FiFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
-                </div>
-              </div>
-              
-              <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
-                <div className="relative">
-                  <select 
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 appearance-none"
-                    value={jobTypeFilter}
-                    onChange={(e) => setJobTypeFilter(e.target.value)}
-                  >
-                    <option value="All">All Types</option>
-                    <option value="job">Jobs</option>
-                    <option value="intern">Internships</option>
-                  </select>
-                  <FiFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
-                </div>
-              </div>
-              
-              <div className="flex items-end">
-                <button 
-                  className="w-full px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-colors"
-                  onClick={() => {
-                    setSearchTerm('');
-                    setDepartmentFilter('All');
-                    setLocationFilter('All');
-                    setJobTypeFilter('All');
-                  }}
-                >
-                  Reset Filters
-                </button>
-              </div>
+            <div className="md:col-span-2">
+              <Select 
+                options={departments}
+                icon={<FiBriefcase />}
+                value={departmentFilter}
+                onChange={setDepartmentFilter}
+                placeholder="All Departments"
+              />
+            </div>
+            
+            <div className="md:col-span-2">
+              <Select 
+                options={locations}
+                icon={<FiMapPin />}
+                value={locationFilter}
+                onChange={setLocationFilter}
+                placeholder="All Locations"
+              />
+            </div>
+            
+            <div className="md:col-span-2">
+              <Select 
+                options={jobTypes}
+                icon={<FiClock />}
+                value={jobTypeFilter}
+                onChange={setJobTypeFilter}
+                placeholder="All Types"
+              />
+            </div>
+            
+            <div className="md:col-span-1 flex items-end">
+              <button
+                onClick={resetFilters}
+                className="w-full py-2 md:py-3 text-gray-500 hover:text-gray-700 transition-colors text-sm md:text-base"
+              >
+                Clear all
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Job Listings */}
-        <div className="grid gap-8">
+        <div className="grid gap-4 md:gap-6">
           {filteredJobs.length > 0 ? (
-            filteredJobs.map((job, index) => (
-              <motion.div
-                key={job.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className={`bg-white p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all border-l-4 ${job.category === 'intern' ? 'border-purple-500' : 'border-blue-500'} relative overflow-hidden`}
-              >
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="md:w-3/4">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900">{job.title}</h3>
-                      {job.category === 'intern' && (
-                        <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">
-                          Internship
-                        </span>
-                      )}
+            filteredJobs.map((job, index) => {
+              const deadlineStatus = getDeadlineStatus(job.deadline);
+              const isNewJob = isNew(job.postedDate);
+              
+              return (
+                <motion.div
+                  key={job.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}
+                  className={`bg-white rounded-xl overflow-hidden border-l-[5px] md:border-l-[6px] ${
+                    job.category === 'intern' ? 'border-purple-500' : 'border-blue-500'
+                  } shadow-sm transition-all relative`}
+                >
+                  {/* Deadline status badge - top right */}
+                  <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs md:text-sm font-medium flex items-center ${deadlineStatus.className}`}>
+                    {deadlineStatus.icon}
+                    {deadlineStatus.text}
+                  </div>
+                  
+                  {isNewJob && (
+                    <span className=" ms-3   bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                      New
+                    </span>
+                  )}
+                  
+                  <div className="p-5 md:p-6">
+                    <div className="flex  items-start pr-8 gap-2">
+                      <div>
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900">{job.title}</h3>
+                        <p className="text-blue-600 font-medium text-sm md:text-base">{job.department}</p>
+                      </div>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        job.category === 'intern' 
+                          ? 'bg-purple-100 text-purple-800' 
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {job.type}
+                      </span>
                     </div>
-                    
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                      <FiCalendar className="text-gray-400" />
-                      <span>Posted: {formatDate(job.postedDate)}</span>
-                    </div>
-                    
-                    <p className="text-gray-600 mb-4">{job.description}</p>
 
-                    
-                    
-                    {/* View Details Button - Mobile */}
-                    <div className="md:hidden mb-4">
-                      <Link href={`/jobs/${job.id}`} passHref>
-                        <motion.button
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          className=" w-full md:w-auto px-6 py-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
-                        >
-                          View Details <FiEye />
-                        </motion.button>
-                      </Link>
-                    </div>
-                    
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {job.tags.map((tag, i) => (
-                        <span key={i} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+                    <div className="my-3 md:my-4 flex flex-wrap gap-1 md:gap-2">
+                      {job.tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 md:px-2.5 md:py-1 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-full">
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                     <Link href={`/apply?id=${job.id}`} passHref >
+                    <p className="text-gray-600 text-sm md:text-base mb-4">{job.description}</p>
+
+                    <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-5 text-xs md:text-sm">
+                      <div className="flex items-center gap-1 md:gap-2">
+                        <FiMapPin className="text-gray-400 flex-shrink-0" />
+                        <span className="truncate">{job.location}</span>
+                      </div>
+                      <div className="flex items-center gap-1 md:gap-2">
+                        <FiDollarSign className="text-gray-400 flex-shrink-0" />
+                        <span className="truncate">{job.salary}</span>
+                      </div>
+                      <div className="flex items-center gap-1 md:gap-2">
+                        <FiCalendar className="text-gray-400 flex-shrink-0" />
+                        <span>Posted: {formatDate(job.postedDate)}</span>
+                      </div>
+                      <div className="flex items-center gap-1 md:gap-2">
+                        <FiClock className="text-gray-400 flex-shrink-0" />
+                        <span>Closes: {formatDate(job.deadline)}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+                      <Link href={`/jobs/${job.id}`} className="flex-1">
                         <motion.button
-                          whileHover={{ scale: 1.03 }}
+                          whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          className="mt-5 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                          className="w-full px-4 py-2 md:px-5 md:py-2.5 border border-gray-300 rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
                         >
-                          Apply Now <FiBriefcase />
+                          <FiEye className="flex-shrink-0" /> 
+                          <span>Details</span>
                         </motion.button>
                       </Link>
-                    
-                    {/* Meta info - mobile view */}
-                    <div className="md:hidden grid grid-cols-2 gap-3">
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiMapPin className="text-blue-500" />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiClock className="text-blue-500" />
-                        <span>{job.type}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiDollarSign className="text-blue-500" />
-                        <span>{job.salary}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiCalendar className="text-blue-500" />
-                        <span>{formatDate(job.deadline)}</span>
-                      </div>
+                      <Link href={`/apply?id=${job.id}`} className="flex-1">
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                        >
+                          <FiBriefcase className="flex-shrink-0" /> 
+                          <span>Apply</span>
+                        </motion.button>
+                      </Link>
                     </div>
                   </div>
-                  
-                  {/* Job meta - desktop view */}
-                  <div className="md:w-1/4">
-                    <div className="hidden md:block space-y-3 mb-6">
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiMapPin className="text-blue-500" />
-                        <span>{job.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiClock className="text-blue-500" />
-                        <span>{job.type}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiDollarSign className="text-blue-500" />
-                        <span>{job.salary}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <FiCalendar className="text-blue-500" />
-                        <span>Apply by: {formatDate(job.deadline)}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col gap-3">
-                      <div className={`px-4 py-2 rounded-lg text-center font-medium ${
-                        getDaysRemaining(job.deadline) === 'Closed' 
-                          ? 'bg-red-100 text-red-800' 
-                          : 'bg-blue-100 text-blue-800'
-                      }`}>
-                        {getDaysRemaining(job.deadline)}
-                      </div>
-                      
-                      {/* View Details Button - Desktop */}
-                      <div className="hidden md:block">
-                        <Link href={`/jobs/${job.id}`} passHref>
-                          <motion.button
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="w-full  px-6 py-3 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
-                          >
-                            View Details <FiEye />
-                          </motion.button>
-                        </Link>
-                      </div>
-
-                     
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))
+                </motion.div>
+              );
+            })
           ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 text-center"
-            >
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">No matching positions found</h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your search filters or check back later for new opportunities.
-              </p>
-              <button 
-                className="px-6 py-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                onClick={() => {
-                  setSearchTerm('');
-                  setDepartmentFilter('All');
-                  setLocationFilter('All');
-                  setJobTypeFilter('All');
-                }}
-              >
-                Reset all filters
-              </button>
-            </motion.div>
+            <div className="bg-white p-8 rounded-xl text-center border border-dashed border-gray-300">
+              <div className="mx-auto max-w-md">
+                <FiSearch className="mx-auto text-3xl md:text-4xl text-gray-400 mb-3 md:mb-4" />
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">No jobs found</h3>
+                <p className="text-gray-500 text-sm md:text-base mb-4 md:mb-6">
+                  Try adjusting your search filters or browse our general opportunities
+                </p>
+                <button
+                  onClick={resetFilters}
+                  className="px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white rounded-lg font-medium text-sm md:text-base"
+                >
+                  Reset filters
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
-        {/* CTA for no matching jobs */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-block bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-2xl shadow-sm border border-gray-200/50 max-w-2xl">
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">Don't see your dream job?</h3>
-            <p className="text-gray-600 mb-6">
+        {/* CTA Section */}
+        <div className="mt-12 md:mt-16 text-center">
+          <div className="inline-block bg-gradient-to-r from-blue-50 to-purple-50 p-6 md:p-8 rounded-xl shadow-sm border border-gray-200 max-w-2xl">
+            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3">Don't see your dream job?</h3>
+            <p className="text-gray-600 text-sm md:text-base mb-4 md:mb-6">
               We're always interested in meeting talented people. Join our talent network and we'll contact you when matching positions open up.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="jobs/generalApplication" passHref>
-                <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors">
-                  Submit General Application
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
+              <Link href="/jobs/generalApplication">
+                <button className="px-4 py-2 md:px-6 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm md:text-base transition-colors">
+                  General Application
                 </button>
               </Link>
-              <button className="px-6 py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-xl font-medium transition-colors">
-                Join Talent Network
+              <button className="px-4 py-2 md:px-6 md:py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-lg font-medium text-sm md:text-base transition-colors">
+                Talent Network
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
