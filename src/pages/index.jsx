@@ -1,7 +1,7 @@
 import OurServices from '@/components/OurServices/OurServices';
 import AboutUs from '../components/AboutUs/AboutUs';
 import Header from '../components/Header/Header';
-import OurProducts from '@/components/OurProducts/OurProducts';
+import FeaturedProducts from '@/components/OurProducts/FeaturedProducts';
 import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
 import TechStack from '@/components/TechStack/TechStack';
 import Testimonial from '@/components/Testimonial/Testimonial';
@@ -13,7 +13,7 @@ export default function Home() {
       <Header />
       <AboutUs />
       <OurServices />
-      <OurProducts />
+      <FeaturedProducts />
       <WhyChooseUs />
       <TechStack />
       <Testimonial />
