@@ -221,9 +221,9 @@ const AboutUsSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* 🔹 Stats (dynamic from backend) */}
+        {/* 🔹 Stats (dynamic from backend) - REDESIGNED */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20"
+          className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12 sm:mb-16 lg:mb-20"
           initial="hidden"
           animate={controls}
           variants={containerVariants}
@@ -233,104 +233,57 @@ const AboutUsSection = () => {
               key={stat._id}
               variants={itemVariants}
               whileHover={{
-                y: -10,
-                scale: 1.02,
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
+                y: -8,
+                scale: 1.03,
+                boxShadow: "0 25px 50px -12px rgba(41, 140, 243, 0.25)",
               }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="relative group overflow-hidden rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              // transition={{ type: "spring", stiffness: 300 }}
+              className="border border-radius-50 border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow duration-300 relative group"
               onMouseEnter={() => setHoveredCard(`stat-${index}`)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="relative p-8 backdrop-blur-sm">
+              <div className="relative p-6 sm:p-8">
+                {/* Icon container with gradient background */}
                 <motion.div
-                  className="w-14 h-14 rounded-xl mb-6 flex items-center justify-center bg-gradient-to-br from-[#298cf3] to-blue-500 shadow-md"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300 shadow-sm"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5h6m-6 4h6m-6 4h6m-6 4h6"
-                    />
-                  </svg>
+                  <div className="w-8 h-8 bg-gradient-to-r from-[#298cf3] to-blue-500 rounded-lg flex items-center justify-center shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5h6m-6 4h6m-6 4h6m-6 4h6"
+                      />
+                    </svg>
+                  </div>
                 </motion.div>
 
+                {/* Stat number with plus sign */}
                 <div className="flex items-end mb-2">
-                  <h3 className="text-4xl md:text-5xl font-bold text-gray-900 mr-2">
+                  <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mr-1">
                     <CountUp end={stat.count} duration={3} />
                   </h3>
-                  <span className="text-2xl md:text-3xl font-semibold text-gray-700 mb-1">
+                  <span className="text-xl sm:text-2xl font-semibold text-blue-500 mb-1">
                     +
                   </span>
                 </div>
 
-                <p className="text-lg text-gray-600">{stat.title}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Services (same) */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          initial="hidden"
-          animate={controls}
-          variants={containerVariants}
-        >
-          {[
-            {
-              title: "Web Development",
-              description: "Robust and scalable websites for every device.",
-              technologies: ["HTML", "CSS", "JavaScript", "React"],
-            },
-            {
-              title: "Mobile App Development",
-              description: "Native & cross-platform mobile solutions.",
-              technologies: ["Flutter", "React Native", "Kotlin", "Swift"],
-            },
-            {
-              title: "UI/UX Design",
-              description: "Stunning designs with seamless user flow.",
-              technologies: ["Figma", "Adobe XD", "Sketch"],
-            },
-          ].map((service, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{
-                y: -10,
-                scale: 1.02,
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)",
-              }}
-              transition={{ type: "spring", stiffness: 300 }}
-              className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 relative"
-            >
-              <div className="p-6 sm:p-8">
-                <motion.h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  {service.title}
-                </motion.h3>
-                <motion.p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                  {service.description}
-                </motion.p>
-                <div className="flex flex-wrap gap-2">
-                  {service.technologies.map((tech, i) => (
-                    <motion.span
-                      key={i}
-                      className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-100 text-blue-800"
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
+                {/* Stat title */}
+                <p className="text-base sm:text-lg text-gray-600 font-medium group-hover:text-gray-800 transition-colors duration-300">
+                  {stat.title}
+                </p>
+                
+                {/* Decorative element on hover */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#298cf3] to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             </motion.div>
           ))}

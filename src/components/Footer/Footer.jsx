@@ -6,6 +6,7 @@ import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube } from "react-ico
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const VibrantFooter = () => {
   const [contactInfo, setContactInfo] = useState(null);
@@ -178,18 +179,20 @@ const VibrantFooter = () => {
                     <p className="text-xs text-red-200">Error loading phone</p>
                   ) : (
                     <>
-                      <p className="font-medium text-sm">+{contactInfo?.phone}</p>
+                      <Link className="font-medium text-sm" href={`tel:+${contactInfo?.phone}`}>+{contactInfo?.phone}</Link>
                       <p className="text-xs text-white/70 mt-0.5">{contactInfo?.workinghours}</p>
                     </>
                   )}
                 </div>
               </li>
-              <li className="flex items-center gap-2.5">
+                <li className="flex items-center gap-2.5">
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0">
                   <MdEmail className="text-xs" />
                 </div>
-                <p className="text-sm break-all text-left">contact@ftfl.com</p>
+                <Link className="text-sm break-all text-left" href={`mailto:info@ftfltechnology.com`}>info@ftfltechnology.com</Link>
               </li>
+              
+              
               <li className="flex items-start gap-2.5">
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
@@ -275,7 +278,7 @@ const VibrantFooter = () => {
           <div className="flex gap-3 text-xs flex-wrap justify-center">
             <a href="#" className="hover:text-[#FFD166] transition-colors">Privacy</a>
             <a href="#" className="hover:text-[#FFD166] transition-colors">Terms</a>
-            <a href="#" className="hover:text-[#FFD166] transition-colors">Cookies</a>
+            {/* <a href="#" className="hover:text-[#FFD166] transition-colors">Cookies</a> */}
           </div>
           <p className="text-xs text-white/70">© 2025 All rights reserved</p>
         </motion.div>
