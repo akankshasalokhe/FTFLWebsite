@@ -476,7 +476,7 @@ const BlogPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white mb-16 overflow-hidden relative"
+          className="bg-gradient-to-r from-blue-500 to-blue-300 rounded-2xl p-8 text-white mb-16 overflow-hidden relative"
         >
           <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
           <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full"></div>

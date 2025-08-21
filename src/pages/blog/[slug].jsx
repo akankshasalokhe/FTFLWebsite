@@ -890,7 +890,8 @@ export default function BlogDetail() {
         .newsletter {
           position: relative;
           overflow: hidden;
-          background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%) !important;
+          background-color: blue !important;
+          // background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%) !important;
           color: white;
         }
         
@@ -948,7 +949,7 @@ export default function BlogDetail() {
         
         .newsletter button {
           padding: 12px;
-          background: #F6AD55;
+          background: #FFF;
           color: #2D3748;
           border: none;
           border-radius: 6px;
