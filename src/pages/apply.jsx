@@ -293,7 +293,7 @@ export default function ApplyPage() {
                 {job?.department}
               </span>
             )}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text">
               {isGeneralApplication ? 'General Application' : `Apply for ${job?.title}`}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">

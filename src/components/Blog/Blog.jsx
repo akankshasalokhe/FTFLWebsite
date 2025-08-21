@@ -1,10 +1,9 @@
-// pages/blog.js
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
-// Sample blog posts data with proper image paths
+// Sample blog posts data (removed author field)
 const BLOG_POSTS = [
   {
     id: 1,
@@ -13,9 +12,10 @@ const BLOG_POSTS = [
     date: "May 15, 2023",
     category: "Development",
     readTime: "5 min read",
-    image: "/reactangular.png",
+    image: "/react.png",
     featured: true,
-    slug: "getting-started-with-nextjs"
+    slug: "getting-started-with-nextjs",
+    tags: ["Web Development", "React", "Next.js"]
   },
   {
     id: 2,
@@ -26,7 +26,8 @@ const BLOG_POSTS = [
     readTime: "8 min read",
     image: "/api/placeholder/400/250?text=React",
     featured: true,
-    slug: "future-of-react-2023"
+    slug: "future-of-react-2023",
+    tags: ["React", "Frontend", "JavaScript"]
   },
   {
     id: 3,
@@ -36,7 +37,8 @@ const BLOG_POSTS = [
     category: "Design",
     readTime: "6 min read",
     image: "/api/placeholder/400/250?text=UI/UX",
-    slug: "ui-ux-design-principles"
+    slug: "ui-ux-design-principles",
+    tags: ["Design", "UI/UX", "Web Design"]
   },
   {
     id: 4,
@@ -46,7 +48,8 @@ const BLOG_POSTS = [
     category: "Development",
     readTime: "10 min read",
     image: "/api/placeholder/400/250?text=GraphQL",
-    slug: "scalable-apis-with-graphql"
+    slug: "scalable-apis-with-graphql",
+    tags: ["GraphQL", "API", "Backend"]
   },
   {
     id: 5,
@@ -56,7 +59,8 @@ const BLOG_POSTS = [
     category: "Design",
     readTime: "7 min read",
     image: "/api/placeholder/400/250?text=Colors",
-    slug: "psychology-of-color-web-design"
+    slug: "psychology-of-color-web-design",
+    tags: ["Design", "Colors", "Psychology"]
   },
   {
     id: 6,
@@ -66,7 +70,8 @@ const BLOG_POSTS = [
     category: "Performance",
     readTime: "9 min read",
     image: "/api/placeholder/400/250?text=Performance",
-    slug: "optimizing-website-performance"
+    slug: "optimizing-website-performance",
+    tags: ["Performance", "Optimization", "Web"]
   }
 ];
 
@@ -97,7 +102,7 @@ const BlogPage = () => {
     ? filteredPosts.filter(post => 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.author.toLowerCase().includes(searchQuery.toLowerCase())
+        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       )
     : filteredPosts;
 
@@ -154,8 +159,8 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Head>
-        <title>Blog | Creative Insights</title>
-        <meta name="description" content="Insights, ideas and stories from our team" />
+        <title>Blog | Muze Creative Insights</title>
+        <meta name="description" content="Insights, ideas and stories from the Muze team" />
       </Head>
 
       {/* Animated Background Elements */}
@@ -185,7 +190,7 @@ const BlogPage = () => {
                 </svg>
               </div>
               <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                Creative Insights
+               Blog
               </h1>
             </motion.div>
             
@@ -354,13 +359,12 @@ const BlogPage = () => {
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
                     <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                        <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </div>
-                      <span className="text-sm font-medium text-gray-700">{post.author}</span>
+                    <div className="flex flex-wrap gap-2">
+                      {post.tags.slice(0, 3).map((tag, index) => (
+                        <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                          #{tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </motion.div>
@@ -437,15 +441,14 @@ const BlogPage = () => {
                       </div>
                       <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className="w-7 h-7 bg-blue-100 rounded-full flex items-center justify-center mr-2">
-                            <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                          </div>
-                          <span className="text-xs font-medium text-gray-700">{post.author}</span>
-                        </div>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {post.tags.slice(0, 2).map((tag, index) => (
+                          <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex justify-end">
                         <Link href={`/blog/${post.slug}`}>
                           <motion.button 
                             className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
@@ -569,6 +572,12 @@ const BlogPage = () => {
         }
         .animation-delay-4000 {
           animation-delay: 4s;
+        }
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </div>

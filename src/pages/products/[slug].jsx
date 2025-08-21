@@ -1,621 +1,529 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Head from 'next/head';
+// pages/products/[slug].js
+import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import Head from "next/head";
+import Link from "next/link";
 
-const ProductDetails = ({ product }) => {
-  const [activeTab, setActiveTab] = useState('overview');
-  const [activeImage, setActiveImage] = useState(0);
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+// Demo products with extended details
+const PRODUCTS = [
+  {
+    title: "Dating App",
+    slug: "dating-app",
+    type: "App",
+    color: "#FF6B6B",
+    accentColor: "#FF3B3B",
+    subtitle: "Find meaningful connections",
+    description: "A modern dating app that uses AI to match you with compatible partners based on interests, values, and lifestyle preferences.",
+    tags: ["React Native", "Firebase", "Socket.IO"],
+    imageId: 100,
+    keyFeatures: ["AI Matching", "Secure Chat", "Video Profiles", "Interest-Based Groups"],
+    fullDescription: "Our Dating App revolutionizes how people connect in the digital age. Using advanced machine learning algorithms, we analyze user behavior, preferences, and interaction patterns to create meaningful matches that have a higher chance of developing into real relationships.",
+    overview: "Connect with like-minded individuals through our intelligent matching system. Our app goes beyond superficial swiping by focusing on compatibility metrics and shared values to foster deeper connections from the start.",
+    technicalDetails: "Built with React Native for cross-platform compatibility, Firebase for real-time data synchronization, and Socket.IO for seamless messaging. Includes integration with AWS Rekognition for photo verification and safety features.",
+    appStoreLink: "https://apps.apple.com/us/app/example-dating-app/id1234567890",
+    googlePlayLink: "https://play.google.com/store/apps/details?id=com.example.datingapp",
+    screenshots: [101, 102, 103, 104, 105],
+    stats: [
+      { value: "1M+", label: "Active Users" },
+      { value: "4.8", label: "App Store Rating" },
+      { value: "95%", label: "Match Satisfaction" }
+    ]
+  },
+  {
+    title: "Fitness Tracker",
+    slug: "fitness-tracker",
+    type: "App",
+    color: "#6C63FF",
+    accentColor: "#524BDB",
+    subtitle: "Achieve your health goals",
+    description: "Comprehensive fitness app that tracks workouts, nutrition, and progress with personalized recommendations.",
+    tags: ["React Native", "GraphQL", "HealthKit"],
+    imageId: 400,
+    keyFeatures: ["Workout Plans", "Nutrition Tracking", "Progress Analytics", "Community Challenges"],
+    fullDescription: "Our Fitness Tracker is your complete health companion, designed to help you achieve your fitness goals through personalized workout plans, nutrition tracking, and detailed progress analytics.",
+    overview: "Transform your health journey with our all-in-one fitness solution. Whether you're a beginner or a fitness enthusiast, our app adapts to your level and provides guidance to help you stay motivated and see real results.",
+    technicalDetails: "Built with React Native for a seamless cross-platform experience, integrated with HealthKit and Google Fit for accurate health data tracking, and powered by GraphQL for efficient data management.",
+    appStoreLink: "https://apps.apple.com/us/app/example-fitness-tracker/id9876543210",
+    googlePlayLink: "https://play.google.com/store/apps/details?id=com.example.fitnesstracker",
+    screenshots: [401, 402, 403, 404, 405],
+    stats: [
+      { value: "500K+", label: "Downloads" },
+      { value: "4.9", label: "App Store Rating" },
+      { value: "98%", label: "User Satisfaction" }
+    ]
+  },
+  // Add other products with similar structure...
+];
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.46, 0.45, 0.94]
+    }
+  }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.46, 0.45, 0.94]
+    }
+  }
+};
+
+const staggerChildren = {
+  visible: {
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.46, 0.45, 0.94]
+    }
+  }
+};
+
+export default function ProductDetail() {
+  const router = useRouter();
+  const { slug } = router.query;
+  const product = PRODUCTS.find(p => p.slug === slug);
 
   if (!product) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center p-8 max-w-md bg-white rounded-2xl shadow-xl">
-          <h1 className="text-5xl font-bold text-gray-800 mb-6">404</h1>
-          <p className="text-xl text-gray-600 mb-8">Product not found</p>
-          <button 
-            onClick={() => window.location.href = '/products'}
-            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md"
-          >
-            Browse Products
-          </button>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+          <Link href="/" className="text-blue-600 hover:text-blue-800">
+            Return to Home
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-white">
       <Head>
-        <title>{product.name} - {product.tagline}</title>
+        <title>{product.title} | Our Products</title>
         <meta name="description" content={product.description} />
       </Head>
 
-      {/* Navigation Bar */}
-      <nav className="bg-white/80 backdrop-blur-sm py-4 sticky top-0 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      {/* Navigation */}
+      <motion.nav 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="sticky top-0 z-50 bg-white/80 backdrop-blur-md py-4 border-b border-gray-100"
+      >
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <Link href="/" className="flex items-center text-gray-700 hover:text-gray-900 transition-colors group">
+            <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Products
+          </Link>
           <div className="flex items-center">
-            <button onClick={() => window.history.back()} className="flex items-center text-gray-600 hover:text-gray-900 mr-4">
-              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-              </svg>
-              Back
-            </button>
-            <h1 className="text-xl font-bold text-gray-900">{product.name}</h1>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="text-gray-600 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </button>
-            <button className="text-gray-600 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-            </button>
+            <span 
+              className="text-xs font-semibold px-3 py-1.5 rounded-full"
+              style={{ backgroundColor: `${product.color}20`, color: product.color }}
+            >
+              {product.type}
+            </span>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Hero Section */}
-      <div className="relative py-12 md:py-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Product Image */}
-            <div className="w-full md:w-2/5 flex justify-center">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="relative w-64 h-64 md:w-80 md:h-80 bg-white rounded-3xl shadow-2xl overflow-hidden border-8 border-white"
-              >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain p-6"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
-              </motion.div>
-            </div>
-
-            {/* Product Info */}
-            <div className="w-full md:w-3/5 text-gray-800">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <span className="inline-block px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full text-sm font-medium mb-4 shadow-sm">
-                  {product.category}
-                </span>
-                
-                <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  {product.name}
-                </h1>
-                
-                <p className="text-xl text-gray-700 mb-5">{product.tagline}</p>
-                
-                <p className="text-gray-600 mb-7 max-w-lg">{product.description}</p>
-                
-                <div className="flex flex-wrap gap-3 mb-7">
-                  {product.highlights.map((highlight, index) => (
-                    <span key={index} className="flex items-center px-4 py-2 bg-white rounded-full text-sm font-medium shadow-sm">
-                      <span className="text-lg mr-2">{highlight.icon}</span>
-                      {highlight.title}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex flex-wrap items-center gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
-                  >
-                    Get Started
-                  </motion.button>
-                  
-                  {product.demoVideo && (
-                    <motion.button
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      onClick={() => setVideoPlaying(true)}
-                      className="px-7 py-3.5 border-2 border-blue-500 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all flex items-center gap-2"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      Watch Demo
-                    </motion.button>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          </div>
+      <section className="relative pt-12 pb-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div 
+            className="absolute inset-0 opacity-5"
+            style={{ backgroundColor: product.color }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
         </div>
-      </div>
-
-      {/* Stats Bar */}
-      <div className="bg-white/80 backdrop-blur-sm py-8 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {product.stats.map((stat, index) => (
-              <div key={index} className="text-center p-4 bg-white rounded-xl shadow-sm">
-                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-sm text-gray-600">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left Content */}
-          <div className="w-full lg:w-8/12">
-            {/* Tabs Navigation */}
-            <div className="flex overflow-x-auto border-b border-gray-200 mb-8 bg-white rounded-t-xl p-2">
-              {['overview', 'features', 'screenshots'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-3 font-medium whitespace-nowrap rounded-lg mx-1 ${activeTab === tab ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            {/* Tab Content */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              {/* Overview Tab */}
-              {activeTab === 'overview' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">About {product.name}</h2>
-                  <div className="prose text-gray-600 mb-8">
-                    <p>
-                      {product.description} Our platform is designed to deliver exceptional value through innovative technology and user-centric design.
-                    </p>
-                    <p>
-                      Whether you're a small business owner or part of a large enterprise, {product.name} provides the tools you need to succeed in today's competitive landscape.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    {product.features.slice(0, 4).map((feature, index) => (
-                      <div key={index} className="flex items-start p-5 bg-gray-50 rounded-xl border border-gray-100">
-                        <span className="text-2xl mr-4">{feature.icon}</span>
-                        <div>
-                          <h3 className="font-bold text-gray-900">{feature.title}</h3>
-                          <p className="text-gray-600 text-sm">{feature.description}</p>
+        
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={staggerChildren}
+            className="flex flex-col lg:flex-row gap-12 items-center"
+          >
+            {/* Product Image/Preview */}
+            <motion.div variants={fadeInUp} className="lg:w-1/2">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-3xl blur-xl opacity-50"></div>
+                <div className={`relative rounded-3xl overflow-hidden shadow-2xl ${product.type === "App" ? "bg-gray-900" : "bg-gray-800"} p-8`}>
+                  {product.type === "App" ? (
+                    <div className="flex justify-center">
+                      <div className="w-64 h-[500px] bg-gray-800 rounded-[2.5rem] p-3 shadow-2xl border-8 border-gray-900">
+                        <div className="relative h-full overflow-hidden rounded-2xl bg-gray-900">
+                          <img 
+                            src={`https://picsum.photos/seed/${product.imageId}/300/600`} 
+                            alt={product.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
+                            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                            <div className="w-8 h-2 bg-white rounded-full"></div>
+                            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                          </div>
+                          <div className="absolute top-4 left-0 right-0 px-4">
+                            <div className="h-4 bg-white/20 rounded-full w-3/4 mx-auto"></div>
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-
-                  {product.demoVideo && (
-                    <div 
-                      className="rounded-xl overflow-hidden bg-gradient-to-r from-blue-500 to-indigo-600 aspect-w-16 aspect-h-9 cursor-pointer flex items-center justify-center"
-                      onClick={() => setVideoPlaying(true)}
-                    >
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg mx-auto mb-4">
-                          <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
+                    </div>
+                  ) : (
+                    <div className="rounded-xl overflow-hidden shadow-lg border border-gray-700">
+                      <div className="bg-gray-800 rounded-t-xl p-3 flex items-center">
+                        <div className="flex gap-2">
+                          <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                          <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                         </div>
-                        <p className="text-white font-medium">Watch Product Demo</p>
+                        <div className="flex-1 mx-4 bg-gray-700 rounded-full h-6"></div>
+                      </div>
+                      <div className="bg-gray-900 h-80 rounded-b-xl overflow-hidden">
+                        <img 
+                          src={`https://picsum.photos/seed/${product.imageId}/800/600`} 
+                          alt={product.title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
                   )}
-                </motion.div>
-              )}
-
-              {/* Features Tab */}
-              {activeTab === 'features' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {product.features.map((feature, index) => (
-                      <div key={index} className="flex items-start p-6 bg-gray-50 rounded-xl border border-gray-100">
-                        <div className="p-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 mr-4 flex-shrink-0">
-                          <span className="text-xl text-white">{feature.icon}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
-                          <p className="text-gray-600">{feature.description}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Screenshots Tab */}
-              {activeTab === 'screenshots' && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">App Screenshots</h2>
-                  <p className="text-gray-600 mb-6">Explore the interface and features of {product.name} through these screenshots.</p>
-                  
-                  {/* Main Screenshot */}
-                  <div className="mb-8 rounded-xl overflow-hidden border border-gray-200 shadow-sm">
-                    <img
-                      src={product.screenshots[activeImage]}
-                      alt={`${product.name} screenshot ${activeImage + 1}`}
-                      className="w-full h-auto cursor-pointer"
-                      onClick={() => setLightboxOpen(true)}
-                    />
-                  </div>
-                  
-                  {/* Thumbnail Gallery */}
-                  <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
-                    {product.screenshots.map((screenshot, index) => (
-                      <div
-                        key={index}
-                        onClick={() => setActiveImage(index)}
-                        className={`cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${activeImage === index ? 'border-blue-500' : 'border-gray-200 hover:border-gray-300'}`}
-                      >
-                        <img
-                          src={screenshot}
-                          alt={`Screenshot ${index + 1}`}
-                          className="w-full h-auto"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </div>
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="w-full lg:w-4/12 space-y-6">
-            {/* Download Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Get the App</h3>
-              <p className="text-gray-600 mb-4">Download now and get started in minutes</p>
-              <div className="space-y-3">
-                <button className="w-full flex items-center justify-center gap-3 bg-gray-900 text-white py-3.5 rounded-xl font-medium hover:bg-gray-800 transition-all shadow-sm">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.924 17.315c-.057.174-.193.332-.348.367-.156.035-.343-.047-.483-.183-1.092-1.067-2.438-1.499-3.653-1.499-1.218 0-2.562.432-3.651 1.5-.14.136-.327.218-.483.183-.155-.035-.291-.193-.348-.367-.057-.174-.015-.361.113-.491 1.395-1.361 3.103-1.909 4.369-1.909s2.974.548 4.37 1.909c.127.13.17.317.113.491zm-2.489-5.307c-1.363 1.363-3.579 1.363-4.942 0-1.364-1.364-1.364-3.58 0-4.943 1.363-1.364 3.579-1.364 4.942 0 1.364 1.363 1.364 3.579 0 4.943zm-2.471-2.471c-.78.78-2.048.78-2.829 0-.78-.781-.78-2.048 0-2.829.781-.78 2.048-.78 2.829 0 .78.781.78 2.048 0 2.829z"/>
-                  </svg>
-                  Google Play
-                </button>
-                <button className="w-full flex items-center justify-center gap-3 bg-gray-900 text-white py-3.5 rounded-xl font-medium hover:bg-gray-800 transition-all shadow-sm">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.5 12.5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm-5-5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm-5 5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5z"/>
-                  </svg>
-                  App Store
-                </button>
-              </div>
-            </div>
-
-            {/* Support Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Need Help?</h3>
-              <p className="text-gray-600 mb-4">Our support team is here to assist you</p>
-              <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-medium transition-all flex items-center justify-center gap-2 shadow-sm">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                Contact Support
-              </button>
-            </div>
-
-            {/* Stats Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Product Details</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Category</span>
-                  <span className="font-medium">{product.category}</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Version</span>
-                  <span className="font-medium">2.4.1</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Size</span>
-                  <span className="font-medium">28.5 MB</span>
-                </div>
-                <div className="flex justify-between py-2 border-b border-gray-100">
-                  <span className="text-gray-600">Rating</span>
-                  <span className="font-medium">4.9/5</span>
-                </div>
-                <div className="flex justify-between py-2">
-                  <span className="text-gray-600">Downloads</span>
-                  <span className="font-medium">50,000+</span>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+
+            {/* Product Info */}
+            <motion.div variants={fadeInUp} className="lg:w-1/2">
+              <div className="mb-8">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-5xl font-bold text-gray-900 mb-4 leading-tight"
+                >
+                  {product.title}
+                </motion.h1>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="text-xl text-gray-600 mb-6 font-medium"
+                >
+                  {product.subtitle}
+                </motion.p>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-gray-700 mb-8 text-lg leading-relaxed"
+                >
+                  {product.fullDescription}
+                </motion.p>
+              </div>
+
+              {/* Stats */}
+              <motion.div 
+                initial="hidden"
+                animate="visible"
+                variants={staggerChildren}
+                className="grid grid-cols-3 gap-6 mb-10"
+              >
+                {product.stats.map((stat, index) => (
+                  <motion.div 
+                    key={index} 
+                    variants={scaleIn}
+                    className="text-center p-4 rounded-2xl bg-white shadow-lg border border-gray-100"
+                  >
+                    <div className="text-2xl font-bold text-gray-900" style={{ color: product.color }}>{stat.value}</div>
+                    <div className="text-sm text-gray-600 mt-1">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* Download Buttons */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mb-10"
+              >
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href={product.appStoreLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center px-8 py-4 bg-black text-white rounded-2xl hover:bg-gray-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                  >
+                    <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702z"/>
+                    </svg>
+                    App Store
+                  </a>
+                  <a
+                    href={product.googlePlayLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center px-8 py-4 bg-white text-gray-900 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                  >
+                    <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.78 10.82l2.32 2.32c.283-.944.49-1.93.49-2.934 0-1.005-.207-1.99-.49-2.934l-2.32 2.32a6.6 6.6 0 0 1 0 2.128zm-2.94 2.128l-9.23 9.23a.998.998 0 0 1-1.09.22A10.87 10.87 0 0 1 0 12c0-2.734.97-5.24 2.59-7.17a.998.998 0 0 1 1.09-.22l9.23 9.23a6.6 6.6 0 0 1 0 2.128zm2.94-4.256l2.32-2.32c.283.944.49 1.93.49 2.934 0 1.005-.207 1.99-.49 2.934l-2.32-2.32a6.6 6.6 0 0 1 0-2.128z"/>
+                    </svg>
+                    Google Play
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* Tags */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Technologies</h2>
+                <div className="flex flex-wrap gap-3">
+                  {product.tags.map((tag, index) => (
+                    <span 
+                      key={index}
+                      className="px-4 py-2 text-sm font-medium rounded-full border"
+                      style={{ 
+                        backgroundColor: `${product.color}08`, 
+                        color: product.color,
+                        borderColor: `${product.color}20`
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightboxOpen(false)}
+      {/* App Overview Section */}
+      <section className="py-20 px-6 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="text-center mb-16"
           >
-            <motion.div
-              className="relative w-full max-w-4xl"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-                onClick={() => setLightboxOpen(false)}
-              >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <div className="rounded-lg overflow-hidden">
-                <img
-                  src={product.screenshots[activeImage]}
-                  alt={`${product.name} screenshot ${activeImage + 1}`}
-                  className="w-full h-auto"
-                />
-              </div>
-            </motion.div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">App Overview</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">{product.overview}</p>
           </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Video Modal */}
-      <AnimatePresence>
-        {videoPlaying && (
-          <motion.div
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setVideoPlaying(false)}
+          {/* Screenshots Gallery */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            <motion.div
-              className="relative w-full max-w-4xl"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-                onClick={() => setVideoPlaying(false)}
+            {product.screenshots.map((screenshotId, index) => (
+              <motion.div 
+                key={index} 
+                variants={fadeInUp}
+                className="relative group"
+                whileHover={{ y: -10 }}
               >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <div className="aspect-w-16 aspect-h-9 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
-                <div className="text-white text-center">
-                  <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <p className="text-xl font-medium">Product Demo Video</p>
-                  <p className="text-gray-400 mt-2">Video would play here in a real implementation</p>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                <div className="overflow-hidden rounded-3xl shadow-2xl border-8 border-white">
+                  <img 
+                    src={`https://picsum.photos/seed/${screenshotId}/400/800`} 
+                    alt={`${product.title} screenshot ${index + 1}`}
+                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
-              </div>
-            </motion.div>
+                <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                  <div className="text-sm font-medium">Screenshot {index + 1}</div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Key Features</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">Discover what makes our app unique and powerful</p>
+          </motion.div>
+
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {product.keyFeatures.map((feature, index) => (
+              <motion.div 
+                key={index} 
+                variants={fadeInUp}
+                className="bg-gradient-to-br from-white to-gray-50 p-8 rounded-3xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                whileHover={{ y: -5 }}
+              >
+                <div 
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md"
+                  style={{ backgroundColor: `${product.color}15` }}
+                >
+                  <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: product.color }}>
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature === "AI Matching" && "Our advanced algorithm analyzes hundreds of data points to find your most compatible matches based on interests, values, and behavior patterns."}
+                  {feature === "Secure Chat" && "End-to-end encrypted messaging ensures your conversations remain private and secure from unauthorized access."}
+                  {feature === "Video Profiles" && "Showcase your personality with video profiles that help you make a stronger impression than photos alone."}
+                  {feature === "Interest-Based Groups" && "Join communities of like-minded people who share your hobbies, passions, and interests."}
+                  {feature === "Workout Plans" && "Personalized workout routines designed specifically for your fitness level, goals, and available equipment."}
+                  {feature === "Nutrition Tracking" && "Log meals, track macros, and get nutritional insights to support your fitness journey and health goals."}
+                  {feature === "Progress Analytics" && "Visualize your progress with detailed charts and metrics that show how you're improving over time."}
+                  {feature === "Community Challenges" && "Participate in fun challenges with other users to stay motivated and push your limits."}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Technical Details */}
+      <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="bg-white p-12 rounded-3xl shadow-lg border border-gray-100"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Technical Excellence</h2>
+            <p className="text-gray-600 mb-12 text-lg leading-relaxed max-w-4xl">{product.technicalDetails}</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <motion.div 
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm"
+                whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-3xl font-bold text-gray-900 mb-2" style={{ color: product.color }}>99.9%</div>
+                <div className="text-sm text-gray-600">Uptime</div>
+              </motion.div>
+              <motion.div 
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm"
+                whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-3xl font-bold text-gray-900 mb-2" style={{ color: product.color }}>&lt;100ms</div>
+                <div className="text-sm text-gray-600">Response Time</div>
+              </motion.div>
+              <motion.div 
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm"
+                whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-3xl font-bold text-gray-900 mb-2" style={{ color: product.color }}>256-bit</div>
+                <div className="text-sm text-gray-600">Encryption</div>
+              </motion.div>
+              <motion.div 
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm"
+                whileHover={{ y: -5, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="text-3xl font-bold text-gray-900 mb-2" style={{ color: product.color }}>24/7</div>
+                <div className="text-sm text-gray-600">Monitoring</div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{ backgroundColor: product.color }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50/80"></div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to get started?</h2>
+            <p className="text-gray-600 mb-10 max-w-2xl mx-auto text-lg">
+              Download our app today and join thousands of satisfied users.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.a
+                href={product.appStoreLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-4 bg-black text-white rounded-2xl hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+                whileHover={{ y: -3 }}
+                style={{ boxShadow: `0 10px 30px -10px ${product.color}40` }}
+              >
+                <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702z"/>
+                </svg>
+                Download on App Store
+              </motion.a>
+              <motion.a
+                href={product.googlePlayLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center px-8 py-4 bg-white text-gray-900 border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                whileHover={{ y: -3 }}
+              >
+                <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.78 10.82l2.32 2.32c.283-.944.49-1.93.49-2.934 0-1.005-.207-1.99-.49-2.934l-2.32 2.32a6.6 6.6 0 0 1 0 2.128zm-2.94 2.128l-9.23 9.23a.998.998 0 0 1-1.09.22A10.87 10.87 0 0 1 0 12c0-2.734.97-5.24 2.59-7.17a.998.998 0 0 1 1.09-.22l9.23 9.23a6.6 6.6 0 0 1 0 2.128zm2.94-4.256l2.32-2.32c.283.944.49 1.93.49 2.934 0 1.005-.207 1.99-.49 2.934l-2.32-2.32a6.6 6.6 0 0 1 0-2.128z"/>
+                </svg>
+                Get it on Google Play
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
-};
-
-// Sample product data for all three products
-const sampleProducts = {
-  'lifeline-card': {
-    id: 'lifeline-card',
-    name: 'Lifeline Card',
-    tagline: 'Your Financial Safety Net for Emergencies',
-    description: 'A revolutionary financial product that provides immediate access to funds during emergencies with flexible repayment options and zero hidden fees.',
-    category: 'Financial Technology',
-    image: '/api/placeholder/300/300?text=Lifeline+Card',
-    gradient: 'bg-gradient-to-r from-blue-600 to-indigo-700',
-    highlights: [
-      { icon: '⚡', title: 'Instant Approval' },
-      { icon: '🔒', title: 'No Hidden Fees' },
-      { icon: '🌎', title: 'Global Access' },
-      { icon: '📱', title: 'Mobile Management' }
-    ],
-    features: [
-      {
-        title: "Emergency Funding",
-        description: "Access to funds within minutes of approval",
-        icon: "💳"
-      },
-      {
-        title: "Flexible Repayment",
-        description: "Choose repayment terms that work for you",
-        icon: "📅"
-      },
-      {
-        title: "Credit Building",
-        description: "Reported to major credit bureaus",
-        icon: "📊"
-      },
-      {
-        title: "Zero Interest",
-        description: "No interest if repaid within 30 days",
-        icon: "🎯"
-      },
-      {
-        title: "Mobile App",
-        description: "Manage your account on the go",
-        icon: "📱"
-      },
-      {
-        title: "24/7 Support",
-        description: "Always available customer service",
-        icon: "👥"
-      }
-    ],
-    stats: [
-      { value: '500K+', label: 'Users' },
-      { value: '$0', label: 'Hidden Fees' },
-      { value: '4.7★', label: 'Rating' },
-      { value: '2min', label: 'Approval Time' }
-    ],
-    screenshots: [
-      '/api/placeholder/600/1200?text=Lifeline+Dashboard',
-      '/api/placeholder/600/1200?text=Lifeline+Card+View',
-      '/api/placeholder/600/1200?text=Lifeline+Mobile+App',
-      '/api/placeholder/600/1200?text=Lifeline+Support'
-    ],
-    demoVideo: '#'
-  },
-  'fetch-true': {
-    id: 'fetch-true',
-    name: 'Fetch True',
-    tagline: 'The Complete Franchise Management Solution',
-    description: 'An all-in-one platform revolutionizing franchise operations with AI-powered analytics, automated workflows, and real-time business intelligence.',
-    category: 'Enterprise Software',
-    image: '/api/placeholder/300/300?text=Fetch+True',
-    gradient: 'bg-gradient-to-r from-green-600 to-teal-700',
-    highlights: [
-      { icon: '🚀', title: 'Rapid Deployment' },
-      { icon: '📈', title: 'Smart Analytics' },
-      { icon: '🤖', title: 'Process Automation' },
-      { icon: '🔐', title: 'Bank-Grade Security' }
-    ],
-    features: [
-      {
-        title: "AI Dashboard",
-        description: "Real-time performance metrics across all locations",
-        icon: "📊"
-      },
-      {
-        title: "Automated Scheduling",
-        description: "Smart resource allocation based on demand forecasting",
-        icon: "⏱️"
-      },
-      {
-        title: "Unified Communications",
-        description: "Seamless team collaboration across locations",
-        icon: "💬"
-      },
-      {
-        title: "Inventory Management",
-        description: "Automated stock tracking with reorder alerts",
-        icon: "📦"
-      },
-      {
-        title: "Customer CRM",
-        description: "360° view of customer interactions",
-        icon: "👥"
-      },
-      {
-        title: "Compliance Tracking",
-        description: "Automated regulatory requirement monitoring",
-        icon: "✅"
-      }
-    ],
-    stats: [
-      { value: '10K+', label: 'Franchises' },
-      { value: '95%', label: 'Efficiency Gain' },
-      { value: '4.9★', label: 'Rating' },
-      { value: '24h', label: 'Deployment Time' }
-    ],
-    screenshots: [
-      '/api/placeholder/600/1200?text=Fetch+Dashboard',
-      '/api/placeholder/600/1200?text=Fetch+Analytics',
-      '/api/placeholder/600/1200?text=Fetch+Mobile',
-      '/api/placeholder/600/1200?text=Fetch+Reports'
-    ],
-    demoVideo: '#'
-  },
-  'spark': {
-    id: 'spark',
-    name: 'Spark',
-    tagline: 'Authentic Connections Through Verified Dating',
-    description: 'A next-generation dating platform that prioritizes real connections through multi-layer verification and AI-powered compatibility matching.',
-    category: 'Social Networking',
-    image: '/api/placeholder/300/300?text=Spark',
-    gradient: 'bg-gradient-to-r from-pink-600 to-rose-700',
-    highlights: [
-      { icon: '✅', title: 'Verified Profiles' },
-      { icon: '💞', title: 'Smart Matching' },
-      { icon: '🎥', title: 'Video Dating' },
-      { icon: '🔒', title: 'Privacy Control' }
-    ],
-    features: [
-      {
-        title: "Identity Verification",
-        description: "Three-step authentication process",
-        icon: "🆔"
-      },
-      {
-        title: "AI Compatibility",
-        description: "Matches based on personality and values",
-        icon: "🧠"
-      },
-      {
-        title: "Video Profiles",
-        description: "30-second video introductions",
-        icon: "🎬"
-      },
-      {
-        title: "Interest Groups",
-        description: "Connect over shared passions",
-        icon: "🎯"
-      },
-      {
-        title: "Safety Features",
-        description: "Real-time content moderation",
-        icon: "🛡️"
-      },
-      {
-        title: "Premium Experience",
-        description: "Ad-free with exclusive features",
-        icon: "✨"
-      }
-    ],
-    stats: [
-      { value: '1M+', label: 'Users' },
-      { value: '4.8★', label: 'Rating' },
-      { value: '90%', label: 'Verified' },
-      { value: '2.1M', label: 'Matches' }
-    ],
-    screenshots: [
-      '/api/placeholder/600/1200?text=Spark+Matches',
-      '/api/placeholder/600/1200?text=Spark+Profile',
-      '/api/placeholder/600/1200?text=Spark+Chat',
-      '/api/placeholder/600/1200?text=Spark+Discovery'
-    ],
-    demoVideo: '#'
-  }
-};
-
-// This would normally come from getStaticProps or getServerSideProps
-ProductDetails.getInitialProps = ({ query }) => {
-  const productSlug = query.slug || 'lifeline-card';
-  return { product: sampleProducts[productSlug] || sampleProducts['lifeline-card'] };
-};
-
-export default ProductDetails;
+}
