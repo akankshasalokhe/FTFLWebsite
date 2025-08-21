@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { FiArrowLeft, FiUpload, FiFileText, FiCheckCircle, FiBriefcase } from 'react-icons/fi';
+import axios from 'axios';
 
 const jobOpenings = [
   {
@@ -54,7 +55,7 @@ const jobOpenings = [
     postedDate: "2023-11-20",
     deadline: "2023-12-10",
     category: "intern",
-     details: {
+    details: {
       about: "Join our engineering team to build cutting-edge web applications that serve millions of users worldwide. We value clean code, thoughtful architecture, and exceptional user experiences.",
       responsibilities: [
         "Develop and maintain user interfaces using React and Next.js",
@@ -93,7 +94,7 @@ const jobOpenings = [
     postedDate: "2023-11-20",
     deadline: "2023-12-20",
     category: "job",
-     details: {
+    details: {
       about: "Join our engineering team to build cutting-edge web applications that serve millions of users worldwide. We value clean code, thoughtful architecture, and exceptional user experiences.",
       responsibilities: [
         "Develop and maintain user interfaces using React and Next.js",
@@ -163,7 +164,7 @@ const jobOpenings = [
 
 
 export default function ApplyPage() {
- const router = useRouter();
+  const router = useRouter();
   const { id } = router.query;
   const [isGeneralApplication, setIsGeneralApplication] = useState(false);
   const [job, setJob] = useState(null);
@@ -214,16 +215,42 @@ export default function ApplyPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     if (isGeneralApplication) {
       console.log('General Application:', formData);
     } else {
       console.log('Job Application:', { ...formData, position: job?.title });
     }
-    
+
+
+    const formPayload = new FormData();
+    formPayload.append('title', job?.title);
+    formPayload.append('fullName', formData.name);
+    formPayload.append('email', formData.email);
+    formPayload.append('phone', formData.phone.toString());
+    formPayload.append('location', formData.location);
+    formPayload.append('workplacetype', formData.workplaceType);
+    formPayload.append('employmenttype', formData.employmentType);
+    formPayload.append('background', formData.background);
+
+    if (formData.resume) {
+      formPayload.append('resume', formData.resume);
+    }
+    try {
+
+      const response = await axios.post('https://landing-page-yclw.vercel.app/api/appliedcandidates', formPayload);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error('Network response was not ok');
+      }
+
+      alert('Application submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting application:', error);
+    }
+
     setSubmitSuccess(true);
     setIsSubmitting(false);
   };
@@ -248,8 +275,8 @@ export default function ApplyPage() {
               {isGeneralApplication ? 'Application Submitted!' : `Application for ${job?.title} Submitted!`}
             </h1>
             <p className="text-gray-600 mb-6 max-w-md mx-auto">
-              {isGeneralApplication ? 
-                "Thank you for your interest in our company. We've received your application and will review it for potential opportunities." : 
+              {isGeneralApplication ?
+                "Thank you for your interest in our company. We've received your application and will review it for potential opportunities." :
                 "We've received your application and will review it shortly."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -278,18 +305,17 @@ export default function ApplyPage() {
           onClick={() => isGeneralApplication ? router.push('/careers') : router.back()}
           className="flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6 transition-colors group"
         >
-          <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" /> 
+          <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
           {isGeneralApplication ? 'Back to Careers' : 'Back to Job'}
         </button>
 
         <div className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-200/30">
           <div className="mb-8 text-center">
             {!isGeneralApplication && (
-              <span className={`inline-block px-4 py-1.5 text-sm font-semibold text-white ${
-                job?.department === 'Engineering' ? 'bg-gradient-to-r from-blue-500 to-blue-600' : 
-                job?.department === 'Design' ? 'bg-gradient-to-r from-purple-500 to-purple-600' : 
-                'bg-gradient-to-r from-gray-500 to-gray-600'
-              } rounded-full mb-4 shadow-sm`}>
+              <span className={`inline-block px-4 py-1.5 text-sm font-semibold text-white ${job?.department === 'Engineering' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
+                  job?.department === 'Design' ? 'bg-gradient-to-r from-purple-500 to-purple-600' :
+                    'bg-gradient-to-r from-gray-500 to-gray-600'
+                } rounded-full mb-4 shadow-sm`}>
                 {job?.department}
               </span>
             )}
@@ -297,25 +323,25 @@ export default function ApplyPage() {
               {isGeneralApplication ? 'General Application' : `Apply for ${job?.title}`}
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {isGeneralApplication ? 
-                "Don't see a perfect match? We'd still love to hear from you." : 
+              {isGeneralApplication ?
+                "Don't see a perfect match? We'd still love to hear from you." :
                 `Join our ${job?.department} team`}
             </p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name */}
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Full Name *</label>
                 <div className="relative">
-                  <input 
-                    type="text" 
-                    name="name" 
+                  <input
+                    type="text"
+                    name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="John Doe"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -330,13 +356,13 @@ export default function ApplyPage() {
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Email *</label>
                 <div className="relative">
-                  <input 
-                    type="email" 
-                    name="email" 
+                  <input
+                    type="email"
+                    name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="john@example.com"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -351,14 +377,14 @@ export default function ApplyPage() {
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Phone Number *</label>
                 <div className="relative">
-                  <input 
-                    type="tel" 
-                    name="phone" 
+                  <input
+                    type="tel"
+                    name="phone"
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
-                    placeholder="+1 (555) 123-4567"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    placeholder="(eg): 9879023451"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -372,13 +398,13 @@ export default function ApplyPage() {
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Current Location *</label>
                 <div className="relative">
-                  <input 
-                    type="text" 
-                    name="location" 
+                  <input
+                    type="text"
+                    name="location"
                     value={formData.location}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="City, Country"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -395,13 +421,13 @@ export default function ApplyPage() {
                 <div className="space-y-1">
                   <label className="block text-sm font-semibold text-gray-700">Desired Position *</label>
                   <div className="relative">
-                    <input 
-                      type="text" 
-                      name="position" 
+                    <input
+                      type="text"
+                      name="position"
                       value={formData.position}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="e.g. Frontend Developer"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -416,8 +442,8 @@ export default function ApplyPage() {
                 <div className="space-y-1">
                   <label className="block text-sm font-semibold text-gray-700">Department of Interest *</label>
                   <div className="relative">
-                    <select 
-                      name="department" 
+                    <select
+                      name="department"
                       value={formData.department}
                       onChange={handleChange}
                       required
@@ -441,8 +467,8 @@ export default function ApplyPage() {
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Workplace Preference *</label>
                 <div className="relative">
-                  <select 
-                    name="workplaceType" 
+                  <select
+                    name="workplaceType"
                     value={formData.workplaceType}
                     onChange={handleChange}
                     required
@@ -465,8 +491,8 @@ export default function ApplyPage() {
               <div className="space-y-1">
                 <label className="block text-sm font-semibold text-gray-700">Employment Type *</label>
                 <div className="relative">
-                  <select 
-                    name="employmentType" 
+                  <select
+                    name="employmentType"
                     value={formData.employmentType}
                     onChange={handleChange}
                     required
@@ -490,17 +516,17 @@ export default function ApplyPage() {
             {/* Background */}
             <div className="space-y-1">
               <label className="block text-sm font-semibold text-gray-700">Professional Background *</label>
-              <textarea 
-                name="background" 
+              <textarea
+                name="background"
                 value={formData.background}
                 onChange={handleChange}
                 required
                 rows={6}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 placeholder={
-                  isGeneralApplication ? 
-                  "Tell us about your skills, experience, and what you're looking for in your next role..." : 
-                  "Tell us about your relevant experience, skills, and why you're a good fit for this role..."
+                  isGeneralApplication ?
+                    "Tell us about your skills, experience, and what you're looking for in your next role..." :
+                    "Tell us about your relevant experience, skills, and why you're a good fit for this role..."
                 }
               />
             </div>
@@ -532,13 +558,13 @@ export default function ApplyPage() {
                     </>
                   )}
                 </div>
-                <input 
-                  type="file" 
-                  name="resume" 
+                <input
+                  type="file"
+                  name="resume"
                   onChange={handleChange}
                   accept=".pdf,.doc,.docx"
                   required
-                  className="hidden" 
+                  className="hidden"
                 />
               </label>
             </div>
@@ -564,14 +590,13 @@ export default function ApplyPage() {
 
             {/* Submit Button */}
             <div className="pt-2">
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitting}
-                className={`w-full px-6 py-4 rounded-xl font-semibold transition-all duration-200 ${
-                  isSubmitting 
-                    ? 'bg-blue-400 cursor-not-allowed' 
+                className={`w-full px-6 py-4 rounded-xl font-semibold transition-all duration-200 ${isSubmitting
+                    ? 'bg-blue-400 cursor-not-allowed'
                     : 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg'
-                } text-white flex items-center justify-center gap-2`}
+                  } text-white flex items-center justify-center gap-2`}
               >
                 {isSubmitting ? (
                   <>

@@ -1,7 +1,8 @@
 // pages/generalApplication.js
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { FiArrowLeft, FiUpload, FiFileText, FiCheckCircle } from 'react-icons/fi';
+import axios from 'axios';
 
 export default function GeneralApplication() {
   const router = useRouter();
@@ -10,7 +11,7 @@ export default function GeneralApplication() {
     email: '',
     phone: '',
     location: '',
-    position: '',
+    title: '',
     department: '',
     workplaceType: '',
     employmentType: '',
@@ -19,17 +20,32 @@ export default function GeneralApplication() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [departmentData, setDepartmentData] = useState([]);
 
-  const departments = [
-    'Engineering',
-    'Design',
-    'Product Management',
-    'Marketing',
-    'Sales',
-    'Customer Support',
-    'Human Resources',
-    'Operations'
-  ];
+  const fetchDepartments = async () => {
+    try {
+      const response = await axios.get('https://landing-page-yclw.vercel.app/api/job');
+
+      // Ensure we always get an array
+      const jobs = Array.isArray(response.data)
+        ? response.data
+        : response.data.data || []; // in case API wraps it in { data: [...] }
+
+      // Extract unique department names
+      const departments = [
+        ...new Set(jobs.map(job => job.department).filter(Boolean))
+      ];
+
+      setDepartmentData(departments);
+    } catch (error) {
+      console.error('Error fetching departments:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -39,14 +55,58 @@ export default function GeneralApplication() {
     }));
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+
+  //   // Simulate API call
+  //   await new Promise(resolve => setTimeout(resolve, 1500));
+
+  //   console.log(formData);
+  //   setSubmitSuccess(true);
+  //   setIsSubmitting(false);
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log(formData);
+
+    // // Simulate API call
+    // await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // if (isGeneralApplication) {
+    //   console.log('General Application:', formData);
+    // } else {
+    //   console.log('Job Application:', { ...formData, position: job?.title });
+    // }
+
+
+    const formPayload = new FormData();
+    formPayload.append('title', formData.title);
+    formPayload.append('fullName', formData.name);
+    formPayload.append('email', formData.email);
+    formPayload.append('phone', formData.phone.toString());
+    formPayload.append('location', formData.location);
+    formPayload.append('department', formData.department);
+    formPayload.append('workplacetype', formData.workplaceType);
+    formPayload.append('employmenttype', formData.employmentType);
+    formPayload.append('background', formData.background);
+
+    if (formData.resume) {
+      formPayload.append('resume', formData.resume);
+    }
+    try {
+
+      const response = await axios.post('https://landing-page-yclw.vercel.app/api/appliedcandidates', formPayload);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error('Network response was not ok');
+      }
+
+      alert('Application submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting application:', error);
+    }
+
     setSubmitSuccess(true);
     setIsSubmitting(false);
   };
@@ -98,19 +158,19 @@ export default function GeneralApplication() {
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">General Application</h1>
             <p className="text-gray-600">Don't see a perfect match? Submit your details and we'll consider you for future opportunities.</p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                <input 
-                  type="text" 
-                  name="name" 
+                <input
+                  type="text"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="John Doe"
                 />
               </div>
@@ -118,13 +178,13 @@ export default function GeneralApplication() {
               {/* Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                <input 
-                  type="email" 
-                  name="email" 
+                <input
+                  type="email"
+                  name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="john@example.com"
                 />
               </div>
@@ -132,13 +192,13 @@ export default function GeneralApplication() {
               {/* Phone */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                <input 
-                  type="tel" 
-                  name="phone" 
+                <input
+                  type="tel"
+                  name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
@@ -146,13 +206,13 @@ export default function GeneralApplication() {
               {/* Location */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Current Location *</label>
-                <input 
-                  type="text" 
-                  name="location" 
+                <input
+                  type="text"
+                  name="location"
                   value={formData.location}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="City, Country"
                 />
               </div>
@@ -160,13 +220,13 @@ export default function GeneralApplication() {
               {/* Position */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Desired Position *</label>
-                <input 
-                  type="text" 
-                  name="position" 
-                  value={formData.position}
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Frontend Developer"
                 />
               </div>
@@ -174,7 +234,7 @@ export default function GeneralApplication() {
               {/* Department */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Department of Interest *</label>
-                <select 
+                {/* <select 
                   name="department" 
                   value={formData.department}
                   onChange={handleChange}
@@ -182,17 +242,31 @@ export default function GeneralApplication() {
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select department</option>
-                  {departments.map(dept => (
-                    <option key={dept} value={dept}>{dept}</option>
+                  {departmentData.map(dept => (
+                    <option key={dept} value={dept}>{dept.department}</option>
+                  ))}
+                </select> */}
+
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="">Select department</option>
+                  {departmentData.map((dept, index) => (
+                    <option key={index} value={dept}>{dept}</option>
                   ))}
                 </select>
+
               </div>
 
               {/* Workplace Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Workplace Preference *</label>
-                <select 
-                  name="workplaceType" 
+                <select
+                  name="workplaceType"
                   value={formData.workplaceType}
                   onChange={handleChange}
                   required
@@ -208,8 +282,8 @@ export default function GeneralApplication() {
               {/* Employment Type */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Employment Type *</label>
-                <select 
-                  name="employmentType" 
+                <select
+                  name="employmentType"
                   value={formData.employmentType}
                   onChange={handleChange}
                   required
@@ -227,8 +301,8 @@ export default function GeneralApplication() {
             {/* Background */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Professional Background *</label>
-              <textarea 
-                name="background" 
+              <textarea
+                name="background"
                 value={formData.background}
                 onChange={handleChange}
                 required
@@ -259,13 +333,13 @@ export default function GeneralApplication() {
                     </>
                   )}
                 </div>
-                <input 
-                  type="file" 
-                  name="resume" 
+                <input
+                  type="file"
+                  name="resume"
                   onChange={handleChange}
                   accept=".pdf,.doc,.docx"
                   required
-                  className="hidden" 
+                  className="hidden"
                 />
               </label>
             </div>
@@ -290,14 +364,13 @@ export default function GeneralApplication() {
 
             {/* Submit Button */}
             <div className="pt-4">
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitting}
-                className={`w-full px-6 py-3.5 rounded-xl font-medium transition-all ${
-                  isSubmitting 
-                    ? 'bg-blue-400 cursor-not-allowed' 
-                    : 'bg-blue-600 hover:bg-blue-700'
-                } text-white flex items-center justify-center gap-2`}
+                className={`w-full px-6 py-3.5 rounded-xl font-medium transition-all ${isSubmitting
+                  ? 'bg-blue-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700'
+                  } text-white flex items-center justify-center gap-2`}
               >
                 {isSubmitting ? (
                   <>
