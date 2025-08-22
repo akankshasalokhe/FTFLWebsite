@@ -427,8 +427,8 @@ export default function Products() {
                           transition={{ delay: 0.7 + idx * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
                           className="mb-5"
                         >
-                          <h4 className="text-sm font-semibold text-gray-900 mb-2">Key Features:</h4>
-                          <ul className="text-xs text-gray-600 space-y-1">
+                          <h4 className="text-sm font-bold text-gray-900 mb-2">Key Features:</h4>
+                          <ul className=" flex-2/12 text-500 text-gray-600 space-y-1">
                             {p.keyFeatures.map((feature, i) => (
                               <li key={i} className="flex items-center">
                                 <svg className="w-3 h-3 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -471,7 +471,7 @@ export default function Products() {
                           background: `linear-gradient(145deg, ${p.color}, ${p.accentColor})`,
                           boxShadow: `0 4px 14px 0 ${p.color}40`
                         }}
-                        className="px-6 py-3 text-white font-medium rounded-xl transition-all duration-300 self-start flex items-center gap-2 group-hover:shadow-lg"
+                        className="px-2 py-2 text-white font-medium rounded-xl transition-all duration-300 self-start flex items-center gap-2 group-hover:shadow-lg"
                       >
                         Learn More
                         <svg 

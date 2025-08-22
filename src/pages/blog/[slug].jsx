@@ -14,8 +14,6 @@ export default function BlogDetail() {
     title: "The Future of Web Development in 2023",
     category: "Technology",
     date: "October 15, 2023",
-    author: "Jane Smith",
-    authorImage: "/Team.jpeg",
     image: "/roadmaps.png",
     content: `
       <p>Web development continues to evolve at a rapid pace, with new frameworks and technologies emerging regularly. In this article, we explore the trends that are shaping the future of web development.</p>
@@ -161,29 +159,16 @@ export default function BlogDetail() {
 
           {/* Content & Share */}
           <article className="content-section">
-            <div className="category-badge">{blogPost.category}</div>
-            <h1 className="title">{blogPost.title}</h1>
-            <div className="meta">
-              <div className="author-info">
-                <div className="author-image">
-                  <Image 
-                    src={blogPost.authorImage} 
-                    alt={blogPost.author}
-                    width={40}
-                    height={40}
-                    className="author-avatar"
-                  />
-                </div>
-                <div className="author-details">
-                  <span className="author-name">{blogPost.author}</span>
-                  <div className="meta-details">
-                    <span className="date">{blogPost.date}</span>
-                    <span className="dot-separator">•</span>
-                    <span className="read-time">{blogPost.readTime}</span>
-                  </div>
-                </div>
+            <div className="post-meta-header">
+              <div className="category-badge">{blogPost.category}</div>
+              <div className="meta-details">
+                <span className="date">{blogPost.date}</span>
+                <span className="dot-separator">•</span>
+                <span className="read-time">{blogPost.readTime}</span>
               </div>
             </div>
+            
+            <h1 className="title">{blogPost.title}</h1>
 
             <div 
               className="content"
@@ -269,27 +254,23 @@ export default function BlogDetail() {
         </main>
 
         <aside className="sidebar">
-          {/* Author Bio */}
-          <div className="author-bio">
-            <div className="bio-header">
-              <Image 
-                src={blogPost.authorImage} 
-                alt={blogPost.author}
-                width={60}
-                height={60}
-                className="bio-avatar"
-              />
-              <div>
-                <h4>About the Author</h4>
-                <span className="author-name">{blogPost.author}</span>
-              </div>
+          {/* Search Widget */}
+          <div className="search-widget">
+            <h3>Search Blog</h3>
+            <div className="search-input">
+              <input type="text" placeholder="Search articles..." />
+              <button>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
             </div>
-            <p>Jane is a senior web developer with over 10 years of experience in building modern web applications. She specializes in React and Node.js development.</p>
           </div>
 
           {/* Popular Posts */}
           <div className="popular-posts">
-            <h3>Popular Posts</h3>
+            <h3>Trending Posts</h3>
             <div className="popular-list">
               {popularPosts.map(post => (
                 <div key={post.id} className="popular-item">
@@ -326,7 +307,7 @@ export default function BlogDetail() {
           </div>
 
           {/* Newsletter */}
-          <div className="newsletter">
+          <div className="newsletter" style={{backgroundColor: 'blue'}}>
             <div className="newsletter-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -345,6 +326,21 @@ export default function BlogDetail() {
               />
               <button type="submit">Subscribe</button>
             </form>
+          </div>
+
+          {/* Tags Cloud */}
+          <div className="tags-cloud">
+            <h3>Popular Tags</h3>
+            <div className="tags">
+              {blogPost.tags.map(tag => (
+                <span key={tag} className="tag">{tag}</span>
+              ))}
+              <span className="tag">JavaScript</span>
+              <span className="tag">React</span>
+              <span className="tag">CSS</span>
+              <span className="tag">NextJS</span>
+              <span className="tag">Design</span>
+            </div>
           </div>
         </aside>
       </div>
@@ -393,10 +389,10 @@ export default function BlogDetail() {
         
         .image-section {
           margin-bottom: 30px;
-          border-radius: 12px;
+          border-radius: 16px;
           overflow: hidden;
           position: relative;
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         .image-overlay {
@@ -422,45 +418,25 @@ export default function BlogDetail() {
           position: relative;
         }
         
+        .post-meta-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        
         .category-badge {
           display: inline-block;
-          background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%);
+          background: rgba(59,130,246,0.8);
           color: white;
           padding: 6px 12px;
           border-radius: 20px;
           font-size: 0.8rem;
           font-weight: 600;
-          margin-bottom: 15px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-        }
-        
-        .title {
-          font-size: 2.5rem;
-          margin-bottom: 15px;
-          color: #2D3748;
-          line-height: 1.2;
-          font-weight: 800;
-        }
-        
-        .meta {
-          margin-bottom: 30px;
-        }
-        
-        .author-info {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
-        
-        .author-avatar {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-        
-        .author-name {
-          font-weight: 600;
-          color: #2D3748;
         }
         
         .meta-details {
@@ -473,6 +449,15 @@ export default function BlogDetail() {
         
         .dot-separator {
           font-size: 0.6rem;
+        }
+        
+        .title {
+          font-size: 2.5rem;
+          margin-bottom: 25px;
+          color: #2D3748;
+          line-height: 1.2;
+          font-weight: 800;
+          letter-spacing: -0.5px;
         }
         
         .content {
@@ -612,6 +597,9 @@ export default function BlogDetail() {
         
         .tags-section {
           margin-bottom: 40px;
+          padding: 24px;
+          background: #F8FAFC;
+          border-radius: 12px;
         }
         
         .tags-section h3 {
@@ -628,7 +616,8 @@ export default function BlogDetail() {
         
         .tag {
           padding: 8px 16px;
-          background: #EDF2F7;
+          background: white;
+          border: 1px solid #E2E8F0;
           border-radius: 20px;
           font-size: 0.9rem;
           color: #4A5568;
@@ -640,6 +629,8 @@ export default function BlogDetail() {
           background: #6B46C1;
           color: white;
           transform: translateY(-2px);
+          border-color: #6B46C1;
+          box-shadow: 0 4px 6px -1px rgba(107, 70, 193, 0.2);
         }
         
         .related-posts {
@@ -727,7 +718,7 @@ export default function BlogDetail() {
         }
         
         .sidebar > div {
-          margin-bottom: 40px;
+          margin-bottom: 30px;
           background: white;
           border-radius: 12px;
           padding: 24px;
@@ -759,38 +750,42 @@ export default function BlogDetail() {
           border-radius: 2px;
         }
         
-        .author-bio {
+        .search-widget {
+          margin-bottom: 30px;
+        }
+        
+        .search-input {
+          position: relative;
           display: flex;
-          flex-direction: column;
         }
         
-        .bio-header {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        }
-        
-        .bio-avatar {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-        
-        .author-bio h4 {
-          font-size: 1rem;
-          margin: 0 0 4px;
-          color: #2D3748;
-        }
-        
-        .author-bio .author-name {
+        .search-input input {
+          width: 100%;
+          padding: 12px 16px;
+          border: 1px solid #E2E8F0;
+          border-radius: 8px 0 0 8px;
           font-size: 0.9rem;
-          color: #718096;
+          transition: border-color 0.3s ease;
         }
         
-        .author-bio p {
-          color: #4A5568;
-          line-height: 1.6;
-          margin: 0;
+        .search-input input:focus {
+          outline: none;
+          border-color: rgba(59,130,246,0.8);
+          box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+        
+        .search-input button {
+          padding: 12px 16px;
+          background:rgba(59,130,246,0.8);
+          color: white;
+          border: none;
+          border-radius: 0 8px 8px 0;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        }
+        
+        .search-input button:hover {
+          background: #553C9A;
         }
         
         .popular-list {
@@ -890,8 +885,7 @@ export default function BlogDetail() {
         .newsletter {
           position: relative;
           overflow: hidden;
-          background-color: blue !important;
-          // background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%) !important;
+          background: blue;
           color: white;
         }
         
@@ -940,6 +934,7 @@ export default function BlogDetail() {
         
         .newsletter input::placeholder {
           color: #A0AEC0;
+          padding: 12px;
         }
         
         .newsletter input:focus {
@@ -950,7 +945,7 @@ export default function BlogDetail() {
         .newsletter button {
           padding: 12px;
           background: #FFF;
-          color: #2D3748;
+          color: blue;
           border: none;
           border-radius: 6px;
           cursor: pointer;
@@ -963,6 +958,33 @@ export default function BlogDetail() {
           transform: translateY(-2px);
         }
         
+        .tags-cloud {
+          margin-bottom: 30px;
+        }
+        
+        .tags-cloud .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        
+        .tags-cloud .tag {
+          padding: 6px 12px;
+          background: #F8FAFC;
+          border: 1px solid #E2E8F0;
+          border-radius: 16px;
+          font-size: 0.8rem;
+          color: #4A5568;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+        
+        .tags-cloud .tag:hover {
+          background: #6B46C1;
+          color: white;
+          border-color: #6B46C1;
+        }
+        
         @media (max-width: 968px) {
           .layout {
             grid-template-columns: 1fr;
@@ -971,6 +993,11 @@ export default function BlogDetail() {
           
           .title {
             font-size: 2rem;
+          }
+          
+          .post-meta-header {
+            flex-direction: column;
+            align-items: flex-start;
           }
         }
         
