@@ -243,7 +243,7 @@ const TechStack = () => {
               whileHover={{ scale: 1.05 }}
               className="flex flex-col items-center p-6 rounded-2xl bg-gray-700/30 backdrop-blur-sm border border-white hover:border-[#00FFA3]/30 hover:shadow-lg hover:shadow-[#00FFA3]/10 transition-all"
             >
-              <div className="mb-4 p-3 rounded-xl bg-gray-900/50">
+              <div className="mb-4 p-3">
                 <img src={tech.iconImage} alt={tech.title} className="w-10 h-10" />
               </div>
               <span className="text-sm font-medium text-white">{tech.title}</span>
@@ -252,7 +252,7 @@ const TechStack = () => {
         </motion.div>
 
         {/* Ecosystem Preview */}
-        <div className="mt-16 relative">
+        {/* <div className="mt-16 relative">
           <div className="absolute inset-0 bg-gradient-to-r from-[#00FFA3] via-[#00B4FF] to-[#00FFA3] opacity-20 blur-lg rounded-full animate-gradient-xy"></div>
           <div className="relative bg-gray-800/80 backdrop-blur-sm rounded-xl p-8">
             <h3 className="text-xl font-semibold text-white mb-6 text-center">
@@ -277,7 +277,7 @@ const TechStack = () => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Gradient Animation */}
