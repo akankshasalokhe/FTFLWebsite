@@ -107,6 +107,7 @@ const Navbar = () => {
               <Link href="/courses/app-development">App Development</Link>
             </div>
           </li> */}
+          <li><Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""}>Internship</Link></li>
           <li><Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""}>Careers</Link></li>
           <li><Link href="/products" className={isActive("/products") ? styles.activeLink : ""}>Products</Link></li>
           <li><Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""}>Internship</Link></li>
