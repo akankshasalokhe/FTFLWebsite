@@ -16,16 +16,6 @@ const products = [
   },
   {
     id: 2,
-    name: "Dating App",
-    type: "Mobile Application",
-    description:
-      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections.",
-    image:
-      "https://images.unsplash.com/photo-1601597111158-9073b78caa3f?auto=format&fit=crop&w=800&q=80",
-    themeColor: "from-pink-400 to-pink-200",
-  },
-  {
-    id: 3,
     name: "Fetch True",
     type: "Business App",
     description:
@@ -34,6 +24,17 @@ const products = [
       "https://images.unsplash.com/photo-1504691342899-9d7eea6fc0a4?auto=format&fit=crop&w=800&q=80",
     themeColor: "from-green-400 to-green-200",
   },
+  {
+    id: 3,
+    name: "Dating App",
+    type: "Mobile Application",
+    description:
+      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections.",
+    image:
+      "https://images.unsplash.com/photo-1601597111158-9073b78caa3f?auto=format&fit=crop&w=800&q=80",
+    themeColor: "from-pink-400 to-pink-200",
+  },
+  
 ];
 
 export default function ProductDetails() {

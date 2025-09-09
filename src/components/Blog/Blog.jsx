@@ -784,7 +784,7 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Head>
-        <title>Blog | Muze Creative Insights</title>
+        <title>Blog</title>
         <meta name="description" content="Insights, ideas and stories from the Muze team" />
       </Head>
 

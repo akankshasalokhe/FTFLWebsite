@@ -16,18 +16,24 @@ const VibrantFooter = () => {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const response = await fetch('https://landing-page-yclw.vercel.app/api/footer');
-        const data = await response.json();
-        
-        if (data.success) {
-          setContactInfo(data.data[0]);
-        } else {
-          setError("Failed to fetch contact information");
-        }
+        // Simulating API call with mock data
+        setTimeout(() => {
+          setContactInfo({
+            phone: "1234567890",
+            workinghours: "Mon-Fri: 9AM-5PM",
+            address: "123 Tech Street, Innovation City, IC 12345",
+            socialMediaLinks: [
+              "https://twitter.com",
+              "https://linkedin.com",
+              "https://github.com",
+              "https://discord.com"
+            ]
+          });
+          setLoading(false);
+        }, 1000);
       } catch (err) {
         setError("Error connecting to server");
         console.error("Error fetching contact info:", err);
-      } finally {
         setLoading(false);
       }
     };
@@ -37,6 +43,7 @@ const VibrantFooter = () => {
 
   // Map social media URLs to icons
   const getSocialIcon = (url) => {
+    if (!url) return <FiSend />;
     if (url.includes('twitter.com') || url.includes('x.com')) return <FaTwitter />;
     if (url.includes('linkedin.com')) return <FaLinkedin />;
     if (url.includes('github.com')) return <FaGithub />;
@@ -47,6 +54,7 @@ const VibrantFooter = () => {
 
   // Get social media link class based on URL
   const getSocialClass = (url) => {
+    if (!url) return "hover:bg-gray-600";
     if (url.includes('twitter.com') || url.includes('x.com')) return "hover:bg-[#1DA1F2]";
     if (url.includes('linkedin.com')) return "hover:bg-[#0077B5]";
     if (url.includes('github.com')) return "hover:bg-black";
@@ -83,7 +91,7 @@ const VibrantFooter = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Main CTA - Made more compact */}
+        {/* Main CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -109,16 +117,16 @@ const VibrantFooter = () => {
           </div>
         </motion.div>
 
-        {/* Links Grid - Made more compact */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-          {/* Company */}
+        {/* Links Grid - Fixed layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+          {/* Company Section - Fixed */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-center xs:text-left"
+            className="text-center sm:text-left"
           >
-            <h4 className="text-base font-bold mb-3 text-[#FFD166] flex items-center justify-center xs:justify-start gap-1.5">
+            <h4 className="text-base font-bold mb-3 text-[#FFD166] flex items-center justify-center sm:justify-start gap-1.5">
               <RiCustomerService2Fill className="text-sm" /> Company
             </h4>
             <ul className="space-y-2">
@@ -127,7 +135,7 @@ const VibrantFooter = () => {
                   <motion.a
                     whileHover={{ x: 3 }}
                     href="#"
-                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm justify-center xs:justify-start"
+                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm justify-center sm:justify-start"
                   >
                     <FiArrowRight className="text-xs opacity-70" /> {item}
                   </motion.a>
@@ -136,12 +144,12 @@ const VibrantFooter = () => {
             </ul>
           </motion.div>
 
-          {/* Services */}
+          {/* Services Section - Fixed */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="text-center xs:text-left"
+            className="text-center sm:text-left"
           >
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
             <ul className="space-y-2">
@@ -150,7 +158,7 @@ const VibrantFooter = () => {
                   <motion.a
                     whileHover={{ x: 3 }}
                     href="#"
-                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm justify-center xs:justify-start"
+                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm justify-center sm:justify-start"
                   >
                     <FiArrowRight className="text-xs opacity-70" /> {item}
                   </motion.a>
@@ -159,12 +167,12 @@ const VibrantFooter = () => {
             </ul>
           </motion.div>
 
-          {/* Contact - Improved layout with better flex properties */}
+          {/* Contact Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.4 }}
-            className="text-center xs:text-left"
+            className="text-center sm:text-left"
           >
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Contact</h4>
             <ul className="space-y-3">
@@ -185,14 +193,12 @@ const VibrantFooter = () => {
                   )}
                 </div>
               </li>
-                <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-2.5">
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0">
                   <MdEmail className="text-xs" />
                 </div>
                 <Link className="text-sm break-all text-left" href={`mailto:info@ftfltechnology.com`}>info@ftfltechnology.com</Link>
               </li>
-              
-              
               <li className="flex items-start gap-2.5">
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
@@ -210,15 +216,15 @@ const VibrantFooter = () => {
             </ul>
           </motion.div>
 
-          {/* Social */}
+          {/* Social Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.5 }}
-            className="text-center xs:text-left"
+            className="text-center sm:text-left"
           >
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Connect</h4>
-            <div className="flex gap-3 justify-center xs:justify-start flex-wrap mb-4">
+            <div className="flex gap-3 justify-center sm:justify-start flex-wrap mb-4">
               {loading ? (
                 // Loading skeleton for social icons
                 [...Array(4)].map((_, i) => (
@@ -227,7 +233,7 @@ const VibrantFooter = () => {
               ) : error ? (
                 <p className="text-xs text-red-200">Error loading social links</p>
               ) : (
-                contactInfo?.socialMediaLinks.map((url, i) => (
+                contactInfo?.socialMediaLinks?.map((url, i) => (
                   <motion.a
                     key={i}
                     whileHover={{ y: -3, scale: 1.05 }}
@@ -245,7 +251,7 @@ const VibrantFooter = () => {
             {/* Newsletter */}
             <div className="mt-4">
               <h5 className="text-xs font-medium mb-1.5">Stay updated</h5>
-              <div className="flex max-w-xs mx-auto xs:mx-0">
+              <div className="flex max-w-xs mx-auto sm:mx-0">
                 <input
                   type="email"
                   placeholder="Your email"
@@ -262,7 +268,7 @@ const VibrantFooter = () => {
           </motion.div>
         </div>
 
-        {/* Bottom - Made more compact */}
+        {/* Bottom Section */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -278,11 +284,34 @@ const VibrantFooter = () => {
           <div className="flex gap-3 text-xs flex-wrap justify-center">
             <a href="#" className="hover:text-[#FFD166] transition-colors">Privacy</a>
             <a href="#" className="hover:text-[#FFD166] transition-colors">Terms</a>
-            {/* <a href="#" className="hover:text-[#FFD166] transition-colors">Cookies</a> */}
           </div>
           <p className="text-xs text-white/70">© 2025 All rights reserved</p>
         </motion.div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 640px) {
+          .grid-cols-1 {
+            grid-template-columns: 1fr;
+          }
+          
+          .text-center {
+            text-align: center;
+          }
+          
+          .justify-center {
+            justify-content: center;
+          }
+          
+          .sm\\:text-left {
+            text-align: left;
+          }
+          
+          .sm\\:justify-start {
+            justify-content: flex-start;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

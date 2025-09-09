@@ -221,103 +221,99 @@ const AboutUsSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* 🔹 Stats (dynamic from backend) - REDESIGNED WITH CIRCULAR CARDS */}
+        {/* 🔹 Redesigned Stats Section */}
+{/* 🔹 Modern Stat Section with New Icons & Animations */}
+<motion.div
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 mt-12"
+  initial="hidden"
+  animate={controls}
+  variants={containerVariants}
+>
+  {stats.map((stat, index) => {
+    // Different icons for each stat (you can adjust per your data)
+    const icons = [
+      "M13 16h-1v-4h-1m1-4h.01M12 6a9 9 0 110 18 9 9 0 010-18z", // Info / About
+      "M5 13l4 4L19 7", // Check / Success
+      "M3 7h18M3 12h18M3 17h18", // Growth / Progress
+      "M12 4v16m8-8H4", // Plus / Add
+      "M9 17v-6h6v6m2 2H7", // Chart / Data
+    ];
+
+    return (
+      <motion.div
+        key={stat._id}
+        variants={itemVariants}
+        // whileHover={{ y: 8, scale: 1.03 }}
+        // transition={{ type: "spring", stiffness: 200 }}
+        className="group relative"
+        onMouseEnter={() => setHoveredCard(`stat-${index}`)}
+        onMouseLeave={() => setHoveredCard(null)}
+      >
+        {/* Animated Gradient Border */}
         <motion.div
-          className="relative grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 mt-5 md:grid-cols-3 gap-6 sm:gap-20 mb-12 sm:mb-16 lg:mb-14 "
-          initial="hidden"
-          animate={controls}
-          variants={containerVariants}
-          
+          className="p-[2px] rounded-2xl bg-gradient-to-r from-[#298cf3] via-blue-500 to-blue-700"
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          style={{ backgroundSize: "200% 200%" }}
         >
-          {stats.map((stat, index) => (
+          {/* Inner Card */}
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-md px-6 py-8 flex flex-col items-center text-center">
+            
+            {/* Icon with Glow Animation */}
             <motion.div
-              key={stat._id}
-              variants={itemVariants}
-              className="flex justify-center"
-              whileHover={{
-                scale: 1,
-                transition: { type: "spring", stiffness: 200 }
+              className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#298cf3] to-blue-600 text-white shadow-lg mb-4"
+              animate={{
+                y: [0, -5, 0],
+                boxShadow: [
+                  "0 0 10px rgba(41,140,243,0.4)",
+                  "0 0 20px rgba(41,140,243,0.6)",
+                  "0 0 10px rgba(41,140,243,0.4)",
+                ],
               }}
-              onMouseEnter={() => setHoveredCard(`stat-${index}`)}
-              onMouseLeave={() => setHoveredCard(null)}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
-                              {/* Outer ring that animates on hover */}
-
-              <div className="relative group">
-                <motion.div 
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-                  animate={{
-                    scale: hoveredCard === `stat-${index}` ? [1, 0, 1] : 1,
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  style={{
-                    background: "conic-gradient(from 0deg, #298cf3, #1a6bc4, #298cf3)"
-                  }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-7 w-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d={icons[index % icons.length]}
                 />
-                
-                {/* Main circular card */}
-                <motion.div
-                  className="relative w-55 h-55 mt-5 rounded-full flex flex-col items-center justify-center p-6 border-2 border-blue-200 bg-white hover:shadow-2xl transition-all duration-300"
-                  animate={{
-                    boxShadow: hoveredCard === `stat-${index}` 
-                      ? "0 0 1px rgba(0, 0, 0, 0.4)" 
-                      : "0 0px 5px rgba(0, 0, 0, 0.1)",
-                    y: hoveredCard === `stat-${index}` ? -2 : 0,
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Icon with gradient background */}
-                  <motion.div
-                    className="w-12 h-12 rounded-full mb-3 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300 shadow-sm"
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="w-7 h-7 bg-gradient-to-r from-[#298cf3] to-blue-500 rounded-full flex items-center justify-center shadow-md">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5h6m-6 4h6m-6 4h6m-6 4h6"
-                        />
-                      </svg>
-                    </div>
-                  </motion.div>
-
-                  {/* Stat number with plus sign */}
-                  <div className="flex items-end justify-center mb-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mr-1">
-                      <CountUp end={stat.count} duration={3} />
-                    </h3>
-                    <span className="text-lg font-semibold text-blue-500 mb-0.5">
-                      +
-                    </span>
-                  </div>
-
-                  {/* Stat title */}
-                  <p className="text-sm text-gray-600 font-medium text-center group-hover:text-gray-800 transition-colors duration-300 px-2">
-                    {stat.title}
-                  </p>
-                  
-                  {/* Animated dots around the circle */}
-                  <motion.div 
-                    className="absolute -inset-2 rounded-full border-2 border-blue-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    animate={{
-                      rotate: hoveredCard === `stat-${index}` ? 360 : 0,
-                    }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  />
-                </motion.div>
-              </div>
+              </svg>
             </motion.div>
-          ))}
+
+            {/* Number Counter */}
+            <div className="flex items-end justify-center mb-2">
+              <h3 className="text-3xl font-extrabold text-gray-900">
+                <CountUp end={stat.count} duration={3} />
+              </h3>
+              <span className="text-lg font-semibold text-blue-600 mb-1">+</span>
+            </div>
+
+            {/* Title */}
+            <p className="text-sm sm:text-base text-gray-600 font-medium group-hover:text-gray-800 transition-colors duration-300">
+              {stat.title}
+            </p>
+          </div>
         </motion.div>
+      </motion.div>
+    );
+  })}
+</motion.div>
+
+
       </div>
     </section>
   );
