@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const TechStack = () => {
   const [activeTab, setActiveTab] = useState("Frontend");
@@ -32,16 +35,31 @@ const TechStack = () => {
     fetchData();
   }, []);
 
-  // Active category
   const currentCategory = technologies.find(
     (cat) => cat.fieldName === activeTab
   );
-
   const availableCategories = technologies.map((cat) => cat.fieldName);
 
   const handleImageError = (e) => {
     e.target.style.display = "none";
     e.target.nextSibling.style.display = "flex";
+  };
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 8,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      { breakpoint: 1536, settings: { slidesToShow: 7 } },
+      { breakpoint: 1280, settings: { slidesToShow: 6 } },
+      { breakpoint: 1024, settings: { slidesToShow: 5 } },
+      { breakpoint: 768, settings: { slidesToShow: 4 } },
+      { breakpoint: 640, settings: { slidesToShow: 3 } },
+      { breakpoint: 480, settings: { slidesToShow: 2 } },
+    ],
   };
 
   return (
@@ -50,20 +68,6 @@ const TechStack = () => {
       id="tech-stack"
       className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 to-white relative overflow-hidden"
     >
-      {/* Decorative Background */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={inView ? { opacity: 0.3, scale: 1 } : {}}
-        transition={{ duration: 1 }}
-        className="absolute top-20 right-20 w-72 h-72 bg-blue-200 rounded-full blur-3xl"
-      />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={inView ? { opacity: 0.25, scale: 1 } : {}}
-        transition={{ duration: 1.2 }}
-        className="absolute bottom-10 left-10 w-72 h-72 bg-blue-300 rounded-full blur-3xl"
-      />
-
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <motion.div
@@ -84,22 +88,11 @@ const TechStack = () => {
         </motion.div>
 
         {/* Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {availableCategories.map((tab, i) => (
-            <motion.button
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {availableCategories.map((tab) => (
+            <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              role="tab"
-              aria-selected={activeTab === tab}
-              aria-controls={`${tab.toLowerCase()}-tabpanel`}
-              whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 200, damping: 10 }}
               className={`px-5 py-2.5 text-sm md:text-base font-medium rounded-xl shadow-sm transition-all ${
                 activeTab === tab
                   ? "bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg"
@@ -107,111 +100,71 @@ const TechStack = () => {
               }`}
             >
               {tab}
-            </motion.button>
+            </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* States */}
-        {error && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-red-500 py-10"
-          >
-            {error}
-          </motion.div>
-        )}
-
+        {/* Loading */}
         {isLoading && !error && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-5"
-          >
-            {[...Array(12)].map((_, i) => (
+          <div className="flex justify-center gap-5 overflow-x-auto">
+            {[...Array(8)].map((_, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center p-5 rounded-xl bg-white border border-blue-100 animate-pulse"
+                className="flex flex-col items-center p-5 rounded-xl bg-white border border-blue-100 animate-pulse w-20"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-blue-100 mb-4"></div>
-                <div className="h-3 w-16 bg-blue-100 rounded"></div>
+                <div className="w-12 h-12 rounded-full bg-blue-100 mb-2"></div>
+                <div className="h-3 w-12 bg-blue-100 rounded"></div>
               </div>
             ))}
-          </motion.div>
+          </div>
         )}
 
-        {/* Tech Grid */}
-        <AnimatePresence mode="wait">
-          {!isLoading && !error && currentCategory && (
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-              className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-5"
-              role="tabpanel"
-              id={`${activeTab.toLowerCase()}-tabpanel`}
-              aria-labelledby={`${activeTab.toLowerCase()}-tab`}
-            >
-              {currentCategory?.technologyName?.map((tech, index) => (
-                <motion.div
+        {/* Error */}
+        {error && <p className="text-center text-red-500 py-10">{error}</p>}
+
+        {/* Tech Carousel */}
+        {!isLoading &&
+          !error &&
+          currentCategory &&
+          currentCategory.technologyName.length > 0 && (
+            <Slider {...sliderSettings} className="pb-6">
+              {currentCategory.technologyName.map((tech, index) => (
+                <div
                   key={tech._id || index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: index * 0.07,
-                    ease: "easeOut",
-                  }}
-                  whileHover={{
-                    y: -5,
-                    scale: 1.05,
-                    boxShadow:
-                      "0 15px 35px -5px rgba(37, 99, 235, 0.25), 0 8px 15px -5px rgba(0,0,0,0.05)",
-                  }}
-                  className="flex flex-col items-center p-5 rounded-xl bg-white border border-blue-100 shadow-sm group transition-all duration-300"
+                  className="flex flex-col items-center px-2"
                 >
-                  <div className="mb-4 p-3 bg-blue-50 rounded-xl flex items-center justify-center w-14 h-14 group-hover:bg-blue-100 transition-colors">
+                  <div className="p-4 bg-blue-50 rounded-full flex items-center justify-center w-16 h-16 mb-2 hover:bg-blue-100 transition-colors">
                     <img
                       src={tech.iconImage}
                       alt={tech.title}
-                      className="w-8 h-8 object-contain"
+                      className="w-10 h-10 object-contain"
                       onError={handleImageError}
-                      loading="lazy"
                     />
-                    <div className="hidden w-8 h-8 bg-blue-200 rounded-full items-center justify-center">
+                    <div className="hidden w-10 h-10 bg-blue-200 rounded-full items-center justify-center">
                       <span className="text-sm font-bold text-blue-700">
                         {tech.title.charAt(0)}
                       </span>
                     </div>
                   </div>
-                  <span className="text-sm font-medium text-gray-800 text-center">
+                  <span className="text-sm md:text-base font-medium text-gray-800 text-center truncate">
                     {tech.title}
                   </span>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </Slider>
           )}
-        </AnimatePresence>
 
-        {/* Empty State */}
+        {/* Empty */}
         {!isLoading &&
           !error &&
           (!currentCategory?.technologyName ||
             currentCategory.technologyName.length === 0) && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-14"
-            >
+            <div className="text-center py-14">
               <p className="text-lg font-medium text-blue-600">
                 No technologies found for {activeTab}
               </p>
-              <p className="text-blue-500 mt-1">
-                Please check back later for updates
-              </p>
-            </motion.div>
+              <p className="text-blue-500 mt-1">Please check back later</p>
+            </div>
           )}
       </div>
     </section>
