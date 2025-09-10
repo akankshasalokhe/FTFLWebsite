@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ModulesSection from "@/components/Internship/Modules";
 import InternshipHighlights from "@/components/Internship/Highlights";
 import InternshipProcess from "@/components/Internship/Process";
+import WhyChooseUs from "@/components/Internship/WhyChooseUs";
 
 const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -110,6 +111,7 @@ const HeroSection = () => {
     <InternshipHighlights />
     <InternshipProcess />
     <ModulesSection />
+    <WhyChooseUs />
     </>
   );
 };
