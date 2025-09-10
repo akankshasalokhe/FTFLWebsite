@@ -65,8 +65,8 @@ const HeroSection = () => {
                   alt={img.alt}
                   fill
                   style={{ 
-                    objectFit: isMobile ? "cover" : "cover",
-                    objectPosition: isMobile ? "center center" : "center center"
+                    // objectFit: isMobile ? "cover" : "cover",
+                    objectPosition: isMobile ? "center cente" : "center center"
                   }}
                   className="brightness-50"
                   priority={idx === 0}
