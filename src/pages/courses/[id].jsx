@@ -710,7 +710,7 @@ export default function CourseDetails() {
       </Head>
 
       {/* Navigation */}
-      <nav className="bg-white shadow-sm">
+      <nav className="bg-white shadow-sm mt-18">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center">
             <button 
