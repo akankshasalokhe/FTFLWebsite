@@ -4,13 +4,51 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { FaTimes, FaBars } from "react-icons/fa";
+import { 
+  FaTimes, FaBars, FaLaptopCode, FaMobileAlt, FaServer, 
+  FaPalette, FaPenNib, FaVideo, FaFilm 
+} from "react-icons/fa";
 import styles from "./Navbar.module.css";
+
+const servicesData = [
+  {
+    id: "development",
+    name: "Development",
+    subServices: [
+      { name: "Web Development", href: "/services/web", icon: <FaLaptopCode /> },
+      { name: "App Development", href: "/services/app", icon: <FaMobileAlt /> },
+      { name: "API Integration", href: "/services/api", icon: <FaServer /> },
+      { name: "Backend Services", href: "/services/backend", icon: <FaServer /> },
+      { name: "Frontend Services", href: "/services/frontend", icon: <FaLaptopCode /> },
+    ],
+  },
+  {
+    id: "design",
+    name: "Design",
+    subServices: [
+      { name: "UI/UX Design", href: "/services/ui-ux", icon: <FaPalette /> },
+      { name: "Graphic Design", href: "/services/graphic", icon: <FaPenNib /> },
+      { name: "Logo Design", href: "/services/logo", icon: <FaPenNib /> },
+      { name: "Illustration", href: "/services/illustration", icon: <FaPenNib /> },
+    ],
+  },
+  {
+    id: "video",
+    name: "Video",
+    subServices: [
+      { name: "Video Editing", href: "/services/editing", icon: <FaVideo /> },
+      { name: "Motion Graphics", href: "/services/motion", icon: <FaFilm /> },
+      { name: "Animation", href: "/services/animation", icon: <FaFilm /> },
+    ],
+  },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [selectedService, setSelectedService] = useState(servicesData[0].id);
   const [isMobile, setIsMobile] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
@@ -22,103 +60,125 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const toggleDropdown = (menuName) => {
     setOpenDropdown((prev) => (prev === menuName ? null : menuName));
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+    setSelectedService(servicesData[0].id);
+  };
+
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.navContainer}>
-        <Link href="/" className={styles.logo}>
-          <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
-          <span className={styles.tagline}>From Scratch to Success</span>
-        </Link>
+    <>
+      {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
 
-        <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
-        </div>
+      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
+        <div className={styles.navContainer}>
+          {/* Logo */}
+          <Link href="/" className={styles.logo} onClick={closeMenu}>
+            <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
+            <span className={styles.tagline}>From Scratch to Success</span>
+          </Link>
 
-        <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
-          <li><Link href="/" className={isActive("/") ? styles.activeLink : ""}>Home</Link></li>
-          <li><Link href="/about" className={isActive("/about") ? styles.activeLink : ""}>About</Link></li>
-          {/* <li><Link href="/services" className={isActive("/services") ? styles.activeLink : ""}>Services</Link></li> */}
-          {/* Services Dropdown */}
-          <li className={styles.dropdown}>
-  <span
-    onClick={() => isMobile && toggleDropdown("services")}
-    onMouseEnter={() => !isMobile && setOpenDropdown("services")}
-    onMouseLeave={() => !isMobile && setOpenDropdown(null)}
-    className={`${isActive("/services") ? styles.activeLink : ""}`}
-  >
-    Services
-    {isMobile && ( // Show arrow only on mobile
-      <span className={styles.dropdownArrow}>
-        {openDropdown === "services" ? "▲" : "▼"}
-      </span>
-    )}
-  </span>
-  
-  <div
-    className={`${styles.dropdownContent} ${
-      openDropdown === "services" ? styles.dropdownActive : ""
-    }`}
-    onMouseLeave={() => !isMobile && setOpenDropdown(null)}
-  >
-    {/* Department 1: Development */}
-    <div className={styles.dropdownSection}>
-      <h4 className={styles.dropdownHeader}>Development</h4>
-      <Link href="/services/web">Web Development</Link>
-      <Link href="/services/app">App Development</Link>
-      <Link href="/services/api">API Integration</Link>
-    </div>
+          {/* Hamburger */}
+          <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
+          </div>
 
-    {/* Department 2: Design */}
-    <div className={styles.dropdownSection}>
-      <h4 className={styles.dropdownHeader}>Design</h4>
-      <Link href="/services/ui-ux">UI/UX Design</Link>
-      <Link href="/services/graphic">Graphic Design</Link>
-      <Link href="/services/logo">Logo Design</Link>
-    </div>
+          {/* Navigation Menu */}
+          <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
+            <li>
+              <Link href="/" className={isActive("/") ? styles.activeLink : ""} onClick={closeMenu}>Home</Link>
+            </li>
+            <li>
+              <Link href="/about" className={isActive("/about") ? styles.activeLink : ""} onClick={closeMenu}>About</Link>
+            </li>
 
-    {/* Department 3: Video */}
-    <div className={styles.dropdownSection}>
-      <h4 className={styles.dropdownHeader}>Video</h4>
-      <Link href="/services/editing">Video Editing</Link>
-      <Link href="/services/motion">Motion Graphics</Link>
-    </div>
-  </div>
-</li>
-          {/* Courses Dropdown */}
-          {/* <li className={styles.dropdown}>
-            <span
-              onClick={() => isMobile && toggleDropdown("courses")}
-              onMouseEnter={() => !isMobile && setOpenDropdown("courses")}
+            {/* Services Dropdown */}
+            <li
+              className={styles.dropdown}
+              onMouseEnter={() => !isMobile && setOpenDropdown("services")}
               onMouseLeave={() => !isMobile && setOpenDropdown(null)}
-              className={`${isActive("/courses") ? styles.activeLink : ""}`}
             >
-              Courses
-            </span>
-            <div
-              className={`${styles.dropdownContent} ${
-                openDropdown === "courses" ? styles.dropdownActive : ""
-              }`}
-            >
-              <Link href="/courses/web-development">Web Development</Link>
-              <Link href="/courses/app-development">App Development</Link>
-            </div>
-          </li> */}
-          <li><Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""}>Internship</Link></li>
-          <li><Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""}>Careers</Link></li>
-          <li><Link href="/products" className={isActive("/products") ? styles.activeLink : ""}>Products</Link></li>
+              <span
+                onClick={() => isMobile && toggleDropdown("services")}
+                className={`${isActive("/services") ? styles.activeLink : ""} ${styles.dropdownTrigger}`}
+              >
+                Services
+                {isMobile && (
+                  <span className={styles.dropdownArrow}>
+                    {openDropdown === "services" ? "▲" : "▼"}
+                  </span>
+                )}
+              </span>
 
-          <li><Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""}>Blog</Link></li>
+              <div
+                className={`${styles.dropdownContent} ${
+                  openDropdown === "services" ? styles.dropdownActive : ""
+                }`}
+              >
+                <div className={styles.dropdownTwoColumns}>
+                  {/* Left Column - Main Services */}
+                  <div className={styles.leftColumn}>
+                    {servicesData.map((service) => (
+                      <div
+                        key={service.id}
+                        className={`${styles.serviceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
+                        onMouseEnter={() => !isMobile && setSelectedService(service.id)}
+                        onClick={() => setSelectedService(service.id)}
+                      >
+                        {service.name}
+                      </div>
+                    ))}
+                  </div>
 
-          
+                  {/* Right Column - Sub Services */}
+                  <div className={styles.rightColumn}>
+                    <div className={styles.subServiceGrid}>
+                      {servicesData
+                        .find((s) => s.id === selectedService)
+                        ?.subServices.map((sub) => (
+                          <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.subServiceItem}>
+                            <div className={styles.subServiceContent}>
+                              <span className={styles.subIcon}>{sub.icon}</span>
+                              <span className={styles.subServiceName}>{sub.name}</span>
+                            </div>
+                           
+                          </Link>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
 
-          <li><Link href="/contact" className={isActive("/contact") ? styles.activeLink : ""}>Contact</Link></li>
-        </ul>
-      </div>
-    </nav>
+            <li>
+              <Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""} onClick={closeMenu}>Internship</Link>
+            </li>
+            <li>
+              <Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""} onClick={closeMenu}>Careers</Link>
+            </li>
+            <li>
+              <Link href="/products" className={isActive("/products") ? styles.activeLink : ""} onClick={closeMenu}>Products</Link>
+            </li>
+            <li>
+              <Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""} onClick={closeMenu}>Blog</Link>
+            </li>
+            <li>
+              <Link href="/contact" className={isActive("/contact") ? styles.activeLink : ""} onClick={closeMenu}>Contact</Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 
