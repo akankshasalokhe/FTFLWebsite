@@ -120,7 +120,7 @@
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   padding: 20px;
-  min-width: 700px;
+  /* min-width: 400px; */
   opacity: 0;
   transform: translateY(-10px);
   transition: all 0.3s ease;
@@ -159,7 +159,7 @@
 }
 
 .serviceItem:hover,
-.selectedService {
+.selectedService  {
   background-color: #0284c7;
   color: #fff;
 }
@@ -182,7 +182,7 @@
 .subServiceItem {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 10px;
   background: #f1f5f9;
   border-radius: 8px;
@@ -194,17 +194,17 @@
 }
 
 .subServiceItem:hover {
-  background: #059be620;
+  background: #0395de23;
   color: #fff;
 }
 
 .subIcon {
   font-size: 30px;
   left: 10px;
-  background: #0284c7;
+  /* background: #f3f6f8; */
   color: white;
   border-radius: 80%;
-  /* padding: 10px; */
+  /* padding: 20px; */
   display: flex;
   align-items: center;
   justify-content: center;
