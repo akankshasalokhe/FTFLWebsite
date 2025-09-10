@@ -7,6 +7,7 @@ import ModulesSection from "@/components/Internship/Modules";
 import InternshipHighlights from "@/components/Internship/Highlights";
 import InternshipProcess from "@/components/Internship/Process";
 import WhyChooseUs from "@/components/Internship/WhyChooseUs";
+import CTASection from "@/components/Internship/CTASection";
 
 const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -112,6 +113,7 @@ const HeroSection = () => {
     <InternshipProcess />
     <ModulesSection />
     <WhyChooseUs />
+    {/* <CTASection /> */}
     </>
   );
 };
