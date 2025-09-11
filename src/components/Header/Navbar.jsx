@@ -15,7 +15,7 @@ const servicesData = [
     id: "development",
     name: "Development",
     subServices: [
-      { name: "Web Development", href: "/services/web", icon: <FaLaptopCode /> },
+      { name: "Web Development", href: "/services/web-development", icon: <FaLaptopCode /> },
       { name: "App Development", href: "/services/app", icon: <FaMobileAlt /> },
       { name: "API Integration", href: "/services/api", icon: <FaServer /> },
       { name: "Backend Services", href: "/services/backend", icon: <FaServer /> },
