@@ -1,54 +1,64 @@
-"use client";
-import Image from "next/image";
-import styles from "./OurServices.module.css";
-
-const servicesData = [
-  {
-    id: 1,
-    title: "Mobile App Development",
-    desc: "We create scalable and feature-rich mobile apps tailored to your business needs, ensuring smooth performance and user experience.",
-    img: "/Team.jpeg",
-  },
-  {
-    id: 2,
-    title: "Web Development",
-    desc: "From responsive websites to complex web applications, our team builds robust and secure digital solutions that drive growth.",
-    img: "/images/web-dev.jpg",
-  },
-  {
-    id: 3,
-    title: "UI/UX Design",
-    desc: "Our creative designers craft visually stunning and intuitive interfaces, enhancing customer engagement and satisfaction.",
-    img: "/images/ui-ux.jpg",
-  },
-];
+import React from 'react';
+import Image from 'next/image';
+import styles from './OurServices.module.css';
 
 const OurServices = () => {
-  return (
-    <section className={styles.servicesSection}>
-      <h2 className={styles.heading}>Our Services</h2>
-      <div className={styles.grid}>
-        {servicesData.map((service) => (
-          <div key={service.id} className={styles.card}>
-            {/* Left Image */}
-            <div className={styles.imageBox}>
-              <Image
-                src={service.img}
-                alt={service.title}
-                width={200}
-                height={200}
-                className={styles.image}
-              />
-            </div>
+  const services = [
+    {
+      id: 1,
+      title: "Web Development",
+      image:"/s5.jpeg"
+    },
+    {
+      id: 2,
+      title: "Mobile Apps",
+      image:"/s4.jpeg"
+    },
+    {
+      id: 3,
+      title: "UI/UX Design",
+      image:"/s2.jpeg"
+    },
+    {
+      id: 4,
+      title: "Digital Marketing",
+      image:"/s3.jpeg"
+    },
+    {
+      id: 5,
+      title: "Video Editing",
+      image:"/s1.jpeg"
+    },
+    {
+      id: 6,
+      title: "Graphic Design",
+      image:"/s2.jpeg"
+    }
+  ];
 
-            {/* Right Content */}
-            <div className={styles.contentBox}>
-              <h3 className={styles.title}>{service.title}</h3>
-              <p className={styles.description}>{service.desc}</p>
-              <button className={styles.btn}>Read More</button>
+  return (
+    <section className={styles.services}>
+      <div className={styles.container}>
+        <h2 className={styles.sectionTitle}>Our Services</h2>
+        <p className={styles.sectionSubtitle}>Discover our comprehensive range of digital solutions</p>
+        
+        <div className={styles.cardsContainer}>
+          {services.map(service => (
+            <div key={service.id} className={styles.card}>
+              <div className={styles.imageContainer}>
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className={styles.image}
+                />
+              </div>
+              <div className={styles.titleOverlay}>
+                <h3 className={styles.title}>{service.title}</h3>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
