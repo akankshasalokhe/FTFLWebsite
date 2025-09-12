@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Head from "next/head";
 
 const products = [
   {
@@ -10,9 +10,9 @@ const products = [
     type: "E-commerce Platform",
     category: "web",
     description:
-      "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design. Comprehensive analytics help you understand customer behavior and optimize sales strategy for maximum conversion rates.",
-    image: "/images/ecommerce-platform.jpg",
-    themeColor: "from-blue-500 to-blue-300",
+      "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
+    image: "/api/placeholder/400/200",
+    themeColor: "from-blue-500 to-blue-600",
     features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"]
   },
   {
@@ -21,9 +21,9 @@ const products = [
     type: "Business Application",
     category: "mobile",
     description:
-      "Fetch True simplifies business workflows with powerful data management and team collaboration tools. The mobile app enables real-time inventory tracking, CRM, and sales analytics on the go. With offline capabilities and cloud synchronization, your team works efficiently anywhere. Customizable dashboards and automated reporting help make data-driven decisions.",
-    image: "/images/business-app.jpg",
-    themeColor: "from-green-500 to-green-300",
+      "Fetch True simplifies business workflows with powerful data management and team collaboration tools. The mobile app enables real-time inventory tracking, CRM, and sales analytics on the go.",
+    image: "/api/placeholder/400/200",
+    themeColor: "from-blue-500 to-blue-600",
     features: ["Real-time Tracking", "Offline Access", "Team Collaboration", "Custom Dashboards"]
   },
   {
@@ -32,9 +32,9 @@ const products = [
     type: "Dating Application",
     category: "mobile",
     description:
-      "StayBea is a modern dating app designed for meaningful connections using advanced matching algorithms. Our verification system ensures authentic profiles while privacy controls give users complete control. With video calling, icebreaker prompts, and community events, StayBea creates opportunities for genuine connections in a safe digital environment.",
-    image: "/images/dating-app.jpg",
-    themeColor: "from-pink-500 to-pink-300",
+      "StayBea is a modern dating app designed for meaningful connections using advanced matching algorithms. Our verification system ensures authentic profiles while privacy controls give users complete control.",
+    image: "/api/placeholder/400/200",
+    themeColor: "from-blue-500 to-blue-600",
     features: ["Smart Matching", "Video Calls", "Profile Verification", "Community Events"]
   },
   {
@@ -43,9 +43,9 @@ const products = [
     type: "Portfolio Platform",
     category: "web",
     description:
-      "Portfolio Pro offers modern, responsive templates designed for creative professionals to showcase their work. Our platform includes SEO optimization, integrated contact forms, and e-commerce capabilities. With built-in analytics, you can track visitor engagement and optimize content to maximize opportunities and grow your professional presence online.",
-    image: "/images/portfolio-template.jpg",
-    themeColor: "from-purple-500 to-purple-300",
+      "Portfolio Pro offers modern, responsive templates designed for creative professionals to showcase their work. Our platform includes SEO optimization, integrated contact forms, and e-commerce capabilities.",
+    image: "/api/placeholder/400/200",
+    themeColor: "from-blue-500 to-blue-600",
     features: ["Custom Templates", "SEO Optimization", "E-commerce Integration", "Visitor Analytics"]
   }
 ];
@@ -59,6 +59,11 @@ export default function ProductShowcase() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+      <Head>
+        <title>Our Products | Innovative Digital Solutions</title>
+        <meta name="description" content="Discover our cutting-edge mobile and web applications designed to transform your business and personal experiences" />
+      </Head>
+      
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -138,7 +143,7 @@ export default function ProductShowcase() {
               onClick={() => setActiveCategory("mobile")}
               className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${
                 activeCategory === "mobile"
-                  ? "bg-green-500 text-white shadow-md"
+                  ? "bg-blue-500 text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow-sm"
               }`}
             >
@@ -148,7 +153,7 @@ export default function ProductShowcase() {
               onClick={() => setActiveCategory("web")}
               className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${
                 activeCategory === "web"
-                  ? "bg-purple-500 text-white shadow-md"
+                  ? "bg-blue-500 text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow-sm"
               }`}
             >
@@ -165,14 +170,15 @@ export default function ProductShowcase() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow flex flex-col"
               >
-                <div className={`h-48 bg-gradient-to-r ${product.themeColor} relative overflow-hidden`}>
+                {/* Image container with fixed height */}
+                <div className={`h-52 bg-gradient-to-r ${product.themeColor} relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black opacity-20"></div>
                   <div className="absolute bottom-4 left-5">
                     <span className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
                       product.category === "mobile" 
-                        ? "bg-green-100 text-green-800" 
+                        ? "bg-blue-100 text-blue-800" 
                         : "bg-blue-100 text-blue-800"
                     }`}>
                       {product.category === "mobile" ? "Mobile App" : "Web App"}
@@ -184,8 +190,9 @@ export default function ProductShowcase() {
                   </div>
                 </div>
                 
-                <div className="p-6">
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                {/* Content container that grows to fill space */}
+                <div className="p-6 flex flex-col flex-grow">
+                  <p className="text-gray-600 mb-6 leading-relaxed flex-grow">
                     {product.description}
                   </p>
                   
@@ -200,10 +207,12 @@ export default function ProductShowcase() {
                     </div>
                   </div>
                   
-                  <div className="flex space-x-4">
-                    <button className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
-                      Learn More
-                    </button>
+                  <div className="flex space-x-4 mt-auto">
+                    <Link href={`/products/${product.id}`} className="flex-1">
+                      <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
+                        Learn More
+                      </button>
+                    </Link>
                     <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition">
                       Demo
                     </button>
