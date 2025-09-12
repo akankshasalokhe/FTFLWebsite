@@ -24,7 +24,7 @@ const products = [
     name: "Fetch True",
     type: "B2B",
     description:
-      "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration.",
+      "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration. Boost productivity with our intuitive platform and seamless integrations with other tools and services.",
     images: ["/s1.jpeg", "/images/staybea.jpg"],
     themeColor: "from-blue-400 to-blue-200",
     features: ["Data Integration", "Collaboration Tools", "Custom Workflows", "Real-time Analytics"]
@@ -34,7 +34,7 @@ const products = [
     name: "StayBea",
     type: "Dating App",
     description:
-      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections.",
+      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections. Enjoy features like AI matchmaking, video profiles, and secure messaging. Plan and join events to meet new people in a safe environment.",
     images: ["/images/staybea.jpg", "/s1.jpeg"],
     themeColor: "from-blue-400 to-blue-200",
     features: ["AI Matchmaking", "Video Profiles", "Secure Messaging", "Event Integration"]
@@ -84,7 +84,7 @@ export default function ProductDetails() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6  h-120"
+          className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6  hover:shadow-2xl transition-shadow"
         >
           {/* Image Carousel */}
           <div className="h-64 sm:h-80 md:h-96 w-full relative mx-auto max-w-md">
