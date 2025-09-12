@@ -68,6 +68,7 @@ const TechStack = () => {
     ],
   };
 
+
   return (
     <section
       ref={ref}
@@ -182,3 +183,8 @@ const TechStack = () => {
 };
 
 export default TechStack;
+
+
+
+
+

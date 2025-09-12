@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { 
-  FaTimes, FaBars, FaLaptopCode, FaMobileAlt, FaServer, 
-  FaPalette, FaPenNib, FaVideo, FaFilm 
+import {
+  FaTimes, FaBars, FaLaptopCode, FaMobileAlt, FaServer,
+  FaPalette, FaPenNib, FaVideo, FaFilm
 } from "react-icons/fa";
 import styles from "./Navbar.module.css";
 
@@ -14,13 +14,21 @@ const servicesData = [
   {
     id: "development",
     name: "Development",
+    // subServices: [
+    //   { name: "Web Development", href: "/services/web-development", icon: <FaLaptopCode /> },
+    //   { name: "App Development", href: "/services/app", icon: <FaMobileAlt /> },
+    //   { name: "API Integration", href: "/services/api", icon: <FaServer /> },
+    //   { name: "Backend Services", href: "/services/backend", icon: <FaServer /> },
+    //   { name: "Frontend Services", href: "/services/frontend", icon: <FaLaptopCode /> },
+    // ],
     subServices: [
-      { name: "Web Development", href: "/services/web-development", icon: <FaLaptopCode /> },
-      { name: "App Development", href: "/services/app", icon: <FaMobileAlt /> },
-      { name: "API Integration", href: "/services/api", icon: <FaServer /> },
-      { name: "Backend Services", href: "/services/backend", icon: <FaServer /> },
-      { name: "Frontend Services", href: "/services/frontend", icon: <FaLaptopCode /> },
+      { name: "Web Development (V1)", href: "/services/web-development?design=v1", icon: <FaLaptopCode /> },
+      { name: "Web Development (V2)", href: "/services/web-development?design=v2", icon: <FaLaptopCode /> },
+      { name: "Web Development (V3)", href: "/services/web-development?design=v3", icon: <FaLaptopCode /> },
+      { name: "Web Development (V4)", href: "/services/web-development?design=v4", icon: <FaLaptopCode /> },
+      { name: "Web Development (V5)", href: "/services/web-development?design=v5", icon: <FaLaptopCode /> },
     ],
+
   },
   {
     id: "design",
@@ -121,9 +129,8 @@ const Navbar = () => {
               </span>
 
               <div
-                className={`${styles.dropdownContent} ${
-                  openDropdown === "services" ? styles.dropdownActive : ""
-                }`}
+                className={`${styles.dropdownContent} ${openDropdown === "services" ? styles.dropdownActive : ""
+                  }`}
               >
                 <div className={styles.dropdownTwoColumns}>
                   {/* Left Column - Main Services */}
@@ -151,7 +158,7 @@ const Navbar = () => {
                               <span className={styles.subIcon}>{sub.icon}</span>
                               <span className={styles.subServiceName}>{sub.name}</span>
                             </div>
-                           
+
                           </Link>
                         ))}
                     </div>
