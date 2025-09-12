@@ -10,7 +10,7 @@ const products = [
     type: "E-commerce",
     description:
       "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
-    image: "/s4.jpeg",
+    image: "/Fetch True Modules mockup (2).png",
     themeColor: "from-blue-400 to-blue-200",
     features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"]
   },
@@ -116,9 +116,9 @@ export default function ProductDetails() {
                   Learn More
                 </button>
               </Link>
-              <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition text-sm sm:text-base">
+              {/* <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition text-sm sm:text-base">
                 Contact Us
-              </button>
+              </button> */}
             </div>
           </div>
         </motion.div>
