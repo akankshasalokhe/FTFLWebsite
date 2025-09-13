@@ -141,7 +141,7 @@ const WhyChooseUs = () => {
           className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
         >
           Why Choose{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">
             Us
           </span>
         </motion.h2>
@@ -168,7 +168,7 @@ const WhyChooseUs = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="p-4 bg-white/10 backdrop-blur-md rounded-2xl hover:bg-gradient-to-r hover:from-blue-300 hover:to-pink-400 transition-all duration-500 shadow-md hover:shadow-xl"
+              className="p-4 bg-white/10 backdrop-blur-md rounded-2xl hover:bg-gradient-to-r hover:from-blue-300 hover:to-blue-400 transition-all duration-500 shadow-md hover:shadow-xl"
             >
               <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
                 {countUp[index]}
@@ -196,7 +196,7 @@ const WhyChooseUs = () => {
                 border: "2px solid transparent",
               }}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-br from-blue-600 to-pink-500 shadow-lg">
+              <div className="inline-flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-br from-blue-600 to-blue-500/50 shadow-lg">
                 {item.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
@@ -255,8 +255,8 @@ const WhyChooseUs = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <button className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-2xl transition-all duration-300 ease-out hover:ring-8 hover:ring-purple-300 hover:ring-opacity-50">
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-700 to-pink-700 rounded-full transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
+          <button className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium text-white bg-blue-400 rounded-full shadow-2xl transition-all duration-300 ease-out hover:ring-8 hover:ring-purple-300 hover:ring-opacity-50">
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-700 rounded-full transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
             <span className="relative flex items-center">
               Start Learning Today{" "}
               <FaArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />

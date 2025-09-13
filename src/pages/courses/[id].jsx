@@ -41,27 +41,31 @@ import {
   FaRocket,
   FaLightbulb,
   FaQuestionCircle,
+  FaRupeeSign,
+  FaUniversity,
 } from "react-icons/fa";
 
 // MASTER DATA
 const coursesData = [
   {
     id: 1,
-    title: "Web Development",
+    title: "Web Development Internship Program",
     image: "/Team.jpeg",
-    fullDescription: `Our comprehensive Web Development course is designed to take you from beginner to job-ready in just 4 weeks. You'll master the fundamentals of modern web development including HTML5, CSS3, JavaScript, and React. Through hands-on projects and real-world applications, you'll learn to build responsive, interactive websites that stand out in today's competitive market.`,
-    duration: "4 weeks",
-    fee: "₹4,999",
-    originalFee: "₹9,999",
-    discount: "50% OFF",
-    internship: "Internship Letter + Placement Opportunity (POP)",
+    fullDescription: `Our comprehensive Web Development Internship Program is designed to take you from beginner to job-ready in just 4 weeks. This program combines intensive training with real-world project experience, followed by a guaranteed internship opportunity. You'll master the fundamentals of modern web development including HTML5, CSS3, JavaScript, and React while building a professional portfolio.`,
+    duration: "4 weeks training + 2 months internship",
+    fee: "9,999",
+    // Removed discount-related fields
+    internship: "Guaranteed Internship with Stipend",
+    education: "12th Pass or Graduation in any stream",
+    stipend: "₹5,000 - ₹8,000 per month",
     outcomes: [
       "Build responsive websites from scratch",
       "Create reusable React components",
       "Connect to APIs and handle application state",
       "Deploy applications to production environments",
       "Implement modern UI/UX principles",
-      "Use Git for version control and collaboration",
+      "Gain real work experience through internship",
+      "Receive internship certificate and recommendation letter",
     ],
     skills: [
       { name: "HTML5", icon: <FaCode className="text-orange-500" /> },
@@ -112,24 +116,24 @@ const coursesData = [
       },
       {
         step: 4,
-        title: "Week 4: Project & Deployment",
+        title: "Week 4: Project & Deployment + Internship Preparation",
         icon: <FaCloud className="text-blue-300" />,
         topics: [
           "Capstone project (SPA with API)",
           "Git workflow & code reviews",
           "Deploy on Vercel/Netlify",
-          "Performance optimization",
-          "Adding custom domains and HTTPS",
+          "Internship onboarding process",
+          "Professional communication training",
         ],
       },
     ],
     icon: <FaLaptopCode className="text-2xl text-blue-600" />,
-    projects: "4+ Real Projects",
-    mentorship: "1:1 Mentorship Sessions",
+    projects: "4+ Real Projects + Live Internship Project",
+    mentorship: "1:1 Mentorship Sessions + Workplace Mentoring",
     level: "Beginner to Advanced",
-    schedule: "Weekdays: 7PM-9PM | Weekend: 10AM-1PM",
-    nextBatch: "15 January 2024",
-    mode: "Online Live Classes",
+    schedule: "Weekdays: 9:30 PM-6:30 PM | Weekend: closed",
+    // nextBatch: "15 January 2024",
+    mode: "Online & Offline (Hybrid Mode Available)",
     placementRate: "92%",
     averagePackage: "₹6-10 LPA",
     reviews: [
@@ -137,57 +141,62 @@ const coursesData = [
         name: "Rahul Sharma",
         role: "Frontend Developer at TechCorp",
         rating: 5,
-        comment: "This course completely transformed my career. The projects were industry-relevant and the instructors were amazing!",
+        comment: "The internship program gave me real work experience that helped me secure a job immediately after completion!",
         avatar: "/avatar1.jpg",
       },
       {
         name: "Priya Patel",
         role: "Web Developer",
         rating: 5,
-        comment: "The hands-on approach helped me build a strong portfolio that got me multiple job offers.",
+        comment: "Not only did I learn web development, but the stipend helped me support myself during the training period.",
         avatar: "/avatar2.jpg",
       },
     ],
-    instructors: [
-      {
-        name: "Amit Kumar",
-        role: "Senior Web Developer",
-        experience: "8+ years",
-        bio: "Former lead developer at Amazon with expertise in React and Node.js",
-        linkedin: "https://linkedin.com",
-        avatar: "/instructor1.jpg",
-      },
-      {
-        name: "Neha Singh",
-        role: "UI/UX Specialist",
-        experience: "6+ years",
-        bio: "Worked with multiple startups to build beautiful and functional web applications",
-        linkedin: "https://linkedin.com",
-        avatar: "/instructor2.jpg",
-      },
-    ],
-    placementPartners: [
-      { name: "TechMahindra", logo: "/company1.png" },
-      { name: "Infosys", logo: "/company2.png" },
-      { name: "Wipro", logo: "/company3.png" },
-      { name: "HCL", logo: "/company4.png" },
-      { name: "TCS", logo: "/company5.png" },
-    ],
+    // instructors: [
+    //   {
+    //     name: "Amit Kumar",
+    //     role: "Senior Web Developer",
+    //     experience: "8+ years",
+    //     bio: "Former lead developer at Amazon with expertise in React and Node.js",
+    //     linkedin: "https://linkedin.com",
+    //     avatar: "/instructor1.jpg",
+    //   },
+    //   {
+    //     name: "Neha Singh",
+    //     role: "UI/UX Specialist",
+    //     experience: "6+ years",
+    //     bio: "Worked with multiple startups to build beautiful and functional web applications",
+    //     linkedin: "https://linkedin.com",
+    //     avatar: "/instructor2.jpg",
+    //   },
+    // ],
+    // placementPartners: [
+    //   { name: "TechMahindra", logo: "/company1.png" },
+    //   { name: "Infosys", logo: "/company2.png" },
+    //   { name: "Wipro", logo: "/company3.png" },
+    //   { name: "HCL", logo: "/company4.png" },
+    //   { name: "TCS", logo: "/company5.png" },
+    // ],
     faqs: [
       {
-        question: "Do I need any prior coding experience?",
-        answer: "No, this course is designed for beginners. We start from the very basics and gradually move to advanced concepts.",
-        icon: <FaQuestionCircle className="text-blue-500" />
+        question: "What are the education requirements for this program?",
+        answer: "You need to have completed at least 12th standard or be pursuing any graduation stream. No technical background is required.",
+        icon: <FaUniversity className="text-blue-500" />
       },
       {
-        question: "Will I get certificate after completion?",
-        answer: "Yes, you'll receive a certificate that is recognized by our hiring partners after successfully completing the course and projects.",
-        icon: <FaAward className="text-yellow-500" />
+        question: "Will I receive a stipend during the internship?",
+        answer: "Yes, based on your performance during the training period, you will receive a stipend ranging from ₹5,000 to ₹8,000 per month during the internship.",
+        icon: <FaMoneyBillWave className="text-green-500" />
       },
       {
-        question: "What if I miss a live class?",
-        answer: "All classes are recorded and available for you to watch later at your convenience.",
-        icon: <FaClock className="text-purple-500" />
+        question: "Can I choose between online and offline mode?",
+        answer: "Yes, we offer both online and offline options. You can choose the mode that works best for you.",
+        icon: <FaMapMarkerAlt className="text-purple-500" />
+      },
+      {
+        question: "Is the internship guaranteed after training?",
+        answer: "Yes, upon successful completion of the training program, you are guaranteed an internship placement with one of our partner companies.",
+        icon: <FaHandshake className="text-yellow-500" />
       },
     ],
     tools: [
@@ -724,7 +733,6 @@ export default function CourseDetails() {
               Courses / <span className="text-blue-600">{course.title}</span>
             </div>
           </div>
-          {/* <ShareCourse course={course} /> */}
         </div>
       </nav>
 
@@ -767,12 +775,12 @@ export default function CourseDetails() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <button
+              {/* <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700"
               >
                 Enroll Now
-              </button>
+              </button> */}
               <button className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition">
                 Download Syllabus
               </button>
@@ -808,11 +816,11 @@ export default function CourseDetails() {
           transition={{ delay: 0.1 }}
         >
           <div className="bg-green-100 p-3 rounded-lg">
-            <FaProjectDiagram className="text-green-600 text-xl" aria-hidden="true" />
+            <FaMoneyBillWave className="text-green-600 text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Projects</p>
-            <p className="font-semibold text-gray-800">{course.projects}</p>
+            <p className="text-sm text-gray-600">Stipend</p>
+            <p className="font-semibold text-gray-800">{course.stipend}</p>
           </div>
         </motion.div>
         
@@ -825,11 +833,11 @@ export default function CourseDetails() {
           transition={{ delay: 0.2 }}
         >
           <div className="bg-purple-100 p-3 rounded-lg">
-            <FaUsers className="text-purple-600 text-xl" aria-hidden="true" />
+            <FaGraduationCap className="text-purple-600 text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Mentorship</p>
-            <p className="font-semibold text-gray-800">{course.mentorship}</p>
+            <p className="text-sm text-gray-600">Education</p>
+            <p className="font-semibold text-gray-800">{course.education}</p>
           </div>
         </motion.div>
         
@@ -842,11 +850,11 @@ export default function CourseDetails() {
           transition={{ delay: 0.3 }}
         >
           <div className="bg-yellow-100 p-3 rounded-lg">
-            <FaCertificate className="text-yellow-600 text-xl" aria-hidden="true" />
+            <FaMapMarkerAlt className="text-yellow-600 text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Level</p>
-            <p className="font-semibold text-gray-800">{course.level}</p>
+            <p className="text-sm text-gray-600">Mode</p>
+            <p className="font-semibold text-gray-800">{course.mode}</p>
           </div>
         </motion.div>
       </section>
@@ -954,7 +962,7 @@ export default function CourseDetails() {
               >
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                   <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                  Learning Outcomes
+                  Program Benefits
                 </h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {course.outcomes.map((outcome, index) => (
@@ -1037,35 +1045,37 @@ export default function CourseDetails() {
               viewport={{ once: true }}
               variants={scaleIn}
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Course Summary</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-4">Program Summary</h3>
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Duration:</span>
-                  <span className="font-semibold">{course.duration}</span>
+                <div className="">
+                  <p className="text-gray-600">Duration:</p>
+                  <p className="font-semibold">{course.duration}</p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Projects:</span>
-                  <span className="font-semibold text-blue-600">{course.projects}</span>
+                  <span className="text-gray-600">Program Fee:</span>
+                  <span className="font-semibold text-blue-600 flex items-center">
+                    <FaRupeeSign size={12} /> {course.fee}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Mentorship:</span>
-                  <span className="font-semibold text-green-600">Included</span>
+                  <span className="text-gray-600">Stipend:</span>
+                  <span className="font-semibold text-green-600">{course.stipend}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Internship:</span>
-                  <span className="font-semibold text-green-600">Included</span>
+                <div className="">
+                  <p className="text-gray-600">Education:</p>
+                  <p className="font-semibold">{course.education}</p>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Level:</span>
-                  <span className="font-semibold">{course.level}</span>
+                <div className="">
+                  <p className="text-gray-600">Mode:</p>
+                  <p className="font-semibold">{course.mode}</p>
                 </div>
                 <div className="pt-4 border-t border-gray-200">
-                  <button 
+                  {/* <button 
                     onClick={() => setIsModalOpen(true)}
                     className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
                     Enroll Now
-                  </button>
+                  </button> */}
                   <p className="text-center text-sm text-gray-500 mt-3">Limited seats available</p>
                 </div>
               </div>
@@ -1079,15 +1089,14 @@ export default function CourseDetails() {
               variants={scaleIn}
               transition={{ delay: 0.1 }}
             >
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Upcoming Batch</h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                   <FaRegCalendarAlt className="text-blue-500" />
                   <div>
-                    <p className="text-sm text-gray-600">Start Date</p>
+                    <p className="text-sm text-gray-600">Next Batch</p>
                     <p className="font-semibold text-gray-800">{course.nextBatch}</p>
                   </div>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-3">
                   <FaClock className="text-blue-500" />
                   <div>
@@ -1114,7 +1123,7 @@ export default function CourseDetails() {
               transition={{ delay: 0.2 }}
             >
               <h3 className="text-lg font-bold text-blue-800 mb-3">Need help deciding?</h3>
-              <p className="text-blue-700 mb-4">Talk to our course counsellor</p>
+              <p className="text-blue-700 mb-4">Talk to our program counsellor</p>
               <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition w-full">
                 Request a Callback
               </button>
@@ -1132,7 +1141,7 @@ export default function CourseDetails() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            Ready to Start Your Journey?
+            Ready to Start Your Career?
           </motion.h3>
           <motion.p 
             className="opacity-90 mb-6 max-w-2xl mx-auto"
@@ -1141,7 +1150,7 @@ export default function CourseDetails() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Enroll today, complete the modules, receive your internship certificate,
+            Enroll today, complete the training, receive guaranteed internship with stipend,
             and unlock placement opportunities with our partner companies.
           </motion.p>
           <motion.div 
@@ -1151,12 +1160,12 @@ export default function CourseDetails() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <button
+            {/* <button
               onClick={() => setIsModalOpen(true)}
               className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-xl shadow hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
             >
               Enroll Now
-            </button>
+            </button> */}
             <button className="border border-white text-white font-semibold px-8 py-3 rounded-xl shadow hover:bg-white hover:text-blue-700 transition">
               Schedule a Mentor Call
             </button>
@@ -1166,13 +1175,13 @@ export default function CourseDetails() {
       </section>
 
       {/* Enrollment Modal */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         <EnrollmentModal 
           course={course} 
           isOpen={isModalOpen} 
           onClose={() => setIsModalOpen(false)} 
         />
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 }
