@@ -2,56 +2,74 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import Slider from "react-slick";
 
 const products = [
   {
     id: 1,
     name: "LifelineCart",
-    type: "E-commerce Website",
+    type: "E-commerce",
     description:
-      "Lifeline Cart is a cutting-edge e-commerce platform offering fast, secure, and user-friendly shopping experiences.",
-    image: "/s4.jpeg", // Update with your actual image path
+      "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
+    images: [
+      "/Fetch True Modules mockup (2).png",
+      "/images/staybea.jpg",
+      "/s1.jpeg"
+    ],
     themeColor: "from-blue-400 to-blue-200",
+    features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"]
   },
   {
     id: 2,
     name: "Fetch True",
-    type: "Business App",
+    type: "B2B",
     description:
-      "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration.",
-    image: "/s1.jpeg", // Update with your actual image path
-    themeColor: "from-green-400 to-green-200",
+      "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration. Boost productivity with our intuitive platform and seamless integrations with other tools and services.",
+    images: ["/s1.jpeg", "/images/staybea.jpg"],
+    themeColor: "from-blue-400 to-blue-200",
+    features: ["Data Integration", "Collaboration Tools", "Custom Workflows", "Real-time Analytics"]
   },
   {
     id: 3,
     name: "StayBea",
     type: "Dating App",
     description:
-      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections.",
-    image: "/images/staybea.jpg", // Update with your actual image path
-    themeColor: "from-pink-400 to-pink-200",
+      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections. Enjoy features like AI matchmaking, video profiles, and secure messaging. Plan and join events to meet new people in a safe environment.",
+    images: ["/images/staybea.jpg", "/s1.jpeg"],
+    themeColor: "from-blue-400 to-blue-200",
+    features: ["AI Matchmaking", "Video Profiles", "Secure Messaging", "Event Integration"]
   },
 ];
 
 export default function ProductDetails() {
   const [selectedProduct, setSelectedProduct] = useState(products[0]);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    arrows: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 py-10 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 py-6 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 sm:mb-10 bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500 animate-pulse">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-6 sm:mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
           Explore Our Trending Products
         </h1>
 
         {/* Product Selector */}
-        <div className="flex justify-center space-x-2 sm:space-x-4 mb-8 sm:mb-10 flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
           {products.map((product) => (
             <button
               key={product.id}
               onClick={() => setSelectedProduct(product)}
-              className={`px-4 py-2 sm:px-5 sm:py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
                 selectedProduct.id === product.id
-                  ? "bg-gradient-to-r from-purple-400 to-blue-400 text-white"
+                  ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
                   : "bg-white text-gray-700 hover:bg-gray-100"
               }`}
             >
@@ -66,81 +84,55 @@ export default function ProductDetails() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className={`rounded-3xl shadow-lg overflow-hidden grid md:grid-cols-2 gap-6 bg-white p-4 sm:p-6`}
+          className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6  hover:shadow-2xl transition-shadow"
         >
-          <div className="h-64 sm:h-80 md:h-96 w-full relative">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="h-full w-full relative"
-            >
-              <Image
-                src={selectedProduct.image}
-                alt={selectedProduct.name}
-                fill
-                className="object-cover rounded-xl "
-              />
-            </motion.div>
+          {/* Image Carousel */}
+          <div className="h-64 sm:h-80 md:h-96 w-full relative mx-auto max-w-md">
+            <Slider {...settings}>
+              {selectedProduct.images.map((img, i) => (
+                <div key={i} className="h-64 sm:h-80 md:h-96 relative">
+                  <Image
+                    src={img}
+                    alt={`${selectedProduct.name} ${i}`}
+                    fill
+                    className="object-contain rounded-xl"
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
 
+          {/* Product Info */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-900">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-gray-900">
               {selectedProduct.name}
             </h2>
-            <p className="text-lg font-semibold text-purple-500 mb-2">
+            <p className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
               {selectedProduct.type}
             </p>
-            <p className="text-gray-600 leading-relaxed mb-6">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
               {selectedProduct.description}
             </p>
+            <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
+            <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
+              {selectedProduct.features.map((feature, index) => (
+                <li key={index} className="flex items-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span className="text-sm sm:text-base text-gray-700">{feature}</span>
+                </li>
+              ))}
+            </ul>
 
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link href={`/products/${selectedProduct.id}`}>
-                <button className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg shadow-md hover:scale-105 transition-transform">
+                <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform text-sm sm:text-base">
                   Learn More
                 </button>
               </Link>
-              <button className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg shadow hover:bg-gray-300 transition">
-                Contact Us
-              </button>
             </div>
           </div>
-        </motion.div>
-
-        {/* CTA Button */}
-        <motion.div
-          className="mt-12 sm:mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <Link href="/products" passHref>
-            <motion.button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-lg font-semibold shadow-lg inline-flex items-center"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 8px 20px rgba(37, 99, 235, 0.4)",
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Explore All Products
-              <svg
-                className="w-5 h-5 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                ></path>
-              </svg>
-            </motion.button>
-          </Link>
         </motion.div>
       </div>
     </div>

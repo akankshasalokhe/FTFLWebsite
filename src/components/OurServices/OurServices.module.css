@@ -1,23 +1,27 @@
-/* Services.module.css */
 .services {
-  padding: 80px 0;
-  background: linear-gradient(to bottom, #f7fbff, #e6f1ff);
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   position: relative;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1.5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .sectionTitle {
-  text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c5282;
+  color: #2d3748;
   margin-bottom: 1rem;
   position: relative;
+  display: inline-block;
 }
 
 .sectionTitle::after {
@@ -28,83 +32,170 @@
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: #63b3ed;
+  background: linear-gradient(90deg, #4361ee, #3a0ca3);
   border-radius: 2px;
 }
 
 .sectionSubtitle {
-  text-align: center;
   font-size: 1.1rem;
-  color: #4a5568;
-  margin-bottom: 60px;
+  color: #718096;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 .card {
-  position: relative;
-  height: 300px;
+  background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  height: 100%;
+}
+
+.card:hover, .card.active {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .imageContainer {
   position: relative;
+  height: 200px;
   width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
 
 .image {
   object-fit: cover;
-  opacity: 0.7; /* Reduced opacity as requested */
+  transition: transform 0.5s ease;
 }
 
-.titleOverlay {
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 0.8;
+}
+
+.icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(99, 179, 237, 0.3); /* Soft blue overlay */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
-  color: white;
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.action {
+  margin-top: auto;
+}
+
+.learnMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4361ee;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.learnMoreBtn:hover {
+  color: #3a0ca3;
+  gap: 0.75rem;
+}
+
+.cta {
   text-align: center;
-  padding: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Optional: Add a subtle hover effect for better user experience */
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+.cta p {
+  font-size: 1.25rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .cardsContainer {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.ctaButton {
+  background: linear-gradient(90deg, #4361ee, #3a0ca3);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
 }
 
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .services {
-    padding: 60px 0;
+    padding: 3rem 0;
   }
   
   .sectionTitle {
@@ -113,33 +204,10 @@
   
   .cardsContainer {
     grid-template-columns: 1fr;
-    max-width: 500px;
-    margin: 0 auto;
+    gap: 1.5rem;
   }
   
-  .card {
-    height: 250px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 15px;
-  }
-  
-  .sectionTitle {
-    font-size: 1.8rem;
-  }
-  
-  .sectionSubtitle {
-    font-size: 1rem;
-  }
-  
-  .card {
-    height: 220px;
-  }
-  
-  .title {
-    font-size: 1.5rem;
+  .imageContainer {
+    height: 180px;
   }
 }

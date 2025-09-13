@@ -105,7 +105,7 @@ const InternshipProcess = () => {
         </motion.div>
 
         {/* Progress indicator for mobile */}
-        <div className="md:hidden flex justify-center mb-8">
+        {/* <div className="md:hidden flex justify-center mb-8">
           <div className="flex space-x-2 bg-white/10 backdrop-blur-md rounded-full p-2">
             {steps.map((step) => (
               <button
@@ -119,12 +119,12 @@ const InternshipProcess = () => {
               ></button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Timeline */}
         <div className="relative">
           {/* Animated connecting line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-indigo-500 to-cyan-500 transform md:-translate-x-1/2 rounded-full overflow-hidden">
+          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-indigo-500 to-cyan-500 transform md:-translate-x-1/2 rounded-full overflow-hidden">
             <motion.div
               className="h-full w-full bg-gradient-to-b from-cyan-400 to-blue-600"
               initial={{ scaleY: 0 }}
@@ -134,7 +134,7 @@ const InternshipProcess = () => {
             />
           </div>
 
-          <div className="space-y-14 md:space-y-20">
+          <div className="space-y-10 md:space-y-0">
             {steps.map((step, index) => (
               <motion.div
                 key={step.id}

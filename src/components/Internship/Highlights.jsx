@@ -32,12 +32,12 @@ const InternshipHighlights = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50 px-6 overflow-hidden">
+    <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-lavender-50 px-6 overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-      
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
+      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
+      <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-4000"></div>
+
       <div className="max-w-7xl mx-auto text-center relative z-10">
         {/* Section Heading with Animation */}
         <motion.h2
@@ -45,9 +45,9 @@ const InternshipHighlights = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
+          className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">
             Internship & Career Opportunities
           </span>
         </motion.h2>
@@ -57,7 +57,7 @@ const InternshipHighlights = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="text-gray-700 text-lg mb-12 max-w-3xl mx-auto"
+          className="text-gray-600 text-lg mb-12 max-w-3xl mx-auto"
         >
           Our program goes beyond just learning. With internship letters,
           hands-on projects, and guaranteed placement opportunities in our
@@ -79,12 +79,12 @@ const InternshipHighlights = () => {
               }}
               className="group relative"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
-              <div className="relative bg-white rounded-2xl p-6 h-full border border-gray-100 shadow-md group-hover:shadow-xl transition-all duration-300">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-5 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-300 to-lavender-300 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
+              <div className="relative bg-white rounded-2xl p-6 h-full border border-gray-100 shadow-sm group-hover:shadow-md transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-5 rounded-xl bg-gradient-to-br from-blue-400 to-lavender-400 shadow-md">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">{item.title}</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-500 transition-colors">{item.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
               </div>
             </motion.div>
@@ -103,7 +103,7 @@ const InternshipHighlights = () => {
             href="#courses"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
+            className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
             Start Your Internship Journey
             <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
