@@ -78,7 +78,7 @@ const HeroSection = () => {
           ))}
         </Slider>
         {/* Blue overlay for consistent theme */}
-        <div className="absolute inset-0 bg-blue-700/50"></div>
+        <div className="absolute inset-0 bg-blue-500/50"></div>
       </div>
 
       {/* Hero Content */}

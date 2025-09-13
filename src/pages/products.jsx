@@ -7,7 +7,7 @@ function products() {
     <div>  <div className="relative w-full h-64 sm:h-80 md:h-[400px] lg:h-[450px]">
       {/* Background Banner Image */}
       <Image
-        src="/images/our-products-banner.jpg" 
+        src="/download (4).jpeg" 
         alt="Our Products Banner"
         fill
         priority

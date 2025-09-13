@@ -12,26 +12,26 @@ const products = [
     type: "E-commerce Platform",
     category: "web",
     description: "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations.",
-    image: "/images/ecommerce-platform.jpg",
-    themeColor: "from-blue-500 to-blue-300",
+    image: "/placeholder.jpg",
+    themeColor: "from-blue-500 to-blue-600",
     features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"],
     detailedDescription: "LifelineCart revolutionizes online shopping with its intuitive interface and powerful backend. Our platform handles everything from inventory tracking to customer relationship management, all while providing actionable insights through advanced analytics.",
     technologies: ["React", "Node.js", "MongoDB", "Stripe API", "AWS"],
     additionalImages: [
-      "/images/ecommerce-detail-1.jpg",
-      "/images/ecommerce-detail-2.jpg",
-      "/images/ecommerce-detail-3.jpg"
+      "/placeholder.jpg",
+      "/placeholder.jpg",
+      "/placeholder.jpg"
     ],
-    overviewImage: "/images/ecommerce-overview.jpg",
-    featuresImage: "/images/ecommerce-features.jpg",
-    technologiesImage: "/images/ecommerce-tech.jpg",
+    overviewImage: "/placeholder.jpg",
+    featuresImage: "/placeholder.jpg",
+    technologiesImage: "/placeholder.jpg",
     challenges: "Creating a seamless user experience across all devices while maintaining high performance with large product catalogs.",
     solutions: "Implemented lazy loading, optimized image delivery, and used a CDN to ensure fast loading times regardless of device or location.",
     results: "35% increase in conversion rate and 50% reduction in cart abandonment for our clients.",
     mockups: [
-      { type: "Desktop", image: "/images/ecommerce-desktop.jpg" },
-      { type: "Mobile", image: "/images/ecommerce-mobile.jpg" },
-      { type: "Tablet", image: "/images/ecommerce-tablet.jpg" }
+      { type: "Desktop", image: "/placeholder.jpg" },
+      { type: "Mobile", image: "/placeholder.jpg" },
+      { type: "Tablet", image: "/placeholder.jpg" }
     ],
     futureEnhancements: [
       "Voice search integration for hands-free shopping",
@@ -39,9 +39,100 @@ const products = [
       "Blockchain for supply chain transparency",
       "AI-powered personal shopping assistant",
       "Social commerce integration"
+    ],
+    testimonials: [
+      {
+        quote: "LifelineCart transformed our online business. The AI recommendations alone increased our sales by 27% in the first quarter.",
+        author: "Sarah Johnson",
+        position: "CEO, FashionHub"
+      },
+      {
+        quote: "Implementation was seamless and the support team was exceptional. Our customers love the new shopping experience.",
+        author: "Michael Chen",
+        position: "CTO, TechGadgets"
+      }
+    ],
+    stats: [
+      { value: "35%", label: "Increase in Conversion" },
+      { value: "50%", label: "Reduction in Cart Abandonment" },
+      { value: "99.9%", label: "Uptime" },
+      { value: "2.1s", label: "Avg. Load Time" }
+    ],
+    timeline: [
+      { phase: "Discovery & Planning", duration: "2 weeks" },
+      { phase: "UI/UX Design", duration: "3 weeks" },
+      { phase: "Development", duration: "10 weeks" },
+      { phase: "Testing & QA", duration: "2 weeks" },
+      { phase: "Launch", duration: "1 week" }
+    ],
+    team: [
+      { name: "Project Manager", count: 1 },
+      { name: "UI/UX Designers", count: 2 },
+      { name: "Frontend Developers", count: 3 },
+      { name: "Backend Developers", count: 2 },
+      { name: "QA Specialists", count: 2 }
     ]
   },
-  // Other products would follow the same structure
+  {
+    id: 4,
+    name: "FitTrack",
+    type: "Healthcare App",
+    category: "mobile",
+    description: "A comprehensive health monitoring application with real-time vitals tracking and doctor consultation features.",
+    image: "/placeholder.jpg",
+    themeColor: "from-blue-500 to-blue-600",
+    features: ["Vitals Monitoring", "Appointment Booking", "Health Reports", "Medication Reminders"],
+    detailedDescription: "HealthTrack Pro empowers users to take control of their health with intuitive tracking and professional medical insights.",
+    technologies: ["React Native", "Firebase", "Node.js", "WebRTC"],
+    additionalImages: [
+      "/placeholder.jpg",
+      "/placeholder.jpg"
+    ],
+    overviewImage: "/placeholder.jpg",
+    featuresImage: "/placeholder.jpg",
+    technologiesImage: "/placeholder.jpg",
+    challenges: "Ensuring HIPAA compliance while maintaining a seamless user experience.",
+    solutions: "Implemented end-to-end encryption and strict access controls while optimizing the UI for ease of use.",
+    results: "40% improvement in patient engagement and 30% reduction in missed appointments.",
+    mockups: [
+      { type: "Mobile", image: "/placeholder.jpg" },
+      { type: "Tablet", image: "/placeholder.jpg" }
+    ],
+    futureEnhancements: [
+      "Integration with wearable devices",
+      "AI-based health predictions",
+      "Telemedicine enhancements",
+      "Personalized health plans"
+    ],
+    testimonials: [
+      {
+        quote: "Our patients love the convenience of HealthTrack Pro. It's revolutionized how we deliver care.",
+        author: "Dr. Emily Rodriguez",
+        position: "Medical Director, City Hospital"
+      }
+    ],
+    stats: [
+      { value: "40%", label: "Patient Engagement" },
+      { value: "30%", label: "Fewer Missed Appointments" },
+      { value: "4.8/5", label: "User Rating" },
+      { value: "50k+", label: "Active Users" }
+    ],
+    timeline: [
+      { phase: "Research & Planning", duration: "3 weeks" },
+      { phase: "UI/UX Design", duration: "4 weeks" },
+      { phase: "Development", duration: "12 weeks" },
+      { phase: "Testing & Compliance", duration: "3 weeks" },
+      { phase: "Launch", duration: "2 weeks" }
+    ],
+    team: [
+      { name: "Project Manager", count: 1 },
+      { name: "UI/UX Designers", count: 2 },
+      { name: "Mobile Developers", count: 3 },
+      { name: "Backend Developers", count: 2 },
+      { name: "QA Specialists", count: 2 },
+      { name: "Compliance Experts", count: 1 }
+    ]
+  }
 ];
 
 // Animation variants
@@ -54,10 +145,16 @@ const staggerChildren = {
   visible: { transition: { staggerChildren: 0.1 } }
 };
 
+const scaleUp = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+};
+
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState("overview");
 
   // Find the product with the matching ID
   const product = products.find(p => p.id === parseInt(id));
@@ -91,9 +188,9 @@ export default function ProductDetail() {
       <motion.header 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white shadow-sm sticky top-0 z-20"
+        className=" shadow-sm sticky top-0 z-50"
       >
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between mt-20">
           <button 
             onClick={() => router.back()}
             className="flex items-center text-gray-600 hover:text-gray-800 transition-colors duration-300"
@@ -103,290 +200,553 @@ export default function ProductDetail() {
             </svg>
             Back to Products
           </button>
+          
+          {/* Navigation Tabs */}
+          {/* <div className="hidden md:flex space-x-1 bg-gray-100 p-1 rounded-lg">
+            {["overview", "features", "technology", "results", "gallery"].map(tab => (
+              <button
+                key={tab}
+                onClick={() => {
+                  setActiveTab(tab);
+                  document.getElementById(tab)?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
+                  activeTab === tab 
+                    ? `bg-white text-gray-800 shadow-sm ${product.category === "mobile" ? "text-green-800" : "text-blue-800"}` 
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
+          </div> */}
         </div>
       </motion.header>
 
-      {/* Image Slider Section */}
-      <section className="relative h-96 md:h-[500px] bg-gray-200">
-        <div className="relative h-full w-full overflow-hidden">
-          <Image
-            src={product.additionalImages[currentImageIndex]}
-            alt={`${product.name} - Image ${currentImageIndex + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="transition-opacity duration-300"
-          />
+      {/* Hero Section */}
+      <section className="relative py-16 md:py-24 bg-gradient-to-r from-gray-900 to-gray-800 text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute inset-0 bg-black"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
         </div>
         
-        {/* Navigation arrows */}
-        <button 
-          onClick={prevImage}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        
-        <button 
-          onClick={nextImage}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-        
-        {/* Image indicators */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {product.additionalImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Product Info Section */}
-      <section className="py-12 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Product Header */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            className={`p-8 mb-12 rounded-2xl bg-gradient-to-r ${product.themeColor} text-white shadow-lg`}
-          >
-            <div className="flex flex-wrap items-center justify-between">
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
-                <p className="text-lg opacity-90">{product.type}</p>
-              </div>
-              <span className={`inline-block mt-4 sm:mt-0 px-4 py-2 text-sm font-semibold rounded-full ${
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              className="text-center lg:text-left"
+            >
+              <span className={`inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full ${
                 product.category === "mobile" 
                   ? "bg-green-100 text-green-800" 
                   : "bg-blue-100 text-blue-800"
               }`}>
                 {product.category === "mobile" ? "Mobile App" : "Web App"}
               </span>
-            </div>
-          </motion.div>
-          
-          {/* Overview Section - Zig Zag Layout */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center"
-          >
-            <motion.div variants={fadeIn} className="order-2 lg:order-1">
-              <h2 className="text-2xl font-bold mb-4">Overview</h2>
-              <p className="text-gray-700 leading-relaxed mb-6">{product.detailedDescription}</p>
-              <div className="flex space-x-4">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-md">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{product.name}</h1>
+              <p className="text-xl opacity-90 mb-8">{product.type}</p>
+              <p className="text-gray-300 mb-8 leading-relaxed">{product.description}</p>
+              
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                <button className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
                   Live Demo
                 </button>
-                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-md">
+                <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                   View Case Study
                 </button>
               </div>
             </motion.div>
-            <motion.div variants={fadeIn} className="order-1 lg:order-2 relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
+            
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={scaleUp}
+              className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
+            >
               <Image
-                src={product.overviewImage}
-                alt={`${product.name} Overview`}
+                src={product.image || "/placeholder.jpg"}
+                alt={product.name}
                 layout="fill"
                 objectFit="cover"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
               />
             </motion.div>
-          </motion.div>
-          
-          {/* Key Features Section - Zig Zag Layout */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center"
-          >
-            <motion.div variants={fadeIn} className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src={product.featuresImage}
-                alt={`${product.name} Features`}
-                layout="fill"
-                objectFit="cover"
-              />
-            </motion.div>
-            <motion.div variants={fadeIn}>
-              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
-              <div className="grid grid-cols-1 gap-4">
-                {product.features.map((feature, index) => (
-                  <div key={index} className="flex items-start p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <div className={`bg-gradient-to-r ${product.themeColor} rounded-full p-2 mr-4 flex-shrink-0`}>
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-gray-700 text-lg">{feature}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      {product.stats && (
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+              {product.stats.map((stat, index) => (
+                <motion.div 
+                  key={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeIn}
+                  className="text-center p-6 rounded-xl bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <div className={`text-3xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
+                    {stat.value}
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-          
-          {/* Technologies Section - Zig Zag Layout */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center"
-          >
-            <motion.div variants={fadeIn}>
-              <h2 className="text-2xl font-bold mb-4">Technologies Used</h2>
-              <div className="flex flex-wrap gap-3 mb-6">
-                {product.technologies.map((tech, index) => (
-                  <span key={index} className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm shadow-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <p className="text-gray-600">We leverage cutting-edge technologies to deliver high-performance, scalable solutions tailored to your business needs.</p>
-            </motion.div>
-            <motion.div variants={fadeIn} className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src={product.technologiesImage}
-                alt={`${product.name} Technologies`}
-                layout="fill"
-                objectFit="cover"
-              />
-            </motion.div>
-          </motion.div>
-          
-          {/* Challenge & Solution Section */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden mb-16 p-8"
-          >
-            <h2 className="text-2xl font-bold mb-6">Project Details</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <motion.div variants={fadeIn}>
-                <div className="flex items-center mb-4">
-                  <div className="bg-red-100 p-3 rounded-full mr-4">
-                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-red-600">Challenge</h3>
-                </div>
-                <p className="text-gray-700 pl-14">{product.challenges}</p>
-              </motion.div>
-              <motion.div variants={fadeIn}>
-                <div className="flex items-center mb-4">
-                  <div className="bg-green-100 p-3 rounded-full mr-4">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-green-600">Solution</h3>
-                </div>
-                <p className="text-gray-700 pl-14">{product.solutions}</p>
-              </motion.div>
-            </div>
-          </motion.div>
-          
-          {/* Future Enhancements Section - Zig Zag Layout */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 items-center"
-          >
-            <motion.div variants={fadeIn}>
-              <h2 className="text-2xl font-bold mb-4">Future Enhancements</h2>
-              <div className="bg-blue-50 p-6 rounded-2xl shadow-sm">
-                <ul className="space-y-3">
-                  {product.futureEnhancements.map((enhancement, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg className="w-5 h-5 text-blue-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                      <span className="text-gray-700">{enhancement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-            <motion.div variants={fadeIn} className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
-                <div className="text-center p-8 text-white">
-                  <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <h3 className="text-xl font-bold mb-2">Innovation Roadmap</h3>
-                  <p>We're constantly evolving our products with cutting-edge features</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-          
-          {/* Mockups Section */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden mb-16 p-8"
-          >
-            <h2 className="text-2xl font-bold mb-6">App Mockups</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {product.mockups.map((mockup, index) => (
-                <motion.div key={index} variants={fadeIn} className="text-center group">
-                  <div className="relative h-64 bg-gray-100 rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <Image
-                      src={mockup.image}
-                      alt={`${product.name} ${mockup.type} Mockup`}
-                      layout="fill"
-                      objectFit="contain"
-                    />
-                  </div>
-                  <p className="mt-4 font-medium text-gray-800">{mockup.type} View</p>
+                  <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-          
-          {/* Results Section */}
+          </div>
+        </section>
+      )}
+
+      {/* Overview Section */}
+      <section id="overview" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
           <motion.div 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden p-8"
+            className="text-center mb-12"
           >
-            <h2 className="text-2xl font-bold mb-4">Results</h2>
-            <p className="text-gray-700 mb-6">{product.results}</p>
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-              <h3 className="text-lg font-semibold mb-2 text-blue-800">Interested in similar results?</h3>
-              <p className="text-blue-700 mb-4">Contact us to discuss how we can help with your project</p>
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-md">
+            <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+            >
+              <h3 className="text-2xl font-semibold mb-6">The Challenge</h3>
+              <p className="text-gray-700 leading-relaxed mb-8">{product.challenges}</p>
+              
+              <h3 className="text-2xl font-semibold mb-6">Our Solution</h3>
+              <p className="text-gray-700 leading-relaxed">{product.solutions}</p>
+            </motion.div>
+            
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={scaleUp}
+              className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
+            >
+              <Image
+                src={product.overviewImage || "/placeholder.jpg"}
+                alt={`${product.name} Overview`}
+                layout="fill"
+                objectFit="cover"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section id="features" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Key Features</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Discover the powerful features that make {product.name} stand out from the competition</p>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {product.features.map((feature, index) => (
+              <motion.div 
+                key={index}
+                variants={fadeIn}
+                className="flex items-start p-6 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className={`bg-gradient-to-r ${product.themeColor} rounded-full p-3 mr-4 flex-shrink-0`}>
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2">{feature}</h3>
+                  <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Technology Stack Section */}
+      <section id="technology" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Technology Stack</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We leverage cutting-edge technologies to deliver high-performance, scalable solutions</p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+            >
+              <div className="flex flex-wrap gap-4 mb-8">
+                {product.technologies.map((tech, index) => (
+                  <span key={index} className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-gray-200">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <p className="text-gray-700 mb-6">Our technology stack was carefully selected to ensure optimal performance, security, and scalability for {product.name}.</p>
+              
+              {/* Development Timeline */}
+              {product.timeline && (
+                <div className="mt-10">
+                  <h3 className="text-xl font-semibold mb-6">Development Timeline</h3>
+                  <div className="space-y-4">
+                    {product.timeline.map((phase, index) => (
+                      <div key={index} className="flex items-center">
+                        <div className={`w-3 h-3 rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"} mr-4`}></div>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">{phase.phase}</span>
+                            <span className="text-sm text-gray-500">{phase.duration}</span>
+                          </div>
+                          <div className="h-1 bg-gray-200 rounded-full mt-2">
+                            <div 
+                              className={`h-full rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"}`} 
+                              style={{ width: `${(index + 1) * 20}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+            
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={scaleUp}
+              className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
+            >
+              <Image
+                src={product.technologiesImage || "/placeholder.jpg"}
+                alt={`${product.name} Technologies`}
+                layout="fill"
+                objectFit="cover"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section id="results" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Measurable Results</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-sm mb-12"
+          >
+            <h3 className="text-2xl font-semibold mb-6">Impact Delivered</h3>
+            <p className="text-gray-700 text-lg leading-relaxed">{product.results}</p>
+          </motion.div>
+          
+          {/* Team Section */}
+          {product.team && (
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="mt-16"
+            >
+              <h3 className="text-2xl font-semibold mb-6 text-center">Project Team</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {product.team.map((role, index) => (
+                  <div key={index} className="text-center p-4 bg-gray-50 rounded-xl shadow-sm">
+                    <div className={`text-2xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
+                      {role.count}
+                    </div>
+                    <div className="text-gray-600 text-sm">{role.name}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      {product.testimonials && product.testimonials.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
+              <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            </motion.div>
+            
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              {product.testimonials.map((testimonial, index) => (
+                <motion.div 
+                  key={index}
+                  variants={fadeIn}
+                  className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <svg className="w-12 h-12 text-blue-500 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                  </svg>
+                  <p className="text-gray-700 mb-6 italic">"{testimonial.quote}"</p>
+                  <div>
+                    <div className="font-semibold">{testimonial.author}</div>
+                    <div className="text-gray-600 text-sm">{testimonial.position}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Gallery Section */}
+      <section id="gallery" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots and mockups of {product.name} across different devices</p>
+          </motion.div>
+          
+          {/* Image Slider */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden mb-8"
+          >
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={product.additionalImages[currentImageIndex] || "/placeholder.jpg"}
+                alt={`${product.name} - Image ${currentImageIndex + 1}`}
+                layout="fill"
+                objectFit="cover"
+                className="transition-opacity duration-300"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
+              />
+            </div>
+            
+            {/* Only show navigation if there are multiple images */}
+            {product.additionalImages.length > 1 && (
+              <>
+                <button 
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                
+                <button 
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                {/* Image indicators */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {product.additionalImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </motion.div>
+          
+          {/* Mockups */}
+          {/* {product.mockups && product.mockups.length > 0 && (
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+            >
+              <h3 className="text-2xl font-semibold mb-6 text-center">Device Mockups</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {product.mockups.map((mockup, index) => (
+                  <div key={index} className="text-center">
+                    <div className="relative h-64 mb-4">
+                      <Image
+                        src={mockup.image || "/placeholder.jpg"}
+                        alt={`${product.name} ${mockup.type} Mockup`}
+                        layout="fill"
+                        objectFit="contain"
+                        onError={(e) => {
+                          e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                        }}
+                      />
+                    </div>
+                    <div className="font-medium text-gray-700">{mockup.type} View</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )} */}
+        </div>
+      </section>
+
+      {/* Future Enhancements Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Future Enhancements</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We're constantly innovating and planning new features for {product.name}</p>
+          </motion.div>
+          
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {product.futureEnhancements.map((enhancement, index) => (
+              <motion.div 
+                key={index}
+                variants={fadeIn}
+                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className={`bg-gradient-to-r ${product.themeColor} rounded-full w-12 h-12 flex items-center justify-center mb-4`}>
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{enhancement}</h3>
+                <p className="text-gray-600 text-sm">Planned for future release based on user feedback and market trends.</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl font-bold mb-6">Ready to transform your business?</h2>
+            <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {product.name} can help you achieve your goals</p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
                 Contact Our Team
+              </button>
+              <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+                Request a Demo
               </button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="py-8 bg-gray-100 text-center text-gray-600">
+        <div className="max-w-7xl mx-auto px-4">
+          <p>© {new Date().getFullYear()} All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
