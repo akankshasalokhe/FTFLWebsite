@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
@@ -52,6 +52,7 @@ const Navbar = () => {
 
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
+    const navRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -66,6 +67,21 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        servicesExpanded &&
+        navRef.current &&
+        !navRef.current.contains(event.target)
+      ) {
+        setServicesExpanded(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [servicesExpanded]);
+
   const toggleServices = () => {
     setServicesExpanded(!servicesExpanded);
   };
@@ -74,13 +90,14 @@ const Navbar = () => {
     setIsOpen(false);
     setServicesExpanded(false);
     setSelectedService(servicesData[0].id);
+
   };
 
   return (
     <>
       {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
 
-      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""} ${servicesExpanded ? styles.servicesExpanded : ""}`}>
+      <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""} ${servicesExpanded ? styles.servicesExpanded : ""}`}>
         <div className={styles.navContainer}>
           {/* Logo */}
           <Link href="/" className={styles.logo} onClick={closeMenu}>
@@ -105,13 +122,13 @@ const Navbar = () => {
             {/* Services Item */}
             <li className={styles.servicesItem}>
               <span
-                onClick={toggleServices}
+                onMouseEnter={toggleServices}
                 className={`${isActive("/services") ? styles.activeLink : ""} ${styles.servicesTrigger}`}
               >
                 Services
-                <span className={styles.dropdownArrow}>
+                {/* <span className={styles.dropdownArrow}>
                   {servicesExpanded ? "▲" : "▼"}
-                </span>
+                </span> */}
               </span>
 
               {/* Mobile Services Dropdown */}

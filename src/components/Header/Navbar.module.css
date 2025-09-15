@@ -133,6 +133,9 @@
   width: 100%;
   gap: 30px;
 }
+.servicesContent:hover{
+  
+}
 
 /* Left Column - Main Services */
 .servicesLeft {
