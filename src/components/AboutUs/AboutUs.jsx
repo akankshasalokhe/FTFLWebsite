@@ -186,7 +186,7 @@ const AboutUsSection = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Founded in 2013, we've grown from a small team of developers to a
+              Founded in 2024, we've grown from a small team of developers to a
               full-service digital agency serving clients worldwide.
             </motion.p>
             <motion.button
@@ -230,7 +230,6 @@ const AboutUsSection = () => {
   variants={containerVariants}
 >
   {stats.map((stat, index) => {
-    // Different icons for each stat (you can adjust per your data)
     const icons = [
       "M13 16h-1v-4h-1m1-4h.01M12 6a9 9 0 110 18 9 9 0 010-18z", // Info / About
       "M5 13l4 4L19 7", // Check / Success

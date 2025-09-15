@@ -17,6 +17,11 @@
   padding: 8px 20px;
 }
 
+.navbar.servicesExpanded {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
 .navContainer {
   display: flex;
   justify-content: space-between;
@@ -100,52 +105,42 @@
   border-radius: 1px;
 }
 
-/* Dropdown */
-.dropdown {
-  position: relative;
-}
-
-.dropdownTrigger {
+/* Services Trigger */
+.servicesTrigger {
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 
-.dropdownContent {
-  display: none;
-  position: absolute;
-  top: 40px;
-  left: -80px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  padding: 20px;
-  /* min-width: 400px; */
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  z-index: 999;
+.dropdownArrow {
+  margin-left: 5px;
+  font-size: 12px;
 }
 
-.dropdown:hover .dropdownContent {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+/* Services Expanded Content */
+.servicesContent {
+  background: inherit;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding: 20px 0;
+  margin-top: 15px;
 }
 
-/* Two-column dropdown */
-.dropdownTwoColumns {
+.servicesContainer {
   display: flex;
-  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 30px;
 }
 
-/* Left Column */
-.leftColumn {
+/* Left Column - Main Services */
+.servicesLeft {
   display: flex;
   flex-direction: column;
   min-width: 200px;
   border-right: 1px solid #e2e8f0;
-  padding: 10px;
+  padding-right: 30px;
 }
 
 /* Service item */
@@ -154,8 +149,9 @@
   cursor: pointer;
   border-radius: 5px;
   transition: all 0.3s;
-  color: #0a1f44;
+  color: inherit;
   font-weight: 500;
+  text-align: left;
 }
 
 .serviceItem:hover,
@@ -164,61 +160,153 @@
   color: #fff;
 }
 
-/* Right Column */
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
+/* Right Column - Sub Services */
+.servicesRight {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Sub-services grid */
 .subServiceGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  gap: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  justify-items: center;
 }
 
 .subServiceItem {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 10px;
+  padding: 15px;
   background: #f1f5f9;
   border-radius: 8px;
   font-size: 15px;
-  color: #0a1f44;
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 220px;
+  text-align: center;
+}
+
+.subServiceItem:hover {
+  background: #0395de23;
+  color: #0284c7;
+}
+
+.subIcon {
+  font-size: 24px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subServiceContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.subServiceName {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Mobile Services Dropdown */
+.mobileServicesDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100vw;
+
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  z-index: 1001;
+  padding: 20px;
+  margin-left: -20px;
+}
+
+.mobileServicesContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.mobileServicesLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileServiceItem {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+  color: inherit;
+  font-weight: 500;
+  text-align: left;
+  background: #f1f5f9;
+}
+
+.mobileServiceItem:hover,
+.mobileServiceItem.selectedService {
+  background-color: #0284c7;
+  color: #fff;
+}
+
+.mobileServicesRight {
+  flex: 1;
+}
+
+.mobileSubServiceGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.mobileSubServiceItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-size: 15px;
+  color: inherit;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.subServiceItem:hover {
+.mobileSubServiceItem:hover {
   background: #0395de23;
-  color: #fff;
+  color: #0284c7;
 }
 
-.subIcon {
-  font-size: 30px;
-  left: 10px;
-  /* background: #f3f6f8; */
-  color: white;
-  border-radius: 80%;
-  /* padding: 20px; */
+.mobileSubIcon {
+  font-size: 20px;
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 40px;
-  min-height: 40px;
-}
-.subServiceContent {
-  display: flex;
-  align-items: center;
-  gap: 20px;
 }
 
-.subServiceName {
-  white-space: nowrap;
+.mobileSubServiceContent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobileSubServiceName {
+  font-size: 14px;
 }
 
 /* Mobile Overlay */
@@ -249,79 +337,35 @@
     top: -100%;
     left: 0;
     width: 100%;
-    height: auto;
+    height: 100vh;
     background: rgba(255,255,255,0.98);
     backdrop-filter: blur(10px);
     padding: 100px 20px 30px;
-    gap: 15px;
+    gap: 20px;
     transition: top 0.3s ease;
     z-index: 1000;
     color: #0a1f44;
     overflow-y: auto;
+    align-items:justify;
+    justify-content:space-between;
   }
 
   .navMenu.active {
     top: 0;
   }
+  
+  .servicesContent {
+    display: none;
+  }
 
-  .dropdownContent {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0;
-    min-width: unset;
+  .servicesItem {
     width: 100%;
-    box-shadow: none;
-    background: transparent;
-    transition: all 0.3s ease;
-  }
-
-  .dropdownActive {
-    max-height: 1500px;
-    opacity: 1;
-    padding: 15px 0;
-    margin-top: 10px;
-  }
-
-  .dropdownTwoColumns {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .leftColumn {
-    border-right: none;
-    padding: 0;
-    min-width: unset;
-  }
-
-  .serviceItem {
-    padding: 12px 15px;
-    background: #f1f5f9;
-    margin-bottom: 5px;
-  }
-
-  .rightColumn {
-    padding-left: 0;
-  }
-
-  .subServiceGrid {
-    grid-template-columns: 1fr; /* single column for mobile */
-  }
-
-  .subServiceItem {
-    font-size: 16px;
-  }
-
-  .subIcon {
-    font-size: 18px;
+    text-align: center;
   }
   
-  .dropdownArrow {
-    margin-left: 5px;
-    font-size: 12px;
+  .servicesTrigger {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -338,5 +382,17 @@
   .tagline {
     font-size: 9px;
     margin-left: 35px;
+  }
+  
+  .mobileServicesDropdown {
+    padding: 15px;
+  }
+  
+  .mobileSubServiceContent {
+    gap: 10px;
+  }
+  
+  .mobileSubServiceName {
+    font-size: 13px;
   }
 }
