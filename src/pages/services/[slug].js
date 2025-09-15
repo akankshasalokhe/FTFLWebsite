@@ -1,541 +1,440 @@
-// import React, { useState } from "react";
-// import styles from "../../styles/ServiceDetail.module.css";
-
-// const servicesData = {
-//   "web-development": {
-//     title: "Web Development",
-//     tagline: "We build scalable, responsive, and modern websites.",
-//     overview:
-//       "Our web development service helps businesses create secure, fast, and user-friendly websites. We specialize in custom solutions tailored to your unique goals.",
-//     features: [
-//       "Responsive Design",
-//       "SEO-Friendly",
-//       "Secure & Scalable",
-//       "Custom CMS Development",
-//       "E-commerce Solutions",
-//       "Performance Optimization",
-//       "API Integration",
-//       "Web Accessibility",
-//     ],
-//     process: [
-//       "Requirement Gathering",
-//       "UI/UX Design",
-//       "Development",
-//       "Testing & QA",
-//       "Deployment & Support",
-//     ],
-//     faq: [
-//       {
-//         q: "How long does it take to build a website?",
-//         a: "Usually 4–8 weeks depending on complexity.",
-//       },
-//       {
-//         q: "Do you provide maintenance?",
-//         a: "Yes, we offer ongoing support and maintenance packages.",
-//       },
-//       {
-//         q: "Can you integrate third-party APIs?",
-//         a: "Absolutely! We handle API integration seamlessly.",
-//       },
-//     ],
-//   },
-
-//   "app-development": {
-//     title: "App Development",
-//     tagline: "Build powerful iOS & Android applications.",
-//     overview:
-//       "We create mobile apps that deliver seamless user experiences across iOS and Android. From design to deployment, we handle everything.",
-//     features: [
-//       "iOS & Android Apps",
-//       "Cross-Platform Development",
-//       "High Performance",
-//       "UI/UX Focused",
-//       "App Maintenance",
-//       "Push Notifications",
-//       "App Store Deployment",
-//       "Analytics Integration",
-//     ],
-//     process: ["Wireframing", "Development", "Testing", "Launch", "Support"],
-//     faq: [
-//       {
-//         q: "Do you build apps for both iOS and Android?",
-//         a: "Yes, we build cross-platform apps using modern frameworks.",
-//       },
-//       {
-//         q: "Do you provide post-launch support?",
-//         a: "Yes, we offer support and updates after launch.",
-//       },
-//     ],
-//   },
-// };
-
-// export default function ServiceDetailPage({ service }) {
-//   const [activeFaq, setActiveFaq] = useState(null);
-
-//   if (!service) {
-//     return (
-//       <h2 className="text-center mt-10 text-red-600">Service not found</h2>
-//     );
-//   }
-
-//   return (
-//     <div className="max-w-7xl mx-auto space-y-16 px-4 md:px-0">
-//       {/* Hero Banner */}
-//       <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-lg">
-//         <img
-//           src="/images/banner.jpg" // Replace with your image
-//           alt={service.title}
-//           className={styles.heroImage}
-//         />
-//         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10"></div>
-//         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4 md:px-16">
-//           <h1 className={`text-4xl md:text-6xl font-bold mb-4 ${styles.slideDown}`}>
-//             {service.title}
-//           </h1>
-//           <p className={`text-lg md:text-2xl ${styles.fadeIn}`}>
-//             {service.tagline}
-//           </p>
-//         </div>
-//       </div>
-
-//       {/* Overview */}
-//       <section className={styles.fadeUp}>
-//         <h2 className="text-3xl font-semibold mb-4 border-l-4 border-blue-600 pl-3">
-//           Overview
-//         </h2>
-//         <p className="text-gray-700 leading-relaxed text-lg">{service.overview}</p>
-//       </section>
-
-//       {/* Features */}
-//       <section className={styles.fadeUp}>
-//         <h2 className="text-3xl font-semibold mb-6 border-l-4 border-blue-600 pl-3">
-//           Key Features
-//         </h2>
-//         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {service.features.map((f, i) => (
-//             <li
-//               key={i}
-//               className={`p-6 bg-blue-50 rounded-xl border ${styles.card} flex items-center gap-3`}
-//             >
-//               <span className="text-blue-600 font-bold text-2xl">✔️</span>
-//               <span className="text-gray-800 font-medium">{f}</span>
-//             </li>
-//           ))}
-//         </ul>
-//       </section>
-
-//       {/* Process */}
-//       <section className={styles.fadeUp}>
-//         <h2 className="text-3xl font-semibold mb-6 border-l-4 border-blue-600 pl-3">
-//           Our Process
-//         </h2>
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {service.process.map((step, i) => (
-//             <div
-//               key={i}
-//               className={`p-6 bg-gray-50 border rounded-xl shadow ${styles.card}`}
-//             >
-//               <div className="text-2xl font-bold text-blue-600 mb-2">
-//                 Step {i + 1}
-//               </div>
-//               <div className="text-gray-700">{step}</div>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* FAQ */}
-//       <section className={styles.fadeUp}>
-//         <h2 className="text-3xl font-semibold mb-6 border-l-4 border-blue-600 pl-3">
-//           Frequently Asked Questions
-//         </h2>
-//         <div className="space-y-4">
-//           {service.faq.map((item, i) => (
-//             <div key={i} className="border rounded-xl shadow-sm bg-gray-50">
-//               <button
-//                 onClick={() =>
-//                   setActiveFaq(activeFaq === i ? null : i)
-//                 }
-//                 className="w-full text-left p-4 flex justify-between items-center font-semibold text-gray-800"
-//               >
-//                 <span>Q: {item.q}</span>
-//                 <span>{activeFaq === i ? "−" : "+"}</span>
-//               </button>
-//               {activeFaq === i && (
-//                 <div className="p-4 text-gray-600 border-t">{item.a}</div>
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-
-//       {/* CTA */}
-//       <section className={`text-center py-12 ${styles.fadeUp}`}>
-//         <h2 className="text-3xl font-bold mb-4">Ready to start your project?</h2>
-//         <p className="text-gray-600 mb-6 text-lg">
-//           Get in touch with us today and let’s build something amazing together.
-//         </p>
-//         <button className={`px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl shadow ${styles.ctaButton}`}>
-//           Contact Us
-//         </button>
-//       </section>
-//     </div>
-//   );
-// }
-
-// // Static paths
-// export async function getStaticPaths() {
-//   return {
-//     paths: Object.keys(servicesData).map((slug) => ({
-//       params: { slug },
-//     })),
-//     fallback: false,
-//   };
-// }
-
-// // Static props
-// export async function getStaticProps({ params }) {
-//   const service = servicesData[params.slug] || null;
-//   return { props: { service } };
-// }
-
-
-
-
-//design-2
-
-
-
-
-// // pages/services/[slug].js
-// "use client";
-
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
-// import Head from "next/head";
-// import { motion } from "framer-motion";
-// import { CheckCircle2, Star, Users } from "lucide-react";
-
-// const ServiceDetail = () => {
-//   const router = useRouter();
-//   const { slug } = router.query;
-//   const [service, setService] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   // Mock data
-//   useEffect(() => {
-//     if (!slug) return;
-
-//     const services = {
-//       "web-development": {
-//         id: "1",
-//         slug: "web-development",
-//         title: "Premium Web Development",
-//         bannerImage:
-//           "https://img.freepik.com/free-vector/website-development-banner_33099-1687.jpg",
-//         mainImage:
-//           "https://img.freepik.com/free-vector/website-development-banner_33099-1687.jpg",
-//         description:
-//           "Our premium web development service creates stunning, responsive websites tailored to your business needs...",
-//         shortDescription: "Professional website development services",
-//         features: [
-//           "Responsive design that works on all devices",
-//           "SEO optimization for better visibility",
-//           "Fast loading times",
-//           "Secure and reliable",
-//           "Ongoing support and maintenance",
-//         ],
-//         price: "$1,500+",
-//         duration: "2-4 weeks",
-//         clients: ["Google", "Microsoft", "Apple", "Amazon"],
-//       },
-//     };
-
-
-//     setTimeout(() => {
-//       setService(services[slug] || services["web-development"]);
-//       setLoading(false);
-//     }, 500);
-//   }, [slug]);
-
-//   if (loading) {
-//     return (
-//       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
-//         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <>
-//       <Head>
-//         <title>{service.title} | Premium Services</title>
-//         <meta name="description" content={service.shortDescription} />
-//       </Head>
-
-//       {/* Hero Section */}
-     
-//       <section
-//         className="relative text-white overflow-hidden bg-cover bg-center"
-//         style={{
-//           backgroundImage: `url(${service.bannerImage})`,
-//         }}
-//       >
-//         {/* Dark overlay */}
-//         <div className="absolute inset-0 bg-black/60"></div>
-
-//         <div className="container mx-auto px-6 py-24 relative z-10 text-center">
-//           <motion.h1
-//             className="text-5xl md:text-6xl font-extrabold mb-6"
-//             initial={{ opacity: 0, y: 50 }}
-//             animate={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8 }}
-//           >
-//             {service.title}
-//           </motion.h1>
-//           <motion.p
-//             className="text-xl max-w-2xl mx-auto text-gray-200"
-//             initial={{ opacity: 0 }}
-//             animate={{ opacity: 1 }}
-//             transition={{ delay: 0.4 }}
-//           >
-//             {service.shortDescription}
-//           </motion.p>
-//           <motion.button
-//             className="mt-8 px-8 py-4 rounded-xl bg-white text-blue-600 font-bold shadow-lg hover:scale-105 transition transform"
-//             whileHover={{ scale: 1.05 }}
-//           >
-//             Get Started
-//           </motion.button>
-//         </div>
-//       </section>
-
-
-//       {/* Service Details */}
-//        <section className="container mx-auto px-6 py-16 max-w-6xl">
-//         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          
-//           <motion.div
-//             className="rounded-3xl overflow-hidden shadow-2xl"
-//             initial={{ opacity: 0, x: -50 }}
-//             whileInView={{ opacity: 1, x: 0 }}
-//             transition={{ duration: 0.8 }}
-//           >
-//             <img
-//               src={service.mainImage}
-//               alt={service.title}
-//               className="w-full h-full object-cover"
-//             />
-//           </motion.div>
-
-       
-//           <motion.div
-//             initial={{ opacity: 0, x: 50 }}
-//             whileInView={{ opacity: 1, x: 0 }}
-//             transition={{ duration: 0.8 }}
-//           >
-//             <h2 className="text-4xl font-bold mb-6 text-gray-900">
-//               Why Choose {service.title}?
-//             </h2>
-//             <p className="text-gray-600 text-lg mb-6">{service.description}</p>
-
-//             <div className="grid grid-cols-2 gap-6">
-//               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-//                 <h4 className="text-sm uppercase text-gray-500">Starting at</h4>
-//                 <p className="text-2xl font-bold text-blue-600">
-//                   {service.price}
-//                 </p>
-//               </div>
-//               <div className="bg-white p-6 rounded-xl shadow-md text-center">
-//                 <h4 className="text-sm uppercase text-gray-500">Duration</h4>
-//                 <p className="text-2xl font-bold text-green-600">
-//                   {service.duration}
-//                 </p>
-//               </div>
-//             </div>
-//           </motion.div>
-//         </div>
-//       </section> 
- 
-
-
-
-
-
-//       {/* Features */}
-//       <section className="bg-gray-50 py-16">
-//         <div className="container mx-auto px-6 max-w-6xl">
-//           <h2 className="text-3xl font-bold text-center mb-12">
-//             Included Features
-//           </h2>
-//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-//             {service?.features?.map((feature, idx) => (
-//               <motion.div
-//                 key={idx}
-//                 className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition flex items-start gap-4"
-//                 whileHover={{ scale: 1.05 }}
-//               >
-//                 <CheckCircle2 className="text-blue-600 w-8 h-8" />
-//                 <p className="text-gray-700">{feature}</p>
-//               </motion.div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Clients */}
-//       <section className="container mx-auto px-6 py-16 max-w-5xl">
-//         <h2 className="text-2xl font-bold text-center mb-12">
-//           Trusted by Industry Leaders
-//         </h2>
-//         <div className="flex flex-wrap justify-center gap-8">
-//           {service?.clients?.map((client, idx) => (
-//             <motion.div
-//               key={idx}
-//               className="w-32 h-32 flex items-center justify-center bg-white rounded-full shadow-md grayscale hover:grayscale-0 transition"
-//               whileHover={{ scale: 1.1 }}
-//             >
-//               <span className="font-bold text-gray-800">{client}</span>
-//             </motion.div>
-//           ))}
-//         </div>
-//       </section>
-
-
-//       {/* Testimonials */}
-//       <section className="bg-gradient-to-r from-purple-600 to-blue-600 py-16 text-white">
-//         <div className="container mx-auto px-6 max-w-5xl text-center">
-//           <h2 className="text-3xl font-bold mb-12">What Our Clients Say</h2>
-//           <div className="grid md:grid-cols-2 gap-8">
-//             <motion.div
-//               className="bg-white/10 p-6 rounded-xl backdrop-blur-md"
-//               whileHover={{ scale: 1.05 }}
-//             >
-//               <div className="flex items-center mb-4">
-//                 <Users className="w-10 h-10 text-yellow-300 mr-4" />
-//                 <div>
-//                   <h4 className="font-bold">John Doe</h4>
-//                   <p className="text-sm">CEO, Tech Solutions</p>
-//                 </div>
-//               </div>
-//               <p>
-//                 “The service exceeded our expectations. Our website
-//                 performance improved dramatically and conversions skyrocketed.”
-//               </p>
-//             </motion.div>
-//             <motion.div
-//               className="bg-white/10 p-6 rounded-xl backdrop-blur-md"
-//               whileHover={{ scale: 1.05 }}
-//             >
-//               <div className="flex items-center mb-4">
-//                 <Star className="w-10 h-10 text-pink-300 mr-4" />
-//                 <div>
-//                   <h4 className="font-bold">Jane Smith</h4>
-//                   <p className="text-sm">Marketing Director, Innovate Co.</p>
-//                 </div>
-//               </div>
-//               <p>
-//                 “The mobile app developed by this team has been instrumental in
-//                 our growth strategy. User engagement has increased by 45%.”
-//               </p>
-//             </motion.div>
-//           </div>
-//         </div>
-//       </section>
-
-
-
-
-
-
-//       {/* Final CTA */}
-//       <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-center text-white">
-//         <motion.h2
-//           className="text-4xl font-extrabold mb-6"
-//           initial={{ opacity: 0, y: 50 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//         >
-//           Ready to Get Started?
-//         </motion.h2>
-//         <motion.button
-//           className="px-10 py-4 bg-white text-blue-600 font-bold rounded-xl shadow-lg hover:scale-110 transition"
-//           whileHover={{ scale: 1.1 }}
-//         >
-//           Contact Us Today
-//         </motion.button>
-//       </section>
-
-//       {/* Footer */}
-//       <footer className="bg-gray-900 text-gray-400 py-12">
-//         <div className="container mx-auto px-6 text-center">
-//           <h3 className="text-xl font-bold text-white mb-4">
-//             Premium<span className="text-blue-400">Services</span>
-//           </h3>
-//           <p>Providing exceptional digital solutions for businesses worldwide.</p>
-//           <p className="mt-4 text-sm">
-//             © {new Date().getFullYear()} Premium Services. All rights reserved.
-//           </p>
-//         </div>
-//       </footer>
-//     </>
-//   );
-// };
-
-// export default ServiceDetail;
-
-
-
-//design-3
-
-
-
-//design - 4
-
-
-
-
-
-//design-5
-
-
-
-// components/ServiceDetail.js
-
-
-//design-6
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 
-import { useRouter } from "next/router";
-import ServiceDetailV1 from "@/components/ServiceDetailV1";
-import ServiceDetailV2 from "@/components/ServiceDetailV2";
-import ServiceDetailV3 from "@/components/ServiceDetailV3";
-import ServiceDetailV4 from "@/components/ServiceDetailV4";
-import ServiceDetailV5 from "@/components/ServiceDetailV5";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import OurProcess from "@/components/Services/OurProcess";
 
-export default function ServicePage() {
-  const router = useRouter();
-  const { slug, design } = router.query;
+const serviceData = {
+  "web-development": {
+    title: "Web Development",
+    slogan: "Fast, Secure & Scalable Websites for Modern Businesses",
+    banner: "/s5.jpeg",
+    description: [
+      {
+        title: "Custom Website Development",
+        text: "We design and develop tailor-made websites that perfectly match your brand identity and business goals. From landing pages to enterprise solutions, our websites are built to scale.",
+        icon: "💻"
+      },
+      {
+        title: "E-Commerce Solutions",
+        text: "Launch powerful online stores with secure payment gateways, smooth checkout processes, and inventory management that boost customer trust and sales.",
+        icon: "🛒"
+      },
+      {
+        title: "Performance & Security",
+        text: "Our solutions are optimized for speed, mobile-friendliness, and SEO. With enterprise-grade security, your data and users remain protected at all times.",
+        icon: "⚡"
+      },
+      {
+        title: "Modern Tech Stack",
+        text: "We work with cutting-edge technologies like React, Next.js, Node.js, and MongoDB to deliver lightning-fast, scalable, and future-proof solutions.",
+        icon: "🔧"
+      },
+    ],
+    whyChoose: [
+      { text: "Mobile-Friendly & Responsive", icon: "📱" },
+      { text: "SEO Optimized for Higher Rankings", icon: "🔍" },
+      { text: "Scalable & Secure Infrastructure", icon: "🏗️" },
+      { text: "24/7 Ongoing Support", icon: "🛠️" },
+      { text: "Unique UI/UX Design", icon: "🎨" },
+      { text: "Integration with APIs & Tools", icon: "🔌" },
+      { text: "Cloud & Hosting Deployment", icon: "☁️" },
+      { text: "Cost-Effective Packages", icon: "💰" },
+    ],
+    processSteps: [
+      "Requirement Analysis",
+      "UI/UX Design & Prototyping",
+      "Frontend Development",
+      "Backend Development",
+      "Testing & QA",
+      "Deployment & Hosting",
+      "Support & Maintenance",
+    ],
+    faqs: [
+      {
+        q: "How long does a project take?",
+        a: "Depending on the complexity, projects usually take 4–12 weeks from planning to launch.",
+      },
+      {
+        q: "Do you provide support?",
+        a: "Yes, we provide continuous support, updates, and maintenance even after project delivery.",
+      },
+      {
+        q: "Can you redesign my old website?",
+        a: "Absolutely! We modernize, optimize, and revamp outdated websites with fresh design and performance improvements.",
+      },
+      {
+        q: "What technologies do you use?",
+        a: "We primarily use React, Next.js, Node.js, and MongoDB but can adapt to your project's tech requirements.",
+      },
+      {
+        q: "Is SEO included?",
+        a: "Yes, all websites are built with SEO-friendly architecture and optimized for better search rankings.",
+      },
+    ],
+  },
+};
 
-  const selectedDesign = design || "v1";
+export default function ServiceDetail() {
+  const params = useParams();
+  const slug = "web-development";
+
+  const service = serviceData[slug] || serviceData["web-development"];
+  const [faqOpen, setFaqOpen] = useState(null);
+  const [activeProcess, setActiveProcess] = useState(0);
+  const processRef = useRef(null);
+
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const staggerChildren = {
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const techLogos = [
+    { name: "React.js", logo: "/tech/react.png" },
+    { name: "Next.js", logo: "/tech/nextjs.png" },
+    { name: "Node.js", logo: "/tech/node.png" },
+    { name: "MongoDB", logo: "/tech/mongodb.png" },
+    { name: "TailwindCSS", logo: "/tech/tailwind.png" },
+    { name: "AWS", logo: "/tech/aws.png" },
+  ];
 
   return (
-    <>
-      {selectedDesign === "v1" && <ServiceDetailV1 slug={slug} />}
-       {selectedDesign === "v2" && <ServiceDetailV2 slug={slug} />}
-      {selectedDesign === "v3" && <ServiceDetailV3 slug={slug} />} 
-      {selectedDesign === "v4" && <ServiceDetailV4 slug={slug} />} 
-      {selectedDesign === "v5" && <ServiceDetailV5 slug={slug} />} 
-    </>
+    <div className="bg-gray-50 overflow-hidden">
+        {/* Hero Banner */}
+      <section className="relative h-[400px] flex items-center justify-center text-white">
+        <Image
+          src={service.banner}
+          alt={service.title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative text-center z-10 px-4">
+          <h1 className="text-4xl font-bold">{service.title}</h1>
+          <p className="mt-2 text-lg">{service.slogan}</p>
+        </div>
+        {/* Wave Shape */}
+        <div className="absolute bottom-0 w-full overflow-hidden leading-none">
+          <svg
+            viewBox="0 0 500 150"
+            preserveAspectRatio="none"
+            className="w-full h-16"
+          >
+            <path
+              d="M0.00,49.98 C150.00,150.00 349.60,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+              className="fill-white"
+            />
+          </svg>
+        </div>
+      </section>
+
+      {/* Service Details */}
+      <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6">
+        <motion.div 
+          className="md:sticky md:top-24 self-start"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src={service.banner}
+              alt={service.title}
+              width={600}
+              height={600}
+              className="w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+              <p className="text-white text-lg font-medium">Modern Web Solutions</p>
+            </div>
+          </div>
+        </motion.div>
+        
+        <motion.div
+          variants={staggerChildren}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <h2 className="text-3xl font-bold mb-10 relative inline-block">
+            Our Web Development Services
+            <motion.div 
+              className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
+              initial={{ width: 0 }}
+              whileInView={{ width: "50%" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
+          </h2>
+          
+          <div className="space-y-10">
+            {service.description.map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                className="flex group"
+              >
+                <div className="flex-shrink-0 mr-5">
+                  <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
+                    {item.icon}
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600">{item.text}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-4">Why Choose Us</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We deliver exceptional web development services that drive growth and ensure your digital success
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {service.whyChoose.map((reason, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+                whileHover={{ y: -10, scale: 1.02 }}
+              >
+                <div className="text-3xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                  {reason.icon}
+                </div>
+                <h3 className="font-semibold text-lg">{reason.text}</h3>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Our Process */}
+      <OurProcess />
+
+      {/* Technologies We Use */}
+      <section className="py-20 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-4">Technologies We Use</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              We leverage cutting-edge technologies to build fast, secure, and scalable web applications
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {techLogos.map((tech, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                whileHover={{ 
+                  scale: 1.1,
+                  transition: { duration: 0.3 }
+                }}
+                className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300"
+              >
+                <div className="relative w-16 h-16 mb-4">
+                  <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <Image
+                    src={tech.logo}
+                    alt={tech.name}
+                    width={64}
+                    height={64}
+                    className="relative z-10 object-contain"
+                  />
+                </div>
+                <p className="text-sm font-medium text-center">{tech.name}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 bg-gray-100 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-600">
+              Find answers to common questions about our web development process
+            </p>
+          </motion.div>
+          
+          <div className="space-y-4">
+            {service.faqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-xl shadow-md overflow-hidden"
+              >
+                <button
+                  className="w-full p-6 text-left flex justify-between items-center font-medium text-lg"
+                  onClick={() => setFaqOpen(faqOpen === idx ? null : idx)}
+                >
+                  <span>{faq.q}</span>
+                  <motion.span
+                    animate={{ rotate: faqOpen === idx ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="ml-4 text-blue-600 text-xl"
+                  >
+                    ▼
+                  </motion.span>
+                </button>
+                
+                <AnimatePresence>
+                  {faqOpen === idx && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-6 pb-6 text-gray-600">{faq.a}</div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 text-center bg-gradient-to-r from-blue-300 to-blue-500 text-white relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(10)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-white/10"
+              style={{
+                width: Math.random() * 80 + 20,
+                height: Math.random() * 80 + 20,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                scale: [0, 1, 0],
+                opacity: [0, 0.3, 0],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            Ready to start your project?
+          </motion.h2>
+          <motion.p 
+            className="text-xl mb-8 opacity-90"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 0.9, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            Let's build something amazing together.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              Get in Touch
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+            >
+              View Portfolio
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 }
