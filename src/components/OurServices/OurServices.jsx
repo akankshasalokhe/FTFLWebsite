@@ -9,7 +9,7 @@ const OurServices = () => {
     {
       id: 1,
       title: "Web Development",
-      description: "Custom websites and web applications built with modern technologies for optimal performance.",
+      description: "Custom websites and web applications built with modern technologies.",
       image: "/s5.jpeg",
       icon: "💻"
     },
