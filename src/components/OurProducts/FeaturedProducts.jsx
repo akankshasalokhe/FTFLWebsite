@@ -12,7 +12,7 @@ const products = [
     description:
       "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
     images: [
-      "/Fetch True Modules mockup (2).png",
+      "/",
       "/images/staybea.jpg",
       "/s1.jpeg"
     ],
@@ -95,7 +95,8 @@ export default function ProductDetails() {
                     src={img}
                     alt={`${selectedProduct.name} ${i}`}
                     fill
-                    className="object-contain rounded-xl"
+                    className="object-cover rounded-xl w-full h-full"
+                    
                   />
                 </div>
               ))}
