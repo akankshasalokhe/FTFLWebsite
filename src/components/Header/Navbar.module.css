@@ -131,7 +131,7 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  gap: 25px;
+  gap: 30px;
 }
 
 
@@ -237,7 +237,7 @@
 .mobileServicesContainer {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 18px;
 }
 
 .mobileServicesLeft {
