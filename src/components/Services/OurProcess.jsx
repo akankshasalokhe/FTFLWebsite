@@ -209,5 +209,131 @@ function DesktopView({ steps }) {
         </defs>
       </svg>
     </div>
+  );function DesktopView({ steps }) {
+  const radius = 320; // Reduced radius for wider arc
+  const centerX = 320;
+  const centerY = 300; // Move center up to make arc less tall
+  const startAngle = -170; // Wider arc
+  const endAngle = 10; // Wider arc
+
+  const angleStep = (endAngle - startAngle) / (steps.length - 1);
+
+  return (
+    <div className="relative flex items-center justify-center min-h-[500px]">
+      {/* Center Image */}
+      <div className="relative z-10 w-56 h-72">
+        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-lg">
+          <span className="text-gray-600 font-medium">App Mockup Image</span>
+        </div>
+      </div>
+
+      {/* Steps arranged in arc */}
+      <svg
+        viewBox="0 0 640 500"
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-label="App development process steps"
+      >
+        {steps.map((step, index) => {
+          const angle = startAngle + angleStep * index;
+          const rad = (angle * Math.PI) / 180;
+
+          const x = centerX + radius * Math.cos(rad);
+          const y = centerY + radius * Math.sin(rad);
+
+          return (
+            <g key={index}>
+              {/* Step circle indicator */}
+              <circle
+                cx={x}
+                cy={y}
+                r="8"
+                fill="#2563eb"
+                stroke="white"
+                strokeWidth="3"
+              />
+              
+              {/* Step number */}
+              <text
+                x={x}
+                y={y + 5}
+                textAnchor="middle"
+                className="fill-white font-bold text-xs"
+              >
+                {index + 1}
+              </text>
+              
+              {/* Step box */}
+              <rect
+                x={x - 80}
+                y={y - 20}
+                width="160"
+                height="40"
+                rx="20"
+                ry="20"
+                fill="#2563eb"
+                className="drop-shadow-md"
+              />
+              <text
+                x={x}
+                y={y + 5}
+                textAnchor="middle"
+                className="fill-white font-semibold text-sm"
+              >
+                {step.length > 20 ? (
+                  <>
+                    <tspan x={x} dy="-0.5em">{step.substring(0, step.lastIndexOf(" ", 20))}</tspan>
+                    <tspan x={x} dy="1.5em">{step.substring(step.lastIndexOf(" ", 20) + 1)}</tspan>
+                  </>
+                ) : (
+                  step
+                )}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Draw arrows between steps */}
+        {steps.map((_, index) => {
+          if (index === steps.length - 1) return null;
+          
+          const currentAngle = startAngle + angleStep * index;
+          const nextAngle = startAngle + angleStep * (index + 1);
+          
+          // Calculate midpoint between current and next step
+          const midAngle = (currentAngle + nextAngle) / 2;
+          const midRad = (midAngle * Math.PI) / 180;
+          
+          const midX = centerX + (radius - 30) * Math.cos(midRad);
+          const midY = centerY + (radius - 30) * Math.sin(midRad);
+          
+          // Calculate direction for arrow
+          const arrowAngle = (midAngle * Math.PI) / 180;
+          const arrowLength = 20;
+          const arrowHeadX = midX + arrowLength * Math.cos(arrowAngle);
+          const arrowHeadY = midY + arrowLength * Math.sin(arrowAngle);
+          
+          return (
+            <g key={`arrow-${index}`}>
+              {/* Arrow line */}
+              <line
+                x1={midX - arrowLength * 0.7 * Math.cos(arrowAngle)}
+                y1={midY - arrowLength * 0.7 * Math.sin(arrowAngle)}
+                x2={arrowHeadX}
+                y2={arrowHeadY}
+                stroke="#2563eb"
+                strokeWidth="3"
+              />
+              
+              {/* Arrow head */}
+              <polygon
+                points={`${arrowHeadX},${arrowHeadY} ${arrowHeadX - 10 * Math.cos(arrowAngle - 0.3)},${arrowHeadY - 10 * Math.sin(arrowAngle - 0.3)} ${arrowHeadX - 10 * Math.cos(arrowAngle + 0.3)},${arrowHeadY - 10 * Math.sin(arrowAngle + 0.3)}`}
+                fill="#2563eb"
+              />
+            </g>
+          );
+        })}
+      </svg>
+    </div>
   );
+}
 }
