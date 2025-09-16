@@ -93,19 +93,19 @@ const HeroSection = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
           <a
-            href="#apply"
+            href="#contact"
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75"
             aria-label="Enroll in the internship program"
           >
             Enroll Now
           </a>
-          <a
+          {/* <a
             href="#modules"
             className="bg-white hover:bg-gray-100 text-blue-600 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75"
             aria-label="View internship program modules"
           >
             View Modules
-          </a>
+          </a> */}
         </div>
       </div>
     </section>

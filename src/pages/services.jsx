@@ -1,5 +1,5 @@
 import React from 'react'
-import ServiceCategories from '@/components/ServiceCategories/Categories';
+// import ServiceCategories from '@/components/ServiceCategories/Categories';
 
 function services() {
   return (
@@ -41,7 +41,7 @@ function services() {
       <div className="absolute bottom-0 left-0 w-full h-16 bg-white opacity-10"></div>
 
     </div> 
-    <ServiceCategories/>
+    {/* <ServiceCategories/> */}
     </section>
     
    )

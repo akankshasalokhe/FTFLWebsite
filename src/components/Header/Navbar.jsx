@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
@@ -14,13 +14,6 @@ const servicesData = [
   {
     id: "development",
     name: "Development",
-    // subServices: [
-    //   { name: "Web Development", href: "/services/web-development", icon: <FaLaptopCode /> },
-    //   { name: "App Development", href: "/services/app", icon: <FaMobileAlt /> },
-    //   { name: "API Integration", href: "/services/api", icon: <FaServer /> },
-    //   { name: "Backend Services", href: "/services/backend", icon: <FaServer /> },
-    //   { name: "Frontend Services", href: "/services/frontend", icon: <FaLaptopCode /> },
-    // ],
     subServices: [
       { name: "Web Development (V1)", href: "/services/web-development?design=v1", icon: <FaLaptopCode /> },
       { name: "Web Development (V2)", href: "/services/web-development?design=v2", icon: <FaLaptopCode /> },
@@ -28,7 +21,6 @@ const servicesData = [
       { name: "Web Development (V4)", href: "/services/web-development?design=v4", icon: <FaLaptopCode /> },
       { name: "Web Development (V5)", href: "/services/web-development?design=v5", icon: <FaLaptopCode /> },
     ],
-
   },
   {
     id: "design",
@@ -53,13 +45,14 @@ const servicesData = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [servicesExpanded, setServicesExpanded] = useState(false);
   const [selectedService, setSelectedService] = useState(servicesData[0].id);
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
+    const navRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -74,21 +67,37 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleDropdown = (menuName) => {
-    setOpenDropdown((prev) => (prev === menuName ? null : menuName));
+    useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        servicesExpanded &&
+        navRef.current &&
+        !navRef.current.contains(event.target)
+      ) {
+        setServicesExpanded(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [servicesExpanded]);
+
+  const toggleServices = () => {
+    setServicesExpanded(!servicesExpanded);
   };
 
   const closeMenu = () => {
     setIsOpen(false);
-    setOpenDropdown(null);
+    setServicesExpanded(false);
     setSelectedService(servicesData[0].id);
+
   };
 
   return (
     <>
       {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
 
-      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
+      <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""} ${servicesExpanded ? styles.servicesExpanded : ""}`}>
         <div className={styles.navContainer}>
           {/* Logo */}
           <Link href="/" className={styles.logo} onClick={closeMenu}>
@@ -110,61 +119,53 @@ const Navbar = () => {
               <Link href="/about" className={isActive("/about") ? styles.activeLink : ""} onClick={closeMenu}>About</Link>
             </li>
 
-            {/* Services Dropdown */}
-            <li
-              className={styles.dropdown}
-              onMouseEnter={() => !isMobile && setOpenDropdown("services")}
-              onMouseLeave={() => !isMobile && setOpenDropdown(null)}
-            >
+            {/* Services Item */}
+            <li className={styles.servicesItem}>
               <span
-                onClick={() => isMobile && toggleDropdown("services")}
-                className={`${isActive("/services") ? styles.activeLink : ""} ${styles.dropdownTrigger}`}
+                onMouseEnter={toggleServices}
+                className={`${isActive("/services") ? styles.activeLink : ""} ${styles.servicesTrigger}`}
               >
                 Services
-                {isMobile && (
-                  <span className={styles.dropdownArrow}>
-                    {openDropdown === "services" ? "▲" : "▼"}
-                  </span>
-                )}
+                {/* <span className={styles.dropdownArrow}>
+                  {servicesExpanded ? "▲" : "▼"}
+                </span> */}
               </span>
 
-              <div
-                className={`${styles.dropdownContent} ${openDropdown === "services" ? styles.dropdownActive : ""
-                  }`}
-              >
-                <div className={styles.dropdownTwoColumns}>
-                  {/* Left Column - Main Services */}
-                  <div className={styles.leftColumn}>
-                    {servicesData.map((service) => (
-                      <div
-                        key={service.id}
-                        className={`${styles.serviceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
-                        onMouseEnter={() => !isMobile && setSelectedService(service.id)}
-                        onClick={() => setSelectedService(service.id)}
-                      >
-                        {service.name}
+              {/* Mobile Services Dropdown */}
+              {isMobile && servicesExpanded && (
+                <div className={styles.mobileServicesDropdown}>
+                  <div className={styles.mobileServicesContainer}>
+                    {/* Left Column - Main Services */}
+                    <div className={styles.mobileServicesLeft}>
+                      {servicesData.map((service) => (
+                        <div
+                          key={service.id}
+                          className={`${styles.mobileServiceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
+                          onClick={() => setSelectedService(service.id)}
+                        >
+                          {service.name}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Right Column - Sub Services */}
+                    <div className={styles.mobileServicesRight}>
+                      <div className={styles.mobileSubServiceGrid}>
+                        {servicesData
+                          .find((s) => s.id === selectedService)
+                          ?.subServices.map((sub) => (
+                            <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.mobileSubServiceItem}>
+                              <div className={styles.mobileSubServiceContent}>
+                                <span className={styles.mobileSubIcon}>{sub.icon}</span>
+                                <span className={styles.mobileSubServiceName}>{sub.name}</span>
+                              </div>
+                            </Link>
+                          ))}
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Right Column - Sub Services */}
-                  <div className={styles.rightColumn}>
-                    <div className={styles.subServiceGrid}>
-                      {servicesData
-                        .find((s) => s.id === selectedService)
-                        ?.subServices.map((sub) => (
-                          <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.subServiceItem}>
-                            <div className={styles.subServiceContent}>
-                              <span className={styles.subIcon}>{sub.icon}</span>
-                              <span className={styles.subServiceName}>{sub.name}</span>
-                            </div>
-
-                          </Link>
-                        ))}
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
             </li>
 
             <li>
@@ -184,6 +185,43 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+
+        {/* Desktop Services Expanded Content */}
+        {!isMobile && servicesExpanded && (
+          <div className={styles.servicesContent}>
+            <div className={styles.servicesContainer}>
+              {/* Left Column - Main Services */}
+              <div className={styles.servicesLeft}>
+                {servicesData.map((service) => (
+                  <div
+                    key={service.id}
+                    className={`${styles.serviceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
+                    onMouseEnter={() => setSelectedService(service.id)}
+                    onClick={() => setSelectedService(service.id)}
+                  >
+                    {service.name}
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Column - Sub Services */}
+              <div className={styles.servicesRight}>
+                <div className={styles.subServiceGrid}>
+                  {servicesData
+                    .find((s) => s.id === selectedService)
+                    ?.subServices.map((sub) => (
+                      <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.subServiceItem}>
+                        <div className={styles.subServiceContent}>
+                          <span className={styles.subIcon}>{sub.icon}</span>
+                          <span className={styles.subServiceName}>{sub.name}</span>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );
