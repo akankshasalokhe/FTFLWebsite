@@ -485,7 +485,7 @@ const getVisibleMembers = () => {
                   initial="enter"
                   animate="center"
                   exit="exit"
-                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-row cursor-pointer overflow-hidden h-40"
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-row cursor-pointer overflow-hidden h-60"
                 >
                   {/* Left: Image */}
                   <div className="w-1/2 flex-shrink-0 relative">
