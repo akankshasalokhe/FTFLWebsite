@@ -254,7 +254,19 @@ export default function ServiceDetail() {
       </section>
 
       {/* Our Process */}
-      <OurProcess />
+<OurProcess
+  steps={[
+    { title: "Requirement Gathering", description:     "Understanding your business goals, target audience, and feature requirements for the website.", },
+    { title:   "Planning & Architecture", description: "Define roadmap, architecture, and milestones." },
+    { title:   "UI/UX Design", description: "Create engaging UI/UX layouts and wireframes." },
+    { title: "Frontend Development", description:"Developing responsive, fast, and accessible front-end interfaces using modern frameworks and best practices.", },
+    { title: "Backend Development", description:"Building secure, scalable, and high-performance backend systems with proper integrations and APIs.", },
+
+    { title: "Testing", description: "QA for performance, security, and functionality." },
+    { title: "Deployment & Maintenance", description: "Launch & maintain your website reliably." },
+
+  ]}
+/>
 
       {/* Technologies We Use */}
       <section className="py-20 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
