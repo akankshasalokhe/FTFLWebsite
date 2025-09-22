@@ -43,15 +43,7 @@ const serviceData = {
       { text: "Cloud & Hosting Deployment", icon: "☁️" },
       { text: "Cost-Effective Packages", icon: "💰" },
     ],
-    processSteps: [
-      "Requirement Analysis",
-      "UI/UX Design & Prototyping",
-      "Frontend Development",
-      "Backend Development",
-      "Testing & QA",
-      "Deployment & Hosting",
-      "Support & Maintenance",
-    ],
+    
     faqs: [
       {
         q: "How long does a project take?",
@@ -254,7 +246,29 @@ export default function ServiceDetail() {
       </section>
 
       {/* Our Process */}
-<OurProcess
+      {/* <section className="py-20 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-4">Our Development Process</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              A structured approach to ensure your project's success from concept to launch
+            </p>
+          </motion.div>
+          
+          <OurProcess 
+            activeProcess={activeProcess}
+            setActiveProcess={setActiveProcess}
+            processRef={processRef}
+          />
+        </div>
+      </section> */}
+      <OurProcess
   steps={[
     { title: "Requirement Gathering", description:     "Understanding your business goals, target audience, and feature requirements for the website.", },
     { title:   "Planning & Architecture", description: "Define roadmap, architecture, and milestones." },
