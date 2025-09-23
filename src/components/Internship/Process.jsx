@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   FaUserGraduate,
@@ -7,249 +7,313 @@ import {
   FaProjectDiagram,
   FaCertificate,
   FaArrowRight,
-  FaCheckCircle,
   FaRegClock,
-  FaRocket,
+  FaPause,
+  FaPlay,
+  FaCheck
 } from "react-icons/fa";
 
 const InternshipProcess = () => {
-  const [activeStep, setActiveStep] = useState(1);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    const element = document.getElementById("internship-process");
-    if (element) observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, []);
+  const [activeStep, setActiveStep] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef(null);
 
   const steps = [
     {
       id: 1,
-      icon: <FaUserGraduate className="text-blue-400 text-2xl" />,
+      icon: <FaUserGraduate className="text-xl" />,
       title: "Enroll",
-      description:
-        "Register for your preferred internship program and secure your spot.",
+      description: "Register for your preferred internship program and get access to our learning platform.",
       duration: "1-2 days",
-      outcome: "You'll get onboarding material & access to student portal.",
+      outcome: "Onboarding material & portal access",
       color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-gradient-to-br from-blue-500 to-cyan-500",
     },
     {
       id: 2,
-      icon: <FaBookOpen className="text-green-400 text-2xl" />,
+      icon: <FaBookOpen className="text-xl" />,
       title: "Learn",
-      description:
-        "Attend training sessions and gain in-depth knowledge of industry tools.",
+      description: "Gain in-depth knowledge of industry tools through structured modules and expert guidance.",
       duration: "2-3 weeks",
-      outcome: "Hands-on practice with tools like GitHub, React, Node.js.",
+      outcome: "Hands-on practice with tools & technologies",
       color: "from-green-500 to-emerald-500",
+      bgColor: "bg-gradient-to-br from-green-500 to-emerald-500",
     },
     {
       id: 3,
-      icon: <FaProjectDiagram className="text-purple-400 text-2xl" />,
+      icon: <FaProjectDiagram className="text-xl" />,
       title: "Implement",
-      description:
-        "Apply your skills on live projects and solve real-world problems.",
+      description: "Apply your skills on real-world projects with mentorship from industry professionals.",
       duration: "4-6 weeks",
-      outcome: "You'll complete capstone projects & get mentor feedback.",
+      outcome: "Complete capstone projects for your portfolio",
       color: "from-purple-500 to-indigo-500",
+      bgColor: "bg-gradient-to-br from-purple-500 to-indigo-500",
     },
     {
       id: 4,
-      icon: <FaCertificate className="text-yellow-400 text-2xl" />,
+      icon: <FaCertificate className="text-xl" />,
       title: "Get Certified",
-      description:
-        "Receive your internship certificate and placement opportunities.",
+      description: "Receive industry-recognized certificate and personalized placement assistance.",
       duration: "Ongoing",
-      outcome: "Official certificate & career support from our team.",
+      outcome: "Official certificate & career support",
       color: "from-amber-500 to-orange-500",
+      bgColor: "bg-gradient-to-br from-amber-500 to-orange-500",
     },
   ];
 
-  return (
-    <section
-      id="internship-process"
-      className="relative py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 px-6 overflow-hidden"
-    >
-      {/* Animated background elements */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-700 rounded-full opacity-20 blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-700 rounded-full opacity-20 blur-3xl animate-pulse animation-delay-2000"></div>
-      <div className="absolute top-1/4 left-1/4 w-48 h-48 bg-cyan-600 rounded-full opacity-10 blur-2xl animate-pulse animation-delay-3000"></div>
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (isPaused) return;
 
-      <div className="max-w-7xl mx-auto relative z-10">
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, steps.length]);
+
+  // Scroll to active step
+  useEffect(() => {
+    if (containerRef.current) {
+      const activeElement = containerRef.current.children[activeStep];
+      if (activeElement) {
+        activeElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+      }
+    }
+  }, [activeStep]);
+
+  return (
+    <section className="py-16 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 px-4">
+      <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Your Journey to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Career Success</span>
+            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Career Journey</span>
           </h2>
-          <p className="text-blue-200 text-lg max-w-2xl mx-auto">
-            Follow our structured pathway from learning to professional placement
+          <p className="text-blue-200 text-lg max-w-3xl mx-auto">
+            A streamlined pathway from learning to professional success with industry-aligned training
           </p>
         </motion.div>
 
-        {/* Progress indicator for mobile */}
-        {/* <div className="md:hidden flex justify-center mb-8">
-          <div className="flex space-x-2 bg-white/10 backdrop-blur-md rounded-full p-2">
-            {steps.map((step) => (
-              <button
-                key={step.id}
-                onClick={() => setActiveStep(step.id)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  activeStep === step.id
-                    ? "bg-blue-400 scale-125"
-                    : "bg-white/30"
-                }`}
-              ></button>
-            ))}
-          </div>
+        {/* Auto-play controls */}
+        {/* <div className="flex justify-center mb-8">
+          <button
+            onClick={() => setIsPaused(!isPaused)}
+            className="flex items-center text-blue-200 bg-white/10 px-5 py-3 rounded-full hover:bg-white/20 transition-colors"
+          >
+            {isPaused ? (
+              <>
+                <FaPlay className="mr-2" /> Play Animation
+              </>
+            ) : (
+              <>
+                <FaPause className="mr-2" /> Pause Animation
+              </>
+            )}
+          </button>
         </div> */}
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Animated connecting line */}
-          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-400 via-indigo-500 to-cyan-500 transform md:-translate-x-1/2 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full w-full bg-gradient-to-b from-cyan-400 to-blue-600"
-              initial={{ scaleY: 0 }}
-              animate={isVisible ? { scaleY: 1 } : { scaleY: 0 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              style={{ originY: 0 }}
+        {/* Main Process Container for Desktop */}
+        <div className="hidden lg:block">
+          {/* Progress Line */}
+          <div className="relative h-2 bg-white/10 rounded-full mb-16 mx-16">
+            <motion.div 
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+              initial={{ width: "0%" }}
+              animate={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
+              transition={{ duration: 0.8 }}
             />
+            
+            {/* Progress Indicators */}
+            {steps.map((step, index) => (
+              <div 
+                key={step.id}
+                className={`absolute top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center -ml-4 ${
+                  index <= activeStep ? step.bgColor + " text-white shadow-lg" : "bg-slate-700 text-slate-300"
+                }`}
+                style={{ left: `${(index / (steps.length - 1)) * 100}%` }}
+              >
+                {index < activeStep ? <FaCheck className="text-sm" /> : step.icon}
+              </div>
+            ))}
           </div>
 
-          <div className="space-y-10 md:space-y-0">
+          {/* Steps Navigation */}
+          <div className="flex justify-between mb-12 px-4" ref={containerRef}>
             {steps.map((step, index) => (
               <motion.div
                 key={step.id}
-                initial={{ opacity: 0, scale: 0.8, x: index % 2 === 0 ? -80 : 80 }}
-                whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true, margin: "-50px" }}
-                className={`relative flex flex-col md:flex-row items-start ${
-                  index % 2 === 0 ? "md:justify-start" : "md:justify-end"
-                } ${activeStep !== step.id ? "md:opacity-100 opacity-40" : "opacity-100"} transition-opacity duration-300 md:transition-none`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`w-56 text-center cursor-pointer transition-all duration-300 ${
+                  activeStep === index ? "scale-110" : "scale-100 opacity-70"
+                }`}
+                onClick={() => {
+                  setActiveStep(index);
+                  setIsPaused(true);
+                }}
               >
-                {/* Number Badge with Glow */}
-                <div className={`absolute left-2 md:left-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r ${step.color} text-white font-bold shadow-lg transform md:-translate-x-1/2 z-10`}>
-                  {step.id}
-                </div>
-
-                {/* Card */}
-                <div
-                  className={`ml-14 md:ml-0 md:w-5/12 ${
-                    index % 2 === 0
-                      ? "md:mr-auto md:pr-8"
-                      : "md:ml-auto md:pl-8"
-                  }`}
-                >
-                  <motion.div 
-                    whileHover={{ y: -5 }}
-                    className="relative bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300 group overflow-hidden"
-                  >
-                    {/* Gradient overlay on hover */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${step.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                    
-                    {/* Content */}
-                    <div className="flex items-start mb-4">
-                      <div className="p-3 rounded-xl bg-white/10 mr-4">
-                        {step.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">
-                          {step.title}
-                        </h3>
-                        <span className="text-blue-300 text-sm flex items-center mt-1">
-                          <FaRegClock className="mr-1" /> {step.duration}
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-blue-100">{step.description}</p>
-                    <div className="flex items-start mt-4">
-                      <div className="text-blue-300 mr-2 mt-1">✨</div>
-                      <p className="text-blue-200 text-sm italic">
-                        {step.outcome}
-                      </p>
-                    </div>
-
-                    {/* Checkmark */}
-                    {index < steps.length - 1 && (
-                      <div className="mt-4 flex items-center text-blue-300 text-sm">
-                        <FaCheckCircle className="mr-2 text-green-400" />
-                        Complete this step to continue
-                      </div>
-                    )}
-                    
-                    {index === steps.length - 1 && (
-                      <div className="mt-4 flex items-center text-blue-300 text-sm">
-                        <FaRocket className="mr-2 text-yellow-400" />
-                        Ready for career launch!
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
+                <h3 className={`text-lg font-semibold mb-2 ${
+                  activeStep === index ? "text-white" : "text-blue-300"
+                }`}>
+                  {step.title}
+                </h3>
+                <p className="text-sm text-blue-200">{step.duration}</p>
               </motion.div>
             ))}
           </div>
+
+          {/* Step Content */}
+          <div className="relative">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 max-w-4xl mx-auto"
+            >
+              <div className="flex items-start">
+                <div className={`w-20 h-20 flex items-center justify-center ${steps[activeStep].bgColor} text-white rounded-xl mr-6 flex-shrink-0`}>
+                  {steps[activeStep].icon}
+                </div>
+                
+                <div className="flex-1">
+                  <div className="flex items-center mb-4">
+                    <h3 className="text-2xl font-bold text-white mr-4">
+                      {steps[activeStep].title}
+                    </h3>
+                    <span className="text-blue-300 text-sm flex items-center bg-white/10 px-3 py-1 rounded-full">
+                      <FaRegClock className="mr-1" /> {steps[activeStep].duration}
+                    </span>
+                  </div>
+                  
+                  <p className="text-blue-100 text-lg mb-6">
+                    {steps[activeStep].description}
+                  </p>
+                  
+                  <div className="bg-gradient-to-r from-blue-600/20 to-indigo-600/20 p-4 rounded-lg border border-white/10">
+                    <div className="flex items-start">
+                      <div className="text-blue-300 mr-3 mt-0.5 text-xl">✨</div>
+                      <p className="text-blue-200">
+                        <span className="font-semibold text-white">Outcome: </span>
+                        {steps[activeStep].outcome}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Navigation Arrows */}
+            <button 
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 bg-white/10 hover:bg-white/20 p-3 rounded-full text-white disabled:opacity-30"
+              onClick={() => {
+                setActiveStep(activeStep > 0 ? activeStep - 1 : steps.length - 1);
+                setIsPaused(true);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button 
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 bg-white/10 hover:bg-white/20 p-3 rounded-full text-white disabled:opacity-30"
+              onClick={() => {
+                setActiveStep(activeStep < steps.length - 1 ? activeStep + 1 : 0);
+                setIsPaused(true);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* CTA */}
+        {/* Vertical Timeline for Mobile */}
+        <div className="lg:hidden space-y-8">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="flex"
+            >
+              {/* Timeline line and dot */}
+              <div className="flex flex-col items-center mr-4">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step.bgColor} text-white z-10`}>
+                  {step.icon}
+                </div>
+                {index < steps.length - 1 && (
+                  <div className="w-1 h-full bg-white/10 mt-2"></div>
+                )}
+              </div>
+              
+              {/* Content */}
+              <div className="flex-1 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5">
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {step.title}
+                </h3>
+                <span className="text-blue-300 text-sm flex items-center mb-3">
+                  <FaRegClock className="mr-1" /> {step.duration}
+                </span>
+                
+                <p className="text-blue-100 text-sm mb-4">
+                  {step.description}
+                </p>
+                
+                <div className="flex items-start bg-white/5 p-3 rounded-lg">
+                  <div className="text-blue-300 mr-2 mt-0.5 text-lg">✨</div>
+                  <p className="text-blue-200 text-sm">
+                    {step.outcome}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="mt-20 text-center"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 p-8 rounded-2xl border border-white/20 backdrop-blur-md shadow-xl relative overflow-hidden">
-            {/* Animated background elements for CTA */}
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-cyan-500 rounded-full opacity-20 blur-xl animate-pulse"></div>
-            <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-blue-500 rounded-full opacity-20 blur-xl animate-pulse animation-delay-2000"></div>
+          <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 p-8 rounded-2xl border border-white/20 backdrop-blur-md relative overflow-hidden max-w-4xl mx-auto">
+            <div className="absolute -top-10 -right-10 w-28 h-28 bg-blue-500/20 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-indigo-500/20 rounded-full blur-xl"></div>
             
             <h3 className="text-2xl font-bold text-white mb-4 relative z-10">
-              Ready to Start Your Journey?
+              Ready to Begin Your Journey?
             </h3>
-            <p className="text-blue-200 mb-6 relative z-10">
-              Join hundreds of students who have launched their careers through our program
+            <p className="text-blue-200 text-lg mb-6 relative z-10">
+              Join hundreds of students who have launched successful careers through our program
             </p>
 
             <motion.a
               href="#enroll"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 group relative z-10"
+              className="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 relative z-10"
             >
-              Begin Your Application
-              <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              Start Your Application
+              <FaArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
             </motion.a>
           </div>
         </motion.div>
       </div>
-
-      <style jsx>{`
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-3000 {
-          animation-delay: 3s;
-        }
-      `}</style>
     </section>
   );
 };
