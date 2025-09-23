@@ -1,139 +1,766 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import { motion } from "framer-motion";
+// import { useRouter } from "next/router";
+// import Image from "next/image";
+// import Head from "next/head";
+
+// // Sample product data
+// const products = [
+//   {
+//     id: 1,
+//     name: "LifelineCart",
+//     type: "E-commerce Platform",
+//     category: "web",
+//     description: "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations.",
+//     image: "/placeholder.jpg",
+//     themeColor: "from-blue-500 to-blue-600",
+//     features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"],
+//     detailedDescription: "LifelineCart revolutionizes online shopping with its intuitive interface and powerful backend. Our platform handles everything from inventory tracking to customer relationship management, all while providing actionable insights through advanced analytics.",
+//     technologies: ["React", "Node.js", "MongoDB", "Stripe API", "AWS"],
+//     additionalImages: [
+//       "/placeholder.jpg",
+//       "/placeholder.jpg",
+//       "/placeholder.jpg"
+//     ],
+//     overviewImage: "/placeholder.jpg",
+//     featuresImage: "/placeholder.jpg",
+//     technologiesImage: "/placeholder.jpg",
+//     challenges: "Creating a seamless user experience across all devices while maintaining high performance with large product catalogs.",
+//     solutions: "Implemented lazy loading, optimized image delivery, and used a CDN to ensure fast loading times regardless of device or location.",
+//     results: "35% increase in conversion rate and 50% reduction in cart abandonment for our clients.",
+//     mockups: [
+//       { type: "Desktop", image: "/placeholder.jpg" },
+//       { type: "Mobile", image: "/placeholder.jpg" },
+//       { type: "Tablet", image: "/placeholder.jpg" }
+//     ],
+//     futureEnhancements: [
+//       "Voice search integration for hands-free shopping",
+//       "AR-based product previews",
+//       "Blockchain for supply chain transparency",
+//       "AI-powered personal shopping assistant",
+//       "Social commerce integration"
+//     ],
+//     testimonials: [
+//       {
+//         quote: "LifelineCart transformed our online business. The AI recommendations alone increased our sales by 27% in the first quarter.",
+//         author: "Sarah Johnson",
+//         position: "CEO, FashionHub"
+//       },
+//       {
+//         quote: "Implementation was seamless and the support team was exceptional. Our customers love the new shopping experience.",
+//         author: "Michael Chen",
+//         position: "CTO, TechGadgets"
+//       }
+//     ],
+//     stats: [
+//       { value: "35%", label: "Increase in Conversion" },
+//       { value: "50%", label: "Reduction in Cart Abandonment" },
+//       { value: "99.9%", label: "Uptime" },
+//       { value: "2.1s", label: "Avg. Load Time" }
+//     ],
+//     timeline: [
+//       { phase: "Discovery & Planning", duration: "2 weeks" },
+//       { phase: "UI/UX Design", duration: "3 weeks" },
+//       { phase: "Development", duration: "10 weeks" },
+//       { phase: "Testing & QA", duration: "2 weeks" },
+//       { phase: "Launch", duration: "1 week" }
+//     ],
+//     team: [
+//       { name: "Project Manager", count: 1 },
+//       { name: "UI/UX Designers", count: 2 },
+//       { name: "Frontend Developers", count: 3 },
+//       { name: "Backend Developers", count: 2 },
+//       { name: "QA Specialists", count: 2 }
+//     ]
+//   },
+//   {
+//     id: 4,
+//     name: "FitTrack",
+//     type: "Healthcare App",
+//     category: "mobile",
+//     description: "A comprehensive health monitoring application with real-time vitals tracking and doctor consultation features.",
+//     image: "/placeholder.jpg",
+//     themeColor: "from-blue-500 to-blue-600",
+//     features: ["Vitals Monitoring", "Appointment Booking", "Health Reports", "Medication Reminders"],
+//     detailedDescription: "HealthTrack Pro empowers users to take control of their health with intuitive tracking and professional medical insights.",
+//     technologies: ["React Native", "Firebase", "Node.js", "WebRTC"],
+//     additionalImages: [
+//       "/placeholder.jpg",
+//       "/placeholder.jpg"
+//     ],
+//     overviewImage: "/placeholder.jpg",
+//     featuresImage: "/placeholder.jpg",
+//     technologiesImage: "/placeholder.jpg",
+//     challenges: "Ensuring HIPAA compliance while maintaining a seamless user experience.",
+//     solutions: "Implemented end-to-end encryption and strict access controls while optimizing the UI for ease of use.",
+//     results: "40% improvement in patient engagement and 30% reduction in missed appointments.",
+//     mockups: [
+//       { type: "Mobile", image: "/placeholder.jpg" },
+//       { type: "Tablet", image: "/placeholder.jpg" }
+//     ],
+//     futureEnhancements: [
+//       "Integration with wearable devices",
+//       "AI-based health predictions",
+//       "Telemedicine enhancements",
+//       "Personalized health plans"
+//     ],
+//     testimonials: [
+//       {
+//         quote: "Our patients love the convenience of HealthTrack Pro. It's revolutionized how we deliver care.",
+//         author: "Dr. Emily Rodriguez",
+//         position: "Medical Director, City Hospital"
+//       }
+//     ],
+//     stats: [
+//       { value: "40%", label: "Patient Engagement" },
+//       { value: "30%", label: "Fewer Missed Appointments" },
+//       { value: "4.8/5", label: "User Rating" },
+//       { value: "50k+", label: "Active Users" }
+//     ],
+//     timeline: [
+//       { phase: "Research & Planning", duration: "3 weeks" },
+//       { phase: "UI/UX Design", duration: "4 weeks" },
+//       { phase: "Development", duration: "12 weeks" },
+//       { phase: "Testing & Compliance", duration: "3 weeks" },
+//       { phase: "Launch", duration: "2 weeks" }
+//     ],
+//     team: [
+//       { name: "Project Manager", count: 1 },
+//       { name: "UI/UX Designers", count: 2 },
+//       { name: "Mobile Developers", count: 3 },
+//       { name: "Backend Developers", count: 2 },
+//       { name: "QA Specialists", count: 2 },
+//       { name: "Compliance Experts", count: 1 }
+//     ]
+//   }
+// ];
+
+// // Animation variants
+// const fadeIn = {
+//   hidden: { opacity: 0, y: 20 },
+//   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+// };
+
+// const staggerChildren = {
+//   visible: { transition: { staggerChildren: 0.1 } }
+// };
+
+// const scaleUp = {
+//   hidden: { opacity: 0, scale: 0.9 },
+//   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+// };
+
+// export default function ProductDetail() {
+//   const router = useRouter();
+//   const { id } = router.query;
+//   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+//   const [activeTab, setActiveTab] = useState("overview");
+
+//   // Find the product with the matching ID
+//   const product = products.find(p => p.id === parseInt(id));
+
+//   // If product not found or page is loading
+//   if (!product) {
+//     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+//   }
+
+//   // Handle next/previous image in slider
+//   const nextImage = () => {
+//     setCurrentImageIndex(prev => 
+//       prev === product.additionalImages.length - 1 ? 0 : prev + 1
+//     );
+//   };
+
+//   const prevImage = () => {
+//     setCurrentImageIndex(prev => 
+//       prev === 0 ? product.additionalImages.length - 1 : prev - 1
+//     );
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-50">
+//       <Head>
+//         <title>{product.name} - Product Details</title>
+//         <meta name="description" content={product.description} />
+//       </Head>
+
+//       {/* Header with back button */}
+//       <motion.header 
+//         initial={{ opacity: 0, y: -10 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         className=" shadow-sm sticky top-0 z-50"
+//       >
+//         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between mt-20">
+//           <button 
+//             onClick={() => router.back()}
+//             className="flex items-center text-gray-600 hover:text-gray-800 transition-colors duration-300"
+//           >
+//             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+//             </svg>
+//             Back to Products
+//           </button>
+
+//           {/* Navigation Tabs */}
+//           {/* <div className="hidden md:flex space-x-1 bg-gray-100 p-1 rounded-lg">
+//             {["overview", "features", "technology", "results", "gallery"].map(tab => (
+//               <button
+//                 key={tab}
+//                 onClick={() => {
+//                   setActiveTab(tab);
+//                   document.getElementById(tab)?.scrollIntoView({ behavior: "smooth" });
+//                 }}
+//                 className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
+//                   activeTab === tab 
+//                     ? `bg-white text-gray-800 shadow-sm ${product.category === "mobile" ? "text-green-800" : "text-blue-800"}` 
+//                     : "text-gray-600 hover:text-gray-800"
+//                 }`}
+//               >
+//                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
+//               </button>
+//             ))}
+//           </div> */}
+//         </div>
+//       </motion.header>
+
+//       {/* Hero Section */}
+//       <section className="relative py-16 md:py-24 bg-gradient-to-r from-gray-900 to-gray-800 text-white overflow-hidden">
+//         <div className="absolute inset-0 z-0 opacity-20">
+//           <div className="absolute inset-0 bg-black"></div>
+//           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+//           <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+//         </div>
+
+//         <div className="max-w-7xl mx-auto px-4 relative z-10">
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//             <motion.div 
+//               initial="hidden"
+//               animate="visible"
+//               variants={fadeIn}
+//               className="text-center lg:text-left"
+//             >
+//               <span className={`inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full ${
+//                 product.category === "mobile" 
+//                   ? "bg-green-100 text-green-800" 
+//                   : "bg-blue-100 text-blue-800"
+//               }`}>
+//                 {product.category === "mobile" ? "Mobile App" : "Web App"}
+//               </span>
+//               <h1 className="text-4xl md:text-5xl font-bold mb-4">{product.name}</h1>
+//               <p className="text-xl opacity-90 mb-8">{product.type}</p>
+//               <p className="text-gray-300 mb-8 leading-relaxed">{product.description}</p>
+
+//               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+//                 <button className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center">
+//                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+//                   </svg>
+//                   Live Demo
+//                 </button>
+//                 <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+//                   View Case Study
+//                 </button>
+//               </div>
+//             </motion.div>
+
+//             <motion.div 
+//               initial="hidden"
+//               animate="visible"
+//               variants={scaleUp}
+//               className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
+//             >
+//               <Image
+//                 src={product.image || "/placeholder.jpg"}
+//                 alt={product.name}
+//                 layout="fill"
+//                 objectFit="cover"
+//                 onError={(e) => {
+//                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+//                 }}
+//               />
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+
+// {/* Stats Section */}
+// {product.stats && (
+//   <section className="py-12 bg-white">
+//     <div className="max-w-7xl mx-auto px-4">
+//       <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+//         {product.stats.map((stat, index) => (
+//           <motion.div 
+//             key={index}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center p-6 rounded-xl bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
+//           >
+//             <div className={`text-3xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
+//               {stat.value}
+//             </div>
+//             <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
+//           </motion.div>
+//         ))}
+//       </div>
+//     </div>
+//   </section>
+// )}
+
+//       {/* Overview Section */}
+//       <section id="overview" className="py-16 bg-gray-50">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center mb-12"
+//           >
+//             <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
+//             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//           </motion.div>
+
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={fadeIn}
+//             >
+//               <h3 className="text-2xl font-semibold mb-6">The Challenge</h3>
+//               <p className="text-gray-700 leading-relaxed mb-8">{product.challenges}</p>
+
+//               <h3 className="text-2xl font-semibold mb-6">Our Solution</h3>
+//               <p className="text-gray-700 leading-relaxed">{product.solutions}</p>
+//             </motion.div>
+
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={scaleUp}
+//               className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
+//             >
+//               <Image
+//                 src={product.overviewImage || "/placeholder.jpg"}
+//                 alt={`${product.name} Overview`}
+//                 layout="fill"
+//                 objectFit="cover"
+//                 onError={(e) => {
+//                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+//                 }}
+//               />
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Key Features Section */}
+//       <section id="features" className="py-16 bg-white">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center mb-12"
+//           >
+//             <h2 className="text-3xl font-bold mb-4">Key Features</h2>
+//             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Discover the powerful features that make {product.name} stand out from the competition</p>
+//           </motion.div>
+
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={staggerChildren}
+//             className="grid grid-cols-1 md:grid-cols-2 gap-8"
+//           >
+//             {product.features.map((feature, index) => (
+//               <motion.div 
+//                 key={index}
+//                 variants={fadeIn}
+//                 className="flex items-start p-6 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+//               >
+//                 <div className={`bg-gradient-to-r ${product.themeColor} rounded-full p-3 mr-4 flex-shrink-0`}>
+//                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+//                   </svg>
+//                 </div>
+//                 <div>
+//                   <h3 className="text-xl font-semibold mb-2">{feature}</h3>
+//                   <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Technology Stack Section */}
+//       <section id="technology" className="py-16 bg-gray-50">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center mb-12"
+//           >
+//             <h2 className="text-3xl font-bold mb-4">Technology Stack</h2>
+//             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We leverage cutting-edge technologies to deliver high-performance, scalable solutions</p>
+//           </motion.div>
+
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={fadeIn}
+//             >
+//               <div className="flex flex-wrap gap-4 mb-8">
+//                 {product.technologies.map((tech, index) => (
+//                   <span key={index} className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-gray-200">
+//                     {tech}
+//                   </span>
+//                 ))}
+//               </div>
+//               <p className="text-gray-700 mb-6">Our technology stack was carefully selected to ensure optimal performance, security, and scalability for {product.name}.</p>
+
+//               {/* Development Timeline */}
+//               {product.timeline && (
+//                 <div className="mt-10">
+//                   <h3 className="text-xl font-semibold mb-6">Development Timeline</h3>
+//                   <div className="space-y-4">
+//                     {product.timeline.map((phase, index) => (
+//                       <div key={index} className="flex items-center">
+//                         <div className={`w-3 h-3 rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"} mr-4`}></div>
+//                         <div className="flex-1">
+//                           <div className="flex justify-between items-center">
+//                             <span className="font-medium">{phase.phase}</span>
+//                             <span className="text-sm text-gray-500">{phase.duration}</span>
+//                           </div>
+//                           <div className="h-1 bg-gray-200 rounded-full mt-2">
+//                             <div 
+//                               className={`h-full rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"}`} 
+//                               style={{ width: `${(index + 1) * 20}%` }}
+//                             ></div>
+//                           </div>
+//                         </div>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               )}
+//             </motion.div>
+
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={scaleUp}
+//               className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
+//             >
+//               <Image
+//                 src={product.technologiesImage || "/placeholder.jpg"}
+//                 alt={`${product.name} Technologies`}
+//                 layout="fill"
+//                 objectFit="cover"
+//                 onError={(e) => {
+//                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+//                 }}
+//               />
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+
+// {/* Results Section */}
+// <section id="results" className="py-16 bg-white">
+//   <div className="max-w-7xl mx-auto px-4">
+//     <motion.div 
+//       initial="hidden"
+//       whileInView="visible"
+//       viewport={{ once: true }}
+//       variants={fadeIn}
+//       className="text-center mb-12"
+//     >
+//       <h2 className="text-3xl font-bold mb-4">Measurable Results</h2>
+//       <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//     </motion.div>
+
+//     <motion.div 
+//       initial="hidden"
+//       whileInView="visible"
+//       viewport={{ once: true }}
+//       variants={fadeIn}
+//       className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-sm mb-12"
+//     >
+//       <h3 className="text-2xl font-semibold mb-6">Impact Delivered</h3>
+//       <p className="text-gray-700 text-lg leading-relaxed">{product.results}</p>
+//     </motion.div>
+
+//           {/* Team Section */}
+//           {product.team && (
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={fadeIn}
+//               className="mt-16"
+//             >
+//               <h3 className="text-2xl font-semibold mb-6 text-center">Project Team</h3>
+//               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+//                 {product.team.map((role, index) => (
+//                   <div key={index} className="text-center p-4 bg-gray-50 rounded-xl shadow-sm">
+//                     <div className={`text-2xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
+//                       {role.count}
+//                     </div>
+//                     <div className="text-gray-600 text-sm">{role.name}</div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </motion.div>
+//           )}
+//         </div>
+//       </section>
+
+// {/* Testimonials Section */}
+// {product.testimonials && product.testimonials.length > 0 && (
+//   <section className="py-16 bg-gray-50">
+//     <div className="max-w-7xl mx-auto px-4">
+//       <motion.div 
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true }}
+//         variants={fadeIn}
+//         className="text-center mb-12"
+//       >
+//         <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
+//         <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//       </motion.div>
+
+//       <motion.div 
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true }}
+//         variants={staggerChildren}
+//         className="grid grid-cols-1 md:grid-cols-2 gap-8"
+//       >
+//         {product.testimonials.map((testimonial, index) => (
+//           <motion.div 
+//             key={index}
+//             variants={fadeIn}
+//             className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
+//           >
+//             <svg className="w-12 h-12 text-blue-500 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+//             </svg>
+//             <p className="text-gray-700 mb-6 italic">"{testimonial.quote}"</p>
+//             <div>
+//               <div className="font-semibold">{testimonial.author}</div>
+//               <div className="text-gray-600 text-sm">{testimonial.position}</div>
+//             </div>
+//           </motion.div>
+//         ))}
+//       </motion.div>
+//     </div>
+//   </section>
+// )}
+
+//       {/* Gallery Section */}
+//       <section id="gallery" className="py-16 bg-white">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center mb-12"
+//           >
+//             <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
+//             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots and mockups of {product.name} across different devices</p>
+//           </motion.div>
+
+//           {/* Image Slider */}
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden mb-8"
+//           >
+//             <div className="relative h-full w-full overflow-hidden">
+//               <Image
+//                 src={product.additionalImages[currentImageIndex] || "/placeholder.jpg"}
+//                 alt={`${product.name} - Image ${currentImageIndex + 1}`}
+//                 layout="fill"
+//                 objectFit="cover"
+//                 className="transition-opacity duration-300"
+//                 onError={(e) => {
+//                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+//                 }}
+//               />
+//             </div>
+
+//             {/* Only show navigation if there are multiple images */}
+//             {product.additionalImages.length > 1 && (
+//               <>
+//                 <button 
+//                   onClick={prevImage}
+//                   className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+//                 >
+//                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+//                   </svg>
+//                 </button>
+
+//                 <button 
+//                   onClick={nextImage}
+//                   className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+//                 >
+//                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+//                   </svg>
+//                 </button>
+
+//                 {/* Image indicators */}
+//                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+//                   {product.additionalImages.map((_, index) => (
+//                     <button
+//                       key={index}
+//                       onClick={() => setCurrentImageIndex(index)}
+//                       className={`w-3 h-3 rounded-full transition-all duration-300 ${
+//                         index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
+//                       }`}
+//                     />
+//                   ))}
+//                 </div>
+//               </>
+//             )}
+//           </motion.div>
+
+//           {/* Mockups */}
+//           {/* {product.mockups && product.mockups.length > 0 && (
+//             <motion.div 
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true }}
+//               variants={fadeIn}
+//             >
+//               <h3 className="text-2xl font-semibold mb-6 text-center">Device Mockups</h3>
+//               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+//                 {product.mockups.map((mockup, index) => (
+//                   <div key={index} className="text-center">
+//                     <div className="relative h-64 mb-4">
+//                       <Image
+//                         src={mockup.image || "/placeholder.jpg"}
+//                         alt={`${product.name} ${mockup.type} Mockup`}
+//                         layout="fill"
+//                         objectFit="contain"
+//                         onError={(e) => {
+//                           e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+//                         }}
+//                       />
+//                     </div>
+//                     <div className="font-medium text-gray-700">{mockup.type} View</div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </motion.div>
+//           )} */}
+//         </div>
+//       </section>
+
+//       {/* Future Enhancements Section */}
+//       <section className="py-16 bg-gray-50">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//             className="text-center mb-12"
+//           >
+//             <h2 className="text-3xl font-bold mb-4">Future Enhancements</h2>
+//             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+//             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We're constantly innovating and planning new features for {product.name}</p>
+//           </motion.div>
+
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={staggerChildren}
+//             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+//           >
+//             {product.futureEnhancements.map((enhancement, index) => (
+//               <motion.div 
+//                 key={index}
+//                 variants={fadeIn}
+//                 className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+//               >
+//                 <div className={`bg-gradient-to-r ${product.themeColor} rounded-full w-12 h-12 flex items-center justify-center mb-4`}>
+//                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+//                   </svg>
+//                 </div>
+//                 <h3 className="text-lg font-semibold mb-2">{enhancement}</h3>
+//                 <p className="text-gray-600 text-sm">Planned for future release based on user feedback and market trends.</p>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* CTA Section */}
+//       <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+//         <div className="max-w-7xl mx-auto px-4 text-center">
+//           <motion.div 
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={fadeIn}
+//           >
+//             <h2 className="text-3xl font-bold mb-6">Ready to transform your business?</h2>
+//             <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {product.name} can help you achieve your goals</p>
+//             <div className="flex flex-wrap gap-4 justify-center">
+//               <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+//                 Contact Our Team
+//               </button>
+//               <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+//                 Request a Demo
+//               </button>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Footer */}
+//       <footer className="py-8 bg-gray-100 text-center text-gray-600">
+//         <div className="max-w-7xl mx-auto px-4">
+//           <p>© {new Date().getFullYear()} All rights reserved.</p>
+//         </div>
+//       </footer>
+//     </div>
+//   );
+// }
+
+
+
+
+
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
-
-// Sample product data
-const products = [
-  {
-    id: 1,
-    name: "LifelineCart",
-    type: "E-commerce Platform",
-    category: "web",
-    description: "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations.",
-    image: "/placeholder.jpg",
-    themeColor: "from-blue-500 to-blue-600",
-    features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"],
-    detailedDescription: "LifelineCart revolutionizes online shopping with its intuitive interface and powerful backend. Our platform handles everything from inventory tracking to customer relationship management, all while providing actionable insights through advanced analytics.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe API", "AWS"],
-    additionalImages: [
-      "/placeholder.jpg",
-      "/placeholder.jpg",
-      "/placeholder.jpg"
-    ],
-    overviewImage: "/placeholder.jpg",
-    featuresImage: "/placeholder.jpg",
-    technologiesImage: "/placeholder.jpg",
-    challenges: "Creating a seamless user experience across all devices while maintaining high performance with large product catalogs.",
-    solutions: "Implemented lazy loading, optimized image delivery, and used a CDN to ensure fast loading times regardless of device or location.",
-    results: "35% increase in conversion rate and 50% reduction in cart abandonment for our clients.",
-    mockups: [
-      { type: "Desktop", image: "/placeholder.jpg" },
-      { type: "Mobile", image: "/placeholder.jpg" },
-      { type: "Tablet", image: "/placeholder.jpg" }
-    ],
-    futureEnhancements: [
-      "Voice search integration for hands-free shopping",
-      "AR-based product previews",
-      "Blockchain for supply chain transparency",
-      "AI-powered personal shopping assistant",
-      "Social commerce integration"
-    ],
-    testimonials: [
-      {
-        quote: "LifelineCart transformed our online business. The AI recommendations alone increased our sales by 27% in the first quarter.",
-        author: "Sarah Johnson",
-        position: "CEO, FashionHub"
-      },
-      {
-        quote: "Implementation was seamless and the support team was exceptional. Our customers love the new shopping experience.",
-        author: "Michael Chen",
-        position: "CTO, TechGadgets"
-      }
-    ],
-    stats: [
-      { value: "35%", label: "Increase in Conversion" },
-      { value: "50%", label: "Reduction in Cart Abandonment" },
-      { value: "99.9%", label: "Uptime" },
-      { value: "2.1s", label: "Avg. Load Time" }
-    ],
-    timeline: [
-      { phase: "Discovery & Planning", duration: "2 weeks" },
-      { phase: "UI/UX Design", duration: "3 weeks" },
-      { phase: "Development", duration: "10 weeks" },
-      { phase: "Testing & QA", duration: "2 weeks" },
-      { phase: "Launch", duration: "1 week" }
-    ],
-    team: [
-      { name: "Project Manager", count: 1 },
-      { name: "UI/UX Designers", count: 2 },
-      { name: "Frontend Developers", count: 3 },
-      { name: "Backend Developers", count: 2 },
-      { name: "QA Specialists", count: 2 }
-    ]
-  },
-  {
-    id: 4,
-    name: "FitTrack",
-    type: "Healthcare App",
-    category: "mobile",
-    description: "A comprehensive health monitoring application with real-time vitals tracking and doctor consultation features.",
-    image: "/placeholder.jpg",
-    themeColor: "from-blue-500 to-blue-600",
-    features: ["Vitals Monitoring", "Appointment Booking", "Health Reports", "Medication Reminders"],
-    detailedDescription: "HealthTrack Pro empowers users to take control of their health with intuitive tracking and professional medical insights.",
-    technologies: ["React Native", "Firebase", "Node.js", "WebRTC"],
-    additionalImages: [
-      "/placeholder.jpg",
-      "/placeholder.jpg"
-    ],
-    overviewImage: "/placeholder.jpg",
-    featuresImage: "/placeholder.jpg",
-    technologiesImage: "/placeholder.jpg",
-    challenges: "Ensuring HIPAA compliance while maintaining a seamless user experience.",
-    solutions: "Implemented end-to-end encryption and strict access controls while optimizing the UI for ease of use.",
-    results: "40% improvement in patient engagement and 30% reduction in missed appointments.",
-    mockups: [
-      { type: "Mobile", image: "/placeholder.jpg" },
-      { type: "Tablet", image: "/placeholder.jpg" }
-    ],
-    futureEnhancements: [
-      "Integration with wearable devices",
-      "AI-based health predictions",
-      "Telemedicine enhancements",
-      "Personalized health plans"
-    ],
-    testimonials: [
-      {
-        quote: "Our patients love the convenience of HealthTrack Pro. It's revolutionized how we deliver care.",
-        author: "Dr. Emily Rodriguez",
-        position: "Medical Director, City Hospital"
-      }
-    ],
-    stats: [
-      { value: "40%", label: "Patient Engagement" },
-      { value: "30%", label: "Fewer Missed Appointments" },
-      { value: "4.8/5", label: "User Rating" },
-      { value: "50k+", label: "Active Users" }
-    ],
-    timeline: [
-      { phase: "Research & Planning", duration: "3 weeks" },
-      { phase: "UI/UX Design", duration: "4 weeks" },
-      { phase: "Development", duration: "12 weeks" },
-      { phase: "Testing & Compliance", duration: "3 weeks" },
-      { phase: "Launch", duration: "2 weeks" }
-    ],
-    team: [
-      { name: "Project Manager", count: 1 },
-      { name: "UI/UX Designers", count: 2 },
-      { name: "Mobile Developers", count: 3 },
-      { name: "Backend Developers", count: 2 },
-      { name: "QA Specialists", count: 2 },
-      { name: "Compliance Experts", count: 1 }
-    ]
-  }
-];
 
 // Animation variants
 const fadeIn = {
@@ -153,45 +780,173 @@ const scaleUp = {
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
+  const [testimonialsData, setTestimonialsData] = useState([]);
+  const [productsData, setProductsData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  console.log("Product overview image", productsData?.overviewImage);
+  // Fetch product data
+  useEffect(() => {
+    if (!id) return;
 
-  // Find the product with the matching ID
-  const product = products.find(p => p.id === parseInt(id));
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/product/${id}`);
+        if (res.data.success) {
+          setProductsData(res.data.data);
+        }
+        console.log("Fetched Product:", res.data.data);
+      } catch (err) {
+        console.error("Error fetching product:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [id]);
+
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/testimonial`);
+        if (res.data.success) {
+          const filtered = res.data.data.filter((item) => item.sectionTitle === "Product");
+          console.log("Filtered Testimonials:", filtered);
+          setTestimonialsData(filtered);
+        }
+        console.log("Fetched Testimonials:", res.data.data);
+      } catch (err) {
+        console.error("Error fetching testimonials:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+
 
   // If product not found or page is loading
-  if (!product) {
+  if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
+  if (!productsData) {
+    return <div className="min-h-screen flex items-center justify-center">Product not found</div>;
   }
 
   // Handle next/previous image in slider
   const nextImage = () => {
-    setCurrentImageIndex(prev => 
-      prev === product.additionalImages.length - 1 ? 0 : prev + 1
+    setCurrentImageIndex(prev =>
+      prev === (productsData.galleryImages?.length || 1) - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
-    setCurrentImageIndex(prev => 
-      prev === 0 ? product.additionalImages.length - 1 : prev - 1
+    setCurrentImageIndex(prev =>
+      prev === 0 ? (productsData.galleryImages?.length || 1) - 1 : prev - 1
     );
+  };
+
+  // Helper functions to get data from the API response
+  const getHeadingData = () => {
+    return productsData.heading?.map((item, index) => ({
+      id: item._id || index,
+      headingPercentage: item.headingPercentage,
+      headingDesc: item.headingDesc
+    })) || [];
+  };
+
+  const getMeasurableResults = () => {
+    return productsData.measurableResults?.map((item, index) => ({
+      id: item._id || index,
+      title: item.title,
+      description: item.description
+    })) || [];
+  };
+
+  const getProjectTeam = () => {
+    return productsData.projectTeam?.map((item, index) => ({
+      id: item._id || index,
+      members: item.members,
+      role: item.role
+    })) || [];
+  };
+
+  const getDevelopmentTimeline = () => {
+    return productsData.developmentTimeline?.map((item, index) => ({
+      id: item._id || index,
+      title: item.title,
+      time: item.time
+    })) || [];
+  };
+
+  const getOverview = () => {
+    return productsData.overview?.map((item, index) => ({
+      id: item._id || index,
+      title: item.title,
+      desc: item.desc
+    })) || [];
+  };
+
+  const getKeyFeatures = () => {
+    return productsData.keyFeatures?.map((item, index) => ({
+      id: item._id || index,
+      title: item.title,
+      description: item.description,
+      image: item.image
+    })) || [];
+  };
+
+  const getProjectDetails = () => {
+    return productsData.projectDetails?.map((item, index) => ({
+      id: item._id || index,
+      title: item.title,
+      description: item.description,
+      image: item.image
+    })) || [];
+  };
+
+  // Generate stats from measurable results
+  const generateStats = () => {
+    return getMeasurableResults().map((result, index) => ({
+      value: result.title,
+      label: result.description
+    }));
+  };
+
+  // Generate features from key features
+  const generateFeatures = () => {
+    return getKeyFeatures().map(feature => feature.title);
+  };
+
+  // Generate technologies from technology points
+  const generateTechnologies = () => {
+    return productsData.technologyPoints || [];
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>{product.name} - Product Details</title>
-        <meta name="description" content={product.description} />
+        <title>{productsData.title} - Product Details</title>
+        <meta name="description" content={productsData.description} />
       </Head>
 
       {/* Header with back button */}
-      <motion.header 
+      <motion.header
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         className=" shadow-sm sticky top-0 z-50"
       >
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between mt-20">
-          <button 
+          <button
             onClick={() => router.back()}
             className="flex items-center text-gray-600 hover:text-gray-800 transition-colors duration-300"
           >
@@ -200,26 +955,6 @@ export default function ProductDetail() {
             </svg>
             Back to Products
           </button>
-          
-          {/* Navigation Tabs */}
-          {/* <div className="hidden md:flex space-x-1 bg-gray-100 p-1 rounded-lg">
-            {["overview", "features", "technology", "results", "gallery"].map(tab => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  document.getElementById(tab)?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-300 ${
-                  activeTab === tab 
-                    ? `bg-white text-gray-800 shadow-sm ${product.category === "mobile" ? "text-green-800" : "text-blue-800"}` 
-                    : "text-gray-600 hover:text-gray-800"
-                }`}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-              </button>
-            ))}
-          </div> */}
         </div>
       </motion.header>
 
@@ -230,48 +965,51 @@ export default function ProductDetail() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeIn}
               className="text-center lg:text-left"
             >
-              <span className={`inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full ${
-                product.category === "mobile" 
-                  ? "bg-green-100 text-green-800" 
-                  : "bg-blue-100 text-blue-800"
-              }`}>
-                {product.category === "mobile" ? "Mobile App" : "Web App"}
+              <span className="inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                {productsData.category}
               </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{product.name}</h1>
-              <p className="text-xl opacity-90 mb-8">{product.type}</p>
-              <p className="text-gray-300 mb-8 leading-relaxed">{product.description}</p>
-              
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{productsData.title}</h1>
+              <p className="text-xl opacity-90 mb-8">{productsData.subTitle}</p>
+              <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p>
+
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                <button className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center">
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  Live Demo
-                </button>
+                {productsData.livedemoLink && (
+                  <a
+                    href={productsData.livedemoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
                 <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                   View Case Study
                 </button>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial="hidden"
               animate="visible"
               variants={scaleUp}
               className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
             >
-              <Image
-                src={product.image || "/placeholder.jpg"}
-                alt={product.name}
+              <image
+                src={productsData.mainImage || "/placeholder.jpg"}
+                alt={productsData.title}
                 layout="fill"
                 objectFit="cover"
                 onError={(e) => {
@@ -283,35 +1021,36 @@ export default function ProductDetail() {
         </div>
       </section>
 
+
       {/* Stats Section */}
-      {product.stats && (
-        <section className="py-12 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-              {product.stats.map((stat, index) => (
-                <motion.div 
-                  key={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeIn}
-                  className="text-center p-6 rounded-xl bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
-                >
-                  <div className={`text-3xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {getHeadingData().map((stat, index) => (
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                className="text-center p-6 rounded-xl bg-gray-50 shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className={`text-3xl font-bold mb-2 ${productsData.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
+                  {stat.headingPercentage}
+                </div>
+                <div className="text-gray-600 text-sm font-medium">{stat.headingDesc}</div>
+              </motion.div>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
 
       {/* Overview Section */}
       <section id="overview" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -321,38 +1060,42 @@ export default function ProductDetail() {
             <h2 className="text-3xl font-bold mb-4">Project Overview</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
             >
-              <h3 className="text-2xl font-semibold mb-6">The Challenge</h3>
-              <p className="text-gray-700 leading-relaxed mb-8">{product.challenges}</p>
-              
-              <h3 className="text-2xl font-semibold mb-6">Our Solution</h3>
-              <p className="text-gray-700 leading-relaxed">{product.solutions}</p>
+              {getOverview().map((item, index) => (
+                <div key={index} className="mb-8">
+                  <h3 className="text-2xl font-semibold mb-4">{item.title}</h3>
+                  <p className="text-gray-700 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
             </motion.div>
-            
-            <motion.div 
+
+
+
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={scaleUp}
               className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
             >
-              <Image
-                src={product.overviewImage || "/placeholder.jpg"}
-                alt={`${product.name} Overview`}
-                layout="fill"
-                objectFit="cover"
+              <img
+                src={productsData?.overviewImage || "/placeholder.jpg"}
+                alt={`${productsData?.title} Overview`}
+                className="w-full h-full object-cover"
                 onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                  e.currentTarget.src =
+                    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly83d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
                 }}
               />
             </motion.div>
+
           </div>
         </div>
       </section>
@@ -360,7 +1103,7 @@ export default function ProductDetail() {
       {/* Key Features Section */}
       <section id="features" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -369,30 +1112,30 @@ export default function ProductDetail() {
           >
             <h2 className="text-3xl font-bold mb-4">Key Features</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Discover the powerful features that make {product.name} stand out from the competition</p>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Discover the powerful features that make {productsData.title} stand out</p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerChildren}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
-            {product.features.map((feature, index) => (
-              <motion.div 
+            {getKeyFeatures().map((feature, index) => (
+              <motion.div
                 key={index}
                 variants={fadeIn}
                 className="flex items-start p-6 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <div className={`bg-gradient-to-r ${product.themeColor} rounded-full p-3 mr-4 flex-shrink-0`}>
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full p-3 mr-4 flex-shrink-0">
                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">{feature}</h3>
-                  <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -403,50 +1146,50 @@ export default function ProductDetail() {
       {/* Technology Stack Section */}
       <section id="technology" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4">Technology Stack</h2>
+            <h2 className="text-3xl font-bold mb-4">{productsData.technologyTitle}</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We leverage cutting-edge technologies to deliver high-performance, scalable solutions</p>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">{productsData.technologyDesc}</p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
             >
+
               <div className="flex flex-wrap gap-4 mb-8">
-                {product.technologies.map((tech, index) => (
+                {generateTechnologies().map((tech, index) => (
                   <span key={index} className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-gray-200">
                     {tech}
                   </span>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6">Our technology stack was carefully selected to ensure optimal performance, security, and scalability for {product.name}.</p>
-              
+
               {/* Development Timeline */}
-              {product.timeline && (
+              {getDevelopmentTimeline().length > 0 && (
                 <div className="mt-10">
                   <h3 className="text-xl font-semibold mb-6">Development Timeline</h3>
                   <div className="space-y-4">
-                    {product.timeline.map((phase, index) => (
+                    {getDevelopmentTimeline().map((phase, index) => (
                       <div key={index} className="flex items-center">
-                        <div className={`w-3 h-3 rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"} mr-4`}></div>
+                        <div className="w-3 h-3 rounded-full bg-blue-500 mr-4"></div>
                         <div className="flex-1">
                           <div className="flex justify-between items-center">
-                            <span className="font-medium">{phase.phase}</span>
-                            <span className="text-sm text-gray-500">{phase.duration}</span>
+                            <span className="font-medium">{phase.title}</span>
+                            <span className="text-sm text-gray-500">{phase.time}</span>
                           </div>
                           <div className="h-1 bg-gray-200 rounded-full mt-2">
-                            <div 
-                              className={`h-full rounded-full ${product.category === "mobile" ? "bg-green-500" : "bg-blue-500"}`} 
+                            <div
+                              className="h-full rounded-full bg-blue-500"
                               style={{ width: `${(index + 1) * 20}%` }}
                             ></div>
                           </div>
@@ -457,21 +1200,21 @@ export default function ProductDetail() {
                 </div>
               )}
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={scaleUp}
               className="relative h-96 rounded-2xl overflow-hidden shadow-xl"
             >
-              <Image
-                src={product.technologiesImage || "/placeholder.jpg"}
-                alt={`${product.name} Technologies`}
+              <img
+                src={productsData.technologyImage || "/placeholder.jpg"}
+                alt={`${productsData.title} Technologies`}
                 layout="fill"
                 objectFit="cover"
                 onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9y=";
                 }}
               />
             </motion.div>
@@ -479,10 +1222,12 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Results Section */}
+
+
+      {/* Measuarable Section */}
       <section id="results" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -492,35 +1237,65 @@ export default function ProductDetail() {
             <h2 className="text-3xl font-bold mb-4">Measurable Results</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
           </motion.div>
-          
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-sm mb-12"
-          >
-            <h3 className="text-2xl font-semibold mb-6">Impact Delivered</h3>
-            <p className="text-gray-700 text-lg leading-relaxed">{product.results}</p>
-          </motion.div>
-          
+
           {/* Team Section */}
-          {product.team && (
-            <motion.div 
+          {getMeasurableResults().length > 0 && (
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
-              className="mt-16"
+              className="bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-sm mb-12"
             >
-              <h3 className="text-2xl font-semibold mb-6 text-center">Project Team</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                {product.team.map((role, index) => (
-                  <div key={index} className="text-center p-4 bg-gray-50 rounded-xl shadow-sm">
-                    <div className={`text-2xl font-bold mb-2 ${product.category === "mobile" ? "text-green-600" : "text-blue-600"}`}>
-                      {role.count}
+
+              {getMeasurableResults().map((result, index) => (
+                <div key={index} >
+                  <h3 className="text-2xl font-semibold mb-6">
+                    {result.title}
+                  </h3>
+
+                  <p className="text-gray-700 text-lg leading-relaxed">{result.description}</p>
+                </div>
+              ))}
+
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+
+
+
+
+      {/* Results Section */}
+      <section id="results" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Project Team</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+          </motion.div>
+
+          {/* Team Section */}
+          {getProjectTeam().length > 0 && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {getProjectTeam().map((member, index) => (
+                  <div key={index} className="text-center p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <div className="text-2xl font-bold mb-2 text-blue-600">
+                      {member.members}
                     </div>
-                    <div className="text-gray-600 text-sm">{role.name}</div>
+                    <div className="text-gray-600">{member.role}</div>
                   </div>
                 ))}
               </div>
@@ -529,53 +1304,56 @@ export default function ProductDetail() {
         </div>
       </section>
 
+
+
       {/* Testimonials Section */}
-      {product.testimonials && product.testimonials.length > 0 && (
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4">
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
-              <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            </motion.div>
-            
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerChildren}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
-              {product.testimonials.map((testimonial, index) => (
-                <motion.div 
-                  key={index}
-                  variants={fadeIn}
-                  className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
-                >
-                  <svg className="w-12 h-12 text-blue-500 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
-                  <p className="text-gray-700 mb-6 italic">"{testimonial.quote}"</p>
-                  <div>
-                    <div className="font-semibold">{testimonial.author}</div>
-                    <div className="text-gray-600 text-sm">{testimonial.position}</div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-      )}
+
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {testimonialsData.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <svg className="w-12 h-12 text-blue-500 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+                <p className="text-gray-700 mb-6 italic">"{testimonial.description}"</p>
+                <div>
+                  <div className="font-semibold">{testimonial.fullName}</div>
+                  <div className="text-gray-600 text-sm">{testimonial.title}</div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+
 
       {/* Gallery Section */}
       <section id="gallery" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -584,151 +1362,125 @@ export default function ProductDetail() {
           >
             <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots and mockups of {product.name} across different devices</p>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots of {productsData.title}</p>
           </motion.div>
-          
+
           {/* Image Slider */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden mb-8"
-          >
-            <div className="relative h-full w-full overflow-hidden">
-              <Image
-                src={product.additionalImages[currentImageIndex] || "/placeholder.jpg"}
-                alt={`${product.name} - Image ${currentImageIndex + 1}`}
-                layout="fill"
-                objectFit="cover"
-                className="transition-opacity duration-300"
-                onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                }}
-              />
-            </div>
-            
-            {/* Only show navigation if there are multiple images */}
-            {product.additionalImages.length > 1 && (
-              <>
-                <button 
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                
-                <button 
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-                
-                {/* Image indicators */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {product.additionalImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                        index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </motion.div>
-          
-          {/* Mockups */}
-          {/* {product.mockups && product.mockups.length > 0 && (
-            <motion.div 
+             {productsData.galleryImages && productsData.galleryImages.length > 0 && (
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
+              className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden mb-8"
             >
-              <h3 className="text-2xl font-semibold mb-6 text-center">Device Mockups</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {product.mockups.map((mockup, index) => (
-                  <div key={index} className="text-center">
-                    <div className="relative h-64 mb-4">
-                      <Image
-                        src={mockup.image || "/placeholder.jpg"}
-                        alt={`${product.name} ${mockup.type} Mockup`}
-                        layout="fill"
-                        objectFit="contain"
-                        onError={(e) => {
-                          e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                        }}
-                      />
-                    </div>
-                    <div className="font-medium text-gray-700">{mockup.type} View</div>
-                  </div>
-                ))}
+              <div className="relative h-full w-full overflow-hidden">
+                <img
+                  src={productsData.galleryImages[currentImageIndex] || "/placeholder.jpg"}
+                  alt={`${productsData.title} - Image ${currentImageIndex + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="w-full h-full object-cover transition-opacity duration-300"
+                  onError={(e) => {
+                    e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                  }}
+                />
               </div>
+
+              {/* Only show navigation if there are multiple images */}
+              {productsData.galleryImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  {/* Image indicators */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    {productsData.galleryImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
             </motion.div>
-          )} */}
+          )}
+
         </div>
       </section>
 
       {/* Future Enhancements Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Future Enhancements</h2>
-            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We're constantly innovating and planning new features for {product.name}</p>
-          </motion.div>
-          
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {product.futureEnhancements.map((enhancement, index) => (
-              <motion.div 
-                key={index}
-                variants={fadeIn}
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <div className={`bg-gradient-to-r ${product.themeColor} rounded-full w-12 h-12 flex items-center justify-center mb-4`}>
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{enhancement}</h3>
-                <p className="text-gray-600 text-sm">Planned for future release based on user feedback and market trends.</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {productsData.futurePoints && productsData.futurePoints.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Future Enhancements</h2>
+              <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+              <p className="text-gray-600 mt-4 max-w-3xl mx-auto">We're constantly innovating and planning new features for {productsData.title}</p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {productsData.futurePoints.map((enhancement, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeIn}
+                  className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{enhancement}</h3>
+                  <p className="text-gray-600 text-sm">Planned for future release based on user feedback and market trends.</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
           >
             <h2 className="text-3xl font-bold mb-6">Ready to transform your business?</h2>
-            <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {product.name} can help you achieve your goals</p>
+            <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {productsData.title} can help you achieve your goals</p>
             <div className="flex flex-wrap gap-4 justify-center">
               <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
                 Contact Our Team

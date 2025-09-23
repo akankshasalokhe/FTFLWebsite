@@ -139,7 +139,7 @@
 // //       ? response.data
 // //       : response.data.data || []; // in case API wraps it in { data: [...] }
 
-   
+
 
 // //     setAllData(jobs);
 // //   } catch (error) {
@@ -682,7 +682,7 @@ export default function JobListings() {
 
   const filteredJobs = jobsToUse.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase());
-      // job.description.toLowerCase().includes(searchTerm.toLowerCase());
+    // job.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDepartment = !departmentFilter || job.department === departmentFilter;
     const matchesLocation = !locationFilter || job.location.includes(locationFilter);
     const matchesJobType = !jobTypeFilter ||
@@ -779,7 +779,7 @@ export default function JobListings() {
         {/* Job Listings */}
         <div className="grid gap-4 md:gap-6">
           {filteredJobs.length > 0 ? (
-            filteredJobs.map((job, index) => {
+            filteredJobs.slice(0, 5).map((job, index) => {
               // const deadlineStatus = getDeadlineStatus(job.deadline);
               const deadlineStatus = getDeadlineStatus(job.applicationDeadline);
               // const isNewJob = isNew(job.postedDate);
@@ -808,18 +808,20 @@ export default function JobListings() {
                     </span>
                   )}
 
-                  <div className="p-5 md:p-6">
-                    <div className="flex  items-start pr-8 gap-2">
+                  <div className="p-5 md:p-6 pt-10 pr-10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center pr-8 gap-2">
+
                       <div>
                         <h3 className="text-lg md:text-xl font-bold text-gray-900">{job.title}</h3>
                         <p className="text-blue-600 font-medium text-sm md:text-base">{job.department}</p>
                       </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${job.category === 'intern'
-                          ? 'bg-purple-100 text-purple-800'
-                          : 'bg-blue-100 text-blue-800'
+                      <span className={`mt-2 sm:mt-0 px-2 py-1 rounded-full text-xs font-medium ${job.category === 'intern'
+                        ? 'bg-purple-100 text-purple-800'
+                        : 'bg-blue-100 text-blue-800'
                         }`}>
                         {job.jobType}
                       </span>
+
                     </div>
 
                     <div className="my-3 md:my-4 flex flex-wrap gap-1 md:gap-2">

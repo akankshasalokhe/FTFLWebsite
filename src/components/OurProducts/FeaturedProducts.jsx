@@ -1,48 +1,174 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import { motion } from "framer-motion";
+// import Link from "next/link";
+// import Image from "next/image";
+// import Slider from "react-slick";
+
+// const products = [
+//   {
+//     id: 1,
+//     name: "LifelineCart",
+//     type: "E-commerce",
+//     description:
+//       "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
+//     images: [
+//       "/",
+//       "/images/staybea.jpg",
+//       "/s1.jpeg"
+//     ],
+//     themeColor: "from-blue-400 to-blue-200",
+//     features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"]
+//   },
+//   {
+//     id: 2,
+//     name: "Fetch True",
+//     type: "B2B",
+//     description:
+//       "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration. Boost productivity with our intuitive platform and seamless integrations with other tools and services.",
+//     images: ["/s1.jpeg", "/images/staybea.jpg"],
+//     themeColor: "from-blue-400 to-blue-200",
+//     features: ["Data Integration", "Collaboration Tools", "Custom Workflows", "Real-time Analytics"]
+//   },
+//   {
+//     id: 3,
+//     name: "StayBea",
+//     type: "Dating App",
+//     description:
+//       "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections. Enjoy features like AI matchmaking, video profiles, and secure messaging. Plan and join events to meet new people in a safe environment.",
+//     images: ["/images/staybea.jpg", "/s1.jpeg"],
+//     themeColor: "from-blue-400 to-blue-200",
+//     features: ["AI Matchmaking", "Video Profiles", "Secure Messaging", "Event Integration"]
+//   },
+// ];
+
+// export default function ProductDetails() {
+//   const [selectedProduct, setSelectedProduct] = useState(products[0]);
+
+//   const settings = {
+//     dots: true,
+//     infinite: true,
+//     speed: 300,
+//     arrows: true,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     adaptiveHeight: true,
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 py-6 px-4 sm:px-6 lg:px-8">
+//       <div className="max-w-6xl mx-auto">
+//         <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-6 sm:mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">
+//           Explore Our Trending Products
+//         </h1>
+
+//         {/* Product Selector */}
+//         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+//           {products.map((product) => (
+//             <button
+//               key={product.id}
+//               onClick={() => setSelectedProduct(product)}
+//               className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
+//                 selectedProduct.id === product.id
+//                   ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+//                   : "bg-white text-gray-700 hover:bg-gray-100"
+//               }`}
+//             >
+//               {product.type}
+//             </button>
+//           ))}
+//         </div>
+
+//         {/* Product Details */}
+//         <motion.div
+//           key={selectedProduct.id}
+//           initial={{ opacity: 0, y: 40 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.6 }}
+//           className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6  hover:shadow-2xl transition-shadow"
+//         >
+//           {/* Image Carousel */}
+//           <div className="h-64 sm:h-80 md:h-96 w-full relative mx-auto max-w-md">
+//             <Slider {...settings}>
+//               {selectedProduct.images.map((img, i) => (
+//                 <div key={i} className="h-64 sm:h-80 md:h-96 relative">
+//                   <Image
+//                     src={img}
+//                     alt={`${selectedProduct.name} ${i}`}
+//                     fill
+//                     className="object-cover rounded-xl w-full h-full"
+
+//                   />
+//                 </div>
+//               ))}
+//             </Slider>
+//           </div>
+
+//           {/* Product Info */}
+//           <div className="flex flex-col justify-center">
+//             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-gray-900">
+//               {selectedProduct.name}
+//             </h2>
+//             <p className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
+//               {selectedProduct.type}
+//             </p>
+//             <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
+//               {selectedProduct.description}
+            // </p>
+            // <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
+            // <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
+            //   {selectedProduct.features.map((feature, index) => (
+            //     <li key={index} className="flex items-center">
+            //       <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            //         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            //       </svg>
+            //       <span className="text-sm sm:text-base text-gray-700">{feature}</span>
+            //     </li>
+            //   ))}
+            // </ul>
+
+//             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+//               <Link href={`/products/${selectedProduct.id}`}>
+//                 <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform text-sm sm:text-base">
+//                   Learn More
+//                 </button>
+//               </Link>
+//             </div>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import Slider from "react-slick";
-
-const products = [
-  {
-    id: 1,
-    name: "LifelineCart",
-    type: "E-commerce",
-    description:
-      "Lifeline Cart is a cutting-edge e-commerce solution with advanced inventory management, multiple payment gateways, and AI-powered recommendations. Our platform offers seamless checkout experiences and mobile-responsive design.",
-    images: [
-      "/",
-      "/images/staybea.jpg",
-      "/s1.jpeg"
-    ],
-    themeColor: "from-blue-400 to-blue-200",
-    features: ["AI Recommendations", "Secure Payments", "Inventory Management", "Sales Analytics"]
-  },
-  {
-    id: 2,
-    name: "Fetch True",
-    type: "B2B",
-    description:
-      "Fetch True simplifies your business workflows, offering powerful features for data management and team collaboration. Boost productivity with our intuitive platform and seamless integrations with other tools and services.",
-    images: ["/s1.jpeg", "/images/staybea.jpg"],
-    themeColor: "from-blue-400 to-blue-200",
-    features: ["Data Integration", "Collaboration Tools", "Custom Workflows", "Real-time Analytics"]
-  },
-  {
-    id: 3,
-    name: "StayBea",
-    type: "Dating App",
-    description:
-      "Find your perfect match with our engaging, secure, and modern dating application designed for meaningful connections. Enjoy features like AI matchmaking, video profiles, and secure messaging. Plan and join events to meet new people in a safe environment.",
-    images: ["/images/staybea.jpg", "/s1.jpeg"],
-    themeColor: "from-blue-400 to-blue-200",
-    features: ["AI Matchmaking", "Video Profiles", "Secure Messaging", "Event Integration"]
-  },
-];
+import axios from "axios";
 
 export default function ProductDetails() {
-  const [selectedProduct, setSelectedProduct] = useState(products[0]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productsData, setProductsData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://landing-page-yclw.vercel.app/api/product")
+      .then((res) => {
+        if (res.data?.data?.length > 0) {
+          setProductsData(res.data.data);
+          setSelectedProduct(res.data.data[0]); // default to first product
+        }
+      })
+      .catch((err) => {
+        console.error("API fetch error:", err);
+      });
+  }, []);
 
   const settings = {
     dots: true,
@@ -63,60 +189,61 @@ export default function ProductDetails() {
 
         {/* Product Selector */}
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-          {products.map((product) => (
+          {productsData.slice(0, 3).map((p) => (
             <button
-              key={product.id}
-              onClick={() => setSelectedProduct(product)}
+              key={p._id}
+              onClick={() => setSelectedProduct(p)}
               className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
-                selectedProduct.id === product.id
+                selectedProduct?._id === p._id
                   ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
                   : "bg-white text-gray-700 hover:bg-gray-100"
               }`}
             >
-              {product.type}
+              {p.title}
             </button>
           ))}
         </div>
 
         {/* Product Details */}
-        <motion.div
-          key={selectedProduct.id}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6  hover:shadow-2xl transition-shadow"
-        >
-          {/* Image Carousel */}
-          <div className="h-64 sm:h-80 md:h-96 w-full relative mx-auto max-w-md">
-            <Slider {...settings}>
-              {selectedProduct.images.map((img, i) => (
-                <div key={i} className="h-64 sm:h-80 md:h-96 relative">
-                  <Image
-                    src={img}
-                    alt={`${selectedProduct.name} ${i}`}
-                    fill
-                    className="object-cover rounded-xl w-full h-full"
-                    
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
+        {selectedProduct && (
+          <motion.div
+            key={selectedProduct._id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden flex flex-col lg:grid lg:grid-cols-2 gap-6 bg-white p-4 sm:p-6 hover:shadow-2xl transition-shadow"
+          >
+            {/* Image Carousel */}
+            <div className="h-64 sm:h-80 md:h-96 w-full relative mx-auto max-w-md">
+              <Slider {...settings}>
+                {selectedProduct.mainImage && (
+                  <div className="h-64 sm:h-80 md:h-96 relative">
+                    <img
+                      src={selectedProduct.mainImage}
+                      alt={selectedProduct.title}
+                      fill
+                      className="object-cover rounded-xl w-full h-full"
+                    />
+                  </div>
+                )}
+              </Slider>
+            </div>
 
-          {/* Product Info */}
-          <div className="flex flex-col justify-center">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-gray-900">
-              {selectedProduct.name}
-            </h2>
-            <p className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
-              {selectedProduct.type}
-            </p>
-            <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
-              {selectedProduct.description}
-            </p>
+            {/* Product Info */}
+            <div className="flex flex-col justify-center">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-gray-900">
+                {selectedProduct.title}
+              </h2>
+              <p className="text-base sm:text-lg font-semibold text-blue-500 mb-2">
+                {selectedProduct.subTitle}
+              </p>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
+                {selectedProduct.description}
+              </p>
+              
             <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
             <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-              {selectedProduct.features.map((feature, index) => (
+              {selectedProduct.homeFeatureTags.map((feature, index) => (
                 <li key={index} className="flex items-center">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
@@ -126,15 +253,16 @@ export default function ProductDetails() {
               ))}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Link href={`/products/${selectedProduct.id}`}>
-                <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform text-sm sm:text-base">
-                  Learn More
-                </button>
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+               <Link href={`/products/${selectedProduct._id}`} className="flex-1">
+                  <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform text-sm sm:text-base">
+                    Learn More
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </div>
   );
