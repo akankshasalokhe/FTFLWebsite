@@ -1244,6 +1244,7 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 
+
 // MASTER DATA
 const coursesData = [
   {
@@ -2018,8 +2019,8 @@ export default function CourseDetails() {
 
       {/* Hero */}
       <section className="relative h-80 md:h-96">
-        <img
-          src={internshipData.Image}
+        <Image
+          src={internshipData.bannerImage}
           alt={internshipData.title}
           layout="fill"
           objectFit="cover"
@@ -2035,7 +2036,14 @@ export default function CourseDetails() {
               transition={{ delay: 0.2 }}
             >
               <span className="bg-white p-3 rounded-xl mr-3 shadow-lg">
-                {internshipData.icon}
+                <Image
+                  src={internshipData.mainImage}
+                  alt={internshipData.title}
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+                {/* {internshipData.icon} */}
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold">
                 {internshipData.title}
