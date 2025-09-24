@@ -586,7 +586,8 @@ import OurProcess from "@/components/Services/OurProcess";
 import axios from "axios";
 
 export default function ServiceDetail() {
-  const { id } = useParams(); // ✅ get dynamic route param
+  const params = useParams();
+  const id = params?.id; // safe
   const [serviceData, setServiceData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
