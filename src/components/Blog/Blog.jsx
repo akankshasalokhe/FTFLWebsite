@@ -698,14 +698,25 @@ const BlogPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredPost, setHoveredPost] = useState(null);
   const [blogData, setBlogData] = useState([]);
+  const [categories, setCategories] = useState(["All"]);
 
-  useEffect(() => {
-    
-    axios
-      .get("https://landing-page-yclw.vercel.app/api/blog")
-      .then((res) => setBlogData(res.data.data))
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+  axios
+    .get("https://landing-page-yclw.vercel.app/api/blog")
+    .then((res) => {
+      const blogs = res.data.data;
+      setBlogData(blogs);
+
+      // ✅ Extract unique categories
+      const uniqueCategories = [
+        "All",
+        ...new Set(blogs.map((post) => post.category)),
+      ];
+      setCategories(uniqueCategories);
+    })
+    .catch((err) => console.error(err));
+}, []);
+
 
 
   useEffect(() => {
@@ -716,10 +727,10 @@ const BlogPage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const categories = ["All", "Development", "Design", "Performance"];
+  // const categories = ["All", "Development", "Design", "Performance"];
 
   const filteredPosts = activeCategory === "All"
-    ? blogData
+    ? blogData.slice(0, 6)
     : blogData.filter(post => post.category === activeCategory);
 
   // Apply search filter

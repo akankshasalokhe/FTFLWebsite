@@ -1940,8 +1940,11 @@ export default function CourseDetails() {
         setIsLoading(true);
         const res = await axios.get(`https://landing-page-yclw.vercel.app/api/faq`);
         if (res.data.success) {
-          setFaqData(res.data.data);
-        }
+        const filteredFaqs = res.data.data.filter(
+          (faq) => faq.module === "Internship"
+        );
+        setFaqData(filteredFaqs);
+      }
         console.log("Fetched FAQ Data:", res.data.data);
       } catch (err) {
         console.error("Error fetching FAQ data:", err);
@@ -1961,7 +1964,7 @@ export default function CourseDetails() {
     return <LoadingSkeleton />;
   }
 
-  if (!internshipData || internshipData.length === 0) {
+if (!isLoading && (!internshipData || internshipData.length === 0)) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
         <div className="max-w-md text-center">
