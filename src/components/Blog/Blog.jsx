@@ -1063,7 +1063,7 @@ useEffect(() => {
                     whileHover={{ y: -5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <div className="h-40 relative overflow-hidden">
+                    <div className="h-60 relative overflow-hidden">
                       <img
                         src={post.headingImage}
                         alt={post.title}
