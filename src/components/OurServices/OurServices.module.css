@@ -1,7 +1,8 @@
 .services {
-  padding: 5rem 0;
+  padding: 4rem 1rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   position: relative;
+  min-height: 100vh;
 }
 
 .container {
@@ -16,7 +17,7 @@
 }
 
 .sectionTitle {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 2.5rem);
   font-weight: 700;
   color: #2d3748;
   margin-bottom: 1rem;
@@ -37,18 +38,19 @@
 }
 
 .sectionSubtitle {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
   color: #718096;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  padding: 0 1rem;
 }
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 .card {
@@ -58,6 +60,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   height: 100%;
+  cursor: pointer;
+  margin: 0 0.5rem; /* Dono side margin */
 }
 
 .card:hover, .card.active {
@@ -106,12 +110,12 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 8px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,11 +127,11 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  height: 150px;
+  min-height: 180px;
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
   font-weight: 600;
   color: #2d3748;
   margin-bottom: 0.5rem;
@@ -135,13 +139,15 @@
 
 .description {
   color: #718096;
-  /* line-height: 1.6; */
-  /* margin-bottom: 1.5rem; */
+  line-height: 1.5;
   flex-grow: 1;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  margin: 0 0.5rem; /* Dono side margin text ke liye */
 }
 
 .action {
   margin-top: auto;
+  padding-top: 1rem;
 }
 
 .learnMoreBtn {
@@ -153,9 +159,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  /* padding: 0.5rem 0; */
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
   transition: all 0.2s ease;
-  
+  margin: 0 0.5rem 0.5rem 0.5rem; /* Dono side margin */
 }
 
 .learnMoreBtn:hover {
@@ -169,12 +175,14 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 0 1rem; /* Dono side margin */
 }
 
 .cta p {
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
   color: #2d3748;
   margin-bottom: 1rem;
+  padding: 0 1rem; /* Dono side padding */
 }
 
 .ctaButton {
@@ -187,6 +195,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  margin: 0 0.5rem; /* Dono side margin */
 }
 
 .ctaButton:hover {
@@ -194,25 +204,159 @@
   box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Enhanced Responsive Breakpoints */
+@media (max-width: 480px) {
   .services {
-    padding: 3rem 0;
+    padding: 2rem 0.5rem;
   }
   
-  .sectionTitle {
-    font-size: 2rem;
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .header {
+    margin-bottom: 2rem;
   }
   
   .cardsContainer {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
-  .image{
-    object-fit: cover;
+  
+  .card {
+    margin: 0 0.25rem; /* Chhota margin mobile pe */
   }
   
   .imageContainer {
-    height: 250px;
+    height: 200px;
+  }
+  
+  .content {
+    padding: 1rem;
+    min-height: 160px;
+  }
+  
+  .icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1.25rem;
+  }
+  
+  .cta {
+    padding: 1.5rem 1rem;
+    margin: 0 0.5rem; /* Mobile pe bhi margin */
+  }
+  
+  .description, .learnMoreBtn {
+    margin: 0 0.25rem; /* Chhota margin mobile pe */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .card {
+    margin: 0 0.5rem;
+  }
+  
+  .imageContainer {
+    height: 200px;
+  }
+  
+  .content {
+    min-height: 170px;
+  }
+  
+  .cta {
+    margin: 0 1.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .card {
+    margin: 0 0.75rem;
+  }
+  
+  .imageContainer {
+    height: 220px;
+  }
+  
+  .cta {
+    margin: 0 2rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .card {
+    margin: 0 1rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1400px;
+  }
+  
+  .cardsContainer {
+    gap: 2rem;
+  }
+  
+  .card {
+    margin: 0 1.5rem;
+  }
+  
+  .cta {
+    margin: 0 3rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+  }
+  
+  .card.active {
+    transform: translateY(-5px);
+  }
+  
+  .learnMoreBtn:hover {
+    gap: 0.5rem;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card, .image, .learnMoreBtn, .ctaButton {
+    transition: none;
+  }
+  
+  .card:hover .image {
+    transform: none;
+  }
+}
+
+/* Extra margin for very large screens */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+  
+  .card {
+    margin: 0 2rem;
   }
 }

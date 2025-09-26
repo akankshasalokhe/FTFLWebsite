@@ -23,7 +23,7 @@ const OurServices = () => {
     {
       id: 3,
       title: "UI/UX Design",
-      description: "User-centered designs that enhance engagement and improve user experience.",
+      description: "User-centered designs that enhance engagement & improve user experience.",
       image: "/s2.jpeg",
       icon: "🎨"
     },
@@ -68,6 +68,7 @@ const OurServices = () => {
               className={`${styles.card} ${activeCard === service.id ? styles.active : ''}`}
               onMouseEnter={() => setActiveCard(service.id)}
               onMouseLeave={() => setActiveCard(null)}
+              onClick={() => setActiveCard(activeCard === service.id ? null : service.id)}
             >
               <div className={styles.cardInner}>
                 <div className={styles.imageContainer}>
@@ -76,6 +77,7 @@ const OurServices = () => {
                     alt={service.title}
                     fill
                     className={styles.image}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className={styles.overlay}></div>
                   <div className={styles.icon}>{service.icon}</div>
