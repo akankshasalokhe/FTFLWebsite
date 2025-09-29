@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["ik.imagekit.io"], // 👈 Add this
+    domains: ["ik.imagekit.io"], 
   },
 };
 
