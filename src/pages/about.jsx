@@ -7,6 +7,7 @@ import BoardMembers from '@/components/TeamMembers/TeamMembers';
 import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
 import Testimonials from '@/components/Testimonial/Testimonial';
 import ContactForm from '@/components/ContactUs/ContactUs';
+import CompanyEventsGallery from '@/components/Events/Gallery';
 
 function About() {
   const controls = useAnimation();
@@ -137,6 +138,7 @@ function About() {
       <MissionSection />
       <BoardMembers />
       <WhyChooseUs />
+      <CompanyEventsGallery/>
       <Testimonials />
       <ContactForm />
     </div>

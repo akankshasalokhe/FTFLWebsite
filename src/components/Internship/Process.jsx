@@ -1,316 +1,470 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaUserGraduate,
   FaBookOpen,
   FaProjectDiagram,
   FaCertificate,
   FaArrowRight,
-  FaRegClock,
-  FaPause,
-  FaPlay,
-  FaCheck
+  FaRocket,
+  FaLightbulb,
+  FaUsers,
+  FaStar,
+  FaChevronLeft,
+  FaChevronRight
 } from "react-icons/fa";
 
 const InternshipProcess = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const steps = [
     {
       id: 1,
-      icon: <FaUserGraduate className="text-xl" />,
-      title: "Enroll",
-      description: "Register for your preferred internship program and get access to our learning platform.",
+      icon: <FaUserGraduate className="text-2xl md:text-3xl" />,
+      title: "Enrollment",
+      description: "Quick registration and immediate platform access with comprehensive onboarding materials to get you started.",
       duration: "1-2 days",
-      outcome: "Onboarding material & portal access",
+      outcome: "Full platform access & welcome kit",
       color: "from-blue-500 to-cyan-500",
       bgColor: "bg-gradient-to-br from-blue-500 to-cyan-500",
+      features: ["Instant Access", "Welcome Kit", "Setup Guide"],
+      stat: "24h Setup"
     },
     {
       id: 2,
-      icon: <FaBookOpen className="text-xl" />,
-      title: "Learn",
-      description: "Gain in-depth knowledge of industry tools through structured modules and expert guidance.",
+      icon: <FaBookOpen className="text-2xl md:text-3xl" />,
+      title: "Learning Phase",
+      description: "Hands-on learning with industry tools through structured modules and expert-led sessions.",
       duration: "2-3 weeks",
-      outcome: "Hands-on practice with tools & technologies",
+      outcome: "Technical skills & tool mastery",
       color: "from-green-500 to-emerald-500",
       bgColor: "bg-gradient-to-br from-green-500 to-emerald-500",
+      features: ["Expert Modules", "Live Sessions", "Practice Labs"],
+      stat: "95% Success Rate"
     },
     {
       id: 3,
-      icon: <FaProjectDiagram className="text-xl" />,
-      title: "Implement",
-      description: "Apply your skills on real-world projects with mentorship from industry professionals.",
+      icon: <FaProjectDiagram className="text-2xl md:text-3xl" />,
+      title: "Project Build",
+      description: "Real-world project implementation with 1:1 mentorship and portfolio development.",
       duration: "4-6 weeks",
-      outcome: "Complete capstone projects for your portfolio",
+      outcome: "Portfolio-ready projects",
       color: "from-purple-500 to-indigo-500",
       bgColor: "bg-gradient-to-br from-purple-500 to-indigo-500",
+      features: ["Real Projects", "1:1 Mentorship", "Code Reviews"],
+      stat: "15+ Projects"
     },
     {
       id: 4,
-      icon: <FaCertificate className="text-xl" />,
-      title: "Get Certified",
-      description: "Receive industry-recognized certificate and personalized placement assistance.",
-      duration: "Ongoing",
-      outcome: "Official certificate & career support",
+      icon: <FaCertificate className="text-2xl md:text-3xl" />,
+      title: "Career Launch",
+      description: "Industry certification and comprehensive career support including interview preparation and job placement.",
+      duration: "Lifetime Support",
+      outcome: "Job ready with certification",
       color: "from-amber-500 to-orange-500",
       bgColor: "bg-gradient-to-br from-amber-500 to-orange-500",
+      features: ["Certification", "Interview Prep", "Job Support"],
+      stat: "87% Placement"
     },
   ];
 
-  // Auto-scroll functionality
+  // Check if mobile on mount and resize
   useEffect(() => {
-    if (isPaused) return;
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
+  // Auto-rotate steps only on desktop
+  useEffect(() => {
+    if (isMobile) return;
+    
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 4000);
-
+    }, 5000);
     return () => clearInterval(interval);
-  }, [isPaused, steps.length]);
+  }, [isMobile, steps.length]);
 
-  // Scroll to active step
-  useEffect(() => {
-    if (containerRef.current) {
-      const activeElement = containerRef.current.children[activeStep];
-      if (activeElement) {
-        activeElement.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center"
-        });
-      }
-    }
-  }, [activeStep]);
+  const nextStep = () => {
+    setActiveStep((prev) => (prev + 1) % steps.length);
+  };
+
+  const prevStep = () => {
+    setActiveStep((prev) => (prev - 1 + steps.length) % steps.length);
+  };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Heading */}
+    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-60 h-60 md:w-80 md:h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-48 h-48 md:w-64 md:h-64 bg-cyan-500/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 md:py-20">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12 md:mb-20 px-2"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Career Journey</span>
-          </h2>
-          <p className="text-blue-200 text-lg max-w-3xl mx-auto">
-            A streamlined pathway from learning to professional success with industry-aligned training
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring" }}
+            className="inline-flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 md:mb-8"
+          >
+            <FaRocket className="text-cyan-400 text-sm md:text-lg" />
+            <span className="text-cyan-300 font-semibold text-sm md:text-base">Career Acceleration Program</span>
+          </motion.div>
+          
+          <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6">
+            Launch Your
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 text-4xl md:text-6xl lg:text-7xl">
+              Tech Career
+            </span>
+          </h1>
+          
+          <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+            Transform from beginner to industry-ready professional through our structured 
+            <span className="text-cyan-300"> 4-step proven pathway </span>
+            with hands-on projects and career support
           </p>
         </motion.div>
 
-        {/* Auto-play controls */}
-        {/* <div className="flex justify-center mb-8">
-          <button
-            onClick={() => setIsPaused(!isPaused)}
-            className="flex items-center text-blue-200 bg-white/10 px-5 py-3 rounded-full hover:bg-white/20 transition-colors"
-          >
-            {isPaused ? (
-              <>
-                <FaPlay className="mr-2" /> Play Animation
-              </>
-            ) : (
-              <>
-                <FaPause className="mr-2" /> Pause Animation
-              </>
-            )}
-          </button>
-        </div> */}
-
-        {/* Main Process Container for Desktop */}
-        <div className="hidden lg:block">
-          {/* Progress Line */}
-          <div className="relative h-2 bg-white/10 rounded-full mb-16 mx-16">
-            <motion.div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
-              initial={{ width: "0%" }}
-              animate={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
-              transition={{ duration: 0.8 }}
-            />
-            
-            {/* Progress Indicators */}
-            {steps.map((step, index) => (
-              <div 
-                key={step.id}
-                className={`absolute top-1/2 transform -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center -ml-4 ${
-                  index <= activeStep ? step.bgColor + " text-white shadow-lg" : "bg-slate-700 text-slate-300"
-                }`}
-                style={{ left: `${(index / (steps.length - 1)) * 100}%` }}
-              >
-                {index < activeStep ? <FaCheck className="text-sm" /> : step.icon}
-              </div>
-            ))}
+        {/* Mobile Stepper */}
+        <div className="lg:hidden">
+          {/* Step Progress Bar */}
+          <div className="flex justify-center mb-8 px-4">
+            <div className="flex space-x-2">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveStep(index)}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    activeStep === index 
+                      ? 'bg-cyan-400 scale-125' 
+                      : 'bg-white/30'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* Steps Navigation */}
-          <div className="flex justify-between mb-12 px-4" ref={containerRef}>
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`w-56 text-center cursor-pointer transition-all duration-300 ${
-                  activeStep === index ? "scale-110" : "scale-100 opacity-70"
-                }`}
-                onClick={() => {
-                  setActiveStep(index);
-                  setIsPaused(true);
-                }}
-              >
-                <h3 className={`text-lg font-semibold mb-2 ${
-                  activeStep === index ? "text-white" : "text-blue-300"
-                }`}>
-                  {step.title}
-                </h3>
-                <p className="text-sm text-blue-200">{step.duration}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Step Content */}
+          {/* Mobile Step Cards */}
           <div className="relative">
-            <motion.div
-              key={activeStep}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 max-w-4xl mx-auto"
-            >
-              <div className="flex items-start">
-                <div className={`w-20 h-20 flex items-center justify-center ${steps[activeStep].bgColor} text-white rounded-xl mr-6 flex-shrink-0`}>
-                  {steps[activeStep].icon}
-                </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 mx-4 relative overflow-hidden"
+              >
+                {/* Background Glow */}
+                <div className={`absolute -top-20 -right-20 w-40 h-40 ${steps[activeStep].color} rounded-full blur-3xl opacity-20`}></div>
                 
-                <div className="flex-1">
-                  <div className="flex items-center mb-4">
-                    <h3 className="text-2xl font-bold text-white mr-4">
-                      {steps[activeStep].title}
-                    </h3>
-                    <span className="text-blue-300 text-sm flex items-center bg-white/10 px-3 py-1 rounded-full">
-                      <FaRegClock className="mr-1" /> {steps[activeStep].duration}
-                    </span>
+                {/* Step Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl ${steps[activeStep].bgColor} flex items-center justify-center text-white shadow-lg`}>
+                    {steps[activeStep].icon}
                   </div>
-                  
-                  <p className="text-blue-100 text-lg mb-6">
-                    {steps[activeStep].description}
-                  </p>
-                  
-                  <div className="bg-gradient-to-r from-blue-600/20 to-indigo-600/20 p-4 rounded-lg border border-white/10">
-                    <div className="flex items-start">
-                      <div className="text-blue-300 mr-3 mt-0.5 text-xl">✨</div>
-                      <p className="text-blue-200">
-                        <span className="font-semibold text-white">Outcome: </span>
-                        {steps[activeStep].outcome}
-                      </p>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-white">{steps[activeStep].title}</h3>
+                    <div className="flex items-center gap-2 text-cyan-300 text-sm">
+                      <span>⏱</span>
+                      <span className="font-semibold">{steps[activeStep].duration}</span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
 
-            {/* Navigation Arrows */}
-            <button 
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 bg-white/10 hover:bg-white/20 p-3 rounded-full text-white disabled:opacity-30"
-              onClick={() => {
-                setActiveStep(activeStep > 0 ? activeStep - 1 : steps.length - 1);
-                setIsPaused(true);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button 
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 bg-white/10 hover:bg-white/20 p-3 rounded-full text-white disabled:opacity-30"
-              onClick={() => {
-                setActiveStep(activeStep < steps.length - 1 ? activeStep + 1 : 0);
-                setIsPaused(true);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+                {/* Description */}
+                <p className="text-gray-300 text-base mb-6 leading-relaxed">
+                  {steps[activeStep].description}
+                </p>
+
+                {/* Features */}
+                <div className="grid grid-cols-1 gap-3 mb-6">
+                  {steps[activeStep].features.map((feature, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 * idx }}
+                      className="text-center p-3 bg-white/5 rounded-xl border border-white/5"
+                    >
+                      <div className="text-cyan-300 text-sm font-semibold">{feature}</div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Stat Card */}
+                <div className="bg-gradient-to-r from-white/10 to-white/5 rounded-2xl p-4 border border-white/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-white font-bold text-base">Achievement</div>
+                      <div className="text-cyan-200 text-sm">{steps[activeStep].outcome}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">{steps[activeStep].stat}</div>
+                      <div className="text-green-400 text-xs flex items-center gap-1">
+                        <FaStar className="text-yellow-400" />
+                        Guaranteed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Mobile Navigation Buttons */}
+            <div className="flex justify-between items-center mt-6 px-4">
+              <button
+                onClick={prevStep}
+                className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+              >
+                <FaChevronLeft className="text-sm" />
+                <span className="text-sm">Previous</span>
+              </button>
+              
+              <div className="text-white text-sm font-medium">
+                {activeStep + 1} / {steps.length}
+              </div>
+
+              <button
+                onClick={nextStep}
+                className="flex items-center gap-2 px-6 py-3 bg-cyan-500 rounded-2xl text-white hover:bg-cyan-600 transition-all duration-300"
+              >
+                <span className="text-sm">Next</span>
+                <FaChevronRight className="text-sm" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Vertical Timeline for Mobile */}
-        <div className="lg:hidden space-y-8">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex"
-            >
-              {/* Timeline line and dot */}
-              <div className="flex flex-col items-center mr-4">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step.bgColor} text-white z-10`}>
-                  {step.icon}
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Interactive Steps */}
+          <div className="relative">
+            {/* Central Orbital System */}
+            <div className="relative h-96 w-96 mx-auto">
+              {/* Central Circle */}
+              <motion.div 
+                className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 backdrop-blur-md flex items-center justify-center"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              >
+                <div className="text-center">
+                  <div className="text-4xl mb-2">🚀</div>
+                  <div className="text-white font-bold text-sm">Your Journey</div>
+                  <div className="text-cyan-300 text-xs">Starts Here</div>
                 </div>
-                {index < steps.length - 1 && (
-                  <div className="w-1 h-full bg-white/10 mt-2"></div>
-                )}
-              </div>
-              
-              {/* Content */}
-              <div className="flex-1 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5">
-                <h3 className="text-lg font-bold text-white mb-2">
-                  {step.title}
-                </h3>
-                <span className="text-blue-300 text-sm flex items-center mb-3">
-                  <FaRegClock className="mr-1" /> {step.duration}
-                </span>
+              </motion.div>
+
+              {/* Orbiting Steps */}
+              {steps.map((step, index) => {
+                const angle = (index * 360) / steps.length;
+                const radius = 140;
+                const x = radius * Math.cos((angle * Math.PI) / 180);
+                const y = radius * Math.sin((angle * Math.PI) / 180);
                 
-                <p className="text-blue-100 text-sm mb-4">
-                  {step.description}
+                return (
+                  <motion.div
+                    key={step.id}
+                    className={`absolute w-24 h-24 rounded-2xl ${step.bgColor} flex items-center justify-center text-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 shadow-2xl ${
+                      activeStep === index ? 'scale-110 ring-4 ring-white/30' : 'scale-100'
+                    } transition-all duration-500`}
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: 1,
+                      x: x,
+                      y: y,
+                    }}
+                    transition={{ 
+                      type: "spring",
+                      stiffness: 100,
+                      delay: index * 0.2 
+                    }}
+                    whileHover={{ scale: 1.15 }}
+                    onClick={() => setActiveStep(index)}
+                  >
+                    <div className="text-center">
+                      {step.icon}
+                      <div className="text-xs font-semibold mt-1">{step.title.split(' ')[0]}</div>
+                    </div>
+                    
+                    {/* Connection Line */}
+                    <div 
+                      className="absolute w-24 h-0.5 bg-white/30 origin-left rotate-90"
+                      style={{ 
+                        transform: `rotate(${angle}deg)`,
+                        width: `${radius}px`,
+                        left: '50%',
+                        top: '50%'
+                      }}
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Progress Dots */}
+            <div className="flex justify-center gap-3 mt-12">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveStep(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    activeStep === index 
+                      ? 'bg-cyan-400 scale-125' 
+                      : 'bg-white/30 hover:bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Step Details */}
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-8 relative overflow-hidden"
+              >
+                {/* Background Glow */}
+                <div className={`absolute -top-20 -right-20 w-40 h-40 ${steps[activeStep].color} rounded-full blur-3xl opacity-20`}></div>
+                
+                {/* Step Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-16 h-16 rounded-2xl ${steps[activeStep].bgColor} flex items-center justify-center text-white shadow-lg`}>
+                    {steps[activeStep].icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">{steps[activeStep].title}</h3>
+                    <div className="flex items-center gap-2 text-cyan-300">
+                      <span>⏱</span>
+                      <span className="font-semibold">{steps[activeStep].duration}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                  {steps[activeStep].description}
                 </p>
-                
-                <div className="flex items-start bg-white/5 p-3 rounded-lg">
-                  <div className="text-blue-300 mr-2 mt-0.5 text-lg">✨</div>
-                  <p className="text-blue-200 text-sm">
-                    {step.outcome}
-                  </p>
+
+                {/* Features */}
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  {steps[activeStep].features.map((feature, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 * idx }}
+                      className="text-center p-3 bg-white/5 rounded-xl border border-white/5"
+                    >
+                      <div className="text-cyan-300 text-sm font-semibold">{feature}</div>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
+
+                {/* Stat Card */}
+                <div className="bg-gradient-to-r from-white/10 to-white/5 rounded-2xl p-6 border border-white/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-white font-bold text-lg">Achievement</div>
+                      <div className="text-cyan-200">{steps[activeStep].outcome}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-white">{steps[activeStep].stat}</div>
+                      <div className="text-green-400 text-sm flex items-center gap-1">
+                        <FaStar className="text-yellow-400" />
+                        Guaranteed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-16 md:mt-20"
+        >
+          {[
+            { icon: FaUsers, value: "2,000+", label: "Students Trained" },
+            { icon: FaCertificate, value: "95%", label: "Completion Rate" },
+            { icon: FaRocket, value: "87%", label: "Placement Rate" },
+            { icon: FaLightbulb, value: "4.9/5", label: "Student Rating" }
+          ].map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8 + index * 0.1 }}
+              className="text-center p-4 md:p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+            >
+              <stat.icon className="text-2xl md:text-3xl text-cyan-400 mx-auto mb-3 md:mb-4" />
+              <div className="text-xl md:text-3xl font-bold text-white mb-1 md:mb-2">{stat.value}</div>
+              <div className="text-gray-400 text-xs md:text-base">{stat.label}</div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ delay: 1 }}
+          className="text-center mt-12 md:mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600/30 to-indigo-600/30 p-8 rounded-2xl border border-white/20 backdrop-blur-md relative overflow-hidden max-w-4xl mx-auto">
-            <div className="absolute -top-10 -right-10 w-28 h-28 bg-blue-500/20 rounded-full blur-xl"></div>
-            <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-indigo-500/20 rounded-full blur-xl"></div>
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl p-6 md:p-12 border border-white/10 backdrop-blur-md relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5"></div>
             
-            <h3 className="text-2xl font-bold text-white mb-4 relative z-10">
-              Ready to Begin Your Journey?
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4 relative z-10">
+              Ready to Launch Your Career?
             </h3>
-            <p className="text-blue-200 text-lg mb-6 relative z-10">
-              Join hundreds of students who have launched successful careers through our program
+            <p className="text-base md:text-xl text-gray-300 mb-6 md:mb-8 relative z-10 max-w-2xl mx-auto px-4">
+              Join our next cohort and transform your future with hands-on experience and industry connections
             </p>
 
-            <motion.a
-              href="#enroll"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 relative z-10"
-            >
-              Start Your Application
-              <FaArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-            </motion.a>
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center relative z-10 px-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-3 text-base md:text-lg"
+              >
+                <FaRocket />
+                Start Your Journey
+                <FaArrowRight />
+              </motion.button>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white/10 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all duration-300 text-base md:text-lg"
+              >
+                View Success Stories
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </div>
