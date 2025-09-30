@@ -9,7 +9,7 @@ import ContactUs from '@/components/ContactUs/ContactUs';
 
 export default function Home() {
   return (
-    <>
+     <div className="overflow-x-hidden">
       <Header />
       <AboutUs />
       <OurServices />
@@ -18,7 +18,7 @@ export default function Home() {
       <TechStack />
       <Testimonial />
       <ContactUs />
-    </>
+    </div>
   );
 }
 

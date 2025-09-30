@@ -1506,7 +1506,7 @@ export default function BlogDetail() {
                                     variants={containerVariants}
                                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                                 >
-                                    {searchedPosts.map((post, index) => (
+                                    {searchedPosts.slice(0,3).map((post, index) => (
                                         <motion.article
                                             key={post._id}
                                             variants={itemVariants}
@@ -1515,7 +1515,7 @@ export default function BlogDetail() {
                                             whileHover={{ y: -5 }}
                                             transition={{ type: "spring", stiffness: 300 }}
                                         >
-                                            <div className="h-40 relative overflow-hidden">
+                                            <div className="h-48 relative overflow-hidden">
                                                 <img
                                                     src={post.headingImage}
                                                     alt={post.title}
@@ -1656,11 +1656,11 @@ export default function BlogDetail() {
                             {blogData.tags.map(tag => (
                                 <span key={tag} className="tag">{tag}</span>
                             ))}
-                            <span className="tag">JavaScript</span>
+                            {/* <span className="tag">JavaScript</span>
                             <span className="tag">React</span>
                             <span className="tag">CSS</span>
                             <span className="tag">NextJS</span>
-                            <span className="tag">Design</span>
+                            <span className="tag">Design</span> */}
                         </div>
                     </div>
                 </aside>
