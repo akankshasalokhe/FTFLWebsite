@@ -98,7 +98,7 @@ export default function ContactPage() {
 
             {/* Map */}
             <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.3 }} id="map" className="mt-6 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all">
-              <iframe title="company-location" className="w-full h-80 md:h-96" loading="lazy" referrerPolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=19.0485,72.8494&z=15&output=embed" />
+              <iframe title="company-location" className="w-full h-80 md:h-96" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1891.609348702688!2d73.93276583846169!3d18.51901673896563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1b807a73d1d%3A0x31f9db0d6530ee14!2sFTFL%20TECHNOLOGY%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1759215311291!5m2!1sen!2sin" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </motion.div>
           </motion.section>
         </div>
