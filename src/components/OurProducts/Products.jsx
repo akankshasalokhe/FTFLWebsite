@@ -263,6 +263,24 @@ const ProductShowcase = () => {
   const [activeTab, setActiveTab] = useState("web");
   const [productsData, setProductsData] = useState([]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set initial value
+    checkScreenSize();
+
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/product")
@@ -294,8 +312,8 @@ const ProductShowcase = () => {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-5 py-2 rounded-full font-medium transition ${activeTab === tab
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-blue-500 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -306,8 +324,8 @@ const ProductShowcase = () => {
       {/* Product Grid */}
       <div
         className={`grid gap-10 ${activeTab === "mobile"
-            ? "grid-cols-1 sm:grid-cols-2" // 2 per row for mobile
-            : "grid-cols-1"
+          ? "grid-cols-1 sm:grid-cols-2" // 2 per row for mobile
+          : "grid-cols-1"
           }`}
       >
         {filteredProducts.map((product, index) => (
@@ -363,8 +381,8 @@ const ProductShowcase = () => {
               <div className="absolute top-4 left-4">
                 <span
                   className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${product.category.toLowerCase() === "mobile"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-green-100 text-green-800"
+                    ? "bg-blue-100 text-blue-800"
+                    : "bg-green-100 text-green-800"
                     }`}
                 >
                   {product.category.toLowerCase() === "mobile" ? "Mobile App" : "Web App"}
@@ -379,10 +397,15 @@ const ProductShowcase = () => {
                 {product.title}
               </h3>
               <p className="text-sm text-gray-500 mb-4">{product.subTitle}</p>
-              <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+              {/* <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
                 {product.description}
+              </p> */}
+              <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+                {isMobile
+                  ? `${product.description.slice(0, 50)}${product.description.length > 50 ? '...' : ''}`
+                  : product.description
+                }
               </p>
-
               <div className="mb-6">
                 <h4 className="font-semibold text-gray-800 mb-3">
                   Key Features:
