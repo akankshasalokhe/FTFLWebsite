@@ -242,7 +242,7 @@ export default function TeamMembers() {
         setItemsPerPage(6); // Desktop large
       }
     };
-    
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -264,9 +264,15 @@ export default function TeamMembers() {
   }, []);
 
   // ✅ Filtered data
-  const filteredMembers = activeRole === "All" 
-    ? departmentboardData 
-    : departmentBoardData.filter((m) => m.role === activeRole);
+
+  const filteredMembers =
+    activeRole === "All"
+      ? departmentboardData
+      : departmentboardData.filter(
+        (m) =>
+          m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
+      );
+
 
   const totalPages = Math.max(1, Math.ceil(filteredMembers.length / itemsPerPage));
 
@@ -282,14 +288,14 @@ export default function TeamMembers() {
 
   const nextSlide = () => {
     if (filteredMembers.length <= Math.ceil(itemsPerPage)) return;
-    
+
     setDirection(1);
     setCurrentIndex((prev) => (prev >= totalPages - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
     if (filteredMembers.length <= Math.ceil(itemsPerPage)) return;
-    
+
     setDirection(-1);
     setCurrentIndex((prev) => (prev <= 0 ? totalPages - 1 : prev - 1));
   };
@@ -299,7 +305,7 @@ export default function TeamMembers() {
     if (filteredMembers.length <= Math.ceil(itemsPerPage)) {
       return filteredMembers;
     }
-    
+
     const startIndex = Math.floor(currentIndex * itemsPerPage);
     return filteredMembers.slice(startIndex, startIndex + Math.ceil(itemsPerPage));
   };
@@ -318,7 +324,7 @@ export default function TeamMembers() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Enhanced Heading */}
         <div className="text-center mb-10 md:mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -337,7 +343,7 @@ export default function TeamMembers() {
         </div>
 
         {/* Enhanced Role Tabs with Scrollable Container */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -348,6 +354,7 @@ export default function TeamMembers() {
               {/* Scrollable container for mobile */}
               <div className="overflow-x-auto pb-2 -mx-4 px-4">
                 <div className="bg-gray-100 rounded-xl p-1.5 inline-flex min-w-max">
+                 
                   {roles.map((role, i) => (
                     <button
                       key={i}
@@ -355,17 +362,39 @@ export default function TeamMembers() {
                         setActiveRole(role);
                         setCurrentIndex(0);
                       }}
-                      className={`px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 whitespace-nowrap ${
-                        activeRole === role
+                      className={`px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
                           ? "bg-white text-blue-600 shadow-lg shadow-blue-100"
                           : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
-                      }`}
+                        }`}
+                    >
+                      {role}
+                    </button>
+                  ))}
+
+                </div>
+              </div>
+
+              {/* <div className="overflow-x-auto no-scrollbar pb-2">
+                <div className="bg-gray-100 rounded-xl p-1.5 flex space-x-2 w-max">
+                  {roles.map((role, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setActiveRole(role);
+                        setCurrentIndex(0);
+                      }}
+                      className={`px-4 py-2.5 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
+                          ? "bg-white text-blue-600 shadow-lg shadow-blue-100"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
+                        }`}
                     >
                       {role}
                     </button>
                   ))}
                 </div>
-              </div>
+              </div> */}
+
+
             </div>
           </div>
         </motion.div>
@@ -406,8 +435,8 @@ export default function TeamMembers() {
                 exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="flex gap-4 sm:gap-6 lg:gap-8"
-                style={{ 
-                  transform: `translateX(-${(currentIndex * 100) / (filteredMembers.length > Math.ceil(itemsPerPage) ? totalPages : 1)}%)` 
+                style={{
+                  transform: `translateX(-${(currentIndex * 100) / (filteredMembers.length > Math.ceil(itemsPerPage) ? totalPages : 1)}%)`
                 }}
               >
                 {getCurrentPageMembers().map((member, index) => (
@@ -416,7 +445,7 @@ export default function TeamMembers() {
                     whileHover={{ y: -5 }}
                     transition={{ duration: 0.3 }}
                     className="flex-shrink-0"
-                    style={{ 
+                    style={{
                       width: `${100 / Math.min(itemsPerPage, filteredMembers.length)}%`,
                       minWidth: `${100 / Math.min(itemsPerPage, filteredMembers.length)}%`
                     }}
@@ -436,7 +465,7 @@ export default function TeamMembers() {
                               }}
                             />
                           </div>
-                          
+
                           {/* Hover gradient overlay */}
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
@@ -450,7 +479,7 @@ export default function TeamMembers() {
                         <div className="bg-blue-50 rounded-full py-1 px-3 inline-block">
                           <p className="text-blue-600 font-semibold text-sm sm:text-base">{member.role}</p>
                         </div>
-                        
+
                         {/* Optional description with fade effect */}
                         {member.description && (
                           <div className="relative">
@@ -478,11 +507,10 @@ export default function TeamMembers() {
                     setDirection(index > currentIndex ? 1 : -1);
                     setCurrentIndex(index);
                   }}
-                  className={`rounded-full transition-all duration-300 ${
-                    currentIndex === index 
-                      ? "bg-blue-600 scale-110" 
-                      : "bg-gray-300 hover:bg-gray-400"
-                  }`}
+                  className={`rounded-full transition-all duration-300 ${currentIndex === index
+                    ? "bg-blue-600 scale-110"
+                    : "bg-gray-300 hover:bg-gray-400"
+                    }`}
                   style={{
                     width: currentIndex === index ? '24px' : '8px',
                     height: '8px'
@@ -494,7 +522,7 @@ export default function TeamMembers() {
           )}
 
           {/* Enhanced Member Count */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -510,6 +538,18 @@ export default function TeamMembers() {
           </motion.div>
         </div>
       </div>
+      <style jsx global>{`
+   
+    .no-scrollbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE/Edge */
+      scrollbar-width: none;     /* Firefox */
+    }
+  `}</style>
     </section>
+
+    
   );
 }

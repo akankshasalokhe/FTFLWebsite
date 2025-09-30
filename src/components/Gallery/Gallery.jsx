@@ -92,7 +92,9 @@ export default function Gallery() {
                         style={{ animationDelay: `${index * 100}ms` }}
                     >
                         {/* Main Card */}
-                        <div className="relative h-80 rounded-3xl overflow-hidden transform transition-all duration-700 group-hover:scale-105 group-hover:rotate-1">
+                        {/* <div className="relative h-80 rounded-3xl overflow-hidden transform transition-all duration-700 group-hover:scale-105 group-hover:rotate-1"> */}
+                        <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4] rounded-3xl overflow-hidden transform transition-all duration-700 group-hover:scale-105 group-hover:rotate-1">
+
                             {/* Image with parallax effect */}
                             <div className="absolute inset-0 overflow-hidden">
                                 <img
@@ -129,18 +131,6 @@ export default function Gallery() {
                                                 day: 'numeric'
                                             })}
                                         </span>
-                                        {/* <div className="flex gap-2">
-                                            <button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-                                                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                                </svg>
-                                            </button>
-                                            <button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors">
-                                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                                                </svg>
-                                            </button>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -168,3 +158,6 @@ export default function Gallery() {
         </div>
     );
 }
+
+
+

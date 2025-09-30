@@ -723,7 +723,7 @@ export default function ServiceDetail() {
         >
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src={serviceData.bannerImage}
+              src={serviceData.serviceImage1}
               alt={serviceData.title}
               width={600}
               height={600}

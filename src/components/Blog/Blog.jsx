@@ -568,29 +568,29 @@
 //       </main>
 
 //       {/* Add custom styles for animations */}
-//       <style jsx global>{`
-//         @keyframes blob {
-//           0% { transform: translate(0px, 0px) scale(1); }
-//           33% { transform: translate(30px, -50px) scale(1.1); }
-//           66% { transform: translate(-20px, 20px) scale(0.9); }
-//           100% { transform: translate(0px, 0px) scale(1); }
-//         }
-//         .animate-blob {
-//           animation: blob 7s infinite;
-//         }
-//         .animation-delay-2000 {
-//           animation-delay: 2s;
-//         }
-//         .animation-delay-4000 {
-//           animation-delay: 4s;
-//         }
-//         .line-clamp-2 {
-//           display: -webkit-box;
-//           -webkit-line-clamp: 2;
-//           -webkit-box-orient: vertical;
-//           overflow: hidden;
-//         }
-//       `}</style>
+      // <style jsx global>{`
+      //   @keyframes blob {
+      //     0% { transform: translate(0px, 0px) scale(1); }
+      //     33% { transform: translate(30px, -50px) scale(1.1); }
+      //     66% { transform: translate(-20px, 20px) scale(0.9); }
+      //     100% { transform: translate(0px, 0px) scale(1); }
+      //   }
+      //   .animate-blob {
+      //     animation: blob 7s infinite;
+      //   }
+      //   .animation-delay-2000 {
+      //     animation-delay: 2s;
+      //   }
+      //   .animation-delay-4000 {
+      //     animation-delay: 4s;
+      //   }
+      //   .line-clamp-2 {
+      //     display: -webkit-box;
+      //     -webkit-line-clamp: 2;
+      //     -webkit-box-orient: vertical;
+      //     overflow: hidden;
+      //   }
+      // `}</style>
 //     </div>
 //   );
 // };
@@ -718,6 +718,24 @@ useEffect(() => {
 }, []);
 
 
+const handleSubscribe = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post("https://landing-page-yclw.vercel.app/api/subscribe", {
+      email,
+    });
+
+    if (res.status === 201 || res.status === 200) {
+      setSubscribed(true);
+      setEmail("");
+      setTimeout(() => setSubscribed(false), 5000);
+    }
+  } catch (err) {
+    console.error("Subscription failed:", err.response?.data || err.message);
+    alert("Something went wrong. Please try again.");
+  }
+};
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -744,13 +762,13 @@ useEffect(() => {
 
   const featuredPosts = blogData.filter(post => post.featured);
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    setSubscribed(true);
-    setEmail("");
-    // Reset subscription status after 5 seconds
-    setTimeout(() => setSubscribed(false), 5000);
-  };
+  // const handleSubscribe = (e) => {
+  //   e.preventDefault();
+  //   setSubscribed(true);
+  //   setEmail("");
+  //   // Reset subscription status after 5 seconds
+  //   setTimeout(() => setSubscribed(false), 5000);
+  // };
 
   // Animation variants
   const containerVariants = {

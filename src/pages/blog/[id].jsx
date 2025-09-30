@@ -1197,14 +1197,32 @@ export default function BlogDetail() {
 
 
 
-    const handleSubscribe = (e) => {
+    // const handleSubscribe = (e) => {
+    //     e.preventDefault();
+    //     // Handle newsletter subscription logic here
+    //     console.log('Subscribed with email:', email);
+    //     setEmail('');
+    //     // Instead of alert, you might show a success message in the UI
+    //     // For now, let's keep it simple for example:
+    //     alert('Thank you for subscribing to our newsletter!');
+    // };
+
+    const handleSubscribe = async (e) => {
         e.preventDefault();
-        // Handle newsletter subscription logic here
-        console.log('Subscribed with email:', email);
-        setEmail('');
-        // Instead of alert, you might show a success message in the UI
-        // For now, let's keep it simple for example:
-        alert('Thank you for subscribing to our newsletter!');
+        try {
+            const res = await axios.post("https://landing-page-yclw.vercel.app/api/subscribe", {
+                email,
+            });
+
+            if (res.status === 201 || res.status === 200) {
+
+                setEmail("");
+                alert("Subscribed Successfully!!");
+            }
+        } catch (err) {
+            console.error("Subscription failed:", err.response?.data || err.message);
+            alert("Something went wrong. Please try again.");
+        }
     };
 
     const handleShare = (platform) => {
@@ -1502,63 +1520,63 @@ export default function BlogDetail() {
                                 </motion.div>
                             ) : (
                                 <div className="w-full max-w-7xl mx-auto px-4">
-                                <motion.div
-                                    key="posts-grid"
-                                    variants={containerVariants}
-                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full"
-                                >
-                                    {searchedPosts.slice(0,2).map((post, index) => (
-                                        <motion.article
-                                            key={post._id}
-                                            variants={itemVariants}
-                                            layout
-                                            className="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
-                                            whileHover={{ y: -5 }}
-                                            transition={{ type: "spring", stiffness: 300 }}
-                                        >
-                                            <div className="h-50 w-full relative overflow-hidden">
-                                                <img
-                                                    src={post.headingImage}
-                                                    alt={post.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-70"></div>
-                                                <div className="absolute top-4 right-4">
-                                                    <span className="px-2 py-1 bg-white text-blue-700 text-xs font-medium rounded-full backdrop-blur-sm">
-                                                        {post.category}
-                                                    </span>
+                                    <motion.div
+                                        key="posts-grid"
+                                        variants={containerVariants}
+                                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full"
+                                    >
+                                        {searchedPosts.slice(0, 2).map((post, index) => (
+                                            <motion.article
+                                                key={post._id}
+                                                variants={itemVariants}
+                                                layout
+                                                className="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+                                                whileHover={{ y: -5 }}
+                                                transition={{ type: "spring", stiffness: 300 }}
+                                            >
+                                                <div className="h-50 w-full relative overflow-hidden">
+                                                    <img
+                                                        src={post.headingImage}
+                                                        alt={post.title}
+                                                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-70"></div>
+                                                    <div className="absolute top-4 right-4">
+                                                        <span className="px-2 py-1 bg-white text-blue-700 text-xs font-medium rounded-full backdrop-blur-sm">
+                                                            {post.category}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="p-5">
-                                                <div className="flex items-center text-xs text-gray-500 mb-2">
-                                                    <span>
-                                                        {new Date(post.createdAt).toLocaleDateString('en-US', {
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                            day: 'numeric',
-                                                        })}
-                                                    </span>
+                                                <div className="p-5">
+                                                    <div className="flex items-center text-xs text-gray-500 mb-2">
+                                                        <span>
+                                                            {new Date(post.createdAt).toLocaleDateString('en-US', {
+                                                                year: 'numeric',
+                                                                month: 'long',
+                                                                day: 'numeric',
+                                                            })}
+                                                        </span>
+                                                    </div>
+                                                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
+                                                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
+                                                    <div className="flex justify-end">
+                                                        <Link href={`/blog/${post._id}`} className="flex-1">
+                                                            <motion.button
+                                                                className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
+                                                                whileHover={{ x: 5 }}
+                                                                transition={{ type: "spring", stiffness: 500 }}
+                                                            >
+                                                                Read more
+                                                                <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                                </svg>
+                                                            </motion.button>
+                                                        </Link>
+                                                    </div>
                                                 </div>
-                                                <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-                                                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
-                                                <div className="flex justify-end">
-                                                    <Link href={`/blog/${post._id}`} className="flex-1">
-                                                        <motion.button
-                                                            className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
-                                                            whileHover={{ x: 5 }}
-                                                            transition={{ type: "spring", stiffness: 500 }}
-                                                        >
-                                                            Read more
-                                                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                            </svg>
-                                                        </motion.button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </motion.article>
-                                    ))}
-                                </motion.div>
+                                            </motion.article>
+                                        ))}
+                                    </motion.div>
                                 </div>
                             )}
                         </AnimatePresence>
