@@ -139,11 +139,8 @@ function About() {
       <MissionSection />
       <BoardMembers />
       <WhyChooseUs />
-<<<<<<< HEAD
-      <CompanyEventsGallery/>
-=======
+      {/* <CompanyEventsGallery /> */}
       <Gallery />
->>>>>>> c5905bbb25ef80ef9a646e48cd87b3a18fe86a6f
       <Testimonials />
       <ContactForm />
     </div>
