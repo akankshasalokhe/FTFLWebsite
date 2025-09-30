@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FiSend, FiArrowRight } from "react-icons/fi";
-import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube } from "react-icons/fa";
+import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube,FaFacebook,FaInstagram } from "react-icons/fa";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
@@ -35,20 +35,20 @@ const VibrantFooter = () => {
 
   const getSocialIcon = (url) => {
     if (!url) return <FiSend />;
-    if (url.includes("twitter.com") || url.includes("x.com")) return <FaTwitter />;
+    if (url.includes("facebook.com")) return <FaFacebook />;
+    if (url.includes("instagram.com")) return <FaInstagram />;
+    // if (url.includes("github.com")) return <FaGithub />;
     if (url.includes("linkedin.com")) return <FaLinkedin />;
-    if (url.includes("github.com")) return <FaGithub />;
-    if (url.includes("discord.com") || url.includes("discord.gg")) return <FaDiscord />;
     if (url.includes("youtube.com")) return <FaYoutube />;
     return <FiSend />;
   };
 
   const getSocialClass = (url) => {
     if (!url) return "hover:bg-gray-600";
-    if (url.includes("twitter.com") || url.includes("x.com")) return "hover:bg-[#1DA1F2]";
+    if (url.includes("facebook.com")) return "hover:bg-[#1DA1F2]";
+    if (url.includes("instagram.com")) return "hover:bg-[#E1306C]";
+    // if (url.includes("github.com")) return "hover:bg-black";
     if (url.includes("linkedin.com")) return "hover:bg-[#0077B5]";
-    if (url.includes("github.com")) return "hover:bg-black";
-    if (url.includes("discord.com") || url.includes("discord.gg")) return "hover:bg-[#5865F2]";
     if (url.includes("youtube.com")) return "hover:bg-[#FF0000]";
     return "hover:bg-gray-600";
   };
