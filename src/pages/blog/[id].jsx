@@ -1501,12 +1501,13 @@ export default function BlogDetail() {
                                     <p className="text-gray-600">No posts found. Try a different search or category.</p>
                                 </motion.div>
                             ) : (
+                                <div className="w-full max-w-7xl mx-auto px-4">
                                 <motion.div
                                     key="posts-grid"
                                     variants={containerVariants}
-                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full"
                                 >
-                                    {searchedPosts.slice(0,3).map((post, index) => (
+                                    {searchedPosts.slice(0,2).map((post, index) => (
                                         <motion.article
                                             key={post._id}
                                             variants={itemVariants}
@@ -1515,7 +1516,7 @@ export default function BlogDetail() {
                                             whileHover={{ y: -5 }}
                                             transition={{ type: "spring", stiffness: 300 }}
                                         >
-                                            <div className="h-48 relative overflow-hidden">
+                                            <div className="h-50 w-full relative overflow-hidden">
                                                 <img
                                                     src={post.headingImage}
                                                     alt={post.title}
@@ -1558,6 +1559,7 @@ export default function BlogDetail() {
                                         </motion.article>
                                     ))}
                                 </motion.div>
+                                </div>
                             )}
                         </AnimatePresence>
                     </motion.section>

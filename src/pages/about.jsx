@@ -4,9 +4,11 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import AboutUsSection from '@/components/AboutUs/AboutUs';
 import MissionSection from '@/components/OurMission/OurMission';
 import BoardMembers from '@/components/TeamMembers/TeamMembers';
+import Gallery from '@/components/Gallery/Gallery';
 import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
 import Testimonials from '@/components/Testimonial/Testimonial';
 import ContactForm from '@/components/ContactUs/ContactUs';
+import CompanyEventsGallery from '@/components/Events/Gallery';
 
 function About() {
   const controls = useAnimation();
@@ -137,6 +139,11 @@ function About() {
       <MissionSection />
       <BoardMembers />
       <WhyChooseUs />
+<<<<<<< HEAD
+      <CompanyEventsGallery/>
+=======
+      <Gallery />
+>>>>>>> c5905bbb25ef80ef9a646e48cd87b3a18fe86a6f
       <Testimonials />
       <ContactForm />
     </div>
