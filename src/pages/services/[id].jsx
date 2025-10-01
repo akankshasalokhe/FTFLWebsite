@@ -681,7 +681,7 @@ export default function ServiceDetail() {
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* Hero Banner */}
-      <section className="relative h-[400px] flex items-center justify-center text-white">
+      {/* <section className="relative h-[400px] flex items-center justify-center text-white">
         {serviceData?.bannerImage && (
           <img
             src={serviceData.bannerImage} // must be string
@@ -697,7 +697,7 @@ export default function ServiceDetail() {
           <h1 className="text-4xl font-bold">{serviceData.title}</h1>
           <p className="mt-2 text-lg">{serviceData.description}</p>
         </div>
-        {/* Wave Shape */}
+        
         <div className="absolute bottom-0 w-full overflow-hidden leading-none">
           <svg
             viewBox="0 0 500 150"
@@ -710,7 +710,39 @@ export default function ServiceDetail() {
             />
           </svg>
         </div>
+      </section> */}
+
+
+      <section className="relative z-10 h-[400px] flex items-center justify-center text-white pt-16">
+        {serviceData?.bannerImage && (
+          <img
+            src={serviceData.bannerImage}
+            alt={serviceData.title || "Service Banner"}
+            fill
+            className="object-cover"
+            priority
+          />
+        )}
+
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative text-center z-20 px-4">
+          <h1 className="text-4xl font-bold">{serviceData.title}</h1>
+          <p className="mt-2 text-lg">{serviceData.description}</p>
+        </div>
+
+        {/* Wave Shape */}
+        <div className="absolute bottom-0 w-full overflow-hidden leading-none">
+          <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-16">
+            <path
+              d="M0.00,49.98 C150.00,150.00 349.60,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
+              className="fill-white"
+            />
+          </svg>
+        </div>
       </section>
+
+
+
 
       {/* Service Details */}
       <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6">

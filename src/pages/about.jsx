@@ -50,7 +50,7 @@ function About() {
     <div className="overflow-x-hidden">
       <div 
         ref={ref}
-        className="relative w-full h-[500px] md:h-[600px] bg-gradient-to-br from-[#298cf3] to-blue-500 overflow-hidden"
+        className="relative mt-[80px] w-full h-[500px] md:h-[605px] bg-gradient-to-br from-[#298cf3] to-blue-500 overflow-hidden"
       >
         {/* Modern background elements */}
         <motion.div 
