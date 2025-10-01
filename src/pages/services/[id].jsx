@@ -1091,32 +1091,6 @@ export default function ServiceDetail() {
     fetchFaq();
   }, []);
 
-<<<<<<< HEAD
-  if (isLoading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-    </div>
-  );
-
-  if (!serviceData) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <p className="text-gray-600 text-lg">No service found.</p>
-    </div>
-  );
-
-  return (
-    <div className="bg-gray-50 overflow-hidden">
-      {/* Hero Banner */}
-      <section className="relative h-[300px] sm:h-[350px] md:h-[400px] flex items-center justify-center text-white">
-        {serviceData?.bannerImage && (
-          <img
-            src={serviceData.bannerImage}
-            alt={serviceData.title || "Service Banner"}
-            fill
-            className="object-cover"
-            priority
-          />
-=======
   if (isLoading) return <p>Loading...</p>;
   if (!serviceData) return <p>No service found.</p>;
 
@@ -1133,22 +1107,10 @@ export default function ServiceDetail() {
               priority
             />
           </div>
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
         )}
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50" />
-<<<<<<< HEAD
-        <div className="relative text-center z-10 px-4 max-w-4xl mx-auto">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
-            {serviceData.title}
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl opacity-90 px-2 sm:px-0">
-            {serviceData.description}
-          </p>
-        </div>
-        
-=======
 
         {/* Centered Text Content */}
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -1170,7 +1132,6 @@ export default function ServiceDetail() {
           </motion.p>
         </div>
 
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
         {/* Wave Shape */}
         <div className="absolute bottom-0 w-full overflow-hidden leading-none">
           <svg
@@ -1215,13 +1176,8 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-<<<<<<< HEAD
-      {/* Service Details */}
-      <section className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
-=======
       {/* Rest of your content remains the same */}
       <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6">
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
         <motion.div
           className="lg:sticky lg:top-24 self-start"
           initial={{ opacity: 0, x: -50 }}
@@ -1249,11 +1205,7 @@ export default function ServiceDetail() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-<<<<<<< HEAD
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 sm:mb-8 md:mb-10 relative inline-block">
-=======
           <h2 className="text-3xl font-bold mb-10 relative inline-block">
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
             Our {serviceData.title} Services
             <motion.div
               className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
@@ -1271,13 +1223,8 @@ export default function ServiceDetail() {
                 variants={fadeIn}
                 className="flex group flex-col sm:flex-row"
               >
-<<<<<<< HEAD
-                <div className="flex-shrink-0 mb-3 sm:mb-0 sm:mr-4 md:mr-5">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-xl sm:text-2xl group-hover:text-white">
-=======
                 <div className="flex-shrink-0 mr-5">
                   <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
                     <img
                       src={item.icon}
                       alt={item.title}
@@ -1302,18 +1249,10 @@ export default function ServiceDetail() {
       </section>
 
       {/* Why Choose Us */}
-<<<<<<< HEAD
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-48 h-48 sm:w-72 sm:h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl sm:blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-48 h-48 sm:w-72 sm:h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl sm:blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-10 sm:left-20 w-48 h-48 sm:w-72 sm:h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl sm:blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-=======
       <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
         <div className="absolute top-0 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -1345,11 +1284,7 @@ export default function ServiceDetail() {
                 className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group"
                 whileHover={{ y: -5, scale: 1.02 }}
               >
-<<<<<<< HEAD
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4 group-hover:text-blue-600 transition-colors duration-300">
-=======
                 <div className="text-3xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
                   <img
                     src={reason.icon}
                     alt={reason.title}
@@ -1526,12 +1461,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* CTA */}
-<<<<<<< HEAD
-      <section className="py-12 sm:py-16 lg:py-20 text-center bg-gradient-to-r from-blue-300 to-blue-500 text-white relative overflow-hidden">
-        {/* Animated background elements */}
-=======
       <section className="py-20 text-center bg-gradient-to-r from-blue-300 to-blue-500 text-white relative overflow-hidden">
->>>>>>> b531700ea67f5f4ee332da3a9ab67243e97d274c
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(8)].map((_, i) => (
             <motion.div
