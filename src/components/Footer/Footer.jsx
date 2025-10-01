@@ -465,7 +465,7 @@ const VibrantFooter = () => {
                   ) : (
                     <>
                       <Link className="font-medium text-sm" href={`tel:+${contactInfo?.phone}`}>
-                        +{contactInfo?.phone}
+                        +91 {contactInfo?.phone}
                       </Link>
                       <p className="text-xs text-white/70 mt-0.5">{contactInfo?.workinghours}</p>
                     </>

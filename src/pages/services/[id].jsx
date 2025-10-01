@@ -1148,7 +1148,7 @@ export default function ServiceDetail() {
       </section> 
 
 
-      <section className="relative z-10 h-[400px] flex items-center justify-center text-white pt-16">
+      {/* <section className="relative z-10 h-[400px] flex items-center justify-center text-white pt-16">
         {serviceData?.bannerImage && (
           <img
             src={serviceData.bannerImage}
@@ -1165,7 +1165,7 @@ export default function ServiceDetail() {
           <p className="mt-2 text-lg">{serviceData.description}</p>
         </div>
 
-        {/* Wave Shape */}
+       
         <div className="absolute bottom-0 w-full overflow-hidden leading-none">
           <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-16">
             <path
@@ -1174,7 +1174,7 @@ export default function ServiceDetail() {
             />
           </svg>
         </div>
-      </section>
+      </section> */}
 
       {/* Rest of your content remains the same */}
       <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6">
