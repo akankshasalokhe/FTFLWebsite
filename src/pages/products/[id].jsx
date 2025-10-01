@@ -1351,7 +1351,7 @@ export default function ProductDetail() {
 
 
       {/* Gallery Section */}
-      <section id="gallery" className="py-16 bg-white">
+      {/* <section id="gallery" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -1365,7 +1365,7 @@ export default function ProductDetail() {
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots of {productsData.title}</p>
           </motion.div>
 
-          {/* Image Slider */}
+         
              {productsData.galleryImages && productsData.galleryImages.length > 0 && (
             <motion.div
               initial="hidden"
@@ -1387,7 +1387,7 @@ export default function ProductDetail() {
                 />
               </div>
 
-              {/* Only show navigation if there are multiple images */}
+             
               {productsData.galleryImages.length > 1 && (
                 <>
                   <button
@@ -1408,7 +1408,7 @@ export default function ProductDetail() {
                     </svg>
                   </button>
 
-                  {/* Image indicators */}
+                 
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                     {productsData.galleryImages.map((_, index) => (
                       <button
@@ -1424,6 +1424,82 @@ export default function ProductDetail() {
             </motion.div>
           )}
 
+        </div>
+      </section> */}
+
+      <section id="gallery" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots of {productsData.title}</p>
+          </motion.div>
+
+          {/* Image Slider */}
+          {productsData.galleryImages && productsData.galleryImages.length > 0 && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeIn}
+              className="relative bg-gray-200 rounded-2xl overflow-hidden mb-8 mx-auto max-w-4xl"
+            >
+              {/* Image Container with Aspect Ratio */}
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
+                <img
+                  src={productsData.galleryImages[currentImageIndex] || "/placeholder.jpg"}
+                  alt={`${productsData.title} - Image ${currentImageIndex + 1}`}
+                  className="absolute inset-0 w-full h-full object-contain bg-white"
+                  onError={(e) => {
+                    e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                  }}
+                />
+              </div>
+
+              {/* Only show navigation if there are multiple images */}
+              {productsData.galleryImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 sm:p-3 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm"
+                  >
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white p-2 sm:p-3 rounded-full shadow-md transition-all duration-300 backdrop-blur-sm"
+                  >
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  {/* Image indicators */}
+                  <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 backdrop-blur-sm bg-black/30 rounded-full px-3 py-2">
+                    {productsData.galleryImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
+                            ? 'bg-white scale-125'
+                            : 'bg-gray-300 hover:bg-gray-200'
+                          }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </motion.div>
+          )}
         </div>
       </section>
 
