@@ -218,21 +218,44 @@
 
 
 
-
 // components/BoardMembers.js
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 
 const BoardMembers = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeReason, setActiveReason] = useState(0);
   const [activeCard, setActiveCard] = useState(null);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  // ✅ Close active card when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (activeCard !== null) {
+        const clickedOutside = cardRefs.current.every(
+          (ref, index) => index !== activeCard && !ref?.contains(event.target)
+        );
+        
+        if (clickedOutside) {
+          setActiveCard(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [activeCard]);
 
   const container = {
     hidden: { opacity: 0 },
@@ -266,6 +289,11 @@ const BoardMembers = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  // ✅ Handle card touch with toggle behavior
+  const handleCardTouch = (index) => {
+    setActiveCard(activeCard === index ? null : index);
+  };
+
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -294,9 +322,12 @@ const BoardMembers = () => {
               variants={item}
               whileHover={{ y: -10 }}
               className="group relative"
-              onTouchStart={() => setActiveCard(activeCard === index ? null : index)}
+              ref={el => cardRefs.current[index] = el}
             >
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 group-hover:shadow-xl h-full flex flex-col">
+              <div 
+                className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 group-hover:shadow-xl h-full flex flex-col"
+                onTouchStart={() => handleCardTouch(index)}
+              >
                 {/* Image Container */}
                 <div className="relative w-full h-60 sm:h-72 overflow-hidden">
                   {/* Image */}
@@ -364,7 +395,7 @@ const BoardMembers = () => {
                 {/* Name and Role with Light Blue Background on Hover */}
                 <div className="p-4 sm:p-6 flex-grow relative group overflow-hidden">
                   {/* Animated background - Works on both hover and touch */}
-                  <div className={`absolute inset-0 bg-blue-500 transform transition-transform duration-500 ease-in-out rounded-lg
+                  <div className={`absolute inset-0 bg-blue-500 transform transition-transform duration-500 ease-in-out rounded-xs
                     ${activeCard === index ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}
                   />
 

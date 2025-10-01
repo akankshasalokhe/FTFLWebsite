@@ -94,7 +94,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
           <a
             href="#contact"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75"
+            className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75"
             aria-label="Enroll in the internship program"
           >
             Enroll Now

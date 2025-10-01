@@ -103,7 +103,8 @@ const OurServices = () => {
         
         <div className={styles.cta}>
           <p>Need a custom solution?</p>
-          <button className={styles.ctaButton}>Get in Touch</button>
+          {/* <button className={styles.ctaButton}>Get in Touch</button> */}
+           <button className="rounded-lg text-white bg-gradient-to-r from-[#298cf3] to-blue-600 p-2">Get in Touch</button>
         </div>
       </div>
     </section>

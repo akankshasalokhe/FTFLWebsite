@@ -1273,7 +1273,7 @@ export default function SingleJobView() {
                       {deadlineStatus.icon}
                       {deadlineStatus.text}
                     </div>
-                    <Link href={`/apply?id=${jobData.id}`} passHref>
+                 <Link href={`/apply?id=${jobData._id}`} passHref>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}

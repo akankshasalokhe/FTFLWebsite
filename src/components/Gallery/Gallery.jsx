@@ -68,7 +68,7 @@
 //             </div>
 
 //             {/* Category Tabs */}
-           
+
 //             <div className="flex justify-center gap-2 sm:gap-3 mb-12 flex-wrap">
 //                 {categories.map((cat) => (
 //                     <button
@@ -218,7 +218,7 @@ export default function Gallery() {
         return (
             <div className="px-4 py-8 max-w-6xl mx-auto">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-3">
+                    <h2 className="text-3xl font-bold bg-blue-600 bg-clip-text text-transparent mb-3">
                         Visual Gallery
                     </h2>
                     <p className="text-gray-600 text-base max-w-xl mx-auto">
@@ -241,7 +241,7 @@ export default function Gallery() {
         <div className="px-4 py-8 max-w-6xl mx-auto">
             {/* Header */}
             <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-3">
+                <h2 className="text-3xl font-bold bg-blue-600 bg-clip-text text-transparent mb-3">
                     Visual Gallery
                 </h2>
                 <p className="text-gray-600 text-base max-w-xl mx-auto">
@@ -255,9 +255,9 @@ export default function Gallery() {
                     <button
                         key={cat}
                         onClick={() => setSelectedCategory(cat)}
-                        className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium 
+                        className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium 
                             transition-all duration-300 ${selectedCategory === cat
-                                ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                                ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
                                 : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
                             }`}
                     >
@@ -275,7 +275,7 @@ export default function Gallery() {
                     >
                         {/* Main Card */}
                         <div className="relative w-full aspect-square rounded-xl overflow-hidden transform transition-all duration-500 group-hover:scale-105">
-                            
+
                             {/* Image */}
                             <img
                                 src={item.mainImage}
@@ -294,9 +294,12 @@ export default function Gallery() {
                             </div>
 
                             {/* Content */}
-                            <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/60 backdrop-blur-sm md:transform md:translate-y-full md:group-hover:translate-y-0 transition-all duration-300">
                                 <h3 className="text-white font-semibold text-sm truncate">
                                     {item.title}
+                                </h3>
+                                <h3 className="text-white font-semibold text-sm truncate opacity-90">
+                                    {new Date(item.createdAt).toLocaleDateString()}
                                 </h3>
                             </div>
                         </div>

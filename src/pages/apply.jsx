@@ -357,7 +357,7 @@ useEffect(() => {
           <div className="mb-8 text-center">
             {!isGeneralApplication && (
               <span className={`inline-block px-4 py-1.5 text-sm font-semibold text-white ${job?.department === 'Engineering' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
-                  job?.department === 'Design' ? 'bg-gradient-to-r from-purple-500 to-purple-600' :
+                  job?.department === 'Design' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
                     'bg-gradient-to-r from-gray-500 to-gray-600'
                 } rounded-full mb-4 shadow-sm`}>
                 {job?.department}

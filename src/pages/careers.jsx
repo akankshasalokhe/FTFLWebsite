@@ -23,7 +23,7 @@ function careers() {
     <div>
       
   
-    <div className="relative overflow-hidden bg-gradient-to-r from-[#298CF3]/20 to-[#298CF3]/20">
+    <div className="relative mt-20 overflow-hidden bg-blue-500">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10 bg-[url('/grid-pattern.svg')]"></div>
       
@@ -37,7 +37,7 @@ function careers() {
             className="lg:w-1/2 space-y-6"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
-              Join Our <span className="text-[#298CF3]">Team</span>
+              Join Our <span className="text-white">Team</span>
             </h1>
             
             <div className="h-16 overflow-hidden">
@@ -47,14 +47,14 @@ function careers() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="text-xl md:text-2xl text-gray-600"
+                className="text-xl md:text-2xl text-black"
               >
-                We're hiring <span className="text-[#298CF3]">{ROLES[currentRole]}</span>
+                We're hiring <span className="text-white">{ROLES[currentRole]}</span>
               </motion.p>
             </div>
 
             <motion.p 
-              className="text-lg text-gray-600"
+              className="text-lg text-black"
               whileHover={{ scale: 1.02 }}
             >
               Build the future with us. Grow your career in an innovative environment.
@@ -69,7 +69,7 @@ function careers() {
             >
               <button 
               //  onClick={() => router.push('/OpenPositions')}
-              className="bg-[#298CF3] hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
+              className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
               >
                 <span className="flex items-center gap-2">
                   View Open Positions

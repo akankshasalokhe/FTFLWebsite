@@ -1145,7 +1145,7 @@ export default function ServiceDetail() {
             />
           </svg>
         </div>
-      </section> 
+      </section>
 
 
       {/* <section className="relative z-10 h-[400px] flex items-center justify-center text-white pt-16">
@@ -1205,7 +1205,7 @@ export default function ServiceDetail() {
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
         >
-          <h2 className="text-3xl font-bold mb-10 relative inline-block">
+          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
             Our {serviceData.title} Services
             <motion.div
               className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
@@ -1262,7 +1262,7 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Why Choose Us
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
@@ -1317,14 +1317,14 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Technologies We Use
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
               We leverage cutting-edge technologies to build fast, secure, and scalable web applications
             </p>
           </motion.div>
- {/*
+          {/*
           <motion.div
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 items-center"
             variants={staggerChildren}
@@ -1403,7 +1403,7 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Frequently Asked Questions
             </h2>
             <p className="text-gray-600 text-sm sm:text-base">
@@ -1512,10 +1512,11 @@ export default function ServiceDetail() {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
           >
+           
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              className="!text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               Get in Touch
             </motion.button>

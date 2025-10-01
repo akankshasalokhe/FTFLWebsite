@@ -1,4 +1,5 @@
 
+
 // components/BlogBanner.js
 import BlogPage from "@/components/Blog/Blog";
 import { motion } from "framer-motion";
@@ -6,17 +7,8 @@ import { motion } from "framer-motion";
 const Blog = () => {
   return (
     <>
-      <div className="relative mt-[80px] h-auto md:h-110 bg-gradient-to-r from-blue-500 to-blue-700 text-white overflow-hidden mb-4">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-              <circle cx="10" cy="10" r="2" fill="white" />
-            </pattern>
-            <rect x="0" y="0" width="100" height="100" fill="url(#pattern)" />
-          </svg>
-        </div>
-
+      <div className="relative mt-[80px] h-auto md:h-110 bg-blue-500 text-white overflow-hidden mb-4">
+       
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-16 lg:px-8 lg:py-20">
           <div className="flex flex-col lg:flex-row items-center justify-between">

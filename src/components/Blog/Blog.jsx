@@ -855,12 +855,12 @@ const handleSubscribe = async (e) => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                 </svg>
               </div>
-              <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+              <h1 className="text-3xl font-bold ">
                Blog
               </h1>
             </motion.div>
@@ -915,7 +915,7 @@ const handleSubscribe = async (e) => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
           >
-            Explore Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Creative</span> Blog
+            Explore Our <span className="bg-clip-text text-transparent bg-blue-600">Creative</span> Blog
           </motion.h2>
 
           <motion.p
@@ -951,8 +951,8 @@ const handleSubscribe = async (e) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(category)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeCategory === category
-                  ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
+                className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${activeCategory === category
+                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-lg"
                   : "bg-white/80 text-gray-700 hover:bg-gray-50 shadow-sm border border-gray-200 backdrop-blur-sm"
                   }`}
               >

@@ -93,7 +93,7 @@ const HeroSection = () => {
               href="/services"
               className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:from-blue-700 group-hover:to-cyan-600 transition-all duration-300"></span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#298cf3] to-blue-600 group-hover:from-blue-500 group-hover:to-cyan-600 transition-all duration-300"></span>
               <span className="relative flex items-center justify-center gap-2">
                 Explore Services
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">

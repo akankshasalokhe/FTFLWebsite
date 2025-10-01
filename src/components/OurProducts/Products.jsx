@@ -311,8 +311,8 @@ const ProductShowcase = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-5 py-2 rounded-full font-medium transition ${activeTab === tab
-              ? "bg-blue-500 text-white"
+            className={`px-5 py-2 rounded-lg font-medium transition ${activeTab === tab
+              ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
               : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
           >
@@ -424,7 +424,7 @@ const ProductShowcase = () => {
 
               <div className="flex space-x-4 mt-auto">
                 <Link href={`/products/${product._id}`} className="flex-1">
-                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
+                  <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
                     Learn More
                   </button>
                 </Link>
