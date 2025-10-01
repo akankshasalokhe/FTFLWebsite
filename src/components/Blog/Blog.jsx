@@ -699,6 +699,23 @@ const BlogPage = () => {
   const [hoveredPost, setHoveredPost] = useState(null);
   const [blogData, setBlogData] = useState([]);
   const [categories, setCategories] = useState(["All"]);
+    const [isMobile, setIsMobile] = useState(false);
+  
+    useEffect(() => {
+      const checkScreenSize = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+  
+      // Set initial value
+      checkScreenSize();
+  
+      // Add event listener
+      window.addEventListener('resize', checkScreenSize);
+  
+      // Cleanup
+      return () => window.removeEventListener('resize', checkScreenSize);
+    }, []);
+  
 
 useEffect(() => {
   axios
@@ -811,7 +828,7 @@ const handleSubscribe = async (e) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen  bg-gradient-to-br from-gray-50 to-gray-100">
       <Head>
         <title>Blog</title>
         <meta name="description" content="Insights, ideas and stories from the Muze team" />
@@ -1019,7 +1036,13 @@ const handleSubscribe = async (e) => {
                       <span>{post.readtime}</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.description}</p>
+                    {/* <p className="text-gray-600 mb-4">{post.description}</p> */}
+                     <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+                {isMobile
+                  ? `${post.description.slice(0, 50)}${post.description.length > 50 ? '...' : ''}`
+                  : post.description
+                }
+              </p>
                     <div className="flex flex-wrap gap-2">
                       {post.tags.slice(0, 3).map((tag, index) => (
                         <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">

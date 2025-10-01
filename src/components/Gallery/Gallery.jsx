@@ -43,7 +43,7 @@ export default function Gallery() {
                         Where creativity meets innovation
                     </p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {[...Array(8)].map((_, i) => (
                         <div key={i} className="animate-pulse">
@@ -68,7 +68,7 @@ export default function Gallery() {
             </div>
 
             {/* Category Tabs */}
-            <div className="flex justify-center gap-3 mb-12 flex-wrap">
+            {/* <div className="flex justify-center gap-3 mb-12 flex-wrap">
                 {categories.map((cat) => (
                     <button
                         key={cat}
@@ -76,6 +76,22 @@ export default function Gallery() {
                         className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-110 shadow-lg ${selectedCategory === cat
                             ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30"
                             : "bg-white/80 backdrop-blur-sm text-gray-700 border border-white/20 shadow-white/20 hover:bg-white"
+                            }`}
+                    >
+                        {cat}
+                    </button>
+                ))}
+            </div> */}
+            <div className="flex justify-center gap-2 sm:gap-3 mb-12 flex-wrap">
+                {categories.map((cat) => (
+                    <button
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className={`px-3 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold 
+      transition-all duration-300 transform hover:scale-105 shadow-md 
+      ${selectedCategory === cat
+                                ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30"
+                                : "bg-white/80 backdrop-blur-sm text-gray-700 border border-white/20 shadow-white/20 hover:bg-white"
                             }`}
                     >
                         {cat}
@@ -102,38 +118,51 @@ export default function Gallery() {
                                     alt={item.title}
                                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-125"
                                 />
-                                
+
                                 {/* Animated Gradient Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                                
+
                                 {/* Sparkle Effect */}
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             </div>
 
                             {/* Category Badge */}
-                            <div className="absolute top-4 left-4 transform -translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
+                            <div
+                                className="
+    absolute top-4 left-4 
+    transform translate-y-0 md:-translate-y-10 
+    md:group-hover:translate-y-0 
+    transition-transform duration-500
+  "
+                            >
                                 <span className="bg-gradient-to-r from-purple-500/90 to-pink-500/90 backdrop-blur-md text-white text-xs font-bold px-3 py-2 rounded-full shadow-lg">
                                     {item.category}
                                 </span>
                             </div>
 
-                            {/* Content Reveal on Hover */}
-                            <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+
+                            {/* Content Reveal */}
+                            <div className="
+  absolute bottom-0 left-0 right-0 p-6 
+  transform translate-y-0 md:translate-y-full md:group-hover:translate-y-0 
+  transition-transform duration-500
+">
                                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
                                     <h3 className="text-white font-bold text-lg mb-2 drop-shadow-lg">
                                         {item.title}
                                     </h3>
                                     <div className="flex items-center justify-between">
                                         <span className="text-white/80 text-sm font-medium drop-shadow">
-                                            {new Date(item.createdAt).toLocaleDateString('en-US', {
-                                                year: 'numeric',
-                                                month: 'short',
-                                                day: 'numeric'
+                                            {new Date(item.createdAt).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "short",
+                                                day: "numeric",
                                             })}
                                         </span>
                                     </div>
                                 </div>
                             </div>
+
 
                             {/* Floating Elements */}
                             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

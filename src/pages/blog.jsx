@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const Blog = () => {
   return (
     <>
-      <div className="relative h-auto md:h-110 bg-gradient-to-r from-blue-500 to-blue-700 text-white overflow-hidden mb-4">
+      <div className="relative mt-[80px] h-auto md:h-110 bg-gradient-to-r from-blue-500 to-blue-700 text-white overflow-hidden mb-4">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">

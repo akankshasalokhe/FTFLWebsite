@@ -238,7 +238,7 @@ export default function ProductDetails() {
                 {selectedProduct.subTitle}
               </p>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
-                {selectedProduct.description}
+                {selectedProduct.description.substring(0,100)}...
               </p>
               
             <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>

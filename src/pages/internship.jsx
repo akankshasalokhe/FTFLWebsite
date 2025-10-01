@@ -54,7 +54,7 @@ const HeroSection = () => {
 
   return (
     <>
-    <section className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
+    <section className="relative mt-[80px] w-full h-screen flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <Slider {...sliderSettings}>
