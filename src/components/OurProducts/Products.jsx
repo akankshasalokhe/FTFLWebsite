@@ -403,19 +403,17 @@ const ProductShowcase = () => {
 
       {/* Tabs */}
       <div
-        className={`flex ${
-          isMobile ? "overflow-x-auto no-scrollbar space-x-2" : "justify-center space-x-4"
-        } mb-6 sm:mb-12`}
+        className={`flex ${isMobile ? "overflow-x-auto no-scrollbar space-x-2" : "justify-center space-x-4"
+          } mb-6 sm:mb-12`}
       >
         {["web", "mobile"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-3 sm:px-5 py-2 rounded-lg font-medium transition text-sm sm:text-base whitespace-nowrap ${
-              activeTab === tab
+            className={`px-3 sm:px-5 py-2 rounded-lg font-medium transition text-sm sm:text-base whitespace-nowrap ${activeTab === tab
                 ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+              }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
@@ -424,13 +422,12 @@ const ProductShowcase = () => {
 
       {/* Product Grid */}
       <div
-        className={`grid gap-6 sm:gap-10 ${
-          isMobile
+        className={`grid gap-6 sm:gap-10 ${isMobile
             ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
             : activeTab === "mobile"
-            ? "grid-cols-1 sm:grid-cols-2"
-            : "grid-cols-1"
-        }`}
+              ? "grid-cols-1 sm:grid-cols-2"
+              : "grid-cols-1"
+          }`}
       >
         {filteredProducts.map((product, index) => (
           <motion.div
@@ -443,21 +440,18 @@ const ProductShowcase = () => {
             whileInView={{ opacity: 1, y: 0, x: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className={`bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${
-              isMobile ? "flex flex-col" : "flex flex-col md:flex-row"
-            }`}
+            className={`bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${isMobile ? "flex flex-col" : "flex flex-col md:flex-row"
+              }`}
           >
             {/* Device Mockup */}
             <div
-              className={`relative flex items-center justify-center bg-gray-100 ${
-                isMobile ? "p-4 sm:p-6" : "p-6 md:w-1/2"
-              }`}
+              className={`relative flex items-center justify-center bg-gray-100 ${isMobile ? "p-4 sm:p-6" : "p-6 md:w-1/2"
+                }`}
             >
               {product.category.toLowerCase() === "mobile" ? (
                 <div
-                  className={`relative ${
-                    isMobile ? "w-32 sm:w-44 md:w-52 aspect-[9/16]" : "w-[220px] h-[440px]"
-                  } bg-black rounded-2xl shadow-xl border-8 border-black overflow-hidden`}
+                  className={`relative ${isMobile ? "w-32 sm:w-44 md:w-52 aspect-[9/16]" : "w-[220px] h-[440px]"
+                    } bg-black rounded-2xl shadow-xl border-8 border-black overflow-hidden`}
                 >
                   {/* Notch for desktop style */}
                   {!isMobile && (
@@ -471,26 +465,23 @@ const ProductShowcase = () => {
                 </div>
               ) : (
                 <div
-                  className={`relative ${
-                    isMobile
+                  className={`relative ${isMobile
                       ? "w-full max-w-md"
                       : "w-full max-w-3xl"
-                  } bg-black rounded-t-lg shadow-xl overflow-hidden`}
+                    } bg-black rounded-t-lg shadow-xl overflow-hidden`}
                 >
                   {/* Top bar */}
                   <div
-                    className={`${
-                      isMobile ? "h-4 sm:h-5" : "h-6"
-                    } bg-gray-800 flex items-center justify-center rounded-t-lg`}
+                    className={`${isMobile ? "h-4 sm:h-5" : "h-6"
+                      } bg-gray-800 flex items-center justify-center rounded-t-lg`}
                   >
                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
                   </div>
                   <div
-                    className={`${
-                      isMobile ? "h-40 sm:h-56 md:h-72" : "h-[280px] md:h-[360px]"
-                    } bg-black`}
+                    className={`${isMobile ? "h-40 sm:h-56 md:h-72" : "h-[280px] md:h-[360px]"
+                      } bg-black`}
                   >
                     <img
                       src={product.mainImage}
@@ -507,11 +498,10 @@ const ProductShowcase = () => {
               {!isMobile && (
                 <div className="absolute top-4 left-4">
                   <span
-                    className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
-                      product.category.toLowerCase() === "mobile"
+                    className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${product.category.toLowerCase() === "mobile"
                         ? "bg-blue-100 text-blue-800"
                         : "bg-green-100 text-green-800"
-                    }`}
+                      }`}
                   >
                     {product.category.toLowerCase() === "mobile"
                       ? "Mobile App"
@@ -531,9 +521,8 @@ const ProductShowcase = () => {
               </p>
               <p className="text-gray-600 mb-4 leading-relaxed text-sm sm:text-base">
                 {isMobile
-                  ? `${product.description.slice(0, 80)}${
-                      product.description.length > 80 ? "..." : ""
-                    }`
+                  ? `${product.description.slice(0, 80)}${product.description.length > 80 ? "..." : ""
+                  }`
                   : product.description}
               </p>
 
@@ -555,16 +544,73 @@ const ProductShowcase = () => {
                 </div>
               </div>
 
-              <div className="mt-auto flex flex-col sm:flex-row gap-2">
+              {/* <div className="mt-auto flex flex-col sm:flex-row gap-2">
                 <Link href={`/products/${product._id}`} className="flex-1">
                   <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition text-sm sm:text-base">
                     Learn More
                   </button>
                 </Link>
-                <button className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition text-sm sm:text-base">
-                  Demo
-                </button>
+              
+               
+                {product.livedemoLink && (
+                  <a
+                    href={product.livedemoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
+                
+                
+              </div> */}
+
+              <div className="mt-auto flex flex-col sm:flex-row gap-2">
+                {/* Learn More button */}
+                <Link href={`/products/${product._id}`} className="flex-1">
+                  <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                    Learn More
+                  </button>
+                </Link>
+
+                {/* Live Demo button */}
+                {product.livedemoLink ? (
+                  <a
+                    href={product.livedemoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg transition text-sm sm:text-base flex items-center justify-center"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      />
+                    </svg>
+                    Live Demo
+                  </a>
+                ) : (
+                  <button
+                    className="flex-1 w-full bg-gray-200 text-gray-400 py-2 px-4 rounded-lg transition text-sm sm:text-base cursor-not-allowed"
+                    disabled
+                  >
+                    Live Demo
+                  </button>
+                )}
               </div>
+
             </div>
           </motion.div>
         ))}

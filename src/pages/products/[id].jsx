@@ -1168,7 +1168,7 @@ export default function ProductDetail() {
 
               <div className="flex flex-wrap gap-4 mb-8">
                 {generateTechnologies().map((tech, index) => (
-                  <span key={index} className="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-sm border border-gray-200">
+                  <span key={index} className="bg-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm border border-gray-200">
                     {tech}
                   </span>
                 ))}
