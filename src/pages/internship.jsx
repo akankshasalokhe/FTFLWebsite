@@ -54,12 +54,12 @@ const HeroSection = () => {
 
   return (
     <>
-    <section className="relative mt-[80px] w-full h-screen flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
+    <section className="relative mt-[80px] w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <Slider {...sliderSettings}>
           {carouselImages.map((img, idx) => (
-            <div key={idx} className="relative w-full h-screen">
+            <div key={idx} className="relative w-full h-[70vh] lg:h-[80vh] min-h-[500px]">
               <div className="relative w-full h-screen">
                 <Image
                   src={img.src}
@@ -86,7 +86,7 @@ const HeroSection = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
           <span className="text-blue-300">Boost Your Career</span> with Our Paid Internship
         </h1>
-        <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white/90">
+        <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white/90">
           Gain real-world experience, complete projects, earn an internship letter, and secure a placement opportunity in our company.
         </p>
 

@@ -206,7 +206,7 @@
 //           ))}
 //         </motion.div>
 
-       
+
 //       </div>
 //     </section>
 //   );
@@ -241,7 +241,7 @@ const BoardMembers = () => {
         const clickedOutside = cardRefs.current.every(
           (ref, index) => index !== activeCard && !ref?.contains(event.target)
         );
-        
+
         if (clickedOutside) {
           setActiveCard(null);
         }
@@ -250,7 +250,7 @@ const BoardMembers = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
@@ -324,22 +324,36 @@ const BoardMembers = () => {
               className="group relative"
               ref={el => cardRefs.current[index] = el}
             >
-              <div 
+              <div
                 className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 group-hover:shadow-xl h-full flex flex-col"
                 onTouchStart={() => handleCardTouch(index)}
               >
                 {/* Image Container */}
-                <div className="relative w-full h-60 sm:h-72 overflow-hidden">
-                  {/* Image */}
+                {/* <div className="relative w-full lg:h-80 sm:h-52 overflow-hidden">
+                 
                   <img
                     src={member.mainImage}
                     alt={member.fullName}
-                    className="w-full h-full object-fit transition-all duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = "/images/placeholder-member.jpg";
                     }}
+                  /> */}
+
+                <div className="relative w-full h-90 sm:h-52 lg:h-80 overflow-hidden">
+                  {/* Image */}
+                  <img
+                    src={member.mainImage}
+                    alt={member.fullName}
+                    className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/images/placeholder-member.jpg";
+                    }}
                   />
+
+
 
                   {/* Animated light blue overlay - Works on both hover and touch */}
                   <div className={`absolute inset-0 bg-blue-400 opacity-20 origin-top scale-y-0 transition-transform duration-500 ease-out pointer-events-none
@@ -366,8 +380,8 @@ const BoardMembers = () => {
                             rel="noopener noreferrer"
                             className="bg-white p-2 rounded-full shadow-lg hover:scale-110 transition-all duration-300 hover:bg-black hover:text-white"
                             whileHover={{ scale: 1.1 }}
-                            style={{ 
-                              transitionDelay: `${iconIndex * 100}ms` 
+                            style={{
+                              transitionDelay: `${iconIndex * 100}ms`
                             }}
                           >
                             {platform === "linkedIn" && (
