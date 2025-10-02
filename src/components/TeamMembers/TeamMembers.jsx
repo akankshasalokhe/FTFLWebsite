@@ -334,7 +334,7 @@ const BoardMembers = () => {
                   <img
                     src={member.mainImage}
                     alt={member.fullName}
-                    className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                    className="w-full h-full object-fit transition-all duration-300 group-hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = "/images/placeholder-member.jpg";
