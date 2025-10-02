@@ -291,11 +291,12 @@
 
 import { motion } from "framer-motion";
 import { FiSend, FiArrowRight } from "react-icons/fi";
-import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube,FaFacebook,FaInstagram } from "react-icons/fa";
+import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
 
 const VibrantFooter = () => {
   const [contactInfo, setContactInfo] = useState(null);
@@ -386,17 +387,17 @@ const VibrantFooter = () => {
                 Let's create something extraordinary together. Our team is ready to bring your vision to life!
               </p>
             </div>
-             <Link href='/contact' passhref>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
-            >
-             
-              Get Started <FiArrowRight className="text-sm" />
-             
-            </motion.button>
-             </Link>
+            <Link href='/contact' passhref>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
+              >
+
+                Get Started <FiArrowRight className="text-sm" />
+
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
 
@@ -411,7 +412,7 @@ const VibrantFooter = () => {
             <h4 className="text-base font-bold mb-3 text-[#FFD166] flex items-center gap-1.5">
               <RiCustomerService2Fill className="text-sm" /> Company
             </h4>
-            <ul className="space-y-2">
+            {/* <ul className="space-y-2">
               {["About Us", "Careers", "Case Studies", "Contact"].map((item) => (
                 <li key={item}>
                   <motion.a
@@ -421,6 +422,25 @@ const VibrantFooter = () => {
                   >
                     <FiArrowRight className="text-xs opacity-70" /> {item}
                   </motion.a>
+                </li>
+              ))}
+            </ul> */}
+            <ul className="space-y-2">
+              {[
+                { label: "About Us", path: "/about" },
+                { label: "Careers", path: "/careers" },
+                { label: "Case Studies", path: "/case-studies" },
+                { label: "Contact", path: "/contact" }
+              ].map((item) => (
+                <li key={item.label}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={item.path}
+                      className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" /> {item.label}
+                    </Link>
+                  </motion.div>
                 </li>
               ))}
             </ul>
@@ -434,7 +454,7 @@ const VibrantFooter = () => {
           >
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
             <ul className="space-y-2">
-              {["Web Development", "Mobile Apps","Graphics Design","Video Editing","UI/UX Design"].map((item) => (
+              {["Web Development", "Mobile Apps", "Graphics Design", "Video Editing", "UI/UX Design"].map((item) => (
                 <li key={item}>
                   <motion.a
                     whileHover={{ x: 3 }}
@@ -512,11 +532,11 @@ const VibrantFooter = () => {
             <div className="flex gap-3 flex-wrap mb-4">
               {loading
                 ? [...Array(4)].map((_, i) => (
-                    <div key={i} className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
-                  ))
+                  <div key={i} className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
+                ))
                 : error
-                ? <p className="text-xs text-red-200">Error loading social links</p>
-                : contactInfo?.socialMediaLinks?.map((url, i) => (
+                  ? <p className="text-xs text-red-200">Error loading social links</p>
+                  : contactInfo?.socialMediaLinks?.map((url, i) => (
                     <motion.a
                       key={i}
                       whileHover={{ y: -3, scale: 1.05 }}
