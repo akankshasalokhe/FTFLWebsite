@@ -414,13 +414,13 @@ const BoardMembers = () => {
                   />
 
                   {/* Content on top */}
-                  <div className="relative z-10">
-                    <h3 className={`text-lg sm:text-xl font-bold mb-1 transition-colors duration-300
+                  <div className="relative z-10  ">
+                    <h3 className={`text-lg sm:text-xl font-bold mb-1 transition-colors duration-300 flex justify-center items-center
                       ${activeCard === index ? 'text-white' : 'text-gray-900 group-hover:text-white'}`}
                     >
                       {member.fullName}
                     </h3>
-                    <p className={`font-medium transition-colors duration-300 text-sm sm:text-base
+                    <p className={`font-medium transition-colors duration-300 text-sm sm:text-base flex justify-center items-center
                       ${activeCard === index ? 'text-gray-100' : 'text-[#298cf3] group-hover:text-gray-100'}`}
                     >
                       {member.role}
