@@ -382,6 +382,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import ContactForm from "../InternshipContact/InternshipContact";
 import {
   FaAward,
   FaUsers,
@@ -727,9 +728,10 @@ const WhyChooseUs = () => {
             </div>
           </motion.div>
         )}
-
+ 
+       
         {/* CTA Button */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -742,8 +744,11 @@ const WhyChooseUs = () => {
               <FaArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
             </span>
           </button>
-        </motion.div>
+        </motion.div> */}
       </div>
+     
+ <ContactForm />
+
     </section>
   );
 };

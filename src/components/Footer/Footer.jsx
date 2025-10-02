@@ -386,13 +386,17 @@ const VibrantFooter = () => {
                 Let's create something extraordinary together. Our team is ready to bring your vision to life!
               </p>
             </div>
+             <Link href='/contact' passhref>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
             >
+             
               Get Started <FiArrowRight className="text-sm" />
+             
             </motion.button>
+             </Link>
           </div>
         </motion.div>
 

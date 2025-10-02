@@ -91,7 +91,7 @@ const HeroSection = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+        {/* <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
           <a
             href="#contact"
             className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75"
@@ -99,14 +99,14 @@ const HeroSection = () => {
           >
             Enroll Now
           </a>
-          {/* <a
+           <a
             href="#modules"
             className="bg-white hover:bg-gray-100 text-blue-600 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75"
             aria-label="View internship program modules"
           >
             View Modules
-          </a> */}
-        </div>
+          </a> 
+        </div> */}
       </div>
     </section>
     <InternshipHighlights />
