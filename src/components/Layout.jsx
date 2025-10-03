@@ -14,6 +14,12 @@ const Layout = ({ children, title, description, keywords }) => {
         <meta name="description" content={description || 'We provide IT services and software development'} />
         <meta name="keywords" content={keywords || 'IT Company, Web Development, Software Solutions'} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+        {/* ✅ Favicon link */}
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+
+        <link rel="icon" type="image/jpeg" href="/FTFL.jpg" />
       </Head>
 
       <Navbar />
