@@ -165,14 +165,14 @@
 import React from 'react';
 import { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import AboutUsSection from '@/components/AboutUs/AboutUs';
+// import AboutUsSection from '@/components/AboutUs/AboutUs';
 import MissionSection from '@/components/OurMission/OurMission';
 import BoardMembers from '@/components/TeamMembers/TeamMembers';
 import Gallery from '@/components/Gallery/Gallery';
 import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
 import Testimonials from '@/components/Testimonial/Testimonial';
 import ContactForm from '@/components/ContactUs/ContactUs';
-import CompanyEventsGallery from '@/components/Events/Gallery';
+import StorySection from '@/components/OurStory/OurStory';
 
 function About() {
   const controls = useAnimation();
@@ -308,15 +308,16 @@ function About() {
             
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center">
               <button 
+            
                 className="px-8 py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
                 onClick={() => {
                   document.getElementById('team-section')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
-                Meet Our Team
+                Meet Our Board Directors
               </button>
               <button 
-                className="px-8 py-3 border-2 border-white text-black rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+                className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-blue-700 hover:bg-opacity-10 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
                 onClick={() => {
                   document.getElementById('values-section')?.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -331,7 +332,8 @@ function About() {
         <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle z-30"></div>
       </div>
       
-      <AboutUsSection />
+        <StorySection />
+      {/* <AboutUsSection />    */}
       <MissionSection />
       <BoardMembers />
       <WhyChooseUs />

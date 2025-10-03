@@ -454,11 +454,11 @@ const VibrantFooter = () => {
           >
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
             <ul className="space-y-2">
-              {["Web Development", "Mobile Apps", "Graphics Design", "Video Editing", "UI/UX Design"].map((item) => (
+              {["Web Development", "Mobile App Development", "Graphic Design", "Video Editing", "UI/UX Design"].map((item) => (
                 <li key={item}>
                   <motion.a
                     whileHover={{ x: 3 }}
-                    href="#"
+                    href="/services"
                     className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
                   >
                     <FiArrowRight className="text-xs opacity-70" /> {item}
