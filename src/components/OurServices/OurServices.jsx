@@ -4,7 +4,7 @@
 
 // const OurServices = () => {
 //   const [activeCard, setActiveCard] = useState(null);
-  
+
 //   const services = [
 //     {
 //       id: 1,
@@ -50,7 +50,7 @@
 //     }
 //   ];
 
-  
+
 //   return (
 //     <section className={styles.services} id="services">
 //       <div className={styles.container}>
@@ -60,7 +60,7 @@
 //             Discover our comprehensive range of digital solutions designed to elevate your business
 //           </p>
 //         </div>
-        
+
 //         <div className={styles.cardsContainer}>
 //           {services.map(service => (
 //             <div 
@@ -82,11 +82,11 @@
 //                   <div className={styles.overlay}></div>
 //                   <div className={styles.icon}>{service.icon}</div>
 //                 </div>
-                
+
 //                 <div className={styles.content}>
 //                   <h3 className={styles.title}>{service.title}</h3>
 //                   <p className={styles.description}>{service.description}</p>
-                  
+
 //                   <div className={styles.action}>
 //                     <button className={styles.learnMoreBtn}>
 //                       Learn More
@@ -100,7 +100,7 @@
 //             </div>
 //           ))}
 //         </div>
-        
+
 //         <div className={styles.cta}>
 //           <p>Need a custom solution?</p>
 //           {/* <button className={styles.ctaButton}>Get in Touch</button> */}
@@ -125,8 +125,8 @@ import axios from 'axios';
 
 const OurServices = () => {
   const [activeCard, setActiveCard] = useState(null);
-   const [serviceData, setServiceData] = useState([]);
-  
+  const [serviceData, setServiceData] = useState([]);
+
   const services = [
     {
       id: 1,
@@ -172,20 +172,20 @@ const OurServices = () => {
     }
   ];
 
-    useEffect(() => {
-      axios
-        .get("https://landing-page-yclw.vercel.app/api/service")
-        .then((res) => {
-          if (res.data?.data?.length > 0) {
-            setServiceData(res.data.data);
-            console.log("service data :", res.data.data)
-          }
-        })
-        .catch((err) => {
-          console.error("API fetch error:", err);
-        });
-    }, []);
-  
+  useEffect(() => {
+    axios
+      .get("https://landing-page-yclw.vercel.app/api/service")
+      .then((res) => {
+        if (res.data?.data?.length > 0) {
+          setServiceData(res.data.data);
+          console.log("service data :", res.data.data)
+        }
+      })
+      .catch((err) => {
+        console.error("API fetch error:", err);
+      });
+  }, []);
+
   return (
     <section className={styles.services} id="services">
       <div className={styles.container}>
@@ -195,11 +195,11 @@ const OurServices = () => {
             Discover our comprehensive range of digital solutions designed to elevate your business
           </p>
         </div>
-        
+
         <div className={styles.cardsContainer}>
-          {serviceData.slice(0,6).map(service => (
-            <div 
-              key={service.id} 
+          {serviceData.slice(0, 6).map(service => (
+            <div
+              key={service.id}
               className={`${styles.card} ${activeCard === service.id ? styles.active : ''}`}
               onMouseEnter={() => setActiveCard(service.id)}
               onMouseLeave={() => setActiveCard(null)}
@@ -215,7 +215,7 @@ const OurServices = () => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className={styles.overlay}></div>
-                  <div className={styles.icon}>
+                  {/* <div className={styles.icon}>
                     <Image
                     src={service.serviceIcon}
                     alt={service.title}
@@ -223,20 +223,21 @@ const OurServices = () => {
                     className={styles.image}
                     // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  </div>
+                  </div> */}
                 </div>
-                
-                <div className={styles.content}>
-                  <h3 className={styles.title}>{service.title}</h3>
 
-                  <p className={styles.description}>{service.description.map((data)=> data)}</p>
-                  
+                <div className={styles.content}>
+                  {/* <h3 className={styles.title}>{service.title}</h3> */}
+                  <h3 className='font-bold text-black ml-2'>{service.title}</h3>
+
+                  <p className={styles.description}>{service.description.map((data) => data)}</p>
+
                   <div className={styles.action}>
 
                     <button className={styles.learnMoreBtn}>
                       Learn More
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </button>
                   </div>
@@ -244,14 +245,18 @@ const OurServices = () => {
               </div>
             </div>
           ))}
+
+         
         </div>
+
+
+
         
-        <div className={styles.cta}>
-          <p>Need a custom solution?</p>
-          {/* <button className={styles.ctaButton}>Get in Touch</button> */}
-           <button className="rounded-lg text-white bg-gradient-to-r from-[#298cf3] to-blue-600 p-2">Get in Touch</button>
-        </div>
       </div>
+       <div className={styles.cta}>
+          <p>Need a custom solution?</p>
+          <button className="rounded-lg text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 py-2">Get in Touch</button>
+        </div>
     </section>
   );
 };

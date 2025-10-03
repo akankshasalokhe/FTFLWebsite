@@ -79,7 +79,7 @@ const StorySection = () => {
                 <div className="lg:w-1/2">
                   <div className={`w-16 h-1.5 rounded-full bg-gradient-to-r ${item.color} mb-6`} />
                   <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
-                    {item.title}
+                    Our Story
                   </h3>
                   <p className="text-lg text-gray-600">
                     {item.description}

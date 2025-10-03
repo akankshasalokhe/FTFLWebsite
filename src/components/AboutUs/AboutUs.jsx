@@ -333,12 +333,15 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import MissionSection from "../OurStory/OurStory";
 
 const AboutUsSection = () => {
   const [stats, setStats] = useState([]);
   const [content, setContent] = useState([]);
+  const router = useRouter();
+
   useEffect(() => {
     // Backend se data fetch
     axios
@@ -436,7 +439,7 @@ const AboutUsSection = () => {
               Founded in 2024, we've grown from a small team of developers to a
               full-service digital agency serving clients worldwide.
             </p> */}
-            <Link href='/about#story'>
+            {/* <Link href='/about#story'>
               <button id='story'
                 className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
                 style={{ backgroundColor: brandColor.primary }}
@@ -444,7 +447,25 @@ const AboutUsSection = () => {
 
                 Our Story
               </button>
-            </Link>
+            </Link> */}
+            <button 
+  onClick={() => {
+    router.push('/about');
+    setTimeout(() => {
+      const storySection = document.getElementById('story');
+      if (storySection) {
+        storySection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 100);
+  }}
+  className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
+  style={{ backgroundColor: brandColor.primary }}
+>
+  Our Story
+</button>
           </div>
 
           {/* Image */}
