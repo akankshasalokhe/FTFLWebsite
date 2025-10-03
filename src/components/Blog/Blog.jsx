@@ -1068,7 +1068,7 @@ const handleSubscribe = async (e) => {
             variants={itemVariants}
             className="text-2xl font-bold text-gray-900 mb-8 flex items-center"
           >
-            <span className="bg-gradient-to-r from-blue-500 to-purple-600 h-0.5 w-8 mr-3"></span>
+            <span id='blog' className="bg-gradient-to-r from-blue-500 to-purple-600 h-0.5 w-8 mr-3"></span>
             Latest Articles
             <span className="ml-3 text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
               {searchedPosts.length} articles

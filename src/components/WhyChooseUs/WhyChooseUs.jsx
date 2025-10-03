@@ -135,7 +135,7 @@ const WhyChooseUs = () => {
                     className={`lg:w-2/5 p-8 md:p-10 bg-gradient-to-br ${reasons[activeReason].color}`}
                   >
                     <div className="text-gray-900">
-                      <div className="w-20 h-20 mb-6 flex items-center justify-center bg-white/20 rounded-2xl backdrop-blur-sm">
+                      <div className="w-20 h-20 mb-6 flex items-center justify-center bg-gray-300 rounded-2xl backdrop-blur-sm">
                         <div className="text-3xl">
                           {reasons[activeReason].icon}
                         </div>
@@ -199,7 +199,7 @@ const WhyChooseUs = () => {
                 className="w-full flex items-center justify-between p-6 text-left"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center text-gray-600">
+                  <div className="w-12 h-12 rounded-lg bg-gray-500 flex items-center justify-center text-gray-600">
                     {reason.icon}
                   </div>
                   <div>
