@@ -705,7 +705,7 @@ export default function TeamMembers() {
           </div>
 
           {/* Count */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center mt-6 text-sm text-gray-500"
@@ -720,7 +720,7 @@ export default function TeamMembers() {
                 <span className="text-blue-600 ml-1">in {activeRole}</span>
               )}
             </span>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>

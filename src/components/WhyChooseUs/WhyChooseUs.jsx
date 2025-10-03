@@ -149,7 +149,7 @@ const WhyChooseUs = () => {
                     </div>
                   </div>
 
-                  <div className="lg:w-3/5 p-8 md:p-10">
+                  <div className="lg:w-3/5 mt-4 p-8 md:p-10">
                     <h4 className="text-xl font-semibold mb-6 text-gray-900">
                       How This Benefits You:
                     </h4>
@@ -170,7 +170,7 @@ const WhyChooseUs = () => {
                       ))}
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    {/* <div className="flex flex-col sm:flex-row gap-4">
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -178,10 +178,8 @@ const WhyChooseUs = () => {
                       >
                         Get Started <FiArrowRight />
                       </motion.button>
-                      {/* <button className="px-6 py-3 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
-                        View Case Studies
-                      </button> */}
-                    </div>
+                    
+                    </div> */}
                   </div>
                 </div>
               </motion.div>
@@ -247,14 +245,12 @@ const WhyChooseUs = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    {/* <div className="flex flex-col sm:flex-row gap-3">
                       <button className="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 w-full justify-center">
                         Get Started <FiArrowRight />
                       </button>
-                      {/* <button className="px-5 py-2.5 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
-                        View Case Studies
-                      </button> */}
-                    </div>
+                  
+                    </div> */}
                   </motion.div>
                 )}
               </AnimatePresence>

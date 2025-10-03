@@ -55,9 +55,9 @@ const JoinOurTeam = () => {
         </div>
 
         <div className="text-center">
-          <button className="px-6 py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors inline-flex items-center gap-2">
+          {/* <button className="px-6 py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors inline-flex items-center gap-2">
             View Open Roles <FaArrowRight className="w-4 h-4" />
-          </button>
+          </button> */}
           <Link href="mailto:info@ftfltechnology.com">
             <p className="mt-6 text-gray-600 dark:text-gray-400">
               Send your resume to <span className="font-medium text-blue-600 dark:text-blue-400">info@ftfltechnology.com</span>
