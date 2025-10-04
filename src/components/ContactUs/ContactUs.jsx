@@ -128,8 +128,8 @@ const ContactForm = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center bg-blue-100 px-4 py-2 rounded-full mb-4">
-            <span className="text-blue-700 font-medium">Contact Us</span>
+          <div className="inline-flex items-center justify-center bg-gradient-to-r from-[#298cf3] to-blue-600 px-4 py-2 rounded-lg mb-4">
+            <span className="text-white font-medium">Contact Us</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             Let's <span className="text-blue-600">Connect</span>

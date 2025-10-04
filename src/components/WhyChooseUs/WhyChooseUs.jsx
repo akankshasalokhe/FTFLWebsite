@@ -74,7 +74,7 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">
-          <span className="inline-block mb-4 text-sm font-semibold tracking-wider uppercase text-blue-600">
+          <span className="inline-block mb-4 text-4xl font-semibold tracking-wider uppercase text-blue-600">
             Why Choose Us
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">

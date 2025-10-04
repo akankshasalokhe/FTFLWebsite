@@ -193,9 +193,9 @@ export default function ProductDetails() {
             <button
               key={p._id}
               onClick={() => setSelectedProduct(p)}
-              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
                 selectedProduct?._id === p._id
-                  ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white"
+                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
                   : "bg-white text-gray-700 hover:bg-gray-100"
               }`}
             >

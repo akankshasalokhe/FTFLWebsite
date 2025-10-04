@@ -1303,7 +1303,7 @@ export default function BlogDetail() {
             </Head>
 
             {/* Navigation */}
-            <nav className="navigation">
+            <nav className="navigation mt-20">
                 <Link href="/" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
                 {/* Dynamically link to category if it exists */}
@@ -1647,7 +1647,7 @@ export default function BlogDetail() {
 
 
                     {/* Newsletter */}
-                    <div className="newsletter" style={{ backgroundColor: '#6B46C1' }}> {/* Changed color for better contrast */}
+                    <div className="newsletter" style={{ backgroundColor: '#3744bbff' }}> {/* Changed color for better contrast */}
                         <div className="newsletter-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

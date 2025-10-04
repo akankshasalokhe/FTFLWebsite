@@ -103,7 +103,7 @@ const InternshipHighlights = () => {
             href="#courses"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group"
           >
             Start Your Internship Journey
             <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />

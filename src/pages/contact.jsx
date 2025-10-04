@@ -190,7 +190,8 @@ export default function ContactPage() {
 
 
   return (
-    <div className="w-full min-h-screen font-sans text-gray-800 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
+    <div className="w-full min-h-screen mt-[80px]
+    font-sans text-gray-800 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
 
       {/* Banner */}
       <motion.header initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative h-64 md:h-96 flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg">

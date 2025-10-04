@@ -166,6 +166,7 @@ const jobOpenings = [
 export default function ApplyPage() {
   const router = useRouter();
   const { id } = router.query;
+  const [jobList, setJobList] = useState([]); 
   const [isGeneralApplication, setIsGeneralApplication] = useState(false);
   const [job, setJob] = useState(null);
   const [formData, setFormData] = useState({
@@ -194,15 +195,57 @@ export default function ApplyPage() {
     'Operations'
   ];
 
+
+  
+  // useEffect(() => {
+  //   axios
+  //     .get("https://landing-page-yclw.vercel.app/api/job")
+  //     .then((res) => {
+  //       const blogs = res.data.data;
+  //       setJob(blogs);
+  
+      
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  // useEffect(() => {
+    
+  //   if (id === 'general') {
+  //     setIsGeneralApplication(true);
+  //   } else if (id) {
+  //     // const foundJob = jobOpenings.find(job => job.id === Number(id));
+  //     const foundJob = jobOpenings.find(job => job._id === id);
+
+  //     setJob(foundJob);
+  //     setIsGeneralApplication(false);
+  //   }
+  // }, [id]);
+
+
   useEffect(() => {
-    if (id === 'general') {
-      setIsGeneralApplication(true);
-    } else if (id) {
-      const foundJob = jobOpenings.find(job => job.id === Number(id));
-      setJob(foundJob);
-      setIsGeneralApplication(false);
-    }
-  }, [id]);
+  axios
+    .get("https://landing-page-yclw.vercel.app/api/job")
+    .then((res) => {
+      const jobs = res.data.data;
+      setJobList(jobs); // store all jobs
+    })
+    .catch((err) => console.error(err));
+}, []);
+
+useEffect(() => {
+  if (!id) return;
+
+  if (id === "general") {
+    setIsGeneralApplication(true);
+    setJob(null);
+  } else {
+    const foundJob = jobList.find((j) => String(j._id) === String(id)); 
+    setJob(foundJob || null);
+    setIsGeneralApplication(false);
+  }
+}, [id, jobList]);
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -259,6 +302,7 @@ export default function ApplyPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
         <div className="animate-pulse text-gray-500">Loading application form...</div>
+        
       </div>
     );
   }
@@ -313,7 +357,7 @@ export default function ApplyPage() {
           <div className="mb-8 text-center">
             {!isGeneralApplication && (
               <span className={`inline-block px-4 py-1.5 text-sm font-semibold text-white ${job?.department === 'Engineering' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
-                  job?.department === 'Design' ? 'bg-gradient-to-r from-purple-500 to-purple-600' :
+                  job?.department === 'Design' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
                     'bg-gradient-to-r from-gray-500 to-gray-600'
                 } rounded-full mb-4 shadow-sm`}>
                 {job?.department}

@@ -28,14 +28,14 @@ const JoinOurTeam = () => {
   ];
 
   return (
-    <section className="py-16 mt-[80px] px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16  px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Join Our <span className="text-blue-600 dark:text-blue-400">Team</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            We're hiring creative minds to build the future together
+            We're hiring creative minds to build the future together.
           </p>
         </div>
 
@@ -55,7 +55,7 @@ const JoinOurTeam = () => {
         </div>
 
         <div className="text-center">
-          <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors inline-flex items-center gap-2">
+          <button className="px-6 py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors inline-flex items-center gap-2">
             View Open Roles <FaArrowRight className="w-4 h-4" />
           </button>
           <Link href="mailto:info@ftfltechnology.com">

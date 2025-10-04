@@ -6,6 +6,7 @@ import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
 import TechStack from '@/components/TechStack/TechStack';
 import Testimonial from '@/components/Testimonial/Testimonial';
 import ContactUs from '@/components/ContactUs/ContactUs';
+import TeamMembers from '@/components/CoreTeam/CoreTeam';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <OurServices />
       <FeaturedProducts />
       <WhyChooseUs />
+      <TeamMembers />
       <TechStack />
       <Testimonial />
       <ContactUs />
