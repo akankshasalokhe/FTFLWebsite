@@ -119,7 +119,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <section id='contactform' ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -134,9 +134,9 @@ const ContactForm = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             Let's <span className="text-blue-600">Connect</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          {/* <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have a project in mind? Our team is ready to bring your ideas to life.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Form Card */}

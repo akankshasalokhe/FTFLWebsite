@@ -2,21 +2,31 @@
 
 // import { motion } from "framer-motion";
 // import { FiSend, FiArrowRight } from "react-icons/fi";
-// import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube,FaFacebook,FaInstagram } from "react-icons/fa";
+// import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube, FaFacebook, FaInstagram } from "react-icons/fa";
 // import { RiCustomerService2Fill } from "react-icons/ri";
 // import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 // import { useEffect, useState } from "react";
 // import Link from "next/link";
+// import axios from "axios";
+// import { useRouter } from 'next/navigation';
+
 
 // const VibrantFooter = () => {
 //   const [contactInfo, setContactInfo] = useState(null);
+//   const [serviceInfo, setServiceInfo] = useState([])
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
+
+//   const router = useRouter();
+
+// const handleServiceClick = (serviceId) => {
+//   router.push(`/services/${serviceId}`, { scroll: false });
+// };
 
 //   useEffect(() => {
 //     const fetchContactInfo = async () => {
 //       try {
-//         const res = await fetch("https://landing-page-yclw.vercel.app/api/footer"); // Replace with your endpoint
+//         const res = await fetch("https://landing-page-yclw.vercel.app/api/footer");
 //         const json = await res.json();
 //         if (json.success && json.data && json.data.length > 0) {
 //           setContactInfo(json.data[0]);
@@ -33,11 +43,21 @@
 //     fetchContactInfo();
 //   }, []);
 
+//   useEffect(() => {
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/service")
+//       .then((res) => {
+//         const blogs = res.data.data;
+//         console.log("service footer:", blogs)
+//         setServiceInfo(blogs);
+//       })
+//       .catch((err) => console.error(err));
+//   }, []);
+
 //   const getSocialIcon = (url) => {
 //     if (!url) return <FiSend />;
 //     if (url.includes("facebook.com")) return <FaFacebook />;
 //     if (url.includes("instagram.com")) return <FaInstagram />;
-//     // if (url.includes("github.com")) return <FaGithub />;
 //     if (url.includes("linkedin.com")) return <FaLinkedin />;
 //     if (url.includes("youtube.com")) return <FaYoutube />;
 //     return <FiSend />;
@@ -47,17 +67,24 @@
 //     if (!url) return "hover:bg-gray-600";
 //     if (url.includes("facebook.com")) return "hover:bg-[#1DA1F2]";
 //     if (url.includes("instagram.com")) return "hover:bg-[#E1306C]";
-//     // if (url.includes("github.com")) return "hover:bg-black";
 //     if (url.includes("linkedin.com")) return "hover:bg-[#0077B5]";
 //     if (url.includes("youtube.com")) return "hover:bg-[#FF0000]";
 //     return "hover:bg-gray-600";
 //   };
 
+ 
 //   return (
 //     <footer className="relative overflow-hidden bg-gradient-to-br from-[#298CF3] to-[#0D5DB7] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8">
-//       {/* Floating bubbles */}
+//       {/* Floating bubbles with fixed positions to avoid hydration */}
 //       <div className="absolute inset-0 overflow-hidden">
-//         {[...Array(6)].map((_, i) => (
+//         {[
+//           { top: '10%', left: '20%', width: '12px', height: '18px' },
+//           { top: '30%', left: '80%', width: '15px', height: '10px' },
+//           { top: '50%', left: '40%', width: '10px', height: '15px' },
+//           { top: '70%', left: '10%', width: '18px', height: '12px' },
+//           { top: '20%', left: '60%', width: '14px', height: '16px' },
+//           { top: '80%', left: '90%', width: '16px', height: '14px' },
+//         ].map((bubble, i) => (
 //           <motion.div
 //             key={i}
 //             animate={{
@@ -65,16 +92,16 @@
 //               x: [0, i % 2 === 0 ? 10 : -10, 0],
 //             }}
 //             transition={{
-//               duration: 8 + Math.random() * 8,
+//               duration: 8 + i * 2,
 //               repeat: Infinity,
 //               ease: "easeInOut",
 //             }}
 //             className="absolute rounded-full bg-white/10 backdrop-blur-sm"
 //             style={{
-//               width: `${8 + Math.random() * 15}px`,
-//               height: `${8 + Math.random() * 15}px`,
-//               top: `${Math.random() * 100}%`,
-//               left: `${Math.random() * 100}%`,
+//               width: bubble.width,
+//               height: bubble.height,
+//               top: bubble.top,
+//               left: bubble.left,
 //             }}
 //           />
 //         ))}
@@ -97,18 +124,20 @@
 //                 Let's create something extraordinary together. Our team is ready to bring your vision to life!
 //               </p>
 //             </div>
-//             <motion.button
-//               whileHover={{ scale: 1.05 }}
-//               whileTap={{ scale: 0.95 }}
-//               className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
-//             >
-//               Get Started <FiArrowRight className="text-sm" />
-//             </motion.button>
+//             <Link href='/contact' passhref>
+//               <motion.button
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//                 className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
+//               >
+//                 Get Started <FiArrowRight className="text-sm" />
+//               </motion.button>
+//             </Link>
 //           </div>
 //         </motion.div>
 
 //         {/* Links Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 text-left">
+//         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 text-left">
 //           {/* Company Section */}
 //           <motion.div
 //             initial={{ opacity: 0, y: 20 }}
@@ -119,15 +148,21 @@
 //               <RiCustomerService2Fill className="text-sm" /> Company
 //             </h4>
 //             <ul className="space-y-2">
-//               {["About Us", "Careers", "Case Studies", "Contact"].map((item) => (
-//                 <li key={item}>
-//                   <motion.a
-//                     whileHover={{ x: 3 }}
-//                     href="#"
-//                     className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
-//                   >
-//                     <FiArrowRight className="text-xs opacity-70" /> {item}
-//                   </motion.a>
+//               {[
+//                 { label: "About Us", path: "/about" },
+//                 { label: "Careers", path: "/careers" },
+//                 { label: "Case Studies", path: "/case-studies" },
+//                 { label: "Contact", path: "/contact" }
+//               ].map((item) => (
+//                 <li key={item.label}>
+//                   <motion.div whileHover={{ x: 3 }}>
+//                     <Link
+//                       href={item.path}
+//                       className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
+//                     >
+//                       <FiArrowRight className="text-xs opacity-70" /> {item.label}
+//                     </Link>
+//                   </motion.div>
 //                 </li>
 //               ))}
 //             </ul>
@@ -140,19 +175,36 @@
 //             transition={{ duration: 0.4, delay: 0.3 }}
 //           >
 //             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
-//             <ul className="space-y-2">
-//               {["Web Development", "AI Solutions", "Mobile Apps", "Cloud Consulting"].map((item) => (
-//                 <li key={item}>
-//                   <motion.a
-//                     whileHover={{ x: 3 }}
-//                     href="#"
-//                     className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
-//                   >
-//                     <FiArrowRight className="text-xs opacity-70" /> {item}
-//                   </motion.a>
+//             {/* <ul className="space-y-2">
+//               {serviceInfo.map((service) => (
+//                 <li key={service._id}>
+//                   <motion.div whileHover={{ x: 3 }}>
+//                     <Link
+//                       href={`/services/${service._id}`}
+//                         onClick={(e) => handleServiceClick(e, service._id)}
+//                       className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
+//                      scroll={false}
+//                     >
+//                       <FiArrowRight className="text-xs opacity-70" /> {service.title}
+//                     </Link>
+//                   </motion.div>
 //                 </li>
 //               ))}
-//             </ul>
+//             </ul> */}
+//             <ul className="space-y-2">
+//   {serviceInfo.map((service) => (
+//     <li key={service._id}>
+//       <motion.div whileHover={{ x: 3 }}>
+//         <button
+//           onClick={() => handleServiceClick(service._id)}
+//           className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm cursor-pointer w-full text-left"
+//         >
+//           <FiArrowRight className="text-xs opacity-70" /> {service.title}
+//         </button>
+//       </motion.div>
+//     </li>
+//   ))}
+// </ul>
 //           </motion.div>
 
 //           {/* Contact Section */}
@@ -160,6 +212,7 @@
 //             initial={{ opacity: 0, y: 20 }}
 //             whileInView={{ opacity: 1, y: 0 }}
 //             transition={{ duration: 0.4, delay: 0.4 }}
+//             className="col-span-2 md:col-span-1 lg:col-span-1 mt-4 md:mt-0"
 //           >
 //             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Contact</h4>
 //             <ul className="space-y-3">
@@ -175,7 +228,7 @@
 //                   ) : (
 //                     <>
 //                       <Link className="font-medium text-sm" href={`tel:+${contactInfo?.phone}`}>
-//                         +{contactInfo?.phone}
+//                         +91 {contactInfo?.phone}
 //                       </Link>
 //                       <p className="text-xs text-white/70 mt-0.5">{contactInfo?.workinghours}</p>
 //                     </>
@@ -212,16 +265,17 @@
 //             initial={{ opacity: 0, y: 20 }}
 //             whileInView={{ opacity: 1, y: 0 }}
 //             transition={{ duration: 0.4, delay: 0.5 }}
+//             className="col-span-2 md:col-span-1 lg:col-span-1 mt-4 md:mt-0"
 //           >
 //             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Connect</h4>
 //             <div className="flex gap-3 flex-wrap mb-4">
 //               {loading
 //                 ? [...Array(4)].map((_, i) => (
-//                     <div key={i} className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
-//                   ))
+//                   <div key={i} className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
+//                 ))
 //                 : error
-//                 ? <p className="text-xs text-red-200">Error loading social links</p>
-//                 : contactInfo?.socialMediaLinks?.map((url, i) => (
+//                   ? <p className="text-xs text-red-200">Error loading social links</p>
+//                   : contactInfo?.socialMediaLinks?.map((url, i) => (
 //                     <motion.a
 //                       key={i}
 //                       whileHover={{ y: -3, scale: 1.05 }}
@@ -282,30 +336,28 @@
 
 
 
-
-
-
-
-
 "use client";
 
 import { motion } from "framer-motion";
 import { FiSend, FiArrowRight } from "react-icons/fi";
-import { FaDiscord, FaTwitter, FaLinkedin, FaGithub, FaYoutube,FaFacebook,FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation"; 
 
 const VibrantFooter = () => {
   const [contactInfo, setContactInfo] = useState(null);
+  const [serviceInfo, setServiceInfo] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+const router = useRouter();
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const res = await fetch("https://landing-page-yclw.vercel.app/api/footer"); // Replace with your endpoint
+        const res = await fetch("https://landing-page-yclw.vercel.app/api/footer");
         const json = await res.json();
         if (json.success && json.data && json.data.length > 0) {
           setContactInfo(json.data[0]);
@@ -322,21 +374,26 @@ const VibrantFooter = () => {
     fetchContactInfo();
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("https://landing-page-yclw.vercel.app/api/service")
+      .then((res) => {
+        setServiceInfo(res.data.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   const getSocialIcon = (url) => {
-    if (!url) return <FiSend />;
     if (url.includes("facebook.com")) return <FaFacebook />;
     if (url.includes("instagram.com")) return <FaInstagram />;
-    // if (url.includes("github.com")) return <FaGithub />;
     if (url.includes("linkedin.com")) return <FaLinkedin />;
     if (url.includes("youtube.com")) return <FaYoutube />;
     return <FiSend />;
   };
 
   const getSocialClass = (url) => {
-    if (!url) return "hover:bg-gray-600";
-    if (url.includes("facebook.com")) return "hover:bg-[#1DA1F2]";
+    if (url.includes("facebook.com")) return "hover:bg-[#1877F2]";
     if (url.includes("instagram.com")) return "hover:bg-[#E1306C]";
-    // if (url.includes("github.com")) return "hover:bg-black";
     if (url.includes("linkedin.com")) return "hover:bg-[#0077B5]";
     if (url.includes("youtube.com")) return "hover:bg-[#FF0000]";
     return "hover:bg-gray-600";
@@ -346,31 +403,26 @@ const VibrantFooter = () => {
     <footer className="relative overflow-hidden bg-gradient-to-br from-[#298CF3] to-[#0D5DB7] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8">
       {/* Floating bubbles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(6)].map((_, i) => (
+        {[
+          { top: "10%", left: "20%", w: 12, h: 18 },
+          { top: "30%", left: "80%", w: 15, h: 10 },
+          { top: "50%", left: "40%", w: 10, h: 15 },
+          { top: "70%", left: "10%", w: 18, h: 12 },
+          { top: "20%", left: "60%", w: 14, h: 16 },
+          { top: "80%", left: "90%", w: 16, h: 14 },
+        ].map((b, i) => (
           <motion.div
             key={i}
-            animate={{
-              y: [0, -15, 0],
-              x: [0, i % 2 === 0 ? 10 : -10, 0],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            animate={{ y: [0, -15, 0], x: [0, i % 2 === 0 ? 10 : -10, 0] }}
+            transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "easeInOut" }}
             className="absolute rounded-full bg-white/10 backdrop-blur-sm"
-            style={{
-              width: `${8 + Math.random() * 15}px`,
-              height: `${8 + Math.random() * 15}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
+            style={{ width: b.w, height: b.h, top: b.top, left: b.left }}
           />
         ))}
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Main CTA */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -386,97 +438,113 @@ const VibrantFooter = () => {
                 Let's create something extraordinary together. Our team is ready to bring your vision to life!
               </p>
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
-            >
-              Get Started <FiArrowRight className="text-sm" />
-            </motion.button>
+            <Link href="/contact" passHref>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
+              >
+                Get Started <FiArrowRight className="text-sm" />
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
 
-        {/* Links Grid - Changed to show Company and Services side by side on mobile */}
+        {/* Links */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 text-left">
-          {/* Company Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
+          {/* Company */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
             <h4 className="text-base font-bold mb-3 text-[#FFD166] flex items-center gap-1.5">
               <RiCustomerService2Fill className="text-sm" /> Company
             </h4>
             <ul className="space-y-2">
-              {["About Us", "Careers", "Case Studies", "Contact"].map((item) => (
-                <li key={item}>
-                  <motion.a
-                    whileHover={{ x: 3 }}
-                    href="#"
-                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" /> {item}
-                  </motion.a>
-                </li>
+              {[
+                { label: "About Us", path: "/about" },
+                { label: "Careers", path: "/careers" },
+                { label: "Case Studies", path: "/case-studies" },
+                { label: "Contact", path: "/contact" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm">
+                      <FiArrowRight className="text-xs opacity-70" /> {item.label}
+                    </Link>
+                  </motion.div>
+                </li> 
               ))}
             </ul>
           </motion.div>
 
-          {/* Services Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
+          {/* Services */}
+          {/* <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}>
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
             <ul className="space-y-2">
-              {["Web Development", "Mobile Apps","Graphics Design","Video Editing","UI/UX Design"].map((item) => (
-                <li key={item}>
-                  <motion.a
-                    whileHover={{ x: 3 }}
-                    href="#"
-                    className="flex items-center gap-1.5 hover:text-[#FFD166] transition-colors text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" /> {item}
-                  </motion.a>
+              {serviceInfo.slice(0,5).map((service) => (
+                <li key={service._id}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={`/services/${service._id}`}
+                    
+                      className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" /> {service.title}
+                    </Link>
+                  </motion.div>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </motion.div> */}
 
-          {/* Contact Section - Full width on mobile, then grid on larger screens */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="col-span-2 md:col-span-1 lg:col-span-1 mt-4 md:mt-0"
-          >
+           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}>
+          <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
+          <ul className="space-y-2">
+            {serviceInfo.slice(0, 5).map((service) => (
+              <li key={service._id}>
+                <motion.div whileHover={{ x: 3 }}>
+                  {/* 3. Replace Link with a div/button and use onClick + router.push */}
+                  <div
+                    onClick={(e) => {
+                      // Prevent default behavior which might cause the scroll jump
+                      e.preventDefault(); 
+                      // Manually navigate. Next.js handles the destination scroll-to-top.
+                      router.push(`/services/${service._id}`);
+                    }}
+                    className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm cursor-pointer"
+                  >
+                    <FiArrowRight className="text-xs opacity-70" /> {service.title}
+                  </div>
+                </motion.div>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+          {/* Contact */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.4 }}>
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdPhone className="text-xs" />
                 </div>
-                <div className="flex-1">
+                <div>
                   {loading ? (
-                    <div className="h-3.5 bg-white/20 rounded animate-pulse w-28 mb-1"></div>
-                  ) : error ? (
-                    <p className="text-xs text-red-200">Error loading phone</p>
+                    <p className="text-xs">Loading...</p>
                   ) : (
                     <>
-                      <Link className="font-medium text-sm" href={`tel:+${contactInfo?.phone}`}>
+                      <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-sm">
                         +91 {contactInfo?.phone}
                       </Link>
-                      <p className="text-xs text-white/70 mt-0.5">{contactInfo?.workinghours}</p>
+                      <p className="text-xs text-white/70">{contactInfo?.workinghours}</p>
                     </>
                   )}
                 </div>
               </li>
               <li className="flex items-center gap-2.5">
-                <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0">
+                <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full">
                   <MdEmail className="text-xs" />
                 </div>
-                <Link className="text-sm break-all" href={`mailto:info@ftfltechnology.com`}>
+                <Link href="mailto:info@ftfltechnology.com" className="text-sm">
                   info@ftfltechnology.com
                 </Link>
               </li>
@@ -484,71 +552,37 @@ const VibrantFooter = () => {
                 <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
                 </div>
-                <div className="flex-1">
-                  {loading ? (
-                    <div className="h-3.5 bg-white/20 rounded animate-pulse w-32"></div>
-                  ) : error ? (
-                    <p className="text-xs text-red-200">Error loading address</p>
-                  ) : (
-                    <p className="text-xs text-white/90">{contactInfo?.address}</p>
-                  )}
-                </div>
+                <p className="text-xs">{contactInfo?.address}</p>
               </li>
             </ul>
           </motion.div>
 
-          {/* Social Section - Full width on mobile, then grid on larger screens */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="col-span-2 md:col-span-1 lg:col-span-1 mt-4 md:mt-0"
-          >
+          {/* Social */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.5 }}>
             <h4 className="text-base font-bold mb-3 text-[#FFD166]">Connect</h4>
             <div className="flex gap-3 flex-wrap mb-4">
-              {loading
-                ? [...Array(4)].map((_, i) => (
-                    <div key={i} className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
-                  ))
-                : error
-                ? <p className="text-xs text-red-200">Error loading social links</p>
-                : contactInfo?.socialMediaLinks?.map((url, i) => (
-                    <motion.a
-                      key={i}
-                      whileHover={{ y: -3, scale: 1.05 }}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`bg-white/10 ${getSocialClass(url)} w-8 h-8 rounded-full flex items-center justify-center transition-colors`}
-                    >
-                      {getSocialIcon(url)}
-                    </motion.a>
-                  ))}
-            </div>
-
-            {/* Newsletter */}
-            <div className="mt-4">
-              <h5 className="text-xs font-medium mb-1.5">Stay updated</h5>
-              <div className="flex max-w-xs w-full">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="bg-white/20 placeholder-white/50 text-xs px-3 py-1.5 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#FFD166] flex-grow"
-                />
-                <motion.button whileHover={{ scale: 1.05 }} className="bg-[#FFD166] text-[#0D5DB7] px-2 rounded-r-md">
-                  <FiSend className="text-xs" />
-                </motion.button>
-              </div>
+              {contactInfo?.socialMediaLinks?.map((url, i) => (
+                <motion.a
+                  key={i}
+                  whileHover={{ y: -3, scale: 1.05 }}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`bg-white/10 ${getSocialClass(url)} w-8 h-8 rounded-full flex items-center justify-center`}
+                >
+                  {getSocialIcon(url)}
+                </motion.a>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Bottom */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center gap-3 text-left"
+          className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center gap-3"
         >
           <div className="flex items-center gap-1.5">
             <div className="w-6 h-6 bg-[#FFD166] rounded-full flex items-center justify-center">
@@ -556,9 +590,13 @@ const VibrantFooter = () => {
             </div>
             <p className="font-medium text-sm">FTFL Technology Pvt.Ltd</p>
           </div>
-          <div className="flex gap-3 text-xs flex-wrap">
-            <a href="#" className="hover:text-[#FFD166] transition-colors">Privacy</a>
-            <a href="#" className="hover:text-[#FFD166] transition-colors">Terms</a>
+          <div className="flex gap-3 text-xs">
+            <Link href="#"  className="hover:text-[#FFD166]">
+              Privacy
+            </Link>
+            <Link href="#"  className="hover:text-[#FFD166]">
+              Terms
+            </Link>
           </div>
           <p className="text-xs text-white/70">© 2025 All rights reserved</p>
         </motion.div>

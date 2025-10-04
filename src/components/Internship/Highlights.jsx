@@ -100,7 +100,7 @@ const InternshipHighlights = () => {
           className="mt-16"
         >
           <motion.a
-            href="#courses"
+            href="#contactform"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group"

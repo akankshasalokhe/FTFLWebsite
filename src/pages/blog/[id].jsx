@@ -1304,17 +1304,17 @@ export default function BlogDetail() {
 
             {/* Navigation */}
             <nav className="navigation mt-20">
-                <Link href="/" className="nav-link">Home</Link>
+                <Link href="/blog" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
                 {/* Dynamically link to category if it exists */}
-                {blogData.category && (
+                {/* {blogData.category && (
                     <>
                         <Link href={`/blog/category/${encodeURIComponent(blogData.category.toLowerCase())}`} className="nav-link">
                             {blogData.category}
                         </Link>
                         <span className="nav-separator"> / </span>
                     </>
-                )}
+                )} */}
                 <span className="nav-current">{blogData.title}</span>
             </nav>
 

@@ -54,12 +54,12 @@ const HeroSection = () => {
 
   return (
     <>
-    <section className="relative mt-[80px] w-full h-screen flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
+    <section className="relative mt-[80px] w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <Slider {...sliderSettings}>
           {carouselImages.map((img, idx) => (
-            <div key={idx} className="relative w-full h-screen">
+            <div key={idx} className="relative w-full h-[70vh] lg:h-[80vh] min-h-[500px]">
               <div className="relative w-full h-screen">
                 <Image
                   src={img.src}
@@ -86,12 +86,12 @@ const HeroSection = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
           <span className="text-blue-300">Boost Your Career</span> with Our Paid Internship
         </h1>
-        <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-white/90">
+        <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white/90">
           Gain real-world experience, complete projects, earn an internship letter, and secure a placement opportunity in our company.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+        {/* <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
           <a
             href="#contact"
             className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-blue-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-75"
@@ -99,14 +99,14 @@ const HeroSection = () => {
           >
             Enroll Now
           </a>
-          {/* <a
+           <a
             href="#modules"
             className="bg-white hover:bg-gray-100 text-blue-600 font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-75"
             aria-label="View internship program modules"
           >
             View Modules
-          </a> */}
-        </div>
+          </a> 
+        </div> */}
       </div>
     </section>
     <InternshipHighlights />

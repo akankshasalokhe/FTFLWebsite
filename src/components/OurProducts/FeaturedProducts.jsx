@@ -113,18 +113,18 @@
 //             </p>
 //             <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
 //               {selectedProduct.description}
-            // </p>
-            // <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
-            // <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-            //   {selectedProduct.features.map((feature, index) => (
-            //     <li key={index} className="flex items-center">
-            //       <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            //         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-            //       </svg>
-            //       <span className="text-sm sm:text-base text-gray-700">{feature}</span>
-            //     </li>
-            //   ))}
-            // </ul>
+// </p>
+// <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
+// <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
+//   {selectedProduct.features.map((feature, index) => (
+//     <li key={index} className="flex items-center">
+//       <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+//       </svg>
+//       <span className="text-sm sm:text-base text-gray-700">{feature}</span>
+//     </li>
+//   ))}
+// </ul>
 
 //             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
 //               <Link href={`/products/${selectedProduct.id}`}>
@@ -193,11 +193,10 @@ export default function ProductDetails() {
             <button
               key={p._id}
               onClick={() => setSelectedProduct(p)}
-              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${
-                selectedProduct?._id === p._id
-                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 shadow-md hover:scale-105 ${selectedProduct?._id === p._id
+                ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
+                : "bg-white text-gray-700 hover:bg-gray-100"
+                }`}
             >
               {p.title}
             </button>
@@ -238,23 +237,43 @@ export default function ProductDetails() {
                 {selectedProduct.subTitle}
               </p>
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4">
-                {selectedProduct.description.substring(0,100)}...
+                {selectedProduct.description.substring(0, 100)}...
               </p>
-              
-            <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
-            <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-              {selectedProduct.homeFeatureTags.map((feature, index) => (
-                <li key={index} className="flex items-center">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                  <span className="text-sm sm:text-base text-gray-700">{feature}</span>
-                </li>
-              ))}
-            </ul>
+
+              <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
+              {/* <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
+                {selectedProduct.homeFeatureTags.map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                     <div className="text-sm flex sm:text-base text-gray-700">{feature}</div> 
+                    <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
+                     
+                        <div  className="text-sm sm:text-base text-gray-700">
+                          {feature}
+                        </div>
+                      {/* ))} 
+                    </div>
+                  </li>
+                ))}
+              </ul> */}
+
+              <ul className="mb-4 sm:mb-6 grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-3">
+                {selectedProduct.homeFeatureTags.map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <div className="text-sm sm:text-base text-gray-700">
+                      {feature}
+                    </div>
+                  </li>
+                ))}
+              </ul>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-               <Link href={`/products/${selectedProduct._id}`} className="flex-1">
+                <Link href={`/products/${selectedProduct._id}`} className="flex-1">
                   <button className="px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md hover:scale-105 transition-transform text-sm sm:text-base">
                     Learn More
                   </button>
