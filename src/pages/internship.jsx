@@ -9,6 +9,7 @@ import InternshipProcess from "@/components/Internship/Process";
 import WhyChooseUs from "@/components/Internship/WhyChooseUs";
 import CTASection from "@/components/Internship/CTASection";
 
+
 const HeroSection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -54,7 +55,8 @@ const HeroSection = () => {
 
   return (
     <>
-    <section className="relative mt-[80px] w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
+    <section        
+        className="relative mt-[80px] w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <Slider {...sliderSettings}>
@@ -78,7 +80,10 @@ const HeroSection = () => {
           ))}
         </Slider>
         {/* Blue overlay for consistent theme */}
-        <div className="absolute inset-0 bg-blue-500/50"></div>
+        <div  style={{
+          background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
+        }}
+         className="absolute inset-0 "></div>
       </div>
 
       {/* Hero Content */}
