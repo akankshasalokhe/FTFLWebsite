@@ -11,9 +11,9 @@ const StorySection = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
+
         const res = await axios.get("https://landing-page-yclw.vercel.app/api/about");
-        
+
         if (res.data.success) {
           const apiData = res.data.data;
 
@@ -81,9 +81,11 @@ const StorySection = () => {
                   <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
                     Our Story
                   </h3>
-                  <p className="text-lg text-gray-600">
-                    {item.description}
-                  </p>
+                  <div className="text-lg text-gray-600 space-y-3">
+                    {item.description.map((paragraph, index) => (
+                      <p key={index}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

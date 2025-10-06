@@ -105,7 +105,7 @@ const WhyChooseUs = () => {
                 className={`w-12 h-12 mb-4 rounded-lg flex items-center justify-center ${
                   activeReason === index
                     ? "bg-blue-100 text-blue-600"
-                    : "bg-gray-100 text-gray-600"
+                    : "bg-blue-300 text-gray-600"
                 }`}
               >
                 {reason.icon}
@@ -135,7 +135,7 @@ const WhyChooseUs = () => {
                     className={`lg:w-2/5 p-8 md:p-10 bg-gradient-to-br ${reasons[activeReason].color}`}
                   >
                     <div className="text-gray-900">
-                      <div className="w-20 h-20 mb-6 flex items-center justify-center bg-gray-300 rounded-2xl backdrop-blur-sm">
+                      <div className="w-20 h-20 mb-6 flex items-center justify-center bg-blue-300 rounded-2xl backdrop-blur-sm">
                         <div className="text-3xl">
                           {reasons[activeReason].icon}
                         </div>
@@ -199,7 +199,7 @@ const WhyChooseUs = () => {
                 className="w-full flex items-center justify-between p-6 text-left"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-lg bg-gray-500 flex items-center justify-center text-gray-600">
+                  <div className="w-22 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-gray-600">
                     {reason.icon}
                   </div>
                   <div>

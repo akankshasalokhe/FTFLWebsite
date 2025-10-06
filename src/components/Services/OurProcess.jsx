@@ -418,14 +418,15 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
         transition={{ duration: 0.6 }}
         className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl"
       >
-        <Image
+        <img
           // src="/web-app.png"
           // alt="Web App Mockup"
           src={serviceImage2}
           alt="Service Process"
 
           fill
-          className="object-contain"
+          // className="object-contain"
+            className="w-full h-full object-cover object-center"
           priority
         />
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg">

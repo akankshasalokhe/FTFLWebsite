@@ -329,6 +329,213 @@
 
 
 
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import axios from "axios";
+// import { useRouter } from 'next/navigation';
+// import Link from "next/link";
+// import MissionSection from "../OurStory/OurStory";
+
+// const AboutUsSection = () => {
+//   const [stats, setStats] = useState([]);
+//   const [content, setContent] = useState([]);
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     // Backend se data fetch
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/counter")
+//       .then((res) => {
+//         if (res.data.success) {
+//           setStats(res.data.data);
+//         }
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching stats:", err);
+//       });
+//   }, []);
+
+//   useEffect(() => {
+//     axios.get("https://landing-page-yclw.vercel.app/api/about")
+//       .then((res) => {
+//         if (res.data.success) {
+//           const apiData = res.data.data;
+
+//           // 🔹 Filter only items with typeData === "Story" and then map
+//           const mappedData = apiData
+//             .filter(item => item.typeData === "About") // 👈 Add this filter
+//             .map((item) => {
+//               let color = "from-blue-500 to-blue-600";
+//               let reverse = false;
+
+//               if (item.typeData === "About") {
+//                 color = "from-purple-500 to-purple-600";
+//                 reverse = true;
+//               }
+
+//               return {
+//                 title: item.title,
+//                 description: item.description,
+//                 image: item.mainImage,
+//                 color,
+//                 reverse,
+//                 typeData: item.typeData
+//               };
+//             });
+
+//           setContent(mappedData);
+//         }
+//       })
+//       .catch((err) => {
+//         console.error("Error fetching mission/vision/core values:", err);
+//       });
+//   }, []);
+
+//   const brandColor = {
+//     primary: "#298cf3",
+//     light: "#e6f2fe",
+//     dark: "#1a6bc4",
+//   };
+
+//   return (
+//     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+//       {/* Background elements */}
+//       <div className="absolute top-1/4 -left-20 w-64 h-64 rounded-full bg-blue-100 opacity-10" />
+//       <div className="absolute bottom-1/3 -right-20 w-80 h-80 rounded-full bg-blue-100 opacity-10" />
+
+//       <div className="max-w-7xl mx-auto relative z-10">
+//         {/* Title */}
+//         <div className="text-center mb-12 sm:mb-16">
+//           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+//             Who{" "}
+//             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#298cf3] to-blue-600">
+//               We Are
+//             </span>
+//           </h1>
+//           <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#298cf3] to-blue-600 mx-auto rounded-full" />
+//         </div>
+
+//         {/* Main content */}
+//         <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
+//           {/* Text */}
+//           <div className="lg:w-1/2 order-2 lg:order-1">
+//             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
+//               About <span className="text-[#298cf3]">Our Company</span>
+//             </h2>
+            
+          
+//             <div className="text-lg text-gray-600 space-y-4">
+//               {content.map((item, index) => (
+//                 <div key={index}>
+//                   {item.description.map((paragraph, pIndex) => (
+//                     <p key={pIndex} className="mb-4">{paragraph}</p>
+//                   ))}
+//                 </div>
+//               ))}
+//             </div>
+         
+//             <button
+//               onClick={() => {
+//                 router.push('/about');
+//                 setTimeout(() => {
+//                   const storySection = document.getElementById('story');
+//                   if (storySection) {
+//                     storySection.scrollIntoView({
+//                       behavior: 'smooth',
+//                       block: 'start'
+//                     });
+//                   }
+//                 }, 100);
+//               }}
+//               className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
+//               style={{ backgroundColor: brandColor.primary }}
+//             >
+//               Our Story
+//             </button>
+//           </div>
+
+//           {/* Image */}
+//           <div className="lg:w-1/2 relative order-1 lg:order-2 mb-8 lg:mb-0">
+//             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl">
+//               <img
+//                 src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1484&q=80"
+//                 alt="Our Team"
+//                 className="w-full h-auto rounded-xl sm:rounded-2xl"
+//                 loading="lazy"
+//               />
+//               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-30 rounded-xl sm:rounded-2xl"></div>
+//             </div>
+//           </div>
+
+
+//         </div>
+
+//         {/* Stats Section */}
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 mt-12">
+//           {stats.map((stat, index) => {
+//             const icons = [
+//               "M13 16h-1v-4h-1m1-4h.01M12 6a9 9 0 110 18 9 9 0 010-18z",
+//               "M5 13l4 4L19 7",
+//               "M3 7h18M3 12h18M3 17h18",
+//               "M12 4v16m8-8H4",
+//               "M9 17v-6h6v6m2 2H7",
+//             ];
+
+//             return (
+//               <div
+//                 key={stat._id}
+//                 className="group relative"
+//               >
+//                 <div className="p-[2px] rounded-2xl bg-gradient-to-r from-[#298cf3] via-blue-500 to-blue-700">
+//                   {/* Inner Card */}
+//                   <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-md px-6 py-8 flex flex-col items-center text-center">
+//                     {/* Icon */}
+//                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#298cf3] to-blue-600 text-white shadow-lg mb-4">
+//                       <svg
+//                         xmlns="http://www.w3.org/2000/svg"
+//                         className="h-7 w-7"
+//                         fill="none"
+//                         viewBox="0 0 24 24"
+//                         stroke="currentColor"
+//                       >
+//                         <path
+//                           strokeLinecap="round"
+//                           strokeLinejoin="round"
+//                           strokeWidth={2}
+//                           d={icons[index % icons.length]}
+//                         />
+//                       </svg>
+//                     </div>
+
+//                     {/* Number */}
+//                     <div className="flex items-end justify-center mb-2">
+//                       <h3 className="text-3xl font-extrabold text-gray-900">
+//                         {stat.count}
+//                       </h3>
+//                       <span className="text-lg font-semibold text-blue-600 mb-1">+</span>
+//                     </div>
+
+//                     {/* Title */}
+//                     <p className="text-sm sm:text-base text-gray-600 font-medium">
+//                       {stat.title}
+//                     </p>
+//                   </div>
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default AboutUsSection;
+
+
+
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -340,6 +547,7 @@ import MissionSection from "../OurStory/OurStory";
 const AboutUsSection = () => {
   const [stats, setStats] = useState([]);
   const [content, setContent] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
   const router = useRouter();
 
   useEffect(() => {
@@ -357,6 +565,7 @@ const AboutUsSection = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true); // Start loading when fetch begins
     axios.get("https://landing-page-yclw.vercel.app/api/about")
       .then((res) => {
         if (res.data.success) {
@@ -364,12 +573,12 @@ const AboutUsSection = () => {
 
           // 🔹 Filter only items with typeData === "Story" and then map
           const mappedData = apiData
-            .filter(item => item.typeData === "Story") // 👈 Add this filter
+            .filter(item => item.typeData === "About") // 👈 Add this filter
             .map((item) => {
               let color = "from-blue-500 to-blue-600";
               let reverse = false;
 
-              if (item.typeData === "Story") {
+              if (item.typeData === "About") {
                 color = "from-purple-500 to-purple-600";
                 reverse = true;
               }
@@ -389,6 +598,9 @@ const AboutUsSection = () => {
       })
       .catch((err) => {
         console.error("Error fetching mission/vision/core values:", err);
+      })
+      .finally(() => {
+        setLoading(false); // Stop loading when fetch completes (success or error)
       });
   }, []);
 
@@ -397,6 +609,62 @@ const AboutUsSection = () => {
     light: "#e6f2fe",
     dark: "#1a6bc4",
   };
+
+  // Loading component
+  if (loading) {
+    return (
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Title */}
+          <div className="text-center mb-12 sm:mb-16">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Who{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#298cf3] to-blue-600">
+                We Are
+              </span>
+            </h1>
+            <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#298cf3] to-blue-600 mx-auto rounded-full" />
+          </div>
+
+          {/* Loading skeleton */}
+          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-10 lg:gap-12 mb-12 sm:mb-16 lg:mb-20">
+            {/* Text loading skeleton */}
+            <div className="lg:w-1/2 order-2 lg:order-1">
+              <div className="h-8 bg-gray-200 rounded w-3/4 mb-4 animate-pulse"></div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6 animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-4/6 animate-pulse"></div>
+              </div>
+              <div className="h-10 bg-gray-200 rounded w-32 mt-6 animate-pulse"></div>
+            </div>
+
+            {/* Image loading skeleton */}
+            <div className="lg:w-1/2 relative order-1 lg:order-2 mb-8 lg:mb-0">
+              <div className="w-full h-64 bg-gray-200 rounded-xl animate-pulse"></div>
+            </div>
+          </div>
+
+          {/* Stats loading skeleton */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 mt-12">
+            {[1, 2, 3].map((item) => (
+              <div key={item} className="group relative">
+                <div className="p-[2px] rounded-2xl bg-gray-200">
+                  <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-md px-6 py-8 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-gray-200 mb-4 animate-pulse"></div>
+                    <div className="h-8 bg-gray-200 rounded w-20 mb-2 animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded w-24 animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
@@ -423,49 +691,35 @@ const AboutUsSection = () => {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
               About <span className="text-[#298cf3]">Our Company</span>
             </h2>
-            {/* <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">
-              We are a passionate IT solutions company delivering modern web,
-              mobile, and cloud-based applications. Our goal is to help
-              businesses achieve digital transformation with innovative
-              solutions.
-              
-            </p> */}
-            <div className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 space-y-4">
+            
+            <div className="text-lg text-gray-600 space-y-4">
               {content.map((item, index) => (
-                <p key={index}>{item.description}</p>
+                <div key={index}>
+                  {item.description.map((paragraph, pIndex) => (
+                    <p key={pIndex} className="mb-4">{paragraph}</p>
+                  ))}
+                </div>
               ))}
             </div>
-            {/* <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">
-              Founded in 2024, we've grown from a small team of developers to a
-              full-service digital agency serving clients worldwide.
-            </p> */}
-            {/* <Link href='/about#story'>
-              <button id='story'
-                className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
-                style={{ backgroundColor: brandColor.primary }}
-              >
-
-                Our Story
-              </button>
-            </Link> */}
-            <button 
-  onClick={() => {
-    router.push('/about');
-    setTimeout(() => {
-      const storySection = document.getElementById('story');
-      if (storySection) {
-        storySection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }, 100);
-  }}
-  className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
-  style={{ backgroundColor: brandColor.primary }}
->
-  Our Story
-</button>
+         
+            <button
+              onClick={() => {
+                router.push('/about');
+                setTimeout(() => {
+                  const storySection = document.getElementById('story');
+                  if (storySection) {
+                    storySection.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }
+                }, 100);
+              }}
+              className="px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all hover:from-[#1a6bc4] hover:to-blue-700 text-sm sm:text-base"
+              style={{ backgroundColor: brandColor.primary }}
+            >
+              Our Story
+            </button>
           </div>
 
           {/* Image */}
@@ -480,8 +734,6 @@ const AboutUsSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-30 rounded-xl sm:rounded-2xl"></div>
             </div>
           </div>
-
-       
         </div>
 
         {/* Stats Section */}

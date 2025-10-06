@@ -1006,7 +1006,7 @@ export default function ProductDetail() {
                     href={productsData.livedemoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                    className="bg-white hover:bg-gray-300 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
                   >
                     <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -1044,7 +1044,7 @@ export default function ProductDetail() {
                   </a>
                 </div>
 
-                <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+                <button className="bg-transparent hover:bg-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                   View Case Study
                 </button>
               </div>
