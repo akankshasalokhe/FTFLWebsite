@@ -646,7 +646,7 @@ const InternshipCourses = () => {
       id: 3,
       image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
       title: "UI/UX Design",
-      description: "Create stunning user interfaces and enhance user experience.",
+      description: "Create stunning user interfaces and enhance user experience to your website.",
       features: ["Wireframing", "Prototyping", "Figma & XD", "User Research", "Portfolio"],
       duration: "5 weeks",
       category: "design",

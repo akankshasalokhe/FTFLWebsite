@@ -15,7 +15,10 @@ function products() {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
+      <div  style={{
+          background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
+        }}
+         className="absolute inset-0  flex flex-col items-center justify-center text-center px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">
           Our Products
         </h1>
