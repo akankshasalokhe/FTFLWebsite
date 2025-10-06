@@ -435,7 +435,7 @@ const router = useRouter();
                 Ready to <span className="text-[#FFD166]">transform</span> your business?
               </h3>
               <p className="text-white/90 max-w-md text-xs sm:text-sm">
-                Let's create something extraordinary together. Our team is ready to bring your vision to life!
+                Let's create something extraordinary together. Our team is ready to bring your vision to life!!
               </p>
             </div>
             <Link href="/contact" passHref>
