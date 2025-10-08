@@ -93,3 +93,28 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+
+/* Add this to your global CSS file */
+html {
+  /* Disables the browser's default smooth scroll and its scroll-restoration behavior */
+  scroll-behavior: auto !important; 
+  /* Helps prevent unexpected jumps/layout shifts */
+  overflow-anchor: none;
+}
+
+/* Add to your global CSS */
+html, body {
+  height: 100%;
+}
+
+#__next {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure footer stays at bottom */
+footer {
+  margin-top: auto;
+}

@@ -119,7 +119,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <section id='contactform' ref={ref} className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div

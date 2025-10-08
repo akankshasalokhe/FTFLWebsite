@@ -1,0 +1,494 @@
+/* Navbar Base */
+.navbar {
+  background:#e2e8f06a;
+  color: rgba(0, 0, 0, 0.819);
+  padding: 15px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0a1f44;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 20px;
+}
+
+.navbar.servicesExpanded {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-decoration: none;
+  color: inherit;
+  z-index: 1100;
+}
+
+.tagline {
+  font-size: 10px;
+  margin-top: -5px;
+  margin-left: 45px;
+  color: inherit;
+}
+
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.icon {
+  font-size: 1.8rem;
+  color: inherit;
+}
+
+/* Navigation Menu */
+.navMenu {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  font-size: 16px;
+  align-items: center;
+  padding: 0;
+}
+
+.navMenu li {
+  position: relative;
+}
+
+.navMenu li a,
+.navMenu li span {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.activeLink,
+.navMenu li a:hover,
+.navMenu li span:hover {
+  color: #0284c7;
+}
+
+.activeLink::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0284c7;
+  border-radius: 1px;
+}
+
+/* Services Trigger */
+.servicesTrigger {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.dropdownArrow {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+/* Desktop Services Dropdown */
+.servicesDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  z-index: 1001;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownContent {
+  padding: 1rem 0;
+}
+
+.viewTitle {
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+}
+
+.categoriesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.categoryItem:hover {
+  background: #f8f9fa;
+  color: #2980b9;
+}
+
+.categoryName {
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.categoryArrow {
+  width: 12px;
+  height: 12px;
+  color: #666;
+}
+
+.viewHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 0.5rem;
+}
+
+.subServicesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.subServiceItem {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: #666;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.subIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Increased from 16px */
+  height: 24px; /* Increased from 16px */
+  gap: 2px;
+  margin-left: 1rem; /* Add margin from left edge */
+  margin-right: 2rem; /* Maintain gap to text */
+}
+
+.subServiceItem:hover .subIcon {
+  /* Ensure hover effects work properly */
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.subServiceItem:hover {
+  background: #f8f9fa;
+  color: #2980b9;
+}
+
+.subIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  gap: 2px;
+}
+
+.subServiceName {
+  font-weight: 500;
+}
+
+/* Mobile Overlay */
+.mobileOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+.mobileOverlay.active {
+  display: block;
+}
+
+/* Mobile Services Dropdown */
+.mobileServicesDropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: white;
+  z-index: 1001;
+  overflow-y: auto;
+}
+
+.mobileDropdownContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileViewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  background: #f8f9fa;
+}
+
+.mobileViewTitle {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.mobileCloseButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.mobileCloseButton:hover {
+  background: #e9ecef;
+}
+
+/* .closeIcon {
+    margin-top: 34px;
+   
+  width: 16px;
+  height: 16px;
+  color: #666;
+} */
+
+.closeIcon {
+  margin-top: 34px;
+  width: 32px;  /* Increased size */
+  height: 32px; /* Increased size */
+  color: #666;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  border-radius: 4px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileCategoriesList {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.mobileCategoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.mobileCategoryItem:hover {
+  background: #f8f9fa;
+}
+
+.mobileCategoryName {
+  font-weight: 500;
+  color: #333;
+  font-size: 1rem;
+}
+
+.mobileCategoryArrow {
+  width: 14px;
+  height: 14px;
+  color: #666;
+}
+
+.mobileSubServicesList {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.mobileCategoryTitle {
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 0.5rem;
+}
+
+.mobileSubServiceItem {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #666;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.mobileSubServiceItem:hover {
+  background: #f8f9fa;
+  color: #2980b9;
+}
+
+.mobileSubIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.mobileSubServiceName {
+  font-weight: 500;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navMenu {
+    flex-direction: column;
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(10px);
+    padding: 90px 20px 30px;
+    gap: 18px;
+    transition: top 0.3s ease;
+    z-index: 1000;
+    color: #0a1f44;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .navMenu.active {
+    top: 0;
+  }
+  
+  .servicesContent {
+    display: none;
+  }
+
+  .servicesItem {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .servicesTrigger {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hide desktop services dropdown on mobile */
+  .servicesDropdown {
+    display: none;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .navMenu {
+    padding-top: 80px;
+  }
+  
+  .logo {
+    max-width: 150px;
+  }
+  
+  .tagline {
+    font-size: 9px;
+    margin-left: 35px;
+  }
+  
+  .mobileServicesDropdown {
+    padding: 15px;
+  }
+  
+  .mobileSubServiceContent {
+    gap: 10px;
+  }
+  
+  .mobileSubServiceName {
+    font-size: 13px;
+  }
+}
