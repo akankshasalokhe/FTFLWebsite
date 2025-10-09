@@ -1198,7 +1198,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                   </div>
 
                   {isNewJob && (
-                    <span className="absolute top-4 left-4 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                    <span className="absolute top-1 left-4 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
                       New
                     </span>
                   )}
@@ -1215,7 +1215,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                     </div>
 
                     <div className="my-3 md:my-4 flex flex-wrap gap-1 md:gap-2">
-                      {(job.requiredSkills || []).map((skill, skillIndex) => (
+                      {(job.requiredSkills || []).slice(0,5).map((skill, skillIndex) => (
                         <span
                           key={skill._id || skillIndex}
                           className="px-2 py-0.5 md:px-2.5 md:py-1 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-full"

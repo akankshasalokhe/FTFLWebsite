@@ -403,7 +403,7 @@ const ProductShowcase = () => {
 
       {/* Tabs */}
       <div
-        className={`flex ${isMobile ? "overflow-x-auto no-scrollbar space-x-2" : "justify-center space-x-4"
+        className={`flex ${isMobile ? "justify-center space-x-2" : "justify-center space-x-4"
           } mb-6 sm:mb-12`}
       >
         {["web", "mobile"].map((tab) => (

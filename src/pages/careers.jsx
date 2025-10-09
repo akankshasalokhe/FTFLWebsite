@@ -350,11 +350,13 @@ function Careers() {
 
       {/* Show either categories or job listings based on activeView */}
       {activeView === 'categories' ? (
+        <div id='openpositions'>
         <JobCategory onCategoryClick={handleCategoryClick} />
+        </div>
       ) : (
         <div>
           {/* Back to categories button */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-4">
             <button
               onClick={handleBackToCategories}
               className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors"

@@ -188,7 +188,7 @@ const OurServices = () => {
   }, []);
 
   return (
-    <section className={styles.services} id="homeservices">
+    <section  className={styles.services} id="homeservices">
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.sectionTitle}>Our Services</h2>

@@ -1086,6 +1086,7 @@ export default function SingleJobView() {
   const [jobData, setJobData] = useState(null);
   const [similarJobs, setSimilarJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAllSkills, setShowAllSkills] = useState(false);
 
   // Fetch job by ID
   useEffect(() => {
@@ -1190,7 +1191,7 @@ export default function SingleJobView() {
   const deadlineStatus = getDeadlineStatus(jobData.applicationDeadline);
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen mt-[80px]  bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -1251,7 +1252,7 @@ export default function SingleJobView() {
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    {/* <div className="flex flex-wrap gap-2">
                       {jobData.requiredSkills?.length > 0 && (
                         <motion.div className="">
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -1261,6 +1262,21 @@ export default function SingleJobView() {
                               </div>
                             ))}
                           </div>
+                        </motion.div>
+                      )}
+                    </div> */}
+
+                    <div className="flex flex-wrap gap-2">
+                      {jobData.requiredSkills?.length > 0 && (
+                        <motion.div className="flex flex-wrap gap-2">
+                          {jobData.requiredSkills.map((skill) => (
+                            <div
+                              key={skill._id}
+                              className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full border border-gray-200 whitespace-nowrap"
+                            >
+                              <p className="font-medium">{skill.title}</p>
+                            </div>
+                          ))}
                         </motion.div>
                       )}
                     </div>
@@ -1273,7 +1289,7 @@ export default function SingleJobView() {
                       {deadlineStatus.icon}
                       {deadlineStatus.text}
                     </div>
-                 <Link href={`/apply?id=${jobData._id}`} passHref>
+                    <Link href={`/apply?id=${jobData._id}`} passHref>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -1329,7 +1345,7 @@ export default function SingleJobView() {
             </motion.div>
 
             {/* Required Skills */}
-            {jobData.requiredSkills && (
+            {/* {jobData.requiredSkills && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1353,7 +1369,49 @@ export default function SingleJobView() {
                   ))}
                 </div>
               </motion.div>
-            )}
+            )} */}
+
+
+{jobData.requiredSkills && (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.4 }}
+    className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8"
+  >
+    <div className="flex items-center gap-3 mb-6">
+      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+        <FiZap className="text-blue-600 text-xl" />
+      </div>
+      <h2 className="text-xl font-semibold text-gray-900">Required Skills</h2>
+    </div>
+    
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+      {jobData.requiredSkills
+        .slice(0, showAllSkills ? jobData.requiredSkills.length : 4)
+        .map((skill, i) => (
+          <div key={i} className="flex flex-col p-3 bg-gray-50 rounded-lg border border-gray-200 min-w-0">
+            <span className="font-medium text-gray-800 text-sm text-center truncate">{skill.title}</span>
+            <span className={`text-xs px-2 py-0.5 rounded-full mt-1 w-fit mx-auto ${getSkillLevelColor(skill.level)}`}>
+              {skill.level}
+            </span>
+          </div>
+        ))}
+    </div>
+
+    {/* Show More/Less Button */}
+    {jobData.requiredSkills.length > 4 && (
+      <div className="text-center mt-4">
+        <button
+          onClick={() => setShowAllSkills(!showAllSkills)}
+          className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+        >
+          {showAllSkills ? 'Show Less' : `+${jobData.requiredSkills.length - 4} More`}
+        </button>
+      </div>
+    )}
+  </motion.div>
+)}
 
             {/* Requirements */}
             <motion.div
@@ -1367,19 +1425,19 @@ export default function SingleJobView() {
                   <FiAward className="text-blue-600 text-xl" />
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900">Requirements</h2>
-                </div>
-                <ul className="space-y-4">
-                  {jobData.requirements.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-                      </div>
-                      <span className="text-gray-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
+              </div>
+              <ul className="space-y-4">
+                {jobData.requirements.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+                    </div>
+                    <span className="text-gray-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
 
           {/* Sidebar - Right Side */}
           <aside className="lg:w-80 flex-shrink-0 space-y-6 sticky top-24 self-start">
@@ -1401,18 +1459,16 @@ export default function SingleJobView() {
                   {jobData.benefits.map((benefit, i) => (
                     <div
                       key={i}
-                      className={`flex flex-col gap-1 p-3 rounded-lg border ${
-                        benefit.highlight
+                      className={`flex flex-col gap-1 p-3 rounded-lg border ${benefit.highlight
                           ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200'
                           : 'bg-gray-50 border-gray-200'
-                      }`}
+                        }`}
                     >
                       <div
-                        className={`p-1.5 rounded-lg ${
-                          benefit.highlight
+                        className={`p-1.5 rounded-lg ${benefit.highlight
                             ? 'bg-blue-100 text-blue-600'
                             : 'bg-gray-100 text-gray-600'
-                        }`}
+                          }`}
                       >
                         {benefit.icon}
                       </div>
@@ -1526,25 +1582,25 @@ export default function SingleJobView() {
         )} */}
 
         {similarJobs.length > 0 && (
-  <motion.div className="mt-16 px-4 md:px-8 lg:ml-28 text-center md:text-left">
-    <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-      {similarJobs.map((job) => (
-        <Link href={`/jobs/${job._id}`} key={job._id}>
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            className="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition text-left"
-          >
-            <h3 className="font-bold text-lg">{job.title}</h3>
-            <p className="text-sm text-gray-500">
-              {job.location} • {job.jobType}
-            </p>
+          <motion.div className="mt-16 px-4 md:px-8 lg:ml-28 text-center md:text-left">
+            <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+              {similarJobs.map((job) => (
+                <Link href={`/jobs/${job._id}`} key={job._id}>
+                  <motion.div
+                    whileHover={{ scale: 1.03 }}
+                    className="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition text-left"
+                  >
+                    <h3 className="font-bold text-lg">{job.title}</h3>
+                    <p className="text-sm text-gray-500">
+                      {job.location} • {job.jobType}
+                    </p>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
           </motion.div>
-        </Link>
-      ))}
-    </div>
-  </motion.div>
-)}
+        )}
 
       </main>
     </div>
