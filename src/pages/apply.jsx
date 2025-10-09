@@ -343,7 +343,7 @@ useEffect(() => {
     );
   }
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8 md:py-12">
+    <div className="min-h-screen mt-[40px] bg-gradient-to-b from-gray-50 to-gray-100 py-8 md:py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <button
           onClick={() => isGeneralApplication ? router.push('/careers') : router.back()}

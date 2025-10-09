@@ -592,7 +592,14 @@ export default function TeamMembers() {
 
         {/* Team Members Grid - No Carousel */}
         <div className="relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6"> */}
+          <div className={`grid gap-4 sm:gap-6 ${
+    filteredMembers.length === 1 
+      ? 'grid-cols-1 justify-items-center' 
+      : filteredMembers.length === 2 
+      ? 'grid-cols-1 md:grid-cols-2 justify-items-center max-w-4xl mx-auto' 
+      : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+  }`}>
             {filteredMembers.map((member, index) => (
               <motion.div
                 key={member._id || index}
@@ -600,7 +607,11 @@ export default function TeamMembers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
-                className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                // className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+               className={`group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 ${
+          filteredMembers.length <= 2 ? 'w-full max-w-sm' : 'w-full'
+        }`}
+      
                 ref={el => cardRefs.current[index] = el}
               >
                 {/* Image Container */}
@@ -679,18 +690,10 @@ export default function TeamMembers() {
                 </div>
 
                 {/* Text Content */}
-                {/* <div className="p-4 sm:p-6 text-center">
-                  <h3 className={`text-base sm:text-lg font-semibold mb-1 transition-colors duration-300
-                    ${activeCard === index ? 'text-blue-600' : 'text-gray-900 group-hover:text-blue-600'}`}
-                  >
-                    
-                        {member.fullName}
-                   
-                  </h3>
-                </div> */}
+               
                 <div className="p-4 sm:p-6 text-center">
                   <h3 className={`text-base sm:text-lg font-semibold mb-1 transition-colors duration-300
-    ${activeCard === index ? 'text-blue-600' : 'text-gray-900 group-hover:text-blue-600'}`}
+               ${activeCard === index ? 'text-blue-600' : 'text-gray-900 group-hover:text-blue-600'}`}
                   >
                     {member.fullName.includes(' - ') ? member.fullName.split(' - ')[0] : member.fullName}
                   </h3>
@@ -704,23 +707,7 @@ export default function TeamMembers() {
             ))}
           </div>
 
-          {/* Count */}
-          {/* <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center mt-6 text-sm text-gray-500"
-          >
-            <span className="bg-gray-100 rounded-full px-3 py-1.5 inline-block">
-              Showing{" "}
-              <span className="font-semibold">
-                {filteredMembers.length}
-              </span>{" "}
-              members
-              {activeRole !== "All" && (
-                <span className="text-blue-600 ml-1">in {activeRole}</span>
-              )}
-            </span>
-          </motion.div> */}
+        
         </div>
       </div>
     </section>

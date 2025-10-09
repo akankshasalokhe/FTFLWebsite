@@ -241,25 +241,7 @@ export default function ProductDetails() {
               </p>
 
               <p className="text-lg sm:text-xl mb-2 text-gray-900">Features</p>
-              {/* <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2">
-                {selectedProduct.homeFeatureTags.map((feature, index) => (
-                  <li key={index} className="flex items-center">
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                     <div className="text-sm flex sm:text-base text-gray-700">{feature}</div> 
-                    <div className="grid grid-cols-3 sm:grid-cols-3 gap-3">
-                     
-                        <div  className="text-sm sm:text-base text-gray-700">
-                          {feature}
-                        </div>
-                      {/* ))} 
-                    </div>
-                  </li>
-                ))}
-              </ul> */}
-
-              <ul className="mb-4 sm:mb-6 grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-3">
+             <ul className="mb-4 sm:mb-6 grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-3">
                 {selectedProduct.homeFeatureTags.map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

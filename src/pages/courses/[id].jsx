@@ -1492,7 +1492,7 @@ const CurriculumAccordion = ({ curriculum }) => {
 };
 
 // FAQ Accordion Component
- const FAQAccordion = ({ faqs }) => {
+const FAQAccordion = ({ faqs }) => {
   const [openIndex, setOpenIndex] = useState(-1);
 
   const toggleAccordion = (index) => {
@@ -1934,17 +1934,17 @@ export default function CourseDetails() {
   }, []);
 
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchFaq = async () => {
       try {
         setIsLoading(true);
         const res = await axios.get(`https://landing-page-yclw.vercel.app/api/faq`);
         if (res.data.success) {
-        const filteredFaqs = res.data.data.filter(
-          (faq) => faq.module === "Internship"
-        );
-        setFaqData(filteredFaqs);
-      }
+          const filteredFaqs = res.data.data.filter(
+            (faq) => faq.module === "Internship"
+          );
+          setFaqData(filteredFaqs);
+        }
         console.log("Fetched FAQ Data:", res.data.data);
       } catch (err) {
         console.error("Error fetching FAQ data:", err);
@@ -1956,27 +1956,53 @@ export default function CourseDetails() {
     fetchFaq();
   }, []);
 
-  
 
 
 
-  if (isLoading) {
+
+  //   if (isLoading) {
+  //     return <LoadingSkeleton />;
+  //   }
+
+  // if (!isLoading && (!internshipData || internshipData.length === 0)) {
+  //     return (
+  //       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+  //         <div className="max-w-md text-center">
+  //           <h1 className="text-2xl font-bold text-gray-800 mb-4">Course Not Found</h1>
+  //           <p className="text-gray-600 mb-6">The course you're looking for doesn't exist or has been moved.</p>
+  //           <Link href="/" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition">
+  //             Browse All Courses
+  //           </Link>
+  //         </div>
+  //       </div>
+  //     );
+  //   }
+
+
+
+  if (isLoading || !internshipData) {
     return <LoadingSkeleton />;
   }
 
-if (!isLoading && (!internshipData || internshipData.length === 0)) {
+  if (!isLoading && Array.isArray(internshipData) && internshipData.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
         <div className="max-w-md text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Course Not Found</h1>
-          <p className="text-gray-600 mb-6">The course you're looking for doesn't exist or has been moved.</p>
-          <Link href="/" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition">
+          <p className="text-gray-600 mb-6">
+            The course you're looking for doesn't exist or has been moved.
+          </p>
+          <Link
+            href="/"
+            className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition"
+          >
             Browse All Courses
           </Link>
         </div>
       </div>
     );
   }
+
 
   const transformedCurriculum =
     internshipData?.curriculum?.map((item, index) => ({
@@ -2002,26 +2028,29 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
         />
       </Head>
 
-      {/* Navigation */}
+
+      {/* Navigation - Fixed for mobile */}
       <nav className="bg-white shadow-sm mt-18">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <button
-              onClick={() => back()}
-              className="flex items-center text-blue-600 font-medium hover:text-blue-800 transition"
-            >
-              <FaArrowLeft className="mr-2" aria-hidden="true" />
-              Back to Courses
-            </button>
-            <div className="ml-4 text-sm text-gray-500">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center  gap-2">
+            <div className="flex items-center">
+              <button
+                onClick={() => back()}
+                className="flex items-center text-blue-600 font-medium hover:text-blue-800 transition text-sm sm:text-base"
+              >
+                <FaArrowLeft className="mr-2 w-4 h-4" aria-hidden="true" />
+                Back to Courses
+              </button>
+            </div>
+            <div className="text-xs sm:text-sm text-gray-500 ml-0 sm:ml-4 mt-1 sm:mt-0">
               Courses / <span className="text-blue-600">{internshipData.title}</span>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="relative h-80 md:h-96">
+      {/* Hero - Fixed layout for mobile */}
+      <section className="relative h-80 sm:h-72 md:h-80 lg:h-96">
         <Image
           src={internshipData.bannerImage}
           alt={internshipData.title}
@@ -2031,48 +2060,72 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
         />
         <div className="absolute inset-0 bg-blue-600 opacity-70 z-0"></div>
         <div className="w-full h-full flex items-center z-10 relative">
-          <div className="max-w-6xl mx-auto px-6 text-white w-full">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-white w-full pt-8 pb-8">
+            {/* Icon and Title - Fixed overlapping */}
             <motion.div
-              className="flex items-center mb-4"
+              className="flex items-start gap-3 sm:gap-4 mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="bg-white p-3 rounded-xl mr-3 shadow-lg">
+              <span className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 mt-1">
                 <Image
                   src={internshipData.mainImage}
                   alt={internshipData.title}
                   width={40}
                   height={40}
-                  className="object-contain"
+                  className="object-contain w-8 h-8 sm:w-10 sm:h-10"
                 />
-                {/* {internshipData.icon} */}
               </span>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold">
-                {internshipData.title}
-              </h1>
+              <div className="flex-1 min-w-0">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
+                  {internshipData.title}
+                </h1>
+              </div>
             </motion.div>
+
+            {/* Description */}
             <motion.p
-              className="max-w-2xl mb-6 opacity-90 text-sm md:text-base"
+              className="max-w-2xl mb-6 opacity-90 text-sm sm:text-base leading-relaxed line-clamp-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
               {internshipData.description}
             </motion.p>
-            <motion.div
-              className="flex flex-wrap gap-4"
+
+            {/* Download Button - Fixed visibility */}
+            {/* <motion.div
+              className="flex flex-wrap gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              {/* <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-white text-blue-700 px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700"
+
+              <button className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]">
+                Download Syllabus {internshipData.syllabusLink}
+              </button>
+            </motion.div> */}
+
+           
+            {/* Download Button - Opens in new tab */}
+            <motion.div
+              className="flex flex-wrap gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <button
+                onClick={() => {
+                  if (internshipData.syllabusLink) {
+                    window.open(internshipData.syllabusLink, '_blank', 'noopener,noreferrer');
+                  } else {
+                    console.error('No syllabus link available');
+                    alert('Syllabus link not available');
+                  }
+                }}
+                className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]"
               >
-                Enroll Now
-              </button> */}
-              <button className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition">
                 Download Syllabus
               </button>
             </motion.div>
@@ -2080,77 +2133,63 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="max-w-6xl mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 -mt-10 relative z-10">
+      {/* Stats - Responsive grid */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 -mt-8 sm:-mt-10 relative z-10">
         <motion.div
-          className="bg-white rounded-xl shadow-lg p-5 flex items-center gap-3 transition hover:shadow-xl"
+          className="bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-lg p-3 sm:p-5 flex items-center gap-2 sm:gap-3 transition hover:shadow-lg sm:hover:shadow-xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <div className="bg-blue-100 p-3 rounded-lg">
-            <FaClock className="text-blue-600 text-xl" aria-hidden="true" />
+          <div className="bg-blue-100 p-2 sm:p-3 rounded-md sm:rounded-lg">
+            <FaClock className="text-blue-600 text-lg sm:text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Duration</p>
-            <p className="font-semibold text-gray-800">{internshipData.durationDetails}</p>
+            <p className="text-xs sm:text-sm text-gray-600">Duration</p>
+            <p className="font-semibold text-gray-800 text-sm sm:text-base">{internshipData.durationDetails}</p>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-xl shadow-lg p-5 flex items-center gap-3 transition hover:shadow-xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-          transition={{ delay: 0.1 }}
-        >
-          <div className="bg-green-100 p-3 rounded-lg">
-            <FaMoneyBillWave className="text-green-600 text-xl" aria-hidden="true" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-600">Stipend</p>
-            <p className="font-semibold text-gray-800">{internshipData.stipend}</p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="bg-white rounded-xl shadow-lg p-5 flex items-center gap-3 transition hover:shadow-xl"
+          className="bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-lg p-3 sm:p-5 flex items-center gap-2 sm:gap-3 transition hover:shadow-lg sm:hover:shadow-xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
           transition={{ delay: 0.2 }}
         >
-          <div className="bg-purple-100 p-3 rounded-lg">
-            <FaGraduationCap className="text-purple-600 text-xl" aria-hidden="true" />
+          <div className="bg-purple-100 p-2 sm:p-3 rounded-md sm:rounded-lg">
+            <FaGraduationCap className="text-purple-600 text-lg sm:text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Education</p>
-            <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
-              <span key={index} className="block">{item}</span>
-            ))}</p>
+            <p className="text-xs sm:text-sm text-gray-600">Education</p>
+            <div className="font-semibold text-gray-800 text-sm sm:text-base">
+              {internshipData?.eligibility?.map((item, index) => (
+                <span key={index} className="block leading-tight">{item}</span>
+              ))}
+            </div>
           </div>
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-xl shadow-lg p-5 flex items-center gap-3 transition hover:shadow-xl"
+          className="bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-lg p-3 sm:p-5 flex items-center gap-2 sm:gap-3 transition hover:shadow-lg sm:hover:shadow-xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeIn}
           transition={{ delay: 0.3 }}
         >
-          <div className="bg-yellow-100 p-3 rounded-lg">
-            <FaMapMarkerAlt className="text-yellow-600 text-xl" aria-hidden="true" />
+          <div className="bg-yellow-100 p-2 sm:p-3 rounded-md sm:rounded-lg">
+            <FaMapMarkerAlt className="text-yellow-600 text-lg sm:text-xl" aria-hidden="true" />
           </div>
           <div>
-            <p className="text-sm text-gray-600">Mode</p>
-            <p className="font-semibold text-gray-800">{internshipData.mode}</p>
+            <p className="text-xs sm:text-sm text-gray-600">Mode</p>
+            <p className="font-semibold text-gray-800 text-sm sm:text-base">{internshipData.mode}</p>
           </div>
         </motion.div>
       </section>
+
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
@@ -2171,125 +2210,125 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
                 </button>
               ))}
 
-            
+
 
             </nav>
           </div>
 
           {/* Tab Content */}
           {activeTab === 'curriculum' && (
-          <>
-            {/* Skills */}
-            <motion.section
-              className="mb-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                Key Skills You'll Learn
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {internshipData.skills.map((skill, index) => (
-                  <motion.span
-                    key={index}
-                    className="px-4 py-2 bg-white border border-gray-200 text-gray-800 rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition flex items-center gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {/* Skill Icon */}
-                    <img
-                      src={skill.skillIcon}
-                      alt={skill.skillTitle}
-                      className="w-5 h-5 object-contain"
-                    />
-                    {/* Skill Title */}
-                    {skill.skillTitle}
-                  </motion.span>
-                ))}
-              </div>
+            <>
+              {/* Skills */}
+              <motion.section
+                className="mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
+                  Key Skills You'll Learn
+                </h2>
+                <div className="flex flex-wrap gap-3">
+                  {internshipData.skills.map((skill, index) => (
+                    <motion.span
+                      key={index}
+                      className="px-4 py-2 bg-white border border-gray-200 text-gray-800 rounded-lg text-sm font-medium shadow-sm hover:shadow-md transition flex items-center gap-2"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      {/* Skill Icon */}
+                      <img
+                        src={skill.skillIcon}
+                        alt={skill.skillTitle}
+                        className="w-5 h-5 object-contain"
+                      />
+                      {/* Skill Title */}
+                      {skill.skillTitle}
+                    </motion.span>
+                  ))}
+                </div>
 
-            </motion.section>
+              </motion.section>
 
-            {/* Tools */}
-            <motion.section
-              className="mb-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                Tools & Technologies
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {internshipData.tool.map((tool, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white rounded-xl p-4 text-center shadow hover:shadow-md transition flex flex-col items-center"
-                    whileHover={{ y: -5 }}
-                  >
-                    <img
-                      src={tool.toolIcon}
-                      alt={tool.toolTitle}
-                      className="w-10 h-10 object-contain"
-                    />
-                    <p className="font-medium text-gray-800">{tool.toolTitle}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
+              {/* Tools */}
+              <motion.section
+                className="mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
+                  Tools & Technologies
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {internshipData.tool.map((tool, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-white rounded-xl p-4 text-center shadow hover:shadow-md transition flex flex-col items-center"
+                      whileHover={{ y: -5 }}
+                    >
+                      <img
+                        src={tool.toolIcon}
+                        alt={tool.toolTitle}
+                        className="w-10 h-10 object-contain"
+                      />
+                      <p className="font-medium text-gray-800">{tool.toolTitle}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.section>
 
-            {/* Curriculum */}
-            <motion.section
-              className="mb-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                Step-wise Curriculum
-              </h2>
-              <CurriculumAccordion curriculum={transformedCurriculum} />
+              {/* Curriculum */}
+              <motion.section
+                className="mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
+                  Step-wise Curriculum
+                </h2>
+                <CurriculumAccordion curriculum={transformedCurriculum} />
 
-            </motion.section>
+              </motion.section>
 
-            {/* Outcomes */}
-            <motion.section
-              className="mb-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-            >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                Program Benefits
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {internshipData.benefits.map((outcome, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white rounded-xl shadow p-6 flex items-start gap-3 hover:shadow-md transition group"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeIn}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <FaCheckCircle className="text-green-500 text-xl mt-0.5 flex-shrink-0" aria-hidden="true" />
-                    <span className="text-gray-700">{outcome}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.section>
-          </>
-           )} 
+              {/* Outcomes */}
+              <motion.section
+                className="mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
+                  Program Benefits
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {internshipData.benefits.map((outcome, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-white rounded-xl shadow p-6 flex items-start gap-3 hover:shadow-md transition group"
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={fadeIn}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <FaCheckCircle className="text-green-500 text-xl mt-0.5 flex-shrink-0" aria-hidden="true" />
+                      <span className="text-gray-700">{outcome}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.section>
+            </>
+          )}
 
           {activeTab === 'reviews' && (
             <motion.section
@@ -2358,16 +2397,17 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
                   <p className="text-gray-600">Duration:</p>
                   <p className="font-semibold">{internshipData.durationDetails}</p>
                 </div>
-                <div className="flex justify-between items-center">
+
+                <div className="flex justify-start items-center w-full gap-2">
                   <span className="text-gray-600">Program Fee:</span>
-                  <span className="font-semibold text-blue-600 flex items-center">
+                  <span className="font-semibold text-blue-600 flex items-center gap-1">
                     <FaRupeeSign size={12} /> {internshipData.fee}
                   </span>
                 </div>
-                <div className="flex justify-between items-center">
+                {/* <div className="flex justify-between items-center">
                   <span className="text-gray-600">Stipend:</span>
                   <span className="font-semibold text-green-600">{internshipData.stipend}</span>
-                </div>
+                </div> */}
                 <div className="">
                   <p className="text-gray-600">Education:</p>
                   <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
@@ -2442,7 +2482,7 @@ if (!isLoading && (!internshipData || internshipData.length === 0)) {
       </div>
 
       {/* Enroll CTA */}
-      <section className="bg-blue-600">
+      <section className="bg-gray-600">
         <div className="max-w-6xl mx-auto px-6 py-16 text-center text-white">
           <motion.h3
             className="text-3xl font-bold mb-4"

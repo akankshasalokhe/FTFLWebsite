@@ -123,7 +123,7 @@ import JoinOurTeam from '@/components/JoinOurTeam/JoinOurTeam';
 import ApplyPage from './apply';
 import JobCategory from "@/components/JobCategories/JobCategories";
 import JobListings from "@/components/OpenPositions/OpenPositions";
-
+import Link from 'next/link';
 const ROLES = ['Developers', 'Designers', 'Marketers', 'Engineers'];
 
 function Careers() {
@@ -156,13 +156,13 @@ function Careers() {
 
   return (
     <div>
-      <div className="relative mt-20 overflow-hidden bg-blue-500">
-        {/* Background pattern */}
+      {/* <div className="relative mt-20 overflow-hidden bg-blue-500">
+       
         <div className="absolute inset-0 opacity-10 bg-[url('/grid-pattern.svg')]"></div>
         
         <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32">
           <div className="flex flex-col lg:flex-row items-center ms-5 gap-8">
-            {/* Text content */}
+          
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -216,7 +216,7 @@ function Careers() {
               </motion.div>
             </motion.div>
 
-            {/* Image/Illustration */}
+            
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -234,7 +234,117 @@ function Careers() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </div> */}
+
+
+      <div className="relative mt-20 overflow-hidden bg-blue-500">
+  {/* Animated Background Bubbles */}
+  <div className="absolute inset-0 z-0 pointer-events-none">
+    {[...Array(25)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute bg-white rounded-full"
+        style={{
+          width: `${Math.random() * 10 + 5}px`,
+          height: `${Math.random() * 10 + 5}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          opacity: 0.4
+        }}
+        animate={{
+          y: [0, Math.random() * 100 - 50],
+          x: [0, Math.random() * 60 - 30],
+        }}
+        transition={{
+          duration: Math.random() * 10 + 10,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+      />
+    ))}
+  </div>
+
+  {/* Background pattern */}
+  <div className="absolute inset-0 opacity-10 bg-[url('/grid-pattern.svg')]"></div>
+  
+  <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 relative z-10">
+    <div className="flex flex-col lg:flex-row items-center ms-5 gap-8">
+      {/* Text content */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="lg:w-1/2 space-y-6"
+      >
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+          Join Our <span className="text-white">Team</span>
+        </h1>
+        
+        <div className="h-16 overflow-hidden">
+          <motion.p
+            key={currentRole}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="text-xl md:text-2xl text-black"
+          >
+            We're hiring <span className="text-white">{ROLES[currentRole]}</span>
+          </motion.p>
+        </div>
+
+        <motion.p 
+          className="text-lg text-black"
+          whileHover={{ scale: 1.02 }}
+        >
+          Build the future with us. Grow your career in an innovative environment.
+        </motion.p>
+
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+        >
+          <Link href='#openpositions'>
+          <button 
+            // onClick={handleViewAllPositions}
+            className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
+          >
+            <span className="flex items-center gap-2">
+              View Open Positions
+              <motion.span
+                animate={{ x: isHovered ? 5 : 0 }}
+                transition={{ type: 'spring', stiffness: 500 }}
+              >
+                →
+              </motion.span>
+            </span>
+          </button>
+          </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Image/Illustration */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="lg:w-1/2"
+      >
+        <div className="relative">
+          <div className="absolute -inset-4 rounded-xl animate-pulse"></div>
+          <img 
+            src="/Hero.jpeg" 
+            alt="Team working together"
+            className="relative w-full h-auto max-w-lg mx-auto rounded-lg shadow-xl transition-transform duration-500 hover:scale-105 bg-contain"
+          />
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</div>
 
       <JoinOurTeam />
 

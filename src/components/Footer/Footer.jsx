@@ -688,7 +688,7 @@ const VibrantFooter = () => {
           <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
             <div>
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">
-                Ready to <span className="text-[#FFD166]">transform</span> your business?
+                Ready to <span className="text-white">transform</span> your business?
               </h3>
               <p className="text-white/90 max-w-md text-xs sm:text-sm">
                 Let's create something extraordinary together. Our team is ready to bring your vision to life!!
@@ -698,7 +698,7 @@ const VibrantFooter = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#FFD166] text-[#0D5DB7] font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
+                className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-blue-500 font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
               >
                 Get Started <FiArrowRight className="text-sm" />
               </motion.button>
@@ -715,14 +715,14 @@ const VibrantFooter = () => {
             transition={{ duration: 0.4, delay: 0.2 }}
             className="order-1"
           >
-            <h4 className="text-base font-bold mb-3 text-[#FFD166] flex items-center gap-1.5">
+            <h4 className="text-base font-bold mb-3 text-white flex items-center gap-1.5">
               <RiCustomerService2Fill className="text-sm" /> Company
             </h4>
             <ul className="space-y-2">
               {[
                 { label: "About Us", path: "/about" },
                 { label: "Careers", path: "/careers" },
-                { label: "Case Studies", path: "/case-studies" },
+                { label: "Case Studies", path: "/blog" },
                 { label: "Contact", path: "/contact" },
               ].map((item) => (
                 <li key={item.label}>
@@ -743,7 +743,7 @@ const VibrantFooter = () => {
             transition={{ duration: 0.4, delay: 0.3 }}
             className="order-2"
           >
-            <h4 className="text-base font-bold mb-3 text-[#FFD166]">Services</h4>
+            <h4 className="text-base font-bold mb-3 text-white">Services</h4>
             <ul className="space-y-2">
               {serviceInfo.slice(0, 5).map((service) => (
                 <li key={service._id}>
@@ -768,10 +768,10 @@ const VibrantFooter = () => {
             transition={{ duration: 0.4, delay: 0.4 }}
             className="order-3 col-span-2 md:col-span-1 lg:col-span-1"
           >
-            <h4 className="text-base font-bold mb-3 text-[#FFD166]">Contact</h4>
+            <h4 className="text-base font-bold mb-3 text-white">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
-                <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
+                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdPhone className="text-xs" />
                 </div>
                 <div>
@@ -788,7 +788,7 @@ const VibrantFooter = () => {
                 </div>
               </li>
               <li className="flex items-center gap-2.5">
-                <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full">
+                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full">
                   <MdEmail className="text-xs" />
                 </div>
                 <Link href="mailto:info@ftfltechnology.com" className="text-sm">
@@ -796,7 +796,7 @@ const VibrantFooter = () => {
                 </Link>
               </li>
               <li className="flex items-start gap-2.5">
-                <div className="bg-[#FFD166] text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
+                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
                 </div>
                 <p className="text-xs">{contactInfo?.address}</p>
@@ -811,7 +811,7 @@ const VibrantFooter = () => {
             transition={{ duration: 0.4, delay: 0.5 }}
             className="order-4 col-span-2 md:col-span-1 lg:col-span-1"
           >
-            <h4 className="text-base font-bold mb-3 text-[#FFD166]">Connect</h4>
+            <h4 className="text-base font-bold mb-3 text-white">Connect</h4>
             <div className="flex gap-3 flex-wrap mb-4">
               {contactInfo?.socialMediaLinks?.map((url, i) => (
                 <motion.a
@@ -837,8 +837,8 @@ const VibrantFooter = () => {
           className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center gap-3"
         >
           <div className="flex items-center gap-1.5">
-            <div className="w-6 h-6 bg-[#FFD166] rounded-full flex items-center justify-center">
-              <span className="text-[#0D5DB7] font-bold text-xs">F</span>
+            <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-xs">F</span>
             </div>
             <p className="font-medium text-sm">FTFL Technology Pvt.Ltd</p>
           </div>

@@ -341,12 +341,14 @@ const BoardMembers = () => {
                     }}
                   /> */}
 
-                <div className="relative w-full h-80 sm:h-72 lg:h-90 overflow-hidden">
+                {/* <div className="relative w-full h-80 sm:h-72 lg:h-90 overflow-hidden"> */}
+                <div className="relative w-full h-48 sm:h-60 md:h-72 lg:h-80 xl:h-90 overflow-hidden">
                   {/* Image */}
                   <img
                     src={member.mainImage}
                     alt={member.fullName}
-                    className="w-full h-full  transition-all duration-300 group-hover:scale-105"
+                    // className="w-full h-full  transition-all duration-300 group-hover:scale-105"
+                      className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                     onError={(e) => {
                       e.currentTarget.onerror = null;
                       e.currentTarget.src = "/images/placeholder-member.jpg";

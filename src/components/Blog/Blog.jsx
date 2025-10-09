@@ -834,11 +834,31 @@ const handleSubscribe = async (e) => {
         <meta name="description" content="Insights, ideas and stories from the Muze team" />
       </Head>
 
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+     {/* Animated Background Bubbles - MOVED OUTSIDE HEAD */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {[...Array(25)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-white rounded-full z-0"
+            style={{
+              width: `${Math.random() * 10 + 5}px`,
+              height: `${Math.random() * 10 + 5}px`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: 0.4
+            }}
+            animate={{
+              y: [0, Math.random() * 100 - 50],
+              x: [0, Math.random() * 60 - 30],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          />
+        ))}
       </div>
 
       {/* Sticky Header */}
@@ -863,6 +883,7 @@ const handleSubscribe = async (e) => {
               <h1 className="text-3xl font-bold ">
                Blog
               </h1>
+              
             </motion.div>
 
             <motion.div
@@ -890,9 +911,12 @@ const handleSubscribe = async (e) => {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
+              
             </motion.div>
           </div>
         </div>
+        
+        
       </motion.header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -1278,3 +1302,9 @@ const handleSubscribe = async (e) => {
 };
 
 export default BlogPage;
+
+
+
+
+
+

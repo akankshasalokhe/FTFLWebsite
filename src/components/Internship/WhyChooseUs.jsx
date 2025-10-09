@@ -382,7 +382,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import ContactForm from "../InternshipContact/InternshipContact";
+// import ContactForm from "../InternshipContact/InternshipContact";
+import ContactForm from "../PaidInternshipContact/PaidInternshipContact";
 import {
   FaAward,
   FaUsers,
@@ -686,9 +687,19 @@ const WhyChooseUs = () => {
                         </p>
                       </div>
                       <div className="flex items-center mt-4 md:mt-6">
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold mr-3 md:mr-4 flex-shrink-0">
+                        {/* <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold mr-3 md:mr-4 flex-shrink-0">
                           {testimonial.fullName ? testimonial.fullName.charAt(0) : 'U'}
+                        </div> */}
+                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold mr-3 md:mr-4 flex-shrink-0">
+                         
+                            <img 
+                              src="/logos/testimonialskeleton.png"
+                              alt={testimonial.fullName}
+                              className="w-full h-full rounded-full object-cover"
+                            />
+                          
                         </div>
+
                         <div className="min-w-0">
                           <h4 className="font-medium text-gray-900 text-sm md:text-base truncate">
                             {testimonial.fullName}
@@ -730,21 +741,7 @@ const WhyChooseUs = () => {
         )}
  
        
-        {/* CTA Button */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <button className="group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-medium text-white bg-blue-400 rounded-full shadow-2xl transition-all duration-300 ease-out hover:ring-8 hover:ring-purple-300 hover:ring-opacity-50">
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-700 rounded-full transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
-            <span className="relative flex items-center text-sm sm:text-base">
-              Start Learning Today{" "}
-              <FaArrowRight className="ml-2 transition-transform group-hover:translate-x-1" />
-            </span>
-          </button>
-        </motion.div> */}
+       
       </div>
      
  <ContactForm />

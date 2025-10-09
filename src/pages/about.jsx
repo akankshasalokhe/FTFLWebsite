@@ -108,14 +108,14 @@
 //             >
 //               Our Journey
 //             </motion.h1>
-            
+
 //             <motion.p 
 //               className="text-xl md:text-2xl text-white mb-8 leading-relaxed"
 //               variants={itemVariants}
 //             >
 //               We combine innovation with passion to create exceptional experiences that make a difference.
 //             </motion.p>
-            
+
 //             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center">
 //               <button 
 //                 className="px-8 py-3 bg-white text-[#298cf3] rounded-full font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
@@ -140,7 +140,7 @@
 //         {/* Clean bottom edge */}
 //         <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle"></div>
 //       </div>
-      
+
 //       <AboutUsSection />
 //       <MissionSection />
 //       <BoardMembers />
@@ -213,7 +213,7 @@ function About() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section - Fixed width and height */}
-      <div 
+      <div
         ref={ref}
         className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[500px] max-h-[700px] overflow-hidden"
       >
@@ -228,8 +228,8 @@ function About() {
           }}
           initial={{ scale: 1.3, opacity: 0 }}
           animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{ 
-            duration: 1.5, 
+          transition={{
+            duration: 1.5,
             ease: [0.16, 0.77, 0.47, 0.97],
             opacity: { duration: 1.2 }
           }}
@@ -247,7 +247,7 @@ function About() {
         />
 
         {/* Modern background elements */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-15"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.15 }}
@@ -285,39 +285,83 @@ function About() {
         ))}
 
         {/* Content - Full width container */}
-        <motion.div
+        {/* <motion.div
           className="w-full h-full flex flex-col justify-center items-center px-6 relative z-20 text-center"
           variants={containerVariants}
           initial="hidden"
           animate={controls}
         >
           <div className="max-w-4xl mx-auto">
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl font-bold text-white mb-6"
               variants={itemVariants}
             >
               Our Journey
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               className="text-xl md:text-2xl text-white mb-8 leading-relaxed"
               variants={itemVariants}
             >
               We combine innovation with passion to create exceptional experiences that make a difference.
             </motion.p>
-            
+
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center">
-              <button 
-            
-                className="px-8 py-3 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+              <button
+
+                className="px-8 py-3 hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
                 onClick={() => {
                   document.getElementById('team-section')?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 Meet Our Board Directors
               </button>
-              <button 
-                className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-blue-700 hover:bg-opacity-10 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+             
+              <button
+                className="px-8 py-3  text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+                onClick={() => {
+                  document.getElementById('values-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Our Values
+              </button>
+            </motion.div>
+          </div>
+        </motion.div> */}
+
+
+        <motion.div
+          className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 py-8 relative z-20 text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+        >
+          <div className="max-w-4xl mx-auto w-full px-4">
+            <motion.h1
+              className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6"
+              variants={itemVariants}
+            >
+              Our Journey
+            </motion.h1>
+
+            <motion.p
+              className="text-lg sm:text-xl md:text-2xl text-white mb-8 leading-relaxed px-2 sm:px-0"
+              variants={itemVariants}
+            >
+              We combine innovation with passion to create exceptional experiences that make a difference.
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0">
+              <button
+                className="px-6 sm:px-8 py-3 hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                onClick={() => {
+                  document.getElementById('team-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Meet Our Board Directors
+              </button>
+              <button
+                className="px-6 sm:px-8 py-3 text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
                 onClick={() => {
                   document.getElementById('values-section')?.scrollIntoView({ behavior: 'smooth' });
                 }}
@@ -328,11 +372,12 @@ function About() {
           </div>
         </motion.div>
 
+
         {/* Clean bottom edge */}
         <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle z-30"></div>
       </div>
-      
-        <StorySection />
+
+      <StorySection />
       {/* <AboutUsSection />    */}
       <MissionSection />
       <BoardMembers />

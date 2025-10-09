@@ -1190,7 +1190,7 @@ export default function SingleJobView() {
   const deadlineStatus = getDeadlineStatus(jobData.applicationDeadline);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen  bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -1509,7 +1509,7 @@ export default function SingleJobView() {
         </div>
 
         {/* Similar Jobs */}
-        {similarJobs.length > 0 && (
+        {/* {similarJobs.length > 0 && (
           <motion.div className="mt-16 ml-28">
             <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1523,7 +1523,29 @@ export default function SingleJobView() {
               ))}
             </div>
           </motion.div>
-        )}
+        )} */}
+
+        {similarJobs.length > 0 && (
+  <motion.div className="mt-16 px-4 md:px-8 lg:ml-28 text-center md:text-left">
+    <h2 className="text-2xl font-bold mb-6">Similar Jobs</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+      {similarJobs.map((job) => (
+        <Link href={`/jobs/${job._id}`} key={job._id}>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition text-left"
+          >
+            <h3 className="font-bold text-lg">{job.title}</h3>
+            <p className="text-sm text-gray-500">
+              {job.location} • {job.jobType}
+            </p>
+          </motion.div>
+        </Link>
+      ))}
+    </div>
+  </motion.div>
+)}
+
       </main>
     </div>
   );

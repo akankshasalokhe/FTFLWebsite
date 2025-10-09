@@ -1324,42 +1324,9 @@ export default function ServiceDetail() {
               We leverage cutting-edge technologies to build fast, secure, and scalable web applications
             </p>
           </motion.div>
-          {/*
-          <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-8 items-center"
-            variants={staggerChildren}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {serviceData.technology.map((tech, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                whileHover={{
-                  scale: 1.05,
-                  transition: { duration: 0.3 }
-                }}
-                className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-sm sm:shadow-md p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300"
-              >
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mb-2 sm:mb-3 lg:mb-4">
-                  <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <img
-                    src={tech.icon}
-                    alt={tech.title}
-                    width={48}
-                    height={48}
-                    className="relative z-10 w-full h-full object-contain"
-                  />
-                </div>
-                <p className="text-xs sm:text-sm font-medium text-center leading-tight">
-                  {tech.title}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div> */}
+         
 
-          <motion.div
+          {/* <motion.div
             className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8 items-center"
             variants={staggerChildren}
             initial="hidden"
@@ -1389,7 +1356,39 @@ export default function ServiceDetail() {
                 <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </motion.div> */}
+
+          <motion.div
+  className="grid grid-cols-3 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 md:gap-8 items-center"
+  variants={staggerChildren}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, margin: "-100px" }}
+>
+  {serviceData.technology.map((tech, idx) => (
+    <motion.div
+      key={idx}
+      variants={fadeIn}
+      whileHover={{
+        scale: 1.1,
+        transition: { duration: 0.3 }
+      }}
+      className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 lg:w-32"
+    >
+      <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
+        <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <img
+          src={tech.icon}
+          alt={tech.title}
+          width={64}
+          height={64}
+          className="relative z-10 object-contain w-full h-full"
+        />
+      </div>
+      <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
+    </motion.div>
+  ))}
+</motion.div>
         </div>
       </section>
 

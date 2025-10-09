@@ -1091,7 +1091,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
   const displayCategory = categoryFromUrl || initialCategory;
 
   return (
-    <section className="py-8 md:py-12 bg-gray-50">
+    <section id='openpositions' className="py-8 md:py-12 bg-gray-50">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">

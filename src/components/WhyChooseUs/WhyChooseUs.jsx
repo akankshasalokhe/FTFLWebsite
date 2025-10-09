@@ -74,7 +74,10 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">
-          <span className="inline-block mb-4 text-4xl font-semibold tracking-wider uppercase text-blue-600">
+          {/* <span className="inline-block mb-4 text-4xl font-semibold tracking-wider uppercase text-blue-600">
+            Why Choose Us
+          </span> */}
+          <span className="inline-block mb-4 text-2xl md:text-4xl font-semibold tracking-tight md:tracking-wider uppercase text-blue-600 whitespace-nowrap">
             Why Choose Us
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -94,19 +97,17 @@ const WhyChooseUs = () => {
               key={index}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className={`p-6 rounded-xl cursor-pointer transition-all ${
-                activeReason === index
+              className={`p-6 rounded-xl cursor-pointer transition-all ${activeReason === index
                   ? "bg-white shadow-lg border border-blue-200"
                   : "bg-white/80 hover:bg-white shadow-sm border border-gray-200"
-              }`}
+                }`}
               onClick={() => setActiveReason(index)}
             >
               <div
-                className={`w-12 h-12 mb-4 rounded-lg flex items-center justify-center ${
-                  activeReason === index
+                className={`w-12 h-12 mb-4 rounded-lg flex items-center justify-center ${activeReason === index
                     ? "bg-blue-100 text-blue-600"
                     : "bg-blue-300 text-gray-600"
-                }`}
+                  }`}
               >
                 {reason.icon}
               </div>
@@ -210,11 +211,10 @@ const WhyChooseUs = () => {
                   </div>
                 </div>
                 <FiArrowRight
-                  className={`ml-2 transition-transform duration-300 ${
-                    activeReason === index
+                  className={`ml-2 transition-transform duration-300 ${activeReason === index
                       ? "rotate-90 text-blue-600"
                       : "text-gray-400"
-                  }`}
+                    }`}
                 />
               </button>
 

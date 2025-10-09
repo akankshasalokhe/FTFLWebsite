@@ -761,6 +761,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
+import ProductTestimonial from "@/components/OurProducts/ProductTestimonial";
 
 // Animation variants
 const fadeIn = {
@@ -782,10 +784,14 @@ export default function ProductDetail() {
   const { id } = router.query;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [visibleImages, setVisibleImages] = useState(1); // Start with 1 for mobile
   const [activeTab, setActiveTab] = useState("overview");
   const [testimonialsData, setTestimonialsData] = useState([]);
   const [productsData, setProductsData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+
+
   console.log("Product overview image", productsData?.overviewImage);
   // Fetch product data
   useEffect(() => {
@@ -831,7 +837,22 @@ export default function ProductDetail() {
     fetchTestimonials();
   }, []);
 
+  // Set visible images based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleImages(3); // lg screens
+      } else if (window.innerWidth >= 640) {
+        setVisibleImages(2); // sm screens
+      } else {
+        setVisibleImages(1); // mobile
+      }
+    };
 
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // If product not found or page is loading
   if (loading) {
@@ -842,17 +863,33 @@ export default function ProductDetail() {
     return <div className="min-h-screen flex items-center justify-center">Product not found</div>;
   }
 
-  // Handle next/previous image in slider
-  const nextImage = () => {
-    setCurrentImageIndex(prev =>
-      prev === (productsData.galleryImages?.length || 1) - 1 ? 0 : prev + 1
-    );
-  };
+
+
+
 
   const prevImage = () => {
-    setCurrentImageIndex(prev =>
-      prev === 0 ? (productsData.galleryImages?.length || 1) - 1 : prev - 1
-    );
+    if (!productsData?.galleryImages?.length) return;
+
+    setCurrentImageIndex((prev) => {
+      if (prev === 0) {
+        // Loop to the end
+        return Math.ceil(productsData.galleryImages.length / visibleImages) - 1;
+      }
+      return prev - 1;
+    });
+  };
+
+  const nextImage = () => {
+    if (!productsData?.galleryImages?.length) return;
+
+    setCurrentImageIndex((prev) => {
+      const totalSlides = Math.ceil(productsData.galleryImages.length / visibleImages);
+      if (prev >= totalSlides - 1) {
+        // Loop to the beginning
+        return 0;
+      }
+      return prev + 1;
+    });
   };
 
   // Helper functions to get data from the API response
@@ -959,7 +996,7 @@ export default function ProductDetail() {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
+      {/* <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <div className="absolute inset-0 bg-black"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
@@ -981,24 +1018,7 @@ export default function ProductDetail() {
               <p className="text-xl opacity-90 mb-8">{productsData.subTitle}</p>
               <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p>
 
-              {/* <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                {productsData.livedemoLink && (
-                  <a
-                    href={productsData.livedemoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-white hover:bg-gray-100 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    Live Demo
-                  </a>
-                )}
-                <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
-                  View Case Study
-                </button>
-              </div> */}
+             
 
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 {productsData.livedemoLink && (
@@ -1015,9 +1035,9 @@ export default function ProductDetail() {
                   </a>
                 )}
 
-                {/* App Store Buttons - Compact Version */}
+               
                 <div className="flex gap-3">
-                  {/* Google Play Store Button */}
+                
                   <a
                     href="https://play.google.com/store/apps/details?id=your.app.id"
                     target="_blank"
@@ -1030,7 +1050,7 @@ export default function ProductDetail() {
                     </svg>
                   </a>
 
-                  {/* Apple App Store Button */}
+                
                   <a
                     href="https://apps.apple.com/app/your-app-id"
                     target="_blank"
@@ -1061,6 +1081,158 @@ export default function ProductDetail() {
                 alt={productsData.title}
                 layout="fill"
                 objectFit="cover"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section> */}
+
+
+      <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
+        {/* Animated Background Bubbles */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {[...Array(25)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-white rounded-full"
+              style={{
+                width: `${Math.random() * 10 + 5}px`,
+                height: `${Math.random() * 10 + 5}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                opacity: 0.4
+              }}
+              animate={{
+                y: [0, Math.random() * 100 - 50],
+                x: [0, Math.random() * 60 - 30],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Existing background effects */}
+        <div className="absolute inset-0 z-0 opacity-20">
+          <div className="absolute inset-0 bg-black"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              className="text-center lg:text-left"
+            >
+              <span className="inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                {productsData.category}
+              </span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">{productsData.title}</h1>
+              <p className="text-xl opacity-90 mb-8">{productsData.subTitle}</p>
+              <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p>
+
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+                {productsData.livedemoLink && (
+                  <a
+                    href={productsData.livedemoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white hover:bg-gray-300 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Live Demo
+                  </a>
+                )}
+
+                {/* App Store Buttons - Compact Version */}
+                <div className="flex gap-3">
+                  {/* Google Play Store Button */}
+                  {productsData.googleStoreLink && (
+                    <a
+
+                      href={productsData.googleStoreLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                      title="Download on Google Play"
+                    >
+
+                      <svg
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                      </svg>
+
+                    </a>
+                  )}
+
+                  {/* Apple App Store Button */}
+                  {productsData.appleStoreLink && (
+                    <a
+                      href={productsData.appleStoreLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-black hover:bg-gray-800 text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                      title="Download on App Store"
+                    >
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                      </svg>
+                    </a>
+                  )}
+
+                </div>
+
+                <button className="bg-transparent hover:bg-white hover:text-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+                  View Case Study
+                </button>
+              </div>
+            </motion.div>
+
+            {/* <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={scaleUp}
+              className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
+            >
+              <img
+                src={productsData.bannerImage || "/placeholder.jpg"}
+                alt={productsData.title}
+                layout="fill"
+                objectFit="cover"
+                onError={(e) => {
+                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                }}
+              />
+            </motion.div> */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={scaleUp}
+              className="relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl"
+            >
+              <Image
+                src={productsData.bannerImage || "/placeholder.jpg"}
+                alt={productsData.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 60vw"
+                className="object-cover"
+                priority
                 onError={(e) => {
                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
                 }}
@@ -1267,7 +1439,7 @@ export default function ProductDetail() {
                 }}
               />
             </motion.div> */}
-              <motion.div
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1374,49 +1546,15 @@ export default function ProductDetail() {
 
       {/* Testimonials Section */}
 
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
-            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-          </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {testimonialsData.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                variants={fadeIn}
-                className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <svg className="w-12 h-12 text-blue-500 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
-                <p className="text-gray-700 mb-6 italic">"{testimonial.description}"</p>
-                <div>
-                  <div className="font-semibold">{testimonial.fullName}</div>
-                  <div className="text-gray-600 text-sm">{testimonial.title}</div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+
+      <ProductTestimonial />
 
 
 
       {/* Gallery Section */}
+
+
       {/* <section id="gallery" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -1431,83 +1569,7 @@ export default function ProductDetail() {
             <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots of {productsData.title}</p>
           </motion.div>
 
-         
-             {productsData.galleryImages && productsData.galleryImages.length > 0 && (
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              className="relative h-96 md:h-[500px] bg-gray-200 rounded-2xl overflow-hidden mb-8"
-            >
-              <div className="relative h-full w-full overflow-hidden">
-                <img
-                  src={productsData.galleryImages[currentImageIndex] || "/placeholder.jpg"}
-                  alt={`${productsData.title} - Image ${currentImageIndex + 1}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="w-full h-full object-cover transition-opacity duration-300"
-                  onError={(e) => {
-                    e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                  }}
-                />
-              </div>
-
-             
-              {productsData.galleryImages.length > 1 && (
-                <>
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-
-                 
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    {productsData.galleryImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentImageIndex ? 'bg-white scale-125' : 'bg-gray-400'
-                          }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </motion.div>
-          )}
-
-        </div>
-      </section> */}
-
-      <section id="gallery" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
-            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Explore screenshots of {productsData.title}</p>
-          </motion.div>
-
-          {/* Image Slider */}
+        
           {productsData.galleryImages && productsData.galleryImages.length > 0 && (
             <motion.div
               initial="hidden"
@@ -1516,8 +1578,8 @@ export default function ProductDetail() {
               variants={fadeIn}
               className="relative bg-gray-200 rounded-2xl overflow-hidden mb-8 mx-auto max-w-4xl"
             >
-              {/* Image Container with Aspect Ratio */}
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
+            
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}> 
                 <img
                   src={productsData.galleryImages[currentImageIndex] || "/placeholder.jpg"}
                   alt={`${productsData.title} - Image ${currentImageIndex + 1}`}
@@ -1528,7 +1590,7 @@ export default function ProductDetail() {
                 />
               </div>
 
-              {/* Only show navigation if there are multiple images */}
+          
               {productsData.galleryImages.length > 1 && (
                 <>
                   <button
@@ -1549,7 +1611,7 @@ export default function ProductDetail() {
                     </svg>
                   </button>
 
-                  {/* Image indicators */}
+                
                   <div className="absolute bottom-3 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 backdrop-blur-sm bg-black/30 rounded-full px-3 py-2">
                     {productsData.galleryImages.map((_, index) => (
                       <button
@@ -1567,7 +1629,95 @@ export default function ProductDetail() {
             </motion.div>
           )}
         </div>
+      </section> */}
+
+
+      {/* Gallery Section */}
+
+      <section id="gallery" className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4">Project Gallery</h2>
+            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
+          </motion.div>
+
+          {/* Only show carousel if there are images */}
+          {productsData?.galleryImages?.length > 0 ? (
+            <div className="relative overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${currentImageIndex * (100 / visibleImages)}%)`,
+                }}
+              >
+                {productsData.galleryImages.map((img, index) => (
+                  <div
+                    key={index}
+                    className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
+                  >
+                    <div className="h-64 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+                      <img
+                        src={img}
+                        alt={`Gallery ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation Buttons - Only show if there are more images than visible */}
+              {productsData.galleryImages.length > visibleImages && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute top-1/2 -translate-y-1/2 left-4 bg-white/80 text-gray-800 px-3 py-2 rounded-full shadow-md hover:bg-white disabled:opacity-50 backdrop-blur-sm"
+                  >
+                    &#8592;
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute top-1/2 -translate-y-1/2 right-4 bg-white/80 text-gray-800 px-3 py-2 rounded-full shadow-md hover:bg-white disabled:opacity-50 backdrop-blur-sm"
+                  >
+                    &#8594;
+                  </button>
+                </>
+              )}
+
+              {/* Dots Indicator */}
+              {productsData.galleryImages.length > visibleImages && (
+                <div className="flex justify-center mt-6 space-x-2">
+                  {Array.from({
+                    length: Math.ceil(productsData.galleryImages.length / visibleImages)
+                  }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all ${currentImageIndex === index ? 'bg-blue-500' : 'bg-gray-300'
+                        }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            // Show message when no images
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No gallery images available</p>
+            </div>
+          )}
+        </div>
       </section>
+
 
       {/* Future Enhancements Section */}
       {productsData.futurePoints && productsData.futurePoints.length > 0 && (
@@ -1613,7 +1763,7 @@ export default function ProductDetail() {
       )}
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+      <section className="py-16 bg-gray-400 text-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.div
             initial="hidden"
@@ -1624,9 +1774,11 @@ export default function ProductDetail() {
             <h2 className="text-3xl font-bold mb-6">Ready to transform your business?</h2>
             <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {productsData.title} can help you achieve your goals</p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
-                Contact Our Team
-              </button>
+              <Link href='/contact'>
+                <button className="bg-white hover:bg-gray-100 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                  Contact Our Team
+                </button>
+              </Link>
               <button className="bg-transparent hover:bg-white hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                 Request a Demo
               </button>
@@ -1635,12 +1787,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 bg-gray-100 text-center text-gray-600">
-        <div className="max-w-7xl mx-auto px-4">
-          <p>© {new Date().getFullYear()} All rights reserved.</p>
-        </div>
-      </footer>
+
     </div>
   );
 }

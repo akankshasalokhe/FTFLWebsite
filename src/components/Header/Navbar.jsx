@@ -33,7 +33,7 @@
 //         setIsLoading(true);
 //         const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
 //         if (res.data.success) {
-        
+
 //           const services = res.data.data;
 //   const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
 
@@ -257,6 +257,301 @@
 
 
 
+// "use client";
+
+// import Link from "next/link";
+// import { useState, useEffect, useRef } from "react";
+// import { usePathname } from "next/navigation";
+// import Image from "next/image";
+// import {
+//   FaTimes, FaBars, FaChevronRight
+// } from "react-icons/fa";
+// import styles from "./Navbar1.module.css";
+// import axios from "axios";
+
+// const Navbar = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [servicesExpanded, setServicesExpanded] = useState(false);
+//   const [selectedCategory, setSelectedCategory] = useState(null);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
+//   const [currentView, setCurrentView] = useState('categories');
+
+//   const pathname = usePathname();
+//   const isActive = (path) => pathname === path;
+//   const navRef = useRef(null);
+//   const [servicesData, setServicesData] = useState([]);
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   useEffect(() => {
+//     const fetchServices = async () => {
+//       try {
+//         setIsLoading(true);
+//         const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
+//         if (res.data.success) {
+//           const services = res.data.data;
+//           const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
+
+//           const grouped = uniqueModules.map((module) => ({
+//             id: module.toLowerCase().replace(/\s+/g, "-"),
+//             name: module,
+//             subServices: services
+//               .filter((s) => s.module === module)
+//               .map((s) => ({
+//                 name: s.name,
+//                 href: `/services/${s._id}`,
+//                 icon: s.serviceIcon ? (
+//                   <img
+//                     src={s.serviceIcon}
+//                     alt={s.name}
+//                     className="w-4 h-4 object-contain"
+//                   />
+//                 ) : (
+//                   <FaChevronRight className="w-3 h-3 text-gray-400" />
+//                 ),
+//               })),
+//           }));
+
+//           setServicesData(grouped);
+//         }
+//       } catch (err) {
+//         console.error("Error fetching services:", err);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+
+//     fetchServices();
+//   }, []);
+
+//   useEffect(() => {
+//     const handleResize = () => setIsMobile(window.innerWidth <= 768);
+//     handleResize();
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   useEffect(() => {
+//     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, []);
+
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (
+//         servicesExpanded &&
+//         navRef.current &&
+//         !navRef.current.contains(event.target)
+//       ) {
+//         setServicesExpanded(false);
+//         setCurrentView('categories');
+//         setSelectedCategory(null);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => document.removeEventListener("mousedown", handleClickOutside);
+//   }, [servicesExpanded]);
+
+//   const toggleServices = () => {
+//     setServicesExpanded(!servicesExpanded);
+//     if (!servicesExpanded) {
+//       setCurrentView('categories');
+//       setSelectedCategory(null);
+//     }
+//   };
+
+//   const handleCategoryClick = (category) => {
+//     setSelectedCategory(category);
+//     setCurrentView('subservices');
+//   };
+
+//   const closeMenu = () => {
+//     setIsOpen(false);
+//     setServicesExpanded(false);
+//     setCurrentView('categories');
+//     setSelectedCategory(null);
+//   };
+
+//   const getCurrentSubServices = () => {
+//     return servicesData.find(category => category.id === selectedCategory?.id)?.subServices || [];
+//   };
+
+//   return (
+//     <>
+//       {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
+
+//       <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
+//         <div className={styles.navContainer}>
+//           <Link href="/" className={styles.logo} onClick={closeMenu}>
+//             <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
+//             <span className={styles.tagline}>From Scratch to Success</span>
+//           </Link>
+
+//           <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
+//             {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
+//           </div>
+
+//           <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
+//             <li>
+//               <Link href="/" className={isActive("/") ? styles.activeLink : ""} onClick={closeMenu}>Home</Link>
+//             </li>
+//             <li>
+//               <Link href="/about" className={isActive("/about") ? styles.activeLink : ""} onClick={closeMenu}>About</Link>
+//             </li>
+
+//             <li 
+//               className={styles.servicesItem}
+//               onMouseEnter={() => !isMobile && setServicesExpanded(true)}
+//               onMouseLeave={() => !isMobile && setServicesExpanded(false)}
+//             >
+//               <span
+//                 onClick={toggleServices}
+//                 className={`${isActive("/services") ? styles.activeLink : ""} ${styles.servicesTrigger}`}
+//               >
+//                 Services
+//                 <span className={styles.dropdownArrow}>
+//                   {servicesExpanded ? "▲" : "▼"}
+//                 </span>
+//               </span>
+
+//               {/* Desktop Services Dropdown */}
+//               {!isMobile && servicesExpanded && (
+//                 <div 
+//                   className={styles.servicesDropdown}
+//                   onMouseEnter={() => setServicesExpanded(true)}
+//                   onMouseLeave={() => {
+//                     setServicesExpanded(false);
+//                     setCurrentView('categories');
+//                     setSelectedCategory(null);
+//                   }}
+//                 >
+//                   <div className={styles.dropdownContent}>
+//                     {currentView === 'categories' ? (
+//                       <div className={styles.categoriesView}>
+
+//                         <div className={styles.categoriesList}>
+//                           {servicesData.map((category) => (
+//                             <div
+//                               key={category.id}
+//                               className={styles.categoryItem}
+//                               onClick={() => handleCategoryClick(category)}
+//                             >
+//                               <span className={styles.categoryName}>{category.name}</span>
+//                               <FaChevronRight className={styles.categoryArrow} />
+//                             </div>
+//                           ))}
+//                         </div>
+//                       </div>
+//                     ) : (
+//                       <div className={styles.subServicesView}>
+//                         <div className={styles.viewHeader}>
+//                           <div className={styles.viewTitle}>{selectedCategory?.name}</div>
+//                         </div>
+//                         <div className={styles.subServicesList}>
+//                           {getCurrentSubServices().map((sub) => (
+//                             <Link 
+//                               href={sub.href} 
+//                               key={sub.name} 
+//                               onClick={closeMenu} 
+//                               className={styles.subServiceItem}
+//                             >
+//                               <span className={styles.subIcon}>{sub.icon}</span>
+//                               <span className={styles.subServiceName}>{sub.name}</span>
+
+//                             </Link>
+//                           ))}
+//                         </div>
+//                       </div>
+//                     )}
+//                   </div>
+//                 </div>
+//               )}
+//             </li>
+
+//             <li>
+//               <Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""} onClick={closeMenu}>Internship</Link>
+//             </li>
+//             <li>
+//               <Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""} onClick={closeMenu}>Careers</Link>
+//             </li>
+//             <li>
+//               <Link href="/products" className={isActive("/products") ? styles.activeLink : ""} onClick={closeMenu}>Products</Link>
+//             </li>
+//             <li>
+//               <Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""} onClick={closeMenu}>Blog</Link>
+//             </li>
+//             <li>
+//               <Link href="/contact" className={isActive("/contact") ? styles.activeLink : ""} onClick={closeMenu}>Contact</Link>
+//             </li>
+//           </ul>
+//         </div>
+
+//         {/* Mobile Services Dropdown */}
+//         {isMobile && servicesExpanded && (
+//           <div className={styles.mobileServicesDropdown}>
+//             <div className={styles.mobileDropdownContent}>
+//               {currentView === 'categories' ? (
+//                 <div className={styles.mobileCategoriesView}>
+//                   <div className={styles.mobileViewHeader}>
+//                     <div className={styles.mobileViewTitle}>Our Services</div>
+//                     <button className={styles.mobileCloseButton} onClick={closeMenu}>
+//                       <FaTimes className={styles.closeIcon} />
+//                     </button>
+//                   </div>
+//                   <div className={styles.mobileCategoriesList}>
+//                     {servicesData.map((category) => (
+//                       <div
+//                         key={category.id}
+//                         className={styles.mobileCategoryItem}
+//                         onClick={() => handleCategoryClick(category)}
+//                       >
+//                         <span className={styles.mobileCategoryName}>{category.name}</span>
+//                         <FaChevronRight className={styles.mobileCategoryArrow} />
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               ) : (
+//                 <div className={styles.mobileSubServicesView}>
+//                   <div className={styles.mobileViewHeader}>
+//                     <button className={styles.mobileCloseButton} onClick={closeMenu}>
+//                       <FaTimes className={styles.closeIcon} />
+//                     </button>
+//                   </div>
+//                   <div className={styles.mobileSubServicesList}>
+//                     <div className={styles.mobileCategoryTitle}>{selectedCategory?.name}</div>
+//                     {getCurrentSubServices().map((sub) => (
+//                       <Link 
+//                         href={sub.href} 
+//                         key={sub.name} 
+//                         onClick={closeMenu} 
+//                         className={styles.mobileSubServiceItem}
+//                       >
+//                         <span className={styles.mobileSubIcon}>{sub.icon}</span>
+//                         <span className={styles.mobileSubServiceName}>{sub.name}</span>
+//                       </Link>
+//                     ))}
+//                   </div>
+//                 </div>
+//               )}
+//             </div>
+//           </div>
+//         )}
+//       </nav>
+//     </>
+//   );
+// };
+
+// export default Navbar;
+
+
+
+
+
+
+
 "use client";
 
 import Link from "next/link";
@@ -264,7 +559,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
-  FaTimes, FaBars, FaChevronRight
+  FaTimes, FaBars, FaChevronRight, FaArrowLeft
 } from "react-icons/fa";
 import styles from "./Navbar1.module.css";
 import axios from "axios";
@@ -367,6 +662,11 @@ const Navbar = () => {
     setCurrentView('subservices');
   };
 
+  const handleBackToCategories = () => {
+    setCurrentView('categories');
+    setSelectedCategory(null);
+  };
+
   const closeMenu = () => {
     setIsOpen(false);
     setServicesExpanded(false);
@@ -401,7 +701,10 @@ const Navbar = () => {
               <Link href="/about" className={isActive("/about") ? styles.activeLink : ""} onClick={closeMenu}>About</Link>
             </li>
 
-            <li 
+            <li>
+              <Link href="/NavbarService" className={isActive("/NavbarService") ? styles.activeLink : ""} onClick={closeMenu}>Services</Link>
+            </li>
+            {/* <li
               className={styles.servicesItem}
               onMouseEnter={() => !isMobile && setServicesExpanded(true)}
               onMouseLeave={() => !isMobile && setServicesExpanded(false)}
@@ -416,9 +719,9 @@ const Navbar = () => {
                 </span>
               </span>
 
-              {/* Desktop Services Dropdown */}
+             
               {!isMobile && servicesExpanded && (
-                <div 
+                <div
                   className={styles.servicesDropdown}
                   onMouseEnter={() => setServicesExpanded(true)}
                   onMouseLeave={() => {
@@ -430,7 +733,6 @@ const Navbar = () => {
                   <div className={styles.dropdownContent}>
                     {currentView === 'categories' ? (
                       <div className={styles.categoriesView}>
-                        <div className={styles.viewTitle}>Our Services</div>
                         <div className={styles.categoriesList}>
                           {servicesData.map((category) => (
                             <div
@@ -446,20 +748,27 @@ const Navbar = () => {
                       </div>
                     ) : (
                       <div className={styles.subServicesView}>
+                       
                         <div className={styles.viewHeader}>
+                          <button
+                            onClick={handleBackToCategories}
+                            className={styles.backButton}
+                          >
+                            <FaArrowLeft className={styles.backIcon} />
+
+                          </button>
                           <div className={styles.viewTitle}>{selectedCategory?.name}</div>
                         </div>
                         <div className={styles.subServicesList}>
                           {getCurrentSubServices().map((sub) => (
-                            <Link 
-                              href={sub.href} 
-                              key={sub.name} 
-                              onClick={closeMenu} 
+                            <Link
+                              href={sub.href}
+                              key={sub.name}
+                              onClick={closeMenu}
                               className={styles.subServiceItem}
                             >
                               <span className={styles.subIcon}>{sub.icon}</span>
                               <span className={styles.subServiceName}>{sub.name}</span>
-                              
                             </Link>
                           ))}
                         </div>
@@ -468,7 +777,7 @@ const Navbar = () => {
                   </div>
                 </div>
               )}
-            </li>
+            </li> */}
 
             <li>
               <Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""} onClick={closeMenu}>Internship</Link>
@@ -516,6 +825,14 @@ const Navbar = () => {
               ) : (
                 <div className={styles.mobileSubServicesView}>
                   <div className={styles.mobileViewHeader}>
+                    {/* Back Button for Mobile */}
+                    <button
+                      onClick={handleBackToCategories}
+                      className={styles.mobileBackButton}
+                    >
+                      <FaArrowLeft className={styles.backIcon} />
+                      Back
+                    </button>
                     <button className={styles.mobileCloseButton} onClick={closeMenu}>
                       <FaTimes className={styles.closeIcon} />
                     </button>
@@ -523,10 +840,10 @@ const Navbar = () => {
                   <div className={styles.mobileSubServicesList}>
                     <div className={styles.mobileCategoryTitle}>{selectedCategory?.name}</div>
                     {getCurrentSubServices().map((sub) => (
-                      <Link 
-                        href={sub.href} 
-                        key={sub.name} 
-                        onClick={closeMenu} 
+                      <Link
+                        href={sub.href}
+                        key={sub.name}
+                        onClick={closeMenu}
                         className={styles.mobileSubServiceItem}
                       >
                         <span className={styles.mobileSubIcon}>{sub.icon}</span>

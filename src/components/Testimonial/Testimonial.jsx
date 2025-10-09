@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaQuoteLeft, FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import axios from 'axios';
 
 export default function TestimonialCarousel() {
   const [testimonials, setTestimonials] = useState([]);
@@ -27,68 +28,61 @@ export default function TestimonialCarousel() {
 
     // Add event listener
     window.addEventListener('resize', handleResize);
-    
+
     // Clean up
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Fetch testimonials from backend
+  // useEffect(() => {
+  //   const fetchTestimonials = async () => {
+  //     try {
+  //       const res = await fetch("https://landing-page-yclw.vercel.app/api/testimonial"); 
+  //       const data = await res.json();
+  //       if (data.success && Array.isArray(data.data)) {
+  //         // Map backend fields into frontend shape
+  // const mapped = data.data.map((item, i) => ({
+  //   quote: item.description,
+  //   name: item.fullName,
+  //   role: item.title,
+  //   stars: item.rating,
+  //   avatar: `/avatars/avatar${(i % 5) + 1}.jpg` // Fallback avatar
+  // }));
+  //         setTestimonials(mapped);
+  //       }
+  //     } catch (err) {
+  //       console.error("Failed to load testimonials:", err);
+
+  //     }
+  //   };
+
+  //   fetchTestimonials();
+  // }, []);
+
+
+
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch("https://landing-page-yclw.vercel.app/api/testimonial"); 
-        const data = await res.json();
-        if (data.success && Array.isArray(data.data)) {
-          // Map backend fields into frontend shape
-          const mapped = data.data.map((item, i) => ({
+
+        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/testimonial`);
+        if (res.data.success) {
+          // Filter to only include items where sectionTitle is "Home"
+          const filtered = res.data.data.filter((item) => item.sectionTitle === "Home");
+          console.log("Filtered Testimonials:", filtered);
+          const mapped = filtered.map((item, i) => ({
             quote: item.description,
             name: item.fullName,
             role: item.title,
             stars: item.rating,
-            avatar: `/avatars/avatar${(i % 5) + 1}.jpg` // Fallback avatar
+            // avatar: `/avatars/avatar${(i % 5) + 1}.jpg` // Fallback avatar
+             avatar: "/logos/testimonialskeleton.png"
           }));
           setTestimonials(mapped);
         }
+        console.log("Fetched Testimonials:", res.data.data);
       } catch (err) {
-        console.error("Failed to load testimonials:", err);
-        // Fallback data if API fails
-        // setTestimonials([
-        //   {
-        //     quote: "This company delivered exceptional results for our project. The team was professional and met all our requirements.",
-        //     name: "John Smith",
-        //     role: "CEO, Tech Solutions",
-        //     stars: 5,
-        //     avatar: "/avatars/avatar1.jpg"
-        //   },
-        //   {
-        //     quote: "I'm extremely satisfied with the service provided. They went above and beyond to ensure our satisfaction.",
-        //     name: "Sarah Johnson",
-        //     role: "Marketing Director",
-        //     stars: 4,
-        //     avatar: "/avatars/avatar2.jpg"
-        //   },
-        //   {
-        //     quote: "The quality of work exceeded our expectations. Will definitely work with them again in the future.",
-        //     name: "Michael Brown",
-        //     role: "Product Manager",
-        //     stars: 5,
-        //     avatar: "/avatars/avatar3.jpg"
-        //   },
-        //   {
-        //     quote: "Responsive, professional, and delivered on time. What more could you ask for?",
-        //     name: "Emily Davis",
-        //     role: "Startup Founder",
-        //     stars: 5,
-        //     avatar: "/avatars/avatar4.jpg"
-        //   },
-        //   {
-        //     quote: "Great communication throughout the project. Felt like they truly cared about our success.",
-        //     name: "David Wilson",
-        //     role: "Creative Director",
-        //     stars: 4,
-        //     avatar: "/avatars/avatar5.jpg"
-        //   }
-        // ]);
+        console.error("Error fetching testimonials:", err);
       }
     };
 
@@ -134,7 +128,7 @@ export default function TestimonialCarousel() {
       x: 0,
       opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeOut"
       }
@@ -143,7 +137,7 @@ export default function TestimonialCarousel() {
       x: direction > 0 ? '-100%' : '100%',
       opacity: 0,
       scale: 0.95,
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeIn"
       }
@@ -153,7 +147,7 @@ export default function TestimonialCarousel() {
   // Get the testimonials to display
   const getVisibleTestimonials = () => {
     if (testimonials.length === 0) return [];
-    
+
     const visible = [];
     for (let i = 0; i < itemsToShow; i++) {
       const index = (currentIndex + i) % testimonials.length;
@@ -177,15 +171,15 @@ export default function TestimonialCarousel() {
         {testimonials.length > 0 ? (
           <div className="relative">
             {/* Navigation arrows */}
-            <button 
+            <button
               onClick={prevSlide}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 bg-white rounded-full p-2 shadow-md hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Previous testimonials"
             >
               <FaChevronLeft className="text-blue-600 w-4 h-4 md:w-5 md:h-5" />
             </button>
-            
-            <button 
+
+            <button
               onClick={nextSlide}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 bg-white rounded-full p-2 shadow-md hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Next testimonials"
@@ -223,14 +217,17 @@ export default function TestimonialCarousel() {
                             testimonial.name.charAt(0)
                           )}
                         </div>
+
+                       
+                     
                         <div className="min-w-0">
                           <h4 className="font-medium text-gray-900 text-sm md:text-base truncate">{testimonial.name}</h4>
                           <p className="text-gray-500 text-xs md:text-sm truncate">{testimonial.role}</p>
                           <div className="flex mt-1">
                             {[...Array(5)].map((_, i) => (
-                              <FaStar 
-                                key={i} 
-                                className={`${i < testimonial.stars ? 'text-yellow-400' : 'text-gray-300'} w-3 h-3 md:w-4 md:h-4`} 
+                              <FaStar
+                                key={i}
+                                className={`${i < testimonial.stars ? 'text-yellow-400' : 'text-gray-300'} w-3 h-3 md:w-4 md:h-4`}
                               />
                             ))}
                           </div>
@@ -245,7 +242,7 @@ export default function TestimonialCarousel() {
             {/* Dots indicator */}
             <div className="flex justify-center mt-6 md:mt-8">
               {testimonials.length > 0 && Array.from(
-                { length: Math.ceil(testimonials.length / itemsToShow) }, 
+                { length: Math.ceil(testimonials.length / itemsToShow) },
                 (_, i) => i
               ).map((index) => (
                 <button
@@ -255,12 +252,11 @@ export default function TestimonialCarousel() {
                     setDirection(newIndex > currentIndex ? 1 : -1);
                     setCurrentIndex(newIndex);
                   }}
-                  className={`mx-1 w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
-                    currentIndex >= index * itemsToShow && 
-                    currentIndex < (index + 1) * itemsToShow
-                      ? 'bg-blue-600 w-4 md:w-6' 
+                  className={`mx-1 w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${currentIndex >= index * itemsToShow &&
+                      currentIndex < (index + 1) * itemsToShow
+                      ? 'bg-blue-600 w-4 md:w-6'
                       : 'bg-gray-300'
-                  }`}
+                    }`}
                   aria-label={`Go to testimonial group ${index + 1}`}
                 />
               ))}
