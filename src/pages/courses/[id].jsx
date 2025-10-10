@@ -1452,10 +1452,15 @@ const CurriculumAccordion = ({ curriculum }) => {
               aria-expanded={openIndex === index}
               aria-controls={`accordion-${item.step}-content`}
             >
+              
               <span className="flex items-center gap-3">
-                <span className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                {/* <span className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                  
                   {item.icon}
-                </span>
+                </span> */}
+              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden border-2 border-blue-200">
+  {item.icon}
+</span>
                 {item.title}
               </span>
               {openIndex === index ? <FaChevronUp className="text-blue-600" /> : <FaChevronDown className="text-blue-600" />}
@@ -2012,7 +2017,7 @@ export default function CourseDetails() {
         <img
           src={item.currIcon}
           alt={item.currTitle}
-          className="w-5 h-5 object-contain"
+         className="w-full h-full object-fit rounded-full"
         />
       ),
       topics: item.currDescription || [],

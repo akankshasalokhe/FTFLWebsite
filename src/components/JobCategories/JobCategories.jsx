@@ -293,7 +293,7 @@ function CategoryCard({ role, onCategoryClick }) {
       <div className="mt-auto">
         <p className="text-blue-600 font-semibold text-lg 
                       group-hover:text-white group-active:text-white">
-        {role.jobCount > 1 ? `${role.jobCount} Jobs Available` : `${role.jobCount} Job Available`}
+        {role.jobCount > 1 ? `${role.jobCount} Vacancies Available` : `${role.jobCount} Vacancy Available`}
         </p>
       </div>
     </div>

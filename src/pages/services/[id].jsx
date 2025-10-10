@@ -1109,10 +1109,10 @@ export default function ServiceDetail() {
           </div>
         )}
 
-        {/* Overlay */}
+        
         <div className="absolute inset-0 bg-black/50" />
 
-        {/* Centered Text Content */}
+       
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.h1
             className="text-4xl md:text-5xl font-bold mb-4"
@@ -1132,7 +1132,7 @@ export default function ServiceDetail() {
           </motion.p>
         </div>
 
-        {/* Wave Shape */}
+      
         <div className="absolute bottom-0 w-full overflow-hidden leading-none">
           <svg
             viewBox="0 0 500 150"
@@ -1148,105 +1148,78 @@ export default function ServiceDetail() {
       </section>
 
 
-      {/* <section className="relative z-10 h-[400px] flex items-center justify-center text-white pt-16">
-        {serviceData?.bannerImage && (
-          <img
-            src={serviceData.bannerImage}
-            alt={serviceData.title || "Service Banner"}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
-
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative text-center z-20 px-4">
-          <h1 className="text-4xl font-bold">{serviceData.title}</h1>
-          <p className="mt-2 text-lg">{serviceData.description}</p>
+     
+     <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6 items-start"> {/* Changed to items-start */}
+  <motion.div
+    className="lg:sticky lg:top-24 h-full flex items-center justify-center" // Removed self-start, added h-full
+    initial={{ opacity: 0, x: -50 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.7 }}
+    viewport={{ once: true }}
+  >
+    <div className="w-full max-w-md">
+      <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl aspect-square">
+        <img
+          src={serviceData.serviceImage1}
+          alt={serviceData.title}
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
+          <p className="text-white text-base sm:text-lg font-medium">End-to-End Digital Excellence</p>
         </div>
+      </div>
+    </div>
+  </motion.div>
 
-       
-        <div className="absolute bottom-0 w-full overflow-hidden leading-none">
-          <svg viewBox="0 0 500 150" preserveAspectRatio="none" className="w-full h-16">
-            <path
-              d="M0.00,49.98 C150.00,150.00 349.60,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-              className="fill-white"
-            />
-          </svg>
-        </div>
-      </section> */}
+  <motion.div
+    variants={staggerChildren}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-50px" }}
+    className="h-full flex flex-col justify-center" // Added h-full
+  >
+    <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
+      Our {serviceData.title} Services
+      <motion.div
+        className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
+        initial={{ width: 0 }}
+        whileInView={{ width: "50%" }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        viewport={{ once: true }}
+      />
+    </h2>
 
-      {/* Rest of your content remains the same */}
-      <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10">
+      {serviceData.service.map((item, idx) => (
         <motion.div
-          className="lg:sticky lg:top-24 self-start"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+          key={idx}
+          variants={fadeIn}
+          className="flex group flex-col sm:flex-row"
         >
-          <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl">
-            <img
-              src={serviceData.serviceImage1}
-              alt={serviceData.title}
-              width={600}
-              height={600}
-              className="w-full h-auto object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
-              <p className="text-white text-base sm:text-lg font-medium">Modern Web Solutions</p>
+          <div className="flex-shrink-0 mr-5">
+            <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
+              <img
+                src={item.icon}
+                alt={item.title}
+                width={24}
+                height={24}
+                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+              />
             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          variants={staggerChildren}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
-            Our {serviceData.title} Services
-            <motion.div
-              className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
-              initial={{ width: 0 }}
-              whileInView={{ width: "50%" }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
-          </h2>
-
-          <div className="space-y-6 sm:space-y-8 md:space-y-10">
-            {serviceData.service.map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                className="flex group flex-col sm:flex-row"
-              >
-                <div className="flex-shrink-0 mr-5">
-                  <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
-                    <img
-                      src={item.icon}
-                      alt={item.title}
-                      width={24}
-                      height={24}
-                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                    />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="flex-1">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
+              {item.title}
+            </h3>
+            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+              {item.description}
+            </p>
           </div>
         </motion.div>
-      </section>
+      ))}
+    </div>
+  </motion.div>
+</section>
 
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
@@ -1304,7 +1277,7 @@ export default function ServiceDetail() {
 
       {/* Our Process */}
       {serviceData?.process?.length > 0 && (
-        <OurProcess steps={serviceData.process} serviceImage2={serviceData.serviceImage2} />
+        <OurProcess title={serviceData.title} steps={serviceData.process} serviceImage2={serviceData.serviceImage2} />
       )}
 
       {/* Technologies We Use */}
@@ -1324,7 +1297,7 @@ export default function ServiceDetail() {
               We leverage cutting-edge technologies to build fast, secure, and scalable web applications
             </p>
           </motion.div>
-         
+
 
           {/* <motion.div
             className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8 items-center"
@@ -1359,36 +1332,36 @@ export default function ServiceDetail() {
           </motion.div> */}
 
           <motion.div
-  className="grid grid-cols-3 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 md:gap-8 items-center"
-  variants={staggerChildren}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, margin: "-100px" }}
->
-  {serviceData.technology.map((tech, idx) => (
-    <motion.div
-      key={idx}
-      variants={fadeIn}
-      whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.3 }
-      }}
-      className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 lg:w-32"
-    >
-      <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
-        <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <img
-          src={tech.icon}
-          alt={tech.title}
-          width={64}
-          height={64}
-          className="relative z-10 object-contain w-full h-full"
-        />
-      </div>
-      <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
-    </motion.div>
-  ))}
-</motion.div>
+            className="grid grid-cols-3 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 md:gap-8 items-center"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {serviceData.technology.map((tech, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                whileHover={{
+                  scale: 1.1,
+                  transition: { duration: 0.3 }
+                }}
+                className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 lg:w-32"
+              >
+                <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
+                  <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <img
+                    src={tech.icon}
+                    alt={tech.title}
+                    width={64}
+                    height={64}
+                    className="relative z-10 object-contain w-full h-full"
+                  />
+                </div>
+                <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -1511,7 +1484,7 @@ export default function ServiceDetail() {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
           >
-           
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

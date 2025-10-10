@@ -257,7 +257,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function OurProcess({ steps = [], serviceImage2 }) {
+export default function OurProcess({ title, steps = [], serviceImage2 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -279,7 +279,7 @@ export default function OurProcess({ steps = [], serviceImage2 }) {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
         >
-          Our Web Development Process
+          Our {title} Process
         </motion.h2>
 
         <motion.p
@@ -288,7 +288,7 @@ export default function OurProcess({ steps = [], serviceImage2 }) {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
         >
-          We follow a structured process to deliver exceptional web applications tailored to your needs.
+          We craft impactful digital experiences through a well-defined process that aligns with your goals.
         </motion.p>
 
         {/* {isMobile ? (
@@ -400,9 +400,134 @@ function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
   );
 }
 
-// 💻 Desktop View (Dynamic Arc)
+// // 💻 Desktop View (Dynamic Arc)
+// function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
+//   const radius = steps.length > 7 ? 320 : 260; // adjust radius based on step count
+//   const centerX = 320;
+//   const centerY = 320;
+//   const startAngle = -160;
+//   const endAngle = 160;
+//   const angleStep = (endAngle - startAngle) / (steps.length - 1);
+
+//   return (
+//     <div className="relative flex items-center justify-center min-h-[700px]">
+//       {/* Center Image */}
+//       <motion.div
+//         initial={{ scale: 0.9, opacity: 0 }}
+//         animate={{ scale: 1, opacity: 1 }}
+//         transition={{ duration: 0.6 }}
+//         className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl"
+//       >
+//         <img
+//           // src="/web-app.png"
+//           // alt="Web App Mockup"
+//           src={serviceImage2}
+//           alt="Service Process"
+
+//           fill
+//           // className="object-contain"
+//             className="w-full h-full object-cover object-center"
+//           priority
+//         />
+//         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg">
+//           Step {activeStep + 1}: {steps[activeStep]?.title}
+//         </div>
+//       </motion.div>
+
+//       {/* Steps in Arc */}
+//       <svg
+//         viewBox="0 0 640 640"
+//         className="absolute inset-0 w-full h-full z-10"
+//         aria-label="Web development process steps"
+//       >
+//         {steps.map((step, index) => {
+//           const angle = startAngle + angleStep * index;
+//           const rad = (angle * Math.PI) / 180;
+//           const x = centerX + radius * Math.cos(rad);
+//           const y = centerY + radius * Math.sin(rad);
+
+//           return (
+//             <motion.g
+//               key={index}
+//               initial={{ opacity: 0, scale: 0.7 }}
+//               animate={{ opacity: 1, scale: 1 }}
+//               transition={{ delay: index * 0.15 }}
+//               className="cursor-pointer"
+//               onClick={() => setActiveStep(index)}
+//             >
+//               <line
+//                 x1={centerX}
+//                 y1={centerY}
+//                 x2={x}
+//                 y2={y}
+//                 stroke="#93c5fd"
+//                 strokeWidth="1"
+//                 className="opacity-60"
+//               />
+//               <motion.circle
+//                 cx={x}
+//                 cy={y}
+//                 r="16"
+//                 fill={activeStep === index ? "#2563eb" : "#3b82f6"}
+//                 stroke="white"
+//                 strokeWidth="3"
+//                 whileHover={{ scale: 1.2 }}
+//                 transition={{ duration: 0.2 }}
+//                 className="shadow-sm"
+//               />
+//               <text
+//                 x={x}
+//                 y={y + 5}
+//                 textAnchor="middle"
+//                 className="fill-white font-bold text-xs pointer-events-none"
+//               >
+//                 {index + 1}
+//               </text>
+//               <motion.foreignObject
+//                 x={x - 80}
+//                 y={y - (y > centerY ? 60 : 50)}
+//                 width="160"
+//                 height="40"
+//                 className="text-center"
+//               >
+//                 <div
+//                   className={`text-blue-900 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
+//                     }`}
+//                 >
+//                   {step.title}
+//                 </div>
+//               </motion.foreignObject>
+//               {activeStep === index && (
+//                 <motion.foreignObject
+//                   x={x - 100}
+//                   y={y + (y > centerY ? -40 : 30)}
+//                   width="200"
+//                   height="80"
+//                   className="text-center"
+//                   initial={{ opacity: 0 }}
+//                   animate={{ opacity: 1 }}
+//                   transition={{ duration: 0.4, delay: 0.1 }}
+//                 >
+//                   <div className="text-blue-700 text-xs font-medium bg-blue-50 p-2 rounded-lg shadow-sm leading-tight">
+//                     {step.description}
+//                   </div>
+//                 </motion.foreignObject>
+//               )}
+//             </motion.g>
+//           );
+//         })}
+//       </svg>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
 function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
-  const radius = steps.length > 7 ? 320 : 260; // adjust radius based on step count
+  const radius = steps.length > 7 ? 320 : 260;
   const centerX = 320;
   const centerY = 320;
   const startAngle = -160;
@@ -411,33 +536,10 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
 
   return (
     <div className="relative flex items-center justify-center min-h-[700px]">
-      {/* Center Image */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl"
-      >
-        <img
-          // src="/web-app.png"
-          // alt="Web App Mockup"
-          src={serviceImage2}
-          alt="Service Process"
-
-          fill
-          // className="object-contain"
-            className="w-full h-full object-cover object-center"
-          priority
-        />
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg">
-          Step {activeStep + 1}: {steps[activeStep]?.title}
-        </div>
-      </motion.div>
-
-      {/* Steps in Arc */}
+      {/* Steps in Arc - MOVE SVG BEHIND */}
       <svg
         viewBox="0 0 640 640"
-        className="absolute inset-0 w-full h-full z-10"
+        className="absolute inset-0 w-full h-full z-10" // Lower z-index
         aria-label="Web development process steps"
       >
         {steps.map((step, index) => {
@@ -483,40 +585,94 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
               >
                 {index + 1}
               </text>
-              <motion.foreignObject
+              {/* <motion.foreignObject
                 x={x - 80}
-                y={y - (y > centerY ? 60 : 50)}
+                y={y - (y > centerY ? 80 : 70)}
                 width="160"
                 height="40"
                 className="text-center"
               >
                 <div
-                  className={`text-blue-900 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
+                  className={`text-blue-900 mt-5 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
                     }`}
                 >
                   {step.title}
                 </div>
-              </motion.foreignObject>
-              {activeStep === index && (
-                <motion.foreignObject
-                  x={x - 100}
-                  y={y + (y > centerY ? -40 : 30)}
-                  width="200"
-                  height="80"
-                  className="text-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
+              </motion.foreignObject> */}
+
+              <motion.foreignObject
+                x={x - 100}  // Increased from -80
+                y={y - (y > centerY ? 80 : 70)}
+                width="200"  // Increased from 160
+                height="60"  // Increased height for wrapped text
+                className="text-center"
+              >
+                <div
+                  className={`text-blue-900 mt-5 font-semibold text-sm leading-tight break-words whitespace-normal ${activeStep === index ? "font-bold underline" : ""
+                    }`}
+                  style={{ wordWrap: 'break-word' }}
                 >
-                  <div className="text-blue-700 text-xs font-medium bg-blue-50 p-2 rounded-lg shadow-sm leading-tight">
-                    {step.description}
-                  </div>
-                </motion.foreignObject>
-              )}
+                  {step.title}
+                </div>
+              </motion.foreignObject>
             </motion.g>
           );
         })}
       </svg>
+
+      {/* Center Image - MOVE TO FRONT */}
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-30 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl" // Higher z-index
+      >
+        <img
+          src={serviceImage2}
+          alt="Service Process"
+          className="w-full h-full object-fit object-center"
+          priority
+        />
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg z-40">
+          Step {activeStep + 1}: {steps[activeStep]?.title}
+        </div>
+      </motion.div>
+
+      {/* Description Tooltips - RENDER AS SEPARATE HTML ELEMENTS ON TOP */}
+      {steps.map((step, index) => {
+        if (activeStep !== index) return null;
+
+        const angle = startAngle + angleStep * index;
+        const rad = (angle * Math.PI) / 180;
+        const x = centerX + radius * Math.cos(rad);
+        const y = centerY + radius * Math.sin(rad);
+
+        // Convert SVG coordinates to percentage for positioning
+        const leftPercent = (x / 640) * 100;
+        const topPercent = (y / 640) * 100;
+
+        return (
+          <motion.div
+            key={`desc-${index}`}
+            className="absolute z-50 pointer-events-none" // Highest z-index
+            style={{
+              left: `${leftPercent}%`,
+              top: `${topPercent}%`,
+              transform: 'translate(-50%, -50%)'
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
+            <div
+              className={`text-blue-700 text-xs font-medium bg-blue-50 p-3 rounded-lg shadow-lg border border-blue-200 leading-relaxed max-w-xs ${y > centerY ? '-translate-y-24' : 'translate-y-24'
+                }`}
+            >
+              {step.description}
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
