@@ -193,7 +193,7 @@ const MissionSection = () => {
               let color = "from-blue-500 to-blue-600";
               let reverse = false;
 
-              if (item.typeData === "vision") {
+              if (item.typeData === "mission") {
                 color = "from-purple-500 to-purple-600";
                 reverse = true;
               }
