@@ -279,7 +279,7 @@ export default function OurProcess({ steps = [], serviceImage2 }) {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
         >
-          Our Web Development Process
+          Driven by Process, Defined by Results
         </motion.h2>
 
         <motion.p
