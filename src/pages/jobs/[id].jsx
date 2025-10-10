@@ -1392,9 +1392,9 @@ export default function SingleJobView() {
         .map((skill, i) => (
           <div key={i} className="flex flex-col p-3 bg-gray-50 rounded-lg border border-gray-200 min-w-0">
             <span className="font-medium text-gray-800 text-sm text-center truncate">{skill.title}</span>
-            <span className={`text-xs px-2 py-0.5 rounded-full mt-1 w-fit mx-auto ${getSkillLevelColor(skill.level)}`}>
+            {/* <span className={`text-xs px-2 py-0.5 rounded-full mt-1 w-fit mx-auto ${getSkillLevelColor(skill.level)}`}>
               {skill.level}
-            </span>
+            </span> */}
           </div>
         ))}
     </div>

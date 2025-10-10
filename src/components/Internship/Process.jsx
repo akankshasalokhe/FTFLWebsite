@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaUserGraduate,
@@ -15,11 +15,50 @@ import {
   FaChevronRight
 } from "react-icons/fa";
 
-const InternshipProcess = () => {
+// Custom Hook for Step Navigation
+const useStepNavigation = (stepsLength, isMobile) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
 
-  const steps = [
+  const nextStep = useCallback(() => {
+    setActiveStep((prev) => (prev + 1) % stepsLength);
+  }, [stepsLength]);
+
+  const prevStep = useCallback(() => {
+    setActiveStep((prev) => (prev - 1 + stepsLength) % stepsLength);
+  }, [stepsLength]);
+
+  const goToStep = useCallback((index) => {
+    setActiveStep(index);
+  }, []);
+
+  // Auto-rotation effect
+  useEffect(() => {
+    if (isMobile) return;
+    
+    const interval = setInterval(nextStep, 5000);
+    return () => clearInterval(interval);
+  }, [isMobile, nextStep]);
+
+  return { activeStep, setActiveStep, nextStep, prevStep, goToStep };
+};
+
+// Loading Skeleton Component
+const LoadingSkeleton = () => (
+  <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 flex items-center justify-center">
+    <div className="text-center">
+      <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+      <p className="text-white text-lg">Loading Career Path...</p>
+    </div>
+  </div>
+);
+
+// Main Component
+const InternshipProcess = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [touchStart, setTouchStart] = useState(null);
+
+  const steps = useMemo(() => [
     {
       id: 1,
       icon: <FaUserGraduate className="text-2xl md:text-3xl" />,
@@ -68,7 +107,25 @@ const InternshipProcess = () => {
       features: ["Certification", "Interview Prep", "Job Support"],
       stat: "87% Placement"
     },
-  ];
+  ], []);
+
+  const { activeStep, nextStep, prevStep, goToStep } = useStepNavigation(steps.length, isMobile);
+
+  // Animation variants
+  const stepVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 300 : -300,
+      opacity: 0
+    })
+  };
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -78,29 +135,90 @@ const InternshipProcess = () => {
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    // Simulate loading
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      clearTimeout(timer);
+    };
   }, []);
 
-  // Auto-rotate steps only on desktop
-  useEffect(() => {
-    if (isMobile) return;
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart) return;
     
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isMobile, steps.length]);
-
-  const nextStep = () => {
-    setActiveStep((prev) => (prev + 1) % steps.length);
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+    
+    if (Math.abs(diff) > 50) { // minimum swipe distance
+      if (diff > 0) {
+        nextStep();
+      } else {
+        prevStep();
+      }
+    }
+    
+    setTouchStart(null);
   };
 
-  const prevStep = () => {
-    setActiveStep((prev) => (prev - 1 + steps.length) % steps.length);
-  };
+  // Memoized step positions for orbital system
+  const stepPositions = useMemo(() => {
+    return steps.map((_, index) => {
+      const angle = (index * 360) / steps.length;
+      const radius = 140;
+      return {
+        x: radius * Math.cos((angle * Math.PI) / 180),
+        y: radius * Math.sin((angle * Math.PI) / 180),
+        angle
+      };
+    });
+  }, [steps.length]);
+
+  // Stats data
+  const stats = useMemo(() => [
+    { icon: FaUsers, value: "2,000+", label: "Students Trained" },
+    { icon: FaCertificate, value: "95%", label: "Completion Rate" },
+    { icon: FaRocket, value: "87%", label: "Placement Rate" },
+    { icon: FaLightbulb, value: "4.9/5", label: "Student Rating" }
+  ], []);
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 relative overflow-hidden">
+    <section 
+      className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 relative overflow-hidden"
+      aria-label="Internship Process Steps"
+    >
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "EducationalOccupationalProgram",
+            "name": "Career Acceleration Program",
+            "description": "Transform from beginner to industry-ready professional through structured 4-step pathway",
+            "numberOfCredits": "4",
+            "occupationalCategory": "Technology",
+            "timeToComplete": "P3M",
+            "hasCourse": steps.map(step => ({
+              "@type": "Course",
+              "name": step.title,
+              "description": step.description,
+              "timeRequired": step.duration
+            }))
+          })
+        }}
+      />
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 md:w-96 md:h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
@@ -148,7 +266,9 @@ const InternshipProcess = () => {
               {steps.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setActiveStep(index)}
+                  onClick={() => goToStep(index)}
+                  aria-label={`View ${steps[index].title} step`}
+                  aria-current={activeStep === index ? "step" : undefined}
                   className={`w-3 h-3 rounded-full transition-all ${
                     activeStep === index 
                       ? 'bg-cyan-400 scale-125' 
@@ -160,7 +280,11 @@ const InternshipProcess = () => {
           </div>
 
           {/* Mobile Step Cards */}
-          <div className="relative">
+          <div 
+            className="relative"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
@@ -231,6 +355,7 @@ const InternshipProcess = () => {
               <button
                 onClick={prevStep}
                 className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                aria-label="Previous step"
               >
                 <FaChevronLeft className="text-sm" />
                 <span className="text-sm">Previous</span>
@@ -243,6 +368,7 @@ const InternshipProcess = () => {
               <button
                 onClick={nextStep}
                 className="flex items-center gap-2 px-6 py-3 bg-cyan-500 rounded-2xl text-white hover:bg-cyan-600 transition-all duration-300"
+                aria-label="Next step"
               >
                 <span className="text-sm">Next</span>
                 <FaChevronRight className="text-sm" />
@@ -252,11 +378,11 @@ const InternshipProcess = () => {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
+        <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Interactive Steps */}
           <div className="relative">
             {/* Central Orbital System */}
-            <div className="relative h-96 w-96 mx-auto">
+            <div className="relative h-85 w-85 mx-auto">
               {/* Central Circle */}
               <motion.div 
                 className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 backdrop-blur-md flex items-center justify-center"
@@ -271,50 +397,45 @@ const InternshipProcess = () => {
               </motion.div>
 
               {/* Orbiting Steps */}
-              {steps.map((step, index) => {
-                const angle = (index * 360) / steps.length;
-                const radius = 140;
-                const x = radius * Math.cos((angle * Math.PI) / 180);
-                const y = radius * Math.sin((angle * Math.PI) / 180);
-                
-                return (
-                  <motion.div
-                    key={step.id}
-                    className={`absolute w-24 h-24 rounded-2xl ${step.bgColor} flex items-center justify-center text-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 shadow-2xl ${
-                      activeStep === index ? 'scale-110 ring-4 ring-white/30' : 'scale-100'
-                    } transition-all duration-500`}
-                    initial={{ scale: 0 }}
-                    animate={{ 
-                      scale: 1,
-                      x: x,
-                      y: y,
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.id}
+                  className={`absolute w-20 h-20 rounded-2xl ${step.bgColor} flex items-center justify-center text-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 shadow-2xl ${
+                    activeStep === index ? 'scale-110 ring-4 ring-white/30' : 'scale-90'
+                  } transition-all duration-500`}
+                  initial={{ scale: 0 }}
+                  animate={{ 
+                    scale: 1,
+                    x: stepPositions[index].x,
+                    y: stepPositions[index].y,
+                  }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 100,
+                    delay: index * 0.2 
+                  }}
+                  whileHover={{ scale: 1.15 }}
+                  onClick={() => goToStep(index)}
+                  aria-label={`View ${step.title} step`}
+                  aria-current={activeStep === index ? "step" : undefined}
+                >
+                  <div className="text-center">
+                    {step.icon}
+                    <div className="text-xs font-semibold mt-1">{step.title.split(' ')[0]}</div>
+                  </div>
+                  
+                  {/* Connection Line */}
+                  <div 
+                    className="absolute w-24 h-0.5 bg-white/30 origin-left rotate-90"
+                    style={{ 
+                      transform: `rotate(${stepPositions[index].angle}deg)`,
+                      width: `140px`,
+                      left: '50%',
+                      top: '50%'
                     }}
-                    transition={{ 
-                      type: "spring",
-                      stiffness: 100,
-                      delay: index * 0.2 
-                    }}
-                    whileHover={{ scale: 1.15 }}
-                    onClick={() => setActiveStep(index)}
-                  >
-                    <div className="text-center">
-                      {step.icon}
-                      <div className="text-xs font-semibold mt-1">{step.title.split(' ')[0]}</div>
-                    </div>
-                    
-                    {/* Connection Line */}
-                    <div 
-                      className="absolute w-24 h-0.5 bg-white/30 origin-left rotate-90"
-                      style={{ 
-                        transform: `rotate(${angle}deg)`,
-                        width: `${radius}px`,
-                        left: '50%',
-                        top: '50%'
-                      }}
-                    />
-                  </motion.div>
-                );
-              })}
+                  />
+                </motion.div>
+              ))}
             </div>
 
             {/* Progress Dots */}
@@ -322,7 +443,8 @@ const InternshipProcess = () => {
               {steps.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setActiveStep(index)}
+                  onClick={() => goToStep(index)}
+                  aria-label={`Go to step ${index + 1}`}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     activeStep === index 
                       ? 'bg-cyan-400 scale-125' 
@@ -409,12 +531,7 @@ const InternshipProcess = () => {
           transition={{ delay: 0.6 }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-16 md:mt-20"
         >
-          {[
-            { icon: FaUsers, value: "2,000+", label: "Students Trained" },
-            { icon: FaCertificate, value: "95%", label: "Completion Rate" },
-            { icon: FaRocket, value: "87%", label: "Placement Rate" },
-            { icon: FaLightbulb, value: "4.9/5", label: "Student Rating" }
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.8 }}
@@ -451,6 +568,7 @@ const InternshipProcess = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-3 text-base md:text-lg"
+                aria-label="Start your journey"
               >
                 <FaRocket />
                 Start Your Journey
@@ -461,6 +579,7 @@ const InternshipProcess = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white/10 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all duration-300 text-base md:text-lg"
+                aria-label="View success stories"
               >
                 View Success Stories
               </motion.button>
