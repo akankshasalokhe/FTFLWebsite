@@ -1098,7 +1098,7 @@ export default function ServiceDetail() {
     <div className="bg-gray-50 overflow-hidden">
       {/* Hero Banner - Starts below navbar */}
       <section className="relative mt-[80px] h-[400px] flex items-center justify-center text-white">
-        {serviceData?.bannerImage && (
+        {/* {serviceData?.bannerImage && (
           <div className="absolute inset-0">
             <img
               src={serviceData.bannerImage}
@@ -1107,7 +1107,29 @@ export default function ServiceDetail() {
               priority
             />
           </div>
-        )}
+        )} */}
+           {/* {serviceData?.bannerImage && (
+    <div className="absolute inset-0">
+      <img
+        src={serviceData.bannerImage}
+        alt={serviceData.title || "Service Banner"}
+        className="w-full h-full object-cover object-center md:object-top md:object-bottom" // object-top on desktop
+        priority
+      />
+    </div>
+  )} */}
+
+  {serviceData?.bannerImage && (
+  <div className="absolute inset-0">
+    <img
+      src={serviceData.bannerImage}
+      alt={serviceData.title || "Service Banner"}
+      className="w-full h-full object-cover"
+      style={{ objectPosition: 'center 25%' }} // 25% from top - shows both top and bottom
+      priority
+    />
+  </div>
+)}
 
         
         <div className="absolute inset-0 bg-black/50" />

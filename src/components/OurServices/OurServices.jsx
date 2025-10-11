@@ -231,7 +231,7 @@ const OurServices = () => {
                   {/* <h3 className={styles.title}>{service.title}</h3> */}
                   <h3 className='font-bold text-black ml-2'>{service.title}</h3>
 
-                  <p className={styles.description}>{service.description.map((data) => data)}</p>
+                  <p className={styles.description}>{service.description.map((data) => data.substring(0,120))}...</p>
 
                   <div className={styles.action}>
                     <Link href={`/services/${service._id}`}>

@@ -772,8 +772,7 @@ const handleSubscribe = async (e) => {
   const searchedPosts = searchQuery 
     ? filteredPosts.filter(post => 
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+         post.category.toLowerCase().includes(searchQuery.toLowerCase()) 
       )
     : filteredPosts;
 
