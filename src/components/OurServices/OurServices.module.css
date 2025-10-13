@@ -213,7 +213,7 @@
   }
   
   .imageContainer {
-    height: 300px;
+    height: 250px;
     width: 100%;
   }
   
@@ -243,7 +243,8 @@
   }
   
   .imageContainer {
-    height: 200px;
+    height: 250px;
+    width: 100%;
   }
   
   .content {
