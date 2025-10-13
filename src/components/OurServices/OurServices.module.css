@@ -267,7 +267,8 @@
   }
   
   .imageContainer {
-    height: 220px;
+    height: 300px;
+    width: 100%;
   }
   
   .cta {
@@ -282,6 +283,10 @@
   
   .card {
     margin: 0 0.5rem; /* Equal margin */
+  }
+  .imageContainer {
+    height: 300px;
+    width: 100%;
   }
 }
 
@@ -302,6 +307,10 @@
   .cta {
     margin: 0 2rem; /* Equal margin */
   }
+  .imageContainer {
+    height: 350px;
+    width: 100%;
+}
 }
 
 /* Extra margin for very large screens */
@@ -312,6 +321,10 @@
   
   .card {
     margin: 0 1rem; /* Equal margin */
+  }
+  .imageContainer {
+    height: 400px;
+    width: 100%;
   }
 }
 
