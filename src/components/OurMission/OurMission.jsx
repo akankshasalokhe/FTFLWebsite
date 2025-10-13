@@ -93,7 +93,7 @@ const MissionSection = () => {
                 </p>
                 {item.typeData === "corevalues" && (
                   <ul className="grid grid-cols-2 gap-3">
-                    {["Innovation", "Integrity", "Collaboration", "Excellence", "Customer Focus"].map((value, i) => (
+                    {["Integrity", "Innovation", "Collaboration", "Excellence"].map((value, i) => (
                       <li
                         key={i}
                         className="flex items-center gap-2 text-gray-700"

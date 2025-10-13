@@ -1,134 +1,134 @@
-// "use client";
-// import { useState, useEffect } from "react";
-// import Image from "next/image";
-// import { motion, AnimatePresence } from "framer-motion";
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
-// export default function OurProcess({ steps = [] }) {
-//   const [isMobile, setIsMobile] = useState(false);
-//   const [activeStep, setActiveStep] = useState(0);
+export default function OurProcess({ steps = [] }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
 
-//   useEffect(() => {
-//     const checkIsMobile = () => {
-//       setIsMobile(window.innerWidth < 768);
-//     };
-//     checkIsMobile();
-//     window.addEventListener("resize", checkIsMobile);
-//     return () => window.removeEventListener("resize", checkIsMobile);
-//   }, []);
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
-//   return (
-//     <section className="py-12 md:py-20 bg-gradient-to-b from-blue-50 to-white">
-//       <div className="container mx-auto max-w-7xl px-4 text-center">
-//         <motion.h2
-//           initial={{ opacity: 0, y: -30 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.6 }}
-//           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
-//         >
-//           Our Web Development Process
-//         </motion.h2>
+  return (
+    <section className="py-12 md:py-20 bg-gradient-to-b from-blue-50 to-white">
+      <div className="container mx-auto max-w-7xl px-4 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
+        >
+          Our Web Development Process
+        </motion.h2>
 
-//         <motion.p
-//           initial={{ opacity: 0, y: 20 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ delay: 0.2, duration: 0.6 }}
-//           className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
-//         >
-//           We follow a structured process to deliver exceptional web applications tailored to your needs.
-//         </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
+        >
+          We follow a structured process to deliver exceptional web applications tailored to your needs.
+        </motion.p>
 
-//         {isMobile ? (
-//           <MobileView
-//             steps={steps}
-//             activeStep={activeStep}
-//             setActiveStep={setActiveStep}
-//           />
-//         ) : (
-//           <DesktopView
-//             steps={steps}
-//             activeStep={activeStep}
-//             setActiveStep={setActiveStep}
-//           />
-//         )}
-//       </div>
-//     </section>
-//   );
-// }
+        {isMobile ? (
+          <MobileView
+            steps={steps}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+          />
+        ) : (
+          <DesktopView
+            steps={steps}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+          />
+        )}
+      </div>
+    </section>
+  );
+}
 
-// // 📱 Mobile View
-// function MobileView({ steps, activeStep, setActiveStep }) {
-//   return (
-//     <div className="space-y-6">
-//       <motion.div
-//         initial={{ scale: 0.9, opacity: 0 }}
-//         animate={{ scale: 1, opacity: 1 }}
-//         transition={{ duration: 0.6 }}
-//         className="flex justify-center mb-6"
-//       >
-//         <div className="w-72 h-96 rounded-2xl flex items-center justify-center overflow-hidden bg-white shadow-lg">
-//           <div className="w-full h-full relative">
-//             <Image
-//               src="/web-app.png"
-//               alt="Web App Mockup"
-//               fill
-//               className="object-contain rounded-2xl"
-//               priority
-//             />
-//             <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
-//               Step {activeStep + 1}
-//             </div>
-//           </div>
-//         </div>
-//       </motion.div>
+// 📱 Mobile View
+function MobileView({ steps, activeStep, setActiveStep }) {
+  return (
+    <div className="space-y-6">
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="flex justify-center mb-6"
+      >
+        <div className="w-72 h-96 rounded-2xl flex items-center justify-center overflow-hidden bg-white shadow-lg">
+          <div className="w-full h-full relative">
+            <Image
+              src="/web-app.png"
+              alt="Web App Mockup"
+              fill
+              className="object-contain rounded-2xl"
+              priority
+            />
+            <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
+              Step {activeStep + 1}
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
-//       <div className="space-y-4 px-2">
-//         {steps.map((step, index) => (
-//           <motion.div
-//             key={index}
-//             whileHover={{ scale: 1.02 }}
-//             transition={{ duration: 0.3 }}
-//             onClick={() => setActiveStep(index)}
-//             className={`flex items-start cursor-pointer ${
-//               activeStep === index ? "scale-[1.02]" : ""
-//             }`}
-//           >
-//             <div
-//               className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 transition-all duration-300 ${
-//                 activeStep === index
-//                   ? "bg-blue-600 shadow-lg scale-110"
-//                   : "bg-blue-400"
-//               }`}
-//             >
-//               {index + 1}
-//             </div>
-//             <div
-//               className={`border rounded-xl p-4 flex-1 text-left transition-all duration-300 ${
-//                 activeStep === index
-//                   ? "bg-blue-50 border-blue-300 shadow-md"
-//                   : "bg-white border-gray-200"
-//               }`}
-//             >
-//               <h3 className="font-semibold text-blue-900">{step.title}</h3>
-//               <AnimatePresence>
-//                 {activeStep === index && (
-//                   <motion.p
-//                     initial={{ opacity: 0, height: 0 }}
-//                     animate={{ opacity: 1, height: "auto" }}
-//                     exit={{ opacity: 0, height: 0 }}
-//                     transition={{ duration: 0.4 }}
-//                     className="text-sm text-blue-700 mt-2"
-//                   >
-//                     {step.description}
-//                   </motion.p>
-//                 )}
-//               </AnimatePresence>
-//             </div>
-//           </motion.div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+      <div className="space-y-4 px-2">
+        {steps.map((step, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setActiveStep(index)}
+            className={`flex items-start cursor-pointer ${
+              activeStep === index ? "scale-[1.02]" : ""
+            }`}
+          >
+            <div
+              className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 transition-all duration-300 ${
+                activeStep === index
+                  ? "bg-blue-600 shadow-lg scale-110"
+                  : "bg-blue-400"
+              }`}
+            >
+              {index + 1}
+            </div>
+            <div
+              className={`border rounded-xl p-4 flex-1 text-left transition-all duration-300 ${
+                activeStep === index
+                  ? "bg-blue-50 border-blue-300 shadow-md"
+                  : "bg-white border-gray-200"
+              }`}
+            >
+              <h3 className="font-semibold text-blue-900">{step.title}</h3>
+              <AnimatePresence>
+                {activeStep === index && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-sm text-blue-700 mt-2"
+                  >
+                    {step.description}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 // // 💻 Desktop View (Dynamic Arc)
 // function DesktopView({ steps, activeStep, setActiveStep }) {
@@ -252,281 +252,7 @@
 
 
 
-"use client";
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-
-export default function OurProcess({ title, steps = [], serviceImage2 }) {
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
-
-  return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-blue-50 to-white">
-      <div className="container mx-auto max-w-7xl px-4 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
-        >
-          Our {title} Process
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
-        >
-          We craft impactful digital experiences through a well-defined process that aligns with your goals.
-        </motion.p>
-
-        {/* {isMobile ? (
-          <MobileView
-            steps={steps}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-          />
-        ) : (
-          <DesktopView
-            steps={steps}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-          />
-        )} */}
-        {isMobile ? (
-          <MobileView
-            steps={steps}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-            serviceImage2={serviceImage2}   // ✅ pass here
-          />
-        ) : (
-          <DesktopView
-            steps={steps}
-            activeStep={activeStep}
-            setActiveStep={setActiveStep}
-            serviceImage2={serviceImage2}   // ✅ pass here
-          />
-        )}
-
-      </div>
-    </section>
-  );
-}
-
-// 📱 Mobile View
-function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
-  return (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="flex justify-center mb-6"
-      >
-        <div className="w-72 h-96 rounded-2xl flex items-center justify-center overflow-hidden bg-white shadow-lg">
-          <div className="w-full h-full relative">
-            <Image
-              // src="/web-app.png"
-              // alt="Web App Mockup"
-              src={serviceImage2}
-              alt="Service Process"
-
-              fill
-              className="object-contain rounded-2xl"
-              priority
-            />
-            <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
-              Step {activeStep + 1}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      <div className="space-y-4 px-2">
-        {steps.map((step, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => setActiveStep(index)}
-            className={`flex items-start cursor-pointer ${activeStep === index ? "scale-[1.02]" : ""
-              }`}
-          >
-            <div
-              className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 transition-all duration-300 ${activeStep === index
-                ? "bg-blue-600 shadow-lg scale-110"
-                : "bg-blue-400"
-                }`}
-            >
-              {index + 1}
-            </div>
-            <div
-              className={`border rounded-xl p-4 flex-1 text-left transition-all duration-300 ${activeStep === index
-                ? "bg-blue-50 border-blue-300 shadow-md"
-                : "bg-white border-gray-200"
-                }`}
-            >
-              <h3 className="font-semibold text-blue-900">{step.title}</h3>
-              <AnimatePresence>
-                {activeStep === index && (
-                  <motion.p
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-sm text-blue-700 mt-2"
-                  >
-                    {step.description}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// // 💻 Desktop View (Dynamic Arc)
-// function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
-//   const radius = steps.length > 7 ? 320 : 260; // adjust radius based on step count
-//   const centerX = 320;
-//   const centerY = 320;
-//   const startAngle = -160;
-//   const endAngle = 160;
-//   const angleStep = (endAngle - startAngle) / (steps.length - 1);
-
-//   return (
-//     <div className="relative flex items-center justify-center min-h-[700px]">
-//       {/* Center Image */}
-//       <motion.div
-//         initial={{ scale: 0.9, opacity: 0 }}
-//         animate={{ scale: 1, opacity: 1 }}
-//         transition={{ duration: 0.6 }}
-//         className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl"
-//       >
-//         <img
-//           // src="/web-app.png"
-//           // alt="Web App Mockup"
-//           src={serviceImage2}
-//           alt="Service Process"
-
-//           fill
-//           // className="object-contain"
-//             className="w-full h-full object-cover object-center"
-//           priority
-//         />
-//         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg">
-//           Step {activeStep + 1}: {steps[activeStep]?.title}
-//         </div>
-//       </motion.div>
-
-//       {/* Steps in Arc */}
-//       <svg
-//         viewBox="0 0 640 640"
-//         className="absolute inset-0 w-full h-full z-10"
-//         aria-label="Web development process steps"
-//       >
-//         {steps.map((step, index) => {
-//           const angle = startAngle + angleStep * index;
-//           const rad = (angle * Math.PI) / 180;
-//           const x = centerX + radius * Math.cos(rad);
-//           const y = centerY + radius * Math.sin(rad);
-
-//           return (
-//             <motion.g
-//               key={index}
-//               initial={{ opacity: 0, scale: 0.7 }}
-//               animate={{ opacity: 1, scale: 1 }}
-//               transition={{ delay: index * 0.15 }}
-//               className="cursor-pointer"
-//               onClick={() => setActiveStep(index)}
-//             >
-//               <line
-//                 x1={centerX}
-//                 y1={centerY}
-//                 x2={x}
-//                 y2={y}
-//                 stroke="#93c5fd"
-//                 strokeWidth="1"
-//                 className="opacity-60"
-//               />
-//               <motion.circle
-//                 cx={x}
-//                 cy={y}
-//                 r="16"
-//                 fill={activeStep === index ? "#2563eb" : "#3b82f6"}
-//                 stroke="white"
-//                 strokeWidth="3"
-//                 whileHover={{ scale: 1.2 }}
-//                 transition={{ duration: 0.2 }}
-//                 className="shadow-sm"
-//               />
-//               <text
-//                 x={x}
-//                 y={y + 5}
-//                 textAnchor="middle"
-//                 className="fill-white font-bold text-xs pointer-events-none"
-//               >
-//                 {index + 1}
-//               </text>
-//               <motion.foreignObject
-//                 x={x - 80}
-//                 y={y - (y > centerY ? 60 : 50)}
-//                 width="160"
-//                 height="40"
-//                 className="text-center"
-//               >
-//                 <div
-//                   className={`text-blue-900 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
-//                     }`}
-//                 >
-//                   {step.title}
-//                 </div>
-//               </motion.foreignObject>
-//               {activeStep === index && (
-//                 <motion.foreignObject
-//                   x={x - 100}
-//                   y={y + (y > centerY ? -40 : 30)}
-//                   width="200"
-//                   height="80"
-//                   className="text-center"
-//                   initial={{ opacity: 0 }}
-//                   animate={{ opacity: 1 }}
-//                   transition={{ duration: 0.4, delay: 0.1 }}
-//                 >
-//                   <div className="text-blue-700 text-xs font-medium bg-blue-50 p-2 rounded-lg shadow-sm leading-tight">
-//                     {step.description}
-//                   </div>
-//                 </motion.foreignObject>
-//               )}
-//             </motion.g>
-//           );
-//         })}
-//       </svg>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
+function DesktopView({ steps, activeStep, setActiveStep }) {
   const radius = steps.length > 7 ? 320 : 260;
   const centerX = 320;
   const centerY = 320;
@@ -536,10 +262,44 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
 
   return (
     <div className="relative flex items-center justify-center min-h-[700px]">
-      {/* Steps in Arc - MOVE SVG BEHIND */}
+      {/* Description Box - Positioned above the center image */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="absolute top-20 left-1/2 transform -translate-x-1/2 z-30 w-80 text-center"
+      >
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 shadow-lg">
+          <div className="text-blue-900 font-bold text-lg mb-2">
+            Step {activeStep + 1}: {steps[activeStep]?.title}
+          </div>
+          <div className="text-blue-700 text-sm leading-relaxed">
+            {steps[activeStep]?.description}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Center Image */}
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl mt-16" /* Added margin-top */
+      >
+        <Image
+          src="/web-app.png"
+          alt="Web App Mockup"
+          fill
+          className="object-contain"
+          priority
+        />
+        {/* Removed the bottom label since we moved it to the top */}
+      </motion.div>
+
+      {/* Steps in Arc */}
       <svg
         viewBox="0 0 640 640"
-        className="absolute inset-0 w-full h-full z-10" // Lower z-index
+        className="absolute inset-0 w-full h-full z-10"
         aria-label="Web development process steps"
       >
         {steps.map((step, index) => {
@@ -585,94 +345,29 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
               >
                 {index + 1}
               </text>
-              {/* <motion.foreignObject
+              
+              {/* Step Title */}
+              <motion.foreignObject
                 x={x - 80}
-                y={y - (y > centerY ? 80 : 70)}
+                y={y - (y > centerY ? 60 : 50)}
                 width="160"
                 height="40"
                 className="text-center"
               >
                 <div
-                  className={`text-blue-900 mt-5 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
-                    }`}
-                >
-                  {step.title}
-                </div>
-              </motion.foreignObject> */}
-
-              <motion.foreignObject
-                x={x - 100}  // Increased from -80
-                y={y - (y > centerY ? 80 : 70)}
-                width="200"  // Increased from 160
-                height="60"  // Increased height for wrapped text
-                className="text-center"
-              >
-                <div
-                  className={`text-blue-900 mt-5 font-semibold text-sm leading-tight break-words whitespace-normal ${activeStep === index ? "font-bold underline" : ""
-                    }`}
-                  style={{ wordWrap: 'break-word' }}
+                  className={`text-blue-900 font-semibold text-sm leading-tight ${
+                    activeStep === index ? "font-bold underline" : ""
+                  }`}
                 >
                   {step.title}
                 </div>
               </motion.foreignObject>
+
+              {/* Removed the description from SVG since we moved it to the top */}
             </motion.g>
           );
         })}
       </svg>
-
-      {/* Center Image - MOVE TO FRONT */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-30 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl" // Higher z-index
-      >
-        <img
-          src={serviceImage2}
-          alt="Service Process"
-          className="w-full h-full object-fit object-center"
-          priority
-        />
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded-full shadow-lg z-40">
-          Step {activeStep + 1}: {steps[activeStep]?.title}
-        </div>
-      </motion.div>
-
-      {/* Description Tooltips - RENDER AS SEPARATE HTML ELEMENTS ON TOP */}
-      {steps.map((step, index) => {
-        if (activeStep !== index) return null;
-
-        const angle = startAngle + angleStep * index;
-        const rad = (angle * Math.PI) / 180;
-        const x = centerX + radius * Math.cos(rad);
-        const y = centerY + radius * Math.sin(rad);
-
-        // Convert SVG coordinates to percentage for positioning
-        const leftPercent = (x / 640) * 100;
-        const topPercent = (y / 640) * 100;
-
-        return (
-          <motion.div
-            key={`desc-${index}`}
-            className="absolute z-50 pointer-events-none" // Highest z-index
-            style={{
-              left: `${leftPercent}%`,
-              top: `${topPercent}%`,
-              transform: 'translate(-50%, -50%)'
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-          >
-            <div
-              className={`text-blue-700 text-xs font-medium bg-blue-50 p-3 rounded-lg shadow-lg border border-blue-200 leading-relaxed max-w-xs ${y > centerY ? '-translate-y-24' : 'translate-y-24'
-                }`}
-            >
-              {step.description}
-            </div>
-          </motion.div>
-        );
-      })}
     </div>
   );
 }

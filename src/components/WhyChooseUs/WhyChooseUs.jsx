@@ -16,50 +16,54 @@ const WhyChooseUs = () => {
   const reasons = [
     {
       icon: <FiAward className="h-8 w-8" />,
-      title: "Award-Winning Quality",
+      title: "Innovation Solution",
       description:
-        "Consistently recognized for excellence in digital solutions",
+        "Making use of state-of-the-art technology to develop solutions that have an effect and are prepared for the future.",
       highlights: [
-        "5+ industry awards won",
-        "98% client satisfaction rate",
-        "Rigorous quality assurance",
-        "Best practices compliance",
+        "Future-Ready Technology ",
+        "Enhanced Efficiency ",
+        "Competitive Advantage",
+        "Scalable & Flexible",
+        "Impactful Result"
       ],
       color: "from-blue-500/10 to-blue-600/20",
     },
     {
       icon: <FiUsers className="h-8 w-8" />,
       title: "Expert Team",
-      description: "Hand-picked specialists with proven track records",
+      description: "Knowledgeable experts committed to producing dependable, superior outcomes.",
       highlights: [
-        "10+ years average experience",
-        "Diverse skill sets",
-        "Continuous training",
-        "Dedicated project managers",
+        "Proven Expertise",
+        "10+ years Of Experience",
+        "Innovative Solutions",
+        "Collaborative Approach",
+        "Continuous Learning"
       ],
       color: "from-blue-500/10 to-blue-600/20",
     },
     {
       icon: <FiClock className="h-8 w-8" />,
-      title: "Timely Delivery",
-      description: "We respect deadlines and deliver as promised",
+      title: "Future-Ready Tech",
+      description: "Skilled professionals driving excellence.",
       highlights: [
-        "95% on-time delivery rate",
-        "Agile methodology",
-        "Transparent timelines",
-        "Rapid prototyping",
+        "Cutting-Edge Solutions",
+        "Scalability",
+        "Enhanced Efficiency",
+        "Competitive Advantage",
+        "Long-Term Sustainability"
       ],
       color: "from-blue-500/10 to-blue-600/20",
     },
     {
       icon: <FiTrendingUp className="h-8 w-8" />,
-      title: "Proven Results",
-      description: "Solutions that drive measurable business impact",
+      title: "Client-Centric",
+      description: "Dedicated to smooth cooperation, prompt delivery, and quantifiable results.",
       highlights: [
-        "Average 40% performance improvement",
-        "Data-driven approach",
-        "ROI-focused solutions",
-        "Post-launch support",
+        "Seamless Collaboration",
+        "Timely Delivery",
+        "Measurable Results",
+        "Customer Satisfaction",
+        "Trust & Reliability"
       ],
       color: "from-blue-500/10 to-blue-600/20",
     },
@@ -200,7 +204,7 @@ const WhyChooseUs = () => {
                 className="w-full flex items-center justify-between p-6 text-left"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-22 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-gray-600">
+                  <div className="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-gray-600">
                     {reason.icon}
                   </div>
                   <div>
