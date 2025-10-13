@@ -245,7 +245,7 @@ const InternshipProcess = () => {
           </motion.div>
           
           <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6">
-            Launch Your
+            Start Your
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 text-4xl md:text-6xl lg:text-7xl">
               Tech Career
             </span>
