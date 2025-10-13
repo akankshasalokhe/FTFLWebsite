@@ -724,11 +724,11 @@ const AboutUsSection = () => {
 
           {/* Image */}
           <div className="lg:w-1/2 relative order-1 lg:order-2 mb-8 lg:mb-0">
-            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl">
+            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl lg:w-160 lg:h-110">
               <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1484&q=80"
+                src="/aoc.png"
                 alt="Our Team"
-                className="w-full h-auto rounded-xl sm:rounded-2xl"
+                className="w-full rounded-xl sm:rounded-2xl object-cover lg:object-contain"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-30 rounded-xl sm:rounded-2xl"></div>
