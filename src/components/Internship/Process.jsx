@@ -245,7 +245,7 @@ const InternshipProcess = () => {
           </motion.div>
           
           <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6">
-            Launch Your
+            Start Your
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 text-4xl md:text-6xl lg:text-7xl">
               Tech Career
             </span>
@@ -378,11 +378,11 @@ const InternshipProcess = () => {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
+        <div className="hidden lg:grid lg:grid-cols-2 gap-5 items-center">
           {/* Left Column - Interactive Steps */}
           <div className="relative">
             {/* Central Orbital System */}
-            <div className="relative h-85 w-85 mx-auto">
+            <div className="relative h-85 w-85 mx-auto ms-40">
               {/* Central Circle */}
               <motion.div 
                 className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 backdrop-blur-md flex items-center justify-center"
@@ -424,7 +424,6 @@ const InternshipProcess = () => {
                     <div className="text-xs font-semibold mt-1">{step.title.split(' ')[0]}</div>
                   </div>
                   
-                  {/* Connection Line */}
                   <div 
                     className="absolute w-24 h-0.5 bg-white/30 origin-left rotate-90"
                     style={{ 
@@ -557,7 +556,7 @@ const InternshipProcess = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5"></div>
             
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4 relative z-10">
-              Ready to Launch Your Career?
+              Ready to Start Your Career?
             </h3>
             <p className="text-base md:text-xl text-gray-300 mb-6 md:mb-8 relative z-10 max-w-2xl mx-auto px-4">
               Join our next cohort and transform your future with hands-on experience and industry connections
@@ -575,14 +574,14 @@ const InternshipProcess = () => {
                 <FaArrowRight />
               </motion.button>
               
-              <motion.button
+              {/* <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white/10 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all duration-300 text-base md:text-lg"
                 aria-label="View success stories"
               >
                 View Success Stories
-              </motion.button>
+              </motion.button> */}
             </div>
           </div>
         </motion.div>

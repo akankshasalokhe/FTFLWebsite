@@ -401,26 +401,26 @@ const WhyChooseUs = () => {
     {
       id: 1,
       icon: <FaAward className="text-white text-3xl" />,
-      title: "Certified Programs",
-      description: "Gain industry-recognized certificates to enhance your resume.",
+      title: "Learn from Experts",
+      description: "Receive direction and coaching from knowledgeable experts.",
     },
     {
       id: 2,
       icon: <FaUsers className="text-white text-3xl" />,
-      title: "Expert Mentors",
-      description: "Learn from experienced professionals guiding you every step.",
+      title: "Skill Development",
+      description: "Develop your technical, problem-solving, and collaborative skills.",
     },
     {
       id: 3,
       icon: <FaLightbulb className="text-white text-3xl" />,
-      title: "Practical Learning",
-      description: "Hands-on projects and real-world problem solving.",
+      title: "Innovative Workplace",
+      description: "Succeed in a stimulating and encouraging environment.",
     },
     {
       id: 4,
       icon: <FaHandshake className="text-white text-3xl" />,
-      title: "Career Support",
-      description: "Get placement assistance and internship opportunities.",
+      title: "Placement Support",
+      description: "Get placement opportunities directly in our company after completion.",
     },
   ];
 

@@ -89,11 +89,10 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="relative z-10 px-6 max-w-4xl text-white">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-          <span className="text-blue-300">Boost Your Career</span> with Our Paid Internship
+          <span className="text-blue-300">Your Journey </span> from Classroom to Corporate Begins Here.
         </h1>
         <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white/90">
-          Gain real-world experience, complete projects, earn an internship letter, and secure a placement opportunity in our company.
-        </p>
+            Join FTFL to explore limitless opportunities, enhance your skills, and accelerate your journey toward success.        </p>
 
         {/* CTA Buttons */}
         {/* <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">

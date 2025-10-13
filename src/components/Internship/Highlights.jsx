@@ -8,26 +8,26 @@ const InternshipHighlights = () => {
     {
       id: 1,
       icon: <FaCertificate className="text-white text-3xl" />,
-      title: "Internship Letter",
-      description: "Receive an official internship certificate to showcase your achievement.",
+      title: "Real-World Exposure",
+      description: "Work directly on real-world industry projects to expand your professional portfolio and gain real-world exposure.",
     },
     {
       id: 2,
       icon: <FaLaptopCode className="text-white text-3xl" />,
-      title: "Hands-on Projects",
-      description: "Work on live projects and gain practical skills to boost your career.",
+      title: "Performance Recognition ",
+      description: "Your efforts never go unnoticed. FTFL rewards innovation and dedication with constructive feedback, appreciation, and growth opportunities.",
     },
     {
       id: 3,
       icon: <FaUserTie className="text-white text-3xl" />,
-      title: "Placement Support",
-      description: "Get placement opportunities directly in our company after completion.",
+      title: "Networking Opportunities",
+      description: "Establish beneficial relationships with mentors, industry professionals, and other interns.",
     },
     {
       id: 4,
       icon: <FaBuilding className="text-white text-3xl" />,
-      title: "Real Work Experience",
-      description: "Build a strong resume with industry-recognized internship experience.",
+      title: "Career Advancement",
+      description: " Promising interns could get recommendation letters or pre-placement offers.",
     },
   ];
 
@@ -48,7 +48,7 @@ const InternshipHighlights = () => {
           className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6"
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">
-            Internship & Career Opportunities
+            KickStart Your Journey<br />Shape Your Future
           </span>
         </motion.h2>
 

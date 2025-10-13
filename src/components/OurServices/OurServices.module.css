@@ -73,6 +73,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: full;
 }
 
 .imageContainer {
@@ -83,7 +84,7 @@
 }
 
 .image {
-  object-fit: fit;
+  object-fit: fill;
   transition: transform 0.5s ease;
 }
 
