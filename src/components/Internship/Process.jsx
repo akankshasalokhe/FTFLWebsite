@@ -378,11 +378,11 @@ const InternshipProcess = () => {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-2 gap-8 items-center">
+        <div className="hidden lg:grid lg:grid-cols-2 gap-5 items-center">
           {/* Left Column - Interactive Steps */}
           <div className="relative">
             {/* Central Orbital System */}
-            <div className="relative h-85 w-85 mx-auto">
+            <div className="relative h-85 w-85 mx-auto ms-40">
               {/* Central Circle */}
               <motion.div 
                 className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 backdrop-blur-md flex items-center justify-center"
@@ -424,7 +424,6 @@ const InternshipProcess = () => {
                     <div className="text-xs font-semibold mt-1">{step.title.split(' ')[0]}</div>
                   </div>
                   
-                  {/* Connection Line */}
                   <div 
                     className="absolute w-24 h-0.5 bg-white/30 origin-left rotate-90"
                     style={{ 
