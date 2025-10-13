@@ -722,7 +722,7 @@ const VibrantFooter = () => {
               {[
                 { label: "About Us", path: "/about" },
                 { label: "Careers", path: "/careers" },
-                { label: "Case Studies", path: "/blog" },
+                { label: "Blog", path: "/blog" },
                 { label: "Contact", path: "/contact" },
               ].map((item) => (
                 <li key={item.label}>

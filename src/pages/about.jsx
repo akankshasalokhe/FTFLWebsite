@@ -383,7 +383,7 @@ function About() {
       <BoardMembers />
       <WhyChooseUs />
       {/* <CompanyEventsGallery /> */}
-      <Gallery />
+      {/* <Gallery /> */}
       <Testimonials />
       <ContactForm />
     </div>

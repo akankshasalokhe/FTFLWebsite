@@ -411,8 +411,8 @@ const ProductShowcase = () => {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`px-3 sm:px-5 py-2 rounded-lg font-medium transition text-sm sm:text-base whitespace-nowrap ${activeTab === tab
-                ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -423,10 +423,10 @@ const ProductShowcase = () => {
       {/* Product Grid */}
       <div
         className={`grid gap-6 sm:gap-10 ${isMobile
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            : activeTab === "mobile"
-              ? "grid-cols-1 sm:grid-cols-2"
-              : "grid-cols-1"
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          : activeTab === "mobile"
+            ? "grid-cols-1 sm:grid-cols-2"
+            : "grid-cols-1"
           }`}
       >
         {filteredProducts.map((product, index) => (
@@ -466,8 +466,8 @@ const ProductShowcase = () => {
               ) : (
                 <div
                   className={`relative ${isMobile
-                      ? "w-full max-w-md"
-                      : "w-full max-w-3xl"
+                    ? "w-full max-w-md"
+                    : "w-full max-w-3xl"
                     } bg-black rounded-t-lg shadow-xl overflow-hidden`}
                 >
                   {/* Top bar */}
@@ -499,8 +499,8 @@ const ProductShowcase = () => {
                 <div className="absolute top-4 left-4">
                   <span
                     className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${product.category.toLowerCase() === "mobile"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-green-100 text-green-800"
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-green-100 text-green-800"
                       }`}
                   >
                     {product.category.toLowerCase() === "mobile"
@@ -519,11 +519,12 @@ const ProductShowcase = () => {
               <p className="text-xs sm:text-sm text-gray-500 mb-3 line-clamp-2">
                 {product.subTitle}
               </p>
+
               <p className="text-gray-600 mb-4 leading-relaxed text-sm sm:text-base">
                 {isMobile
-                  ? `${product.description.slice(0, 80)}${product.description.length > 80 ? "..." : ""
-                  }`
-                  : product.description}
+                  ? `${product.description.substring(0, Math.floor(product.description.length / 2))}...`
+                  : `${product.description.substring(0, 180)}${product.description.length > 80
+                  }`}
               </p>
 
               <div className="mb-4 sm:mb-6">
