@@ -48,7 +48,7 @@ const InternshipHighlights = () => {
           className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6"
         >
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">
-            Internship & Career Opportunities
+            KickStart Your Journey. Shape Your Future with FTFL
           </span>
         </motion.h2>
 
