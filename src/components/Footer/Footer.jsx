@@ -688,7 +688,7 @@ const VibrantFooter = () => {
           <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
             <div>
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">
-                Ready to <span className="text-white">transform</span> your business?
+                Ready to Start your <span className="text-blue-900">Journey?</span>
               </h3>
               <p className="text-white/90 max-w-md text-xs sm:text-sm">
                 Let's create something extraordinary together. Our team is ready to bring your vision to life!!
