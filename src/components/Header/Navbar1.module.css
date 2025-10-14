@@ -930,5 +930,6 @@
 .backIcon {
   width: 12px;
   height: 12px;
+  margin-top: 32px;
   cursor: pointer;
 }

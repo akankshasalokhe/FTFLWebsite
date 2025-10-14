@@ -342,7 +342,7 @@ const BoardMembers = () => {
                   /> */}
 
                 {/* <div className="relative w-full h-80 sm:h-72 lg:h-90 overflow-hidden"> */}
-                <div className="relative w-full h-48 sm:h-60 md:h-72 lg:h-80 xl:h-90 overflow-hidden">
+                <div className="relative w-full h-78 sm:h-60 md:h-72 lg:h-80 xl:h-90 overflow-hidden">
                   {/* Image */}
                   <img
                     src={member.mainImage}

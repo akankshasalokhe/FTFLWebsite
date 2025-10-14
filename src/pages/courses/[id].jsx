@@ -1524,13 +1524,13 @@ const FAQAccordion = ({ faqs }) => {
               aria-expanded={openIndex === index}
             >
               <span className="flex items-center gap-3">
-                {q.icon && (
+                {/* {q.icon && (
                   <img
                     src={q.icon}
                     alt="icon"
                     className="w-6 h-6 object-contain"
                   />
-                )}
+                )} */}
                 {q.question}
               </span>
               {openIndex === index ? (

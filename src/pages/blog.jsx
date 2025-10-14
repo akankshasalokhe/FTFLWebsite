@@ -35,9 +35,20 @@ const Blog = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <button id="#blog" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base">
+                {/* <button href="#blog" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base">
                   Read Latest Post
-                </button>
+                </button> */}
+                <button 
+  onClick={() => {
+    const element = document.getElementById('blog');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }}
+  className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base"
+>
+  Read Latest Post
+</button>
               </motion.div>
             </div>
             
