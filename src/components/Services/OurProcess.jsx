@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function OurProcess({ steps = [] }) {
+export default function OurProcess({ title, steps = [] }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -25,7 +25,7 @@ export default function OurProcess({ steps = [] }) {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
         >
-          Our Web Development Process
+          Our {title} Process
         </motion.h2>
 
         <motion.p
@@ -34,7 +34,7 @@ export default function OurProcess({ steps = [] }) {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
         >
-          We follow a structured process to deliver exceptional web applications tailored to your needs.
+         Transforming ideas into engaging digital experiences across all platforms and media.
         </motion.p>
 
         {isMobile ? (

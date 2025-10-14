@@ -1261,7 +1261,7 @@ export default function ServiceDetail() {
               Why Choose Us
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
-              We deliver exceptional web development services that drive growth and ensure your digital success
+              We deliver exceptional {serviceData.title} services that drive growth and ensure your digital success
             </p>
           </motion.div>
 
@@ -1401,7 +1401,7 @@ export default function ServiceDetail() {
               Frequently Asked Questions
             </h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Find answers to common questions about our web development process
+              Find answers to common questions about our {serviceData.title} process
             </p>
           </motion.div>
 

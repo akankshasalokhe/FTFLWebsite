@@ -843,10 +843,10 @@ const VibrantFooter = () => {
             <p className="font-medium text-sm">FTFL Technology Pvt.Ltd</p>
           </div>
           <div className="flex gap-3 text-xs">
-            <Link href="#" className="hover:text-[#FFD166]">
+            <Link href="#" className="hover:text-blue-300">
               Privacy
             </Link>
-            <Link href="#" className="hover:text-[#FFD166]">
+            <Link href="#" className="hover:text-blue-300">
               Terms
             </Link>
           </div>

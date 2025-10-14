@@ -1973,7 +1973,7 @@ export default function BlogDetail() {
                 }
                 
                 .tag:hover {
-                    background: #6B46C1;
+                    background: #174db3ff;
                     color: white;
                     transform: translateY(-2px);
                     border-color: #6B46C1;
