@@ -128,6 +128,7 @@ const OurServices = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [serviceData, setServiceData] = useState([]);
 
+  // Fallback static data
   const services = [
     {
       id: 1,
@@ -187,8 +188,38 @@ const OurServices = () => {
       });
   }, []);
 
+  // Use API data if available, otherwise use static data
+  const displayServices = serviceData.length > 0 ? serviceData.slice(0, 6) : services;
+
+  // Helper function to get description text
+  const getDescriptionText = (service) => {
+    if (Array.isArray(service.description)) {
+      // If it's an array, take the first item and truncate
+      return service.description[0]?.substring(0, 120) + '...' || 'No description available';
+    } else if (typeof service.description === 'string') {
+      // If it's a string, just truncate
+      return service.description.substring(0, 120) + '...';
+    }
+    return 'No description available';
+  };
+
+  // Helper function to get image source
+  const getImageSrc = (service) => {
+    if (service.mainImage) {
+      return service.mainImage;
+    } else if (service.image) {
+      return service.image;
+    }
+    return "/default-service.jpg"; // Add a default image
+  };
+
+  // Helper function to get service ID
+  const getServiceId = (service) => {
+    return service._id || service.id;
+  };
+
   return (
-    <section  className={styles.services} id="homeservices">
+    <section className={styles.services} id="homeservices">
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.sectionTitle}>Our Services</h2>
@@ -198,43 +229,35 @@ const OurServices = () => {
         </div>
 
         <div className={styles.cardsContainer}>
-          {serviceData.slice(0, 6).map(service => (
+          {displayServices.map(service => (
             <div
-              key={service.id}
-              className={`${styles.card} ${activeCard === service.id ? styles.active : ''}`}
-              onMouseEnter={() => setActiveCard(service.id)}
+              key={getServiceId(service)}
+              className={`${styles.card} ${activeCard === getServiceId(service) ? styles.active : ''}`}
+              onMouseEnter={() => setActiveCard(getServiceId(service))}
               onMouseLeave={() => setActiveCard(null)}
-              onClick={() => setActiveCard(activeCard === service.id ? null : service.id)}
+              onClick={() => setActiveCard(activeCard === getServiceId(service) ? null : getServiceId(service))}
             >
               <div className={styles.cardInner}>
                 <div className={styles.imageContainer}>
                   <Image
-                    src={service.mainImage}
+                    src={getImageSrc(service)}
                     alt={service.title}
                     fill
                     className={styles.image}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 33vw"
+                    onError={(e) => {
+                      e.target.src = "/default-service.jpg";
+                    }}
                   />
                   <div className={styles.overlay}></div>
-                  {/* <div className={styles.icon}>
-                    <Image
-                    src={service.serviceIcon}
-                    alt={service.title}
-                    fill
-                    className={styles.image}
-                    // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  </div> */}
                 </div>
 
                 <div className={styles.content}>
-                  {/* <h3 className={styles.title}>{service.title}</h3> */}
-                  <h3 className='font-bold text-black ml-2'>{service.title}</h3>
-
-                  <p className={styles.description}>{service.description.map((data) => data.substring(0,120))}...</p>
+                  <h3 className={styles.title}>{service.title}</h3>
+                  <p className={styles.description}>{getDescriptionText(service)}</p>
 
                   <div className={styles.action}>
-                    <Link href={`/services/${service._id}`}>
+                    <Link href={`/services/${getServiceId(service)}`}>
                       <button className={styles.learnMoreBtn}>
                         Learn More
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -247,17 +270,12 @@ const OurServices = () => {
               </div>
             </div>
           ))}
-
-
         </div>
-
-
-
-
       </div>
+      
       <div className={styles.cta}>
         <p>Need a custom solution?</p>
-        <button className="rounded-lg text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 py-2">Get in Touch</button>
+        <button className={styles.ctaButton}>Get in Touch</button>
       </div>
     </section>
   );

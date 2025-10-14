@@ -9,6 +9,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  
 }
 
 .header {
@@ -49,19 +50,19 @@
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 1.5rem;
   margin-bottom: 3rem;
 }
 
 .card {
   background: white;
   border-radius: 12px;
+  /* width: 400px; */
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  height: 100%;
+  height: 90%;
   cursor: pointer;
-  margin: 0 0.5rem; /* Dono side margin */
+  margin: 0 0.5rem; /* Equal left and right margin */
 }
 
 .card:hover, .card.active {
@@ -73,13 +74,13 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: full;
+  width: 100%;
 }
 
 .imageContainer {
   position: relative;
-  height: 250px;
-  width: 100%;
+  height: 340px;
+  width: 400px;
   overflow: hidden;
 }
 
@@ -107,22 +108,6 @@
   opacity: 0.8;
 }
 
-.icon {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
 .content {
   padding: 1.5rem;
   flex-grow: 1;
@@ -143,7 +128,7 @@
   line-height: 1.5;
   flex-grow: 1;
   font-size: clamp(0.9rem, 1.5vw, 1rem);
-  margin: 0 0.5rem; /* Dono side margin text ke liye */
+  margin: 0 0.5rem; /* Equal left and right margin for text */
 }
 
 .action {
@@ -162,7 +147,7 @@
   cursor: pointer;
   font-size: clamp(0.9rem, 1.5vw, 1rem);
   transition: all 0.2s ease;
-  margin: 0 0.5rem 0.5rem 0.5rem; /* Dono side margin */
+  margin: 0 0.5rem 0.5rem 0.5rem; /* Equal margins on all sides */
 }
 
 .learnMoreBtn:hover {
@@ -176,16 +161,13 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin: 0 1rem; 
+  margin: 0 1.5rem; /* Equal left and right margin */
 }
-
-
 
 .cta p {
   font-size: clamp(1.1rem, 2vw, 1.25rem);
   color: #2d3748;
   margin-bottom: 1rem;
-  padding: 0 1rem; /* Dono side padding */
 }
 
 .ctaButton {
@@ -199,7 +181,6 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
   font-size: clamp(0.9rem, 1.5vw, 1rem);
-  margin: 0 0.5rem; /* Dono side margin */
 }
 
 .ctaButton:hover {
@@ -207,7 +188,7 @@
   box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
 }
 
-/* Enhanced Responsive Breakpoints */
+/* Responsive Breakpoints with consistent side margins */
 @media (max-width: 480px) {
   .services {
     padding: 2rem 0.5rem;
@@ -228,11 +209,12 @@
   }
   
   .card {
-    margin: 0 0.25rem; /* Chhota margin mobile pe */
+    margin: 0 0.25rem; /* Equal but smaller margin on mobile */
   }
   
   .imageContainer {
-    height: 200px;
+    height: 250px;
+    width: 100%;
   }
   
   .content {
@@ -240,19 +222,13 @@
     min-height: 160px;
   }
   
-  .icon {
-    width: 35px;
-    height: 35px;
-    font-size: 1.25rem;
-  }
-  
   .cta {
     padding: 1.5rem 1rem;
-    margin: 0 0.5rem; /* Mobile pe bhi margin */
+    margin: 0 0.5rem; /* Equal margin on mobile */
   }
   
   .description, .learnMoreBtn {
-    margin: 0 0.25rem; /* Chhota margin mobile pe */
+    margin: 0 0.25rem; /* Equal but smaller margin on mobile */
   }
 }
 
@@ -263,11 +239,12 @@
   }
   
   .card {
-    margin: 0 0.5rem;
+    margin: 0 0.5rem; /* Equal margin */
   }
   
   .imageContainer {
-    height: 200px;
+    height: 250px;
+    width: 100%;
   }
   
   .content {
@@ -275,7 +252,7 @@
   }
   
   .cta {
-    margin: 0 1.5rem;
+    margin: 0 1rem; /* Equal margin */
   }
 }
 
@@ -286,15 +263,16 @@
   }
   
   .card {
-    margin: 0 0.75rem;
+    margin: 0 0.75rem; /* Equal margin */
   }
   
   .imageContainer {
-    height: 220px;
+    height: 300px;
+    width: 100%;
   }
   
   .cta {
-    margin: 0 2rem;
+    margin: 0 1.5rem; /* Equal margin */
   }
 }
 
@@ -304,7 +282,11 @@
   }
   
   .card {
-    margin: 0 1rem;
+    margin: 0 0.5rem; /* Equal margin */
+  }
+  .imageContainer {
+    height: 300px;
+    width: 100%;
   }
 }
 
@@ -319,13 +301,34 @@
   }
   
   .card {
-    margin: 0 1.5rem;
+    margin: 0 1rem; /* Equal margin */
   }
   
   .cta {
-    margin: 0 3rem;
+    margin: 0 2rem; /* Equal margin */
+  }
+  .imageContainer {
+    height: 350px;
+    width: 100%;
+}
+}
+
+/* Extra margin for very large screens */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+  
+  .card {
+    margin: 0 1rem; /* Equal margin */
+  }
+  .imageContainer {
+    height: 400px;
+    width: 100%;
   }
 }
+
+/* Touch device optimizations and reduced motion styles remain the same */
 
 /* Touch device optimizations */
 @media (hover: none) {
