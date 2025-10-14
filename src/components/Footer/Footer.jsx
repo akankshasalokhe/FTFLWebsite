@@ -727,7 +727,7 @@ const VibrantFooter = () => {
               ].map((item) => (
                 <li key={item.label}>
                   <motion.div whileHover={{ x: 3 }}>
-                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm">
+                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-sm">
                       <FiArrowRight className="text-xs opacity-70" /> {item.label}
                     </Link>
                   </motion.div>
@@ -751,7 +751,7 @@ const VibrantFooter = () => {
                     <Link
                       href={`/services/${service._id}`}
                       scroll={false}
-                      className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm"
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
                     >
                       <FiArrowRight className="text-xs opacity-70" /> {service.title}
                     </Link>
