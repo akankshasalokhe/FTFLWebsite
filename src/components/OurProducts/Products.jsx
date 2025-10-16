@@ -673,7 +673,7 @@ const ProductShowcase = () => {
     <div className="py-8 sm:py-16 px-4 sm:px-6 md:px-16 bg-gray-50">
       {/* Heading */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900">
-        Our Products
+        What We Offer
       </h2>
 
       {/* Product Grid - Show all products directly */}
