@@ -1432,7 +1432,7 @@ export default function BlogDetail() {
 
                     <div className="tags-section">
                         <h3>Tags</h3>
-                        <div className="tags">
+                        <div className="tags mt-2">
                             {blogData.tags && blogData.tags.length > 0 ? (
                                 blogData.tags.map(tag => (
                                     <span key={tag} className="tag">{tag}</span>
