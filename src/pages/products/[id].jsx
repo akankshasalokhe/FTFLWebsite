@@ -1780,9 +1780,9 @@ export default function ProductDetail() {
                   Contact Our Team
                 </button>
               </Link>
-              <button className="bg-transparent hover:bg-blue-300 hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+              {/* <button className="bg-transparent hover:bg-blue-300 hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                 Request a Demo
-              </button>
+              </button> */}
             </div>
           </motion.div>
         </div>
