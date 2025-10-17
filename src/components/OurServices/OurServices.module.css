@@ -134,6 +134,7 @@
 .action {
   margin-top: auto;
   padding-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .learnMoreBtn {
@@ -147,7 +148,7 @@
   cursor: pointer;
   font-size: clamp(0.9rem, 1.5vw, 1rem);
   transition: all 0.2s ease;
-  margin: 0 0.5rem 0.5rem 0.5rem; /* Equal margins on all sides */
+  margin: 0 0.5rem 0 0.5rem;
 }
 
 .learnMoreBtn:hover {
