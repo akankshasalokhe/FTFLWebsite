@@ -135,7 +135,7 @@ const ContactForm = () => {
             Let's <span className="text-blue-600">Connect</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Have a project in mind? Our team is ready to bring your ideas to life.
+            Have a project in mind? Our team is ready to bring your ideas to life
           </p>
         </motion.div>
 

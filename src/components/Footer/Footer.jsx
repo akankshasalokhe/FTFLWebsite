@@ -716,7 +716,7 @@ const VibrantFooter = () => {
             className="order-1"
           >
             <h4 className="text-base font-bold mb-3 text-white flex items-center gap-1.5">
-              <RiCustomerService2Fill className="text-sm" /> Company
+              Company
             </h4>
             <ul className="space-y-2">
               {[
