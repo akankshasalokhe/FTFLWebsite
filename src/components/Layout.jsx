@@ -5,7 +5,6 @@ import Footer from '../components/Footer/Footer';
 import { ParallaxProvider } from 'react-scroll-parallax';
 // app/layout.tsx
 
-// import Footer from '@/components/Footer/Footer';
 const Layout = ({ children, title, description, keywords }) => {
   return (
     <>

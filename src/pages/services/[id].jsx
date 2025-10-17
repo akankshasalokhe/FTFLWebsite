@@ -1015,6 +1015,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import OurProcess from "@/components/Services/OurProcess";
 import axios from "axios";
+import Link from "next/link";
 
 export default function ServiceDetail() {
   const params = useParams();
@@ -1481,15 +1482,15 @@ export default function ServiceDetail() {
               whileTap={{ scale: 0.95 }}
               className="!text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Get in Touch
+              <Link href="/contact">Get in Touch</Link>
             </motion.button>
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg hover:bg-white/10 transition-all duration-300"
             >
               View Portfolio
-            </motion.button>
+            </motion.button> */}
           </motion.div>
         </div>
       </section>
