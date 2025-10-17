@@ -273,10 +273,12 @@ const OurServices = () => {
         </div>
       </div>
       
+      <Link href='/contact'>
       <div className={styles.cta}>
         <p>Need a custom solution?</p>
         <button className={styles.ctaButton}>Get in Touch</button>
       </div>
+      </Link>
     </section>
   );
 };
