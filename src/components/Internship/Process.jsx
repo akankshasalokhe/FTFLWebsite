@@ -563,7 +563,7 @@ const InternshipProcess = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center relative z-10 px-4">
-              <motion.button
+              {/* <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-3 text-base md:text-lg"
@@ -572,7 +572,7 @@ const InternshipProcess = () => {
                 <FaRocket />
                 Start Your Journey
                 <FaArrowRight />
-              </motion.button>
+              </motion.button> */}
               
               {/* <motion.button
                 whileHover={{ scale: 1.05 }}

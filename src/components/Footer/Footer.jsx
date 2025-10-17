@@ -716,7 +716,7 @@ const VibrantFooter = () => {
             className="order-1"
           >
             <h4 className="text-base font-bold mb-3 text-white flex items-center gap-1.5">
-              <RiCustomerService2Fill className="text-sm" /> Company
+              Company
             </h4>
             <ul className="space-y-2">
               {[
@@ -727,7 +727,7 @@ const VibrantFooter = () => {
               ].map((item) => (
                 <li key={item.label}>
                   <motion.div whileHover={{ x: 3 }}>
-                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm">
+                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-sm">
                       <FiArrowRight className="text-xs opacity-70" /> {item.label}
                     </Link>
                   </motion.div>
@@ -751,7 +751,7 @@ const VibrantFooter = () => {
                     <Link
                       href={`/services/${service._id}`}
                       scroll={false}
-                      className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm"
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
                     >
                       <FiArrowRight className="text-xs opacity-70" /> {service.title}
                     </Link>
@@ -843,10 +843,10 @@ const VibrantFooter = () => {
             <p className="font-medium text-sm">FTFL Technology Pvt.Ltd</p>
           </div>
           <div className="flex gap-3 text-xs">
-            <Link href="#" className="hover:text-[#FFD166]">
+            <Link href="#" className="hover:text-blue-300">
               Privacy
             </Link>
-            <Link href="#" className="hover:text-[#FFD166]">
+            <Link href="#" className="hover:text-blue-300">
               Terms
             </Link>
           </div>

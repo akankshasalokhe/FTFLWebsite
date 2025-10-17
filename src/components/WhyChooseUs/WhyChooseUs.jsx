@@ -110,7 +110,7 @@ const WhyChooseUs = () => {
               <div
                 className={`w-12 h-12 mb-4 rounded-lg flex items-center justify-center ${activeReason === index
                     ? "bg-blue-100 text-blue-600"
-                    : "bg-blue-300 text-gray-600"
+                    : "bg-blue-400 text-white"
                   }`}
               >
                 {reason.icon}
@@ -204,7 +204,7 @@ const WhyChooseUs = () => {
                 className="w-full flex items-center justify-between p-6 text-left"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center text-gray-600">
+                  <div className="w-12 h-12 rounded-lg p-3 bg-blue-500 flex items-center justify-center text-white">
                     {reason.icon}
                   </div>
                   <div>

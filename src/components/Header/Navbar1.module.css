@@ -5,7 +5,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 204, 255, 0.5);
+  border: 1px solid rgba(0, 81, 255, 0.5);
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   z-index: 1001;
@@ -34,7 +34,7 @@
 /* 🩵 Categories Panel */
 .categoriesColumn {
   flex: 0 0 240px;
-  background: linear-gradient(180deg, #e0f7ff 0%, #f8ffff 100%);
+  /* background: linear-gradient(180deg, #e0e0ff 0%, #f8ffff 100%); */
   border-right: 2px solid #b0ebff;
   border-radius: 16px 0 0 16px;
 }
@@ -57,11 +57,10 @@
 }
 
 .categoryItem:hover {
-  background: rgba(0, 180, 255, 0.1);
-  border-left-color: #0ea5e9;
-  color: #0ea5e9;
+  background: #3b82f6; /* Blue background */
+  color: white; /* White text */
+  border-left-color: #1d4ed8;
   transform: translateX(4px);
-  box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.2);
 }
 
 .categoryItemActive {
@@ -78,7 +77,10 @@
   transition: color 0.3s ease;
 }
 
-.categoryItem:hover .categoryArrow,
+.categoryItem:hover .categoryArrow {
+  color: white; /* White arrow on blue hover */
+}
+
 .categoryItemActive .categoryArrow {
   color: #0284c7;
 }
@@ -112,31 +114,9 @@
 }
 
 .subServiceItem:hover {
-  background: linear-gradient(90deg, #e0f2fe 0%, #bae6fd 100%);
-  border-color: #0ea5e9;
-  color: #0c4a6e;
+  background: #e0f2fe; /* Light blue background */
+  color: #000000; /* Black text */
   transform: translateX(6px);
-  box-shadow: 0 4px 12px rgba(0, 180, 255, 0.2);
-}
-
-/* 🌈 Glow Border Animation */
-.categoryItem:hover::after,
-.subServiceItem:hover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1px solid transparent;
-  background: linear-gradient(90deg, #06b6d4, #0ea5e9, #06b6d4);
-  background-size: 200%;
-  opacity: 0;
-  animation: borderGlow 1s linear infinite;
-  z-index: -1;
-}
-
-@keyframes borderGlow {
-  from { background-position: 0% center; opacity: 0.6; }
-  to { background-position: 200% center; opacity: 1; }
 }
 
 /* 🧍‍♀️ Mobile Styles */
@@ -151,7 +131,7 @@
   }
 
   .dropdownContainer {
-    flex-direction: column; /* ✅ stack vertically */
+    flex-direction: column;
     width: 100%;
   }
 
@@ -172,8 +152,8 @@
   }
 
   .categoryItem:hover {
-    background: #e0f7ff;
-    transform: none;
+    background: #3b82f6; /* Blue background */
+    color: white; /* White text */
   }
 
   .subServicesColumn {
@@ -199,7 +179,6 @@
     border-top: 2px solid #bae6fd;
     border-left: none;
     border-radius: 0 0 12px 12px;
-    box-shadow: inset 0 0 8px rgba(0, 180, 255, 0.1);
   }
 
   .mobileSubServiceItem {
@@ -207,12 +186,12 @@
     color: #334155;
     font-size: 0.95rem;
     border-bottom: 1px solid #e2e8f0;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .mobileSubServiceItem:hover {
-    background: #e0f2fe;
-    color: #0c4a6e;
+    background: #e0f2fe; /* Light blue background */
+    color: #000000; /* Black text */
   }
 }
 
@@ -222,11 +201,10 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* ... your existing navbar CSS remains the same ... */
 /* Navbar Base */
 .navbar {
-  background:#e2e8f06a;
+  background: blue-300;
   color: rgba(0, 0, 0, 0.819);
   padding: 15px 20px;
   position: fixed;
@@ -930,5 +908,6 @@
 .backIcon {
   width: 12px;
   height: 12px;
+  margin-top: 32px;
   cursor: pointer;
 }

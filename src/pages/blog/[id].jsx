@@ -1074,26 +1074,29 @@
 
 
 
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router'; // Using next/router for pages directory or app directory with specific setup
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function BlogDetail() {
     const router = useRouter();
-    // Destructure id directly from router.query
     const { id } = router.query;
     const [searchedPosts, setSearchedPosts] = useState([]);
-    const [blogData, setBlogData] = useState(null); // Initialize as null
-    const [loading, setLoading] = useState(true); // Start as true since we'll fetch
-    const [error, setError] = useState(''); // State for error messages
-    const [copied, setCopied] = useState(false); // For copy link button feedback
-
+    const [blogData, setBlogData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [copied, setCopied] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [showSearchResults, setShowSearchResults] = useState(false);
+    const [allPosts, setAllPosts] = useState([]);
     const [trendingPosts, setTrendingPosts] = useState([]);
 
     useEffect(() => {
@@ -1101,16 +1104,10 @@ export default function BlogDetail() {
             try {
                 const res = await axios.get(`https://landing-page-yclw.vercel.app/api/blog`);
                 const allPosts = res.data.data;
-
-                // Sort by createdAt descending (most recent first)
                 const sortedPosts = allPosts.sort(
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                 );
-
-                // Take top 4 posts
                 setTrendingPosts(sortedPosts.slice(0, 4));
-
-                console.log("Trending Posts:", sortedPosts.slice(0, 4));
             } catch (err) {
                 console.error("Error fetching trending posts:", err);
             }
@@ -1118,6 +1115,38 @@ export default function BlogDetail() {
 
         fetchTrendingPosts();
     }, []);
+
+    useEffect(() => {
+        const fetchAllPosts = async () => {
+            try {
+                const res = await axios.get(`https://landing-page-yclw.vercel.app/api/blog`);
+                setAllPosts(res.data.data);
+            } catch (err) {
+                console.error("Error fetching posts:", err);
+            }
+        };
+
+        fetchAllPosts();
+    }, []);
+
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+
+        if (!query.trim()) {
+            setSearchResults([]);
+            setShowSearchResults(false);
+            return;
+        }
+
+        const filtered = allPosts.filter(post =>
+            post.title?.toLowerCase().includes(query.toLowerCase()) ||
+            post.category?.toLowerCase().includes(query.toLowerCase()) ||
+            post.tags?.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+        );
+
+        setSearchResults(filtered);
+        setShowSearchResults(true);
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -1138,24 +1167,6 @@ export default function BlogDetail() {
                 duration: 0.5
             }
         }
-    };
-
-    const cardHoverVariants = {
-        rest: {
-            scale: 1,
-            y: 0,
-            transition: { duration: 0.3 }
-        },
-        hover: {
-            scale: 1.03,
-            y: -5,
-            transition: { duration: 0.3 }
-        }
-    };
-
-    const imageHoverVariants = {
-        rest: { scale: 1 },
-        hover: { scale: 1.1 }
     };
 
     useEffect(() => {
@@ -1179,8 +1190,6 @@ export default function BlogDetail() {
         fetchData();
     }, [id]);
 
-
-    // Function to format date (example, adjust based on your createdAt format)
     const formatDate = (date) => {
         if (!date) return 'N/A';
         try {
@@ -1191,21 +1200,9 @@ export default function BlogDetail() {
             });
         } catch (e) {
             console.error("Failed to parse date:", date, e);
-            return String(date); // ✅ fallback to raw value
+            return String(date);
         }
     };
-
-
-
-    // const handleSubscribe = (e) => {
-    //     e.preventDefault();
-    //     // Handle newsletter subscription logic here
-    //     console.log('Subscribed with email:', email);
-    //     setEmail('');
-    //     // Instead of alert, you might show a success message in the UI
-    //     // For now, let's keep it simple for example:
-    //     alert('Thank you for subscribing to our newsletter!');
-    // };
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -1215,7 +1212,6 @@ export default function BlogDetail() {
             });
 
             if (res.status === 201 || res.status === 200) {
-
                 setEmail("");
                 alert("Subscribed Successfully!!");
             }
@@ -1227,7 +1223,7 @@ export default function BlogDetail() {
 
     const handleShare = (platform) => {
         const url = window.location.href;
-        const title = blogData?.title || 'Check out this blog post!'; // Use fetched title
+        const title = blogData?.title || 'Check out this blog post!';
 
         switch (platform) {
             case 'twitter':
@@ -1240,7 +1236,6 @@ export default function BlogDetail() {
                 window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
                 break;
             case 'copy':
-                // Using document.execCommand for clipboard operations due to iFrame restrictions
                 const textArea = document.createElement('textarea');
                 textArea.value = url;
                 document.body.appendChild(textArea);
@@ -1261,7 +1256,6 @@ export default function BlogDetail() {
 
     const [email, setEmail] = useState('');
 
-    // Render loading state
     if (loading) {
         return (
             <div className="container text-center py-20">
@@ -1270,7 +1264,6 @@ export default function BlogDetail() {
         );
     }
 
-    // Render error state
     if (error) {
         return (
             <div className="container text-center py-20">
@@ -1282,7 +1275,6 @@ export default function BlogDetail() {
         );
     }
 
-    // Render no data found state
     if (!blogData) {
         return (
             <div className="container text-center py-20">
@@ -1294,7 +1286,6 @@ export default function BlogDetail() {
         );
     }
 
-    // If data is loaded successfully, render the blog post
     return (
         <div className="container">
             <Head>
@@ -1302,25 +1293,14 @@ export default function BlogDetail() {
                 <meta name="description" content={blogData.description} />
             </Head>
 
-            {/* Navigation */}
             <nav className="navigation mt-20">
                 <Link href="/blog" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
-                {/* Dynamically link to category if it exists */}
-                {/* {blogData.category && (
-                    <>
-                        <Link href={`/blog/category/${encodeURIComponent(blogData.category.toLowerCase())}`} className="nav-link">
-                            {blogData.category}
-                        </Link>
-                        <span className="nav-separator"> / </span>
-                    </>
-                )} */}
                 <span className="nav-current">{blogData.title}</span>
             </nav>
 
             <div className="layout">
                 <main className="main-content">
-                    {/* Image Section */}
                     <div className="image-section">
                         {blogData.mainImage && (
                             <Image
@@ -1331,16 +1311,15 @@ export default function BlogDetail() {
                                 layout="responsive"
                                 className="post-image"
                                 priority
-                                unoptimized={true} // Use unoptimized for external URLs or if ImageKit handles optimization
+                                unoptimized={true}
                                 onError={(e) => {
-                                    e.currentTarget.src = "https://placehold.co/800x400/cccccc/ffffff?text=Image+Error"; // Fallback
+                                    e.currentTarget.src = "https://placehold.co/800x400/cccccc/ffffff?text=Image+Error";
                                 }}
                             />
                         )}
                         <div className="image-overlay"></div>
                     </div>
 
-                    {/* Content & Share */}
                     <article className="content-section">
                         <div className="post-meta-header">
                             <div className="category-badge">{blogData.category}</div>
@@ -1358,112 +1337,99 @@ export default function BlogDetail() {
                             {blogData.bestQuote}
                         </blockquote>
 
-
-
-
                         {blogData.items && blogData.items.length > 0 && blogData.items.some(item => item.itemDescription?.length || item.itemTitle) ? (
-                            blogData.items.map((item, index) => {
-                                console.log(`Rendering item ${index}:`, item);
-
-                                return (
-                                    <div key={item._id || index} className="mb-8">
-
-
-                                        {/* Item Title */}
-                                        {item.itemTitle && (
-                                            <h3 className="text-xl font-semibold mt-6 mb-2">{item.itemTitle}</h3>
-                                        )}
-
-                                        {/* Item Description */}
-                                        {item.itemDescription &&
-                                            (Array.isArray(item.itemDescription)
-                                                ? item.itemDescription.map((desc, i) => {
-                                                    console.log(`Rendering description ${i} for item ${index}:`, desc);
-                                                    return (
-                                                        <p key={i} className="mb-4 text-gray-700">
-                                                            {desc}
-                                                        </p>
-                                                    );
-                                                })
-                                                : <p className="mb-4 text-gray-700">{item.itemDescription}</p>)}
-                                    </div>
-                                );
-                            })
+                            blogData.items.map((item, index) => (
+                                <div key={item._id || index} className="mb-8">
+                                    {item.itemTitle && (
+                                        <h3 className="text-xl font-semibold mt-6 mb-2">{item.itemTitle}</h3>
+                                    )}
+                                    {item.itemDescription &&
+                                        (Array.isArray(item.itemDescription)
+                                            ? item.itemDescription.map((desc, i) => (
+                                                <p key={i} className="mb-4 text-gray-700">
+                                                    {desc}
+                                                </p>
+                                            ))
+                                            : <p className="mb-4 text-gray-700">{item.itemDescription}</p>)}
+                                </div>
+                            ))
                         ) : (
                             <p className="text-gray-600 italic">
                                 No detailed content available for this post.
                             </p>
                         )}
 
-                        {/* Render Key Technologies */}
                         {blogData.keyTechnologies && blogData.keyTechnologies.length > 0 && (
                             <div className="key-technologies my-8">
                                 <h2 className="text-2xl font-bold mb-4">Key Technologies to Watch</h2>
-                                {blogData.keyTechnologies.map((tech, index) => {
-                                    console.log(`Rendering key technology ${index}:`, tech);
-                                    return (
-                                        <div key={tech._id || index} className="mb-6">
-                                            {tech.itemTitle && <h3 className="text-xl mb-2 text-gray-700">{tech.itemTitle}</h3>}
-
-                                            {tech.itemPoints && tech.itemPoints.length > 0 && (
-                                                <ul className="list-disc ml-6 mb-4 text-gray-700">
-                                                    {tech.itemPoints.map((point, i) => {
-                                                        console.log(`Rendering point ${i} for tech ${index}:`, point);
-                                                        return <li key={i}>{point}</li>;
-                                                    })}
-                                                </ul>
-                                            )}
-
-                                            {tech.itemDescription && <p className="mb-2 text-gray-700">{tech.itemDescription}</p>}
-                                        </div>
-                                    );
-                                })}
+                                {blogData.keyTechnologies.map((tech, index) => (
+                                    <div key={tech._id || index} className="mb-6">
+                                        {tech.itemTitle && <h3 className="text-xl mb-2 text-gray-700">{tech.itemTitle}</h3>}
+                                        {tech.itemPoints && tech.itemPoints.length > 0 && (
+                                            <ul className="list-disc ml-6 mb-4 text-gray-700">
+                                                {tech.itemPoints.map((point, i) => (
+                                                    <li key={i}>{point}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                        {tech.itemDescription && <p className="mb-2 text-gray-700">{tech.itemDescription}</p>}
+                                    </div>
+                                ))}
                             </div>
                         )}
 
+
                         <div className="share-buttons">
                             <span className="share-label">Share this post:</span>
-                            <button
-                                className="share-btn twitter"
-                                onClick={() => handleShare('twitter')}
-                                aria-label="Share on Twitter"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-                                </svg>
-                            </button>
-                            <button
-                                className="share-btn facebook"
-                                onClick={() => handleShare('facebook')}
-                                aria-label="Share on Facebook"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                                </svg>
-                            </button>
-                            <button
-                                className="share-btn linkedin"
-                                onClick={() => handleShare('linkedin')}
-                                aria-label="Share on LinkedIn"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                                </svg>
-                            </button>
-                            <button
-                                className={`share-btn copy ${copied ? 'copied' : ''}`}
-                                onClick={() => handleShare('copy')}
-                                aria-label="Copy link"
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-                                </svg>
-                                <span className="tooltip">{copied ? 'Copied!' : 'Copy link'}</span>
-                            </button>
+
+                            {/* Wrap all buttons in a new div */}
+                            <div className="share-buttons-icons">
+                                <button
+                                    className="share-btn twitter"
+                                    onClick={() => handleShare('twitter')}
+                                    aria-label="Share on Twitter"
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    className="share-btn facebook"
+                                    onClick={() => handleShare('facebook')}
+                                    aria-label="Share on Facebook"
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    className="share-btn linkedin"
+                                    onClick={() => handleShare('linkedin')}
+                                    aria-label="Share on LinkedIn"
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    className={`share-btn copy ${copied ? 'copied' : ''}`}
+                                    onClick={() => handleShare('copy')}
+                                    aria-label="Copy link"
+                                >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                                    </svg>
+                                    <span className="tooltip">{copied ? 'Copied!' : 'Copy link'}</span>
+                                </button>
+                            </div>
                         </div>
+
+
                     </article>
 
-                    {/* Tags */}
                     <div className="tags-section">
                         <h3>Tags</h3>
                         <div className="tags">
@@ -1477,27 +1443,15 @@ export default function BlogDetail() {
                         </div>
                     </div>
 
-
-                    {/* <div className="related-posts">
-                        <h3>You might also like</h3>
-                        <div className="related-grid">
-
-                            <p className="text-gray-600 italic">Related posts feature not active with dynamic data yet. Fetch from API or add static data.</p>
-                        </div>
-                    </div> */}
-
-
-
-
                     <motion.section
-                        className="mb-16"
+                        className="mb-8"
                         initial="hidden"
                         animate="visible"
                         variants={containerVariants}
                     >
                         <motion.h2
                             variants={itemVariants}
-                            className="text-2xl font-bold text-gray-900 mb-8 flex items-center"
+                            className="text-2xl font-bold text-gray-900  flex items-center"
                         >
                             <div className="related-posts">
                                 <h3>You might also like</h3>
@@ -1584,31 +1538,69 @@ export default function BlogDetail() {
                 </main>
 
                 <aside className="sidebar">
-                    {/* Search Widget */}
-                    <div className="search-widget">
-                        <h3>Search Blog</h3>
-                        <div className="search-input">
-                            <input type="text" placeholder="Search articles..." />
-                            <button>
+                    {/* Fixed Search Widget */}
+                    <div className="search-widget relative mb-8 bg-white rounded-xl p-6 shadow-sm">
+                        <h3 className="text-xl font-bold mb-4">Search Blog</h3>
+                        <div className="search-input flex">
+                            <input
+                                type="text"
+                                placeholder="Search articles..."
+                                value={searchQuery}
+                                onChange={(e) => handleSearch(e.target.value)}
+                                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            />
+                            <button className="px-4 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition-colors">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
                             </button>
                         </div>
+
+                        {/* Search Results Dropdown - Fixed positioning */}
+                        {showSearchResults && (
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-[9999] max-h-96 overflow-y-auto">
+                                {searchResults.length === 0 ? (
+                                    <div className="p-5 text-center text-gray-500">
+                                        <p>No posts found for "{searchQuery}"</p>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col">
+                                        {searchResults.map((post) => (
+                                            <Link
+                                                key={post._id}
+                                                href={`/blog/${post._id}`}
+                                                className="flex items-center gap-3 p-3 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200 last:border-b-0"
+                                                onClick={() => {
+                                                    setShowSearchResults(false);
+                                                    setSearchQuery('');
+                                                }}
+                                            >
+                                                <img
+                                                    src={post.headingImage}
+                                                    alt={post.title}
+                                                    className="w-12 h-12 md:w-14 md:h-14 object-cover rounded-lg flex-shrink-0"
+                                                />
+                                                <div className="flex-1 min-w-0">
+                                                    <h4 className="text-sm font-semibold text-gray-900 truncate">
+                                                        {post.title}
+                                                    </h4>
+                                                    <p className="text-xs text-gray-500 font-medium mt-1">
+                                                        {post.category}
+                                                    </p>
+                                                    <span className="text-xs text-blue-600 font-medium mt-1 inline-block hover:text-blue-700 transition-colors">
+                                                        Read More →
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
 
-                    {/* Popular Posts */}
-                    {/* <div className="popular-posts">
-                        <h3>Trending Posts</h3>
-                        <div className="popular-list">
-                          
-                            <p className="text-gray-600 italic">Popular posts feature not active with dynamic data yet. Fetch from API or add static data.</p>
-                        </div>
-                    </div> */}
-
-
-                    <div className="popular-posts mb-12">
+                    <div className="popular-posts mb-12 bg-white rounded-xl p-6 shadow-sm">
                         <h3 className="text-xl font-bold mb-4">Trending Posts</h3>
                         <div className="popular-list flex flex-col gap-4">
                             {trendingPosts.length === 0 ? (
@@ -1643,744 +1635,456 @@ export default function BlogDetail() {
                         </div>
                     </div>
 
-
-
-
-                    {/* Newsletter */}
-                    <div className="newsletter" style={{ backgroundColor: '#3744bbff' }}> {/* Changed color for better contrast */}
+                    <div className="newsletter bg-gray-700 text-white rounded-xl p-6 shadow-sm mb-8">
                         <div className="newsletter-icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 <path d="M22 6L12 13L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <h3>Subscribe to our Newsletter</h3>
-                        <p>Get the latest updates and news directly to your inbox.</p>
-                        <form onSubmit={handleSubscribe}>
+                        <h3 className="text-xl font-bold mb-2">Subscribe to our Newsletter</h3>
+                        <p className="text-gray-300 mb-4">Get the latest updates and news directly to your inbox.</p>
+                        <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
                             <input
                                 type="email"
                                 placeholder="Your email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                className="px-4 py-3 rounded-lg border bg-white text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
-                            <button type="submit">Subscribe</button>
+                            <button type="submit" className="px-4 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+                                Subscribe
+                            </button>
                         </form>
                     </div>
 
-
-                    {/* Tags Cloud */}
-                    <div className="tags-cloud">
-                        <h3>Popular Tags</h3>
-                        <div className="tags">
-                            {blogData.tags.map(tag => (
-                                <span key={tag} className="tag">{tag}</span>
-                            ))}
-                            {/* <span className="tag">JavaScript</span>
-                            <span className="tag">React</span>
-                            <span className="tag">CSS</span>
-                            <span className="tag">NextJS</span>
-                            <span className="tag">Design</span> */}
-                        </div>
-                    </div>
+                  
                 </aside>
             </div>
 
-
-
             <style jsx>{`
-                .container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
-                
-                .navigation {
-                    margin-bottom: 30px;
-                    font-size: 14px;
-                    color: #666;
-                    display: flex;
-                    align-items: center;
-                }
-                
-                .nav-link {
-                    color: #6B46C1;
-                    text-decoration: none;
-                    transition: color 0.3s ease;
-                }
-                
-                .nav-link:hover {
-                    color: #553C9A;
-                    text-decoration: underline;
-                }
-                
-                .nav-separator {
-                    margin: 0 8px;
-                    color: #CBD5E0;
-                }
-                
-                .nav-current {
-                    color: #718096;
-                    font-weight: 500;
-                }
-                
-                .layout {
-                    display: grid;
-                    grid-template-columns: 2fr 1fr;
-                    gap: 40px;
-                }
-                
-                .image-section {
-                    margin-bottom: 30px;
-                    border-radius: 16px;
-                    overflow: hidden;
-                    position: relative;
-                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                }
-                
-                .image-overlay {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    height: 40%;
-                    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-                    pointer-events: none;
-                }
-                
-                .post-image {
-                    transition: transform 0.5s ease;
-                }
-                
-                .post-image:hover {
-                    transform: scale(1.03);
-                }
-                
-                .content-section {
-                    margin-bottom: 40px;
-                    position: relative;
-                }
-                
-                .post-meta-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 15px;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                }
-                
-                .category-badge {
-                    display: inline-block;
-                    background: rgba(59,130,246,0.8);
-                    color: white;
-                    padding: 6px 12px;
-                    border-radius: 20px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                }
-                
-                .meta-details {
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    font-size: 0.9rem;
-                    color: #718096;
-                }
-                
-                .dot-separator {
-                    font-size: 0.6rem;
-                }
-                
-                .title {
-                    font-size: 2.5rem;
-                    margin-bottom: 25px;
-                    color: #2D3748;
-                    line-height: 1.2;
-                    font-weight: 800;
-                    letter-spacing: -0.5px;
-                }
-                
-                .content {
-                    line-height: 1.8;
-                    color: #4A5568;
-                    font-size: 1.1rem;
-                }
-                
-                .p {
-                    margin-bottom: 24px;
-                }
-                
-                .ul {
-                    margin-bottom: 24px;
-                    padding-left: 24px;
-                }
-                
-                .li {
-                    margin-bottom: 12px;
-                    position: relative;
-                }
-                
-                .li::before {
-                    content: "•";
-                    color: #6B46C1;
-                    font-weight: bold;
-                    display: inline-block;
-                    width: 1em;
-                    margin-left: -1em;
-                }
-                
-              
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-                 .highlighted-quote {
-                    border-left: 4px solid #6B46C1;
-                    padding: 24px;
-                    margin: 40px 0;
-                    background-color: #F8FAFC;
-                    font-style: italic;
-                    font-size: 1.2rem;
-                    color: #2D3748;
-                    border-radius: 0 8px 8px 0;
-                    position: relative;
-                }
-                
-                // .highlighted-quote::before {
-                //     content: '"'; /* Changed to double quote for consistency */
-                //     font-size: 4rem;
-                //     color: #6B46C1;
-                //     opacity: 0.2;
-                //     position: absolute;
-                //     top: -20px;
-                //     left: 10px;
-                //     font-family: Georgia, serif;
-                // }
+  .navigation {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+  }
 
-                
-                
-                .h3 {
-                    font-size: 1.5rem;
-                    margin: 32px 0 16px;
-                    color: #2D3748;
-                    font-weight: 700;
-                }
-                
-                .share-buttons {
-                    margin-top: 40px;
-                    padding-top: 20px;
-                    border-top: 1px solid #E2E8F0;
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    flex-wrap: wrap;
-                }
-                
-                .share-label {
-                    font-weight: 600;
-                    color: #4A5568;
-                }
-                
-                .share-btn {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    border: none;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    position: relative;
-                    color: white;
-                }
-                
-                .share-btn.twitter {
-                    background: #1DA1F2;
-                }
-                
-                .share-btn.facebook {
-                    background: #4267B2;
-                }
-                
-                .share-btn.linkedin {
-                    background: #2867B2;
-                }
-                
-                .share-btn.copy {
-                    background: #718096;
-                }
-                
-                .share-btn.copy.copied {
-                    background: #48BB78;
-                }
-                
-                .share-btn:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                }
-                
-                .tooltip {
-                    position: absolute;
-                    bottom: -30px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: #2D3748;
-                    color: white;
-                    padding: 4px 8px;
-                    border-radius: 4px;
-                    font-size: 0.75rem;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: all 0.3s ease;
-                    white-space: nowrap;
-                }
-                
-                .share-btn.copy:hover .tooltip {
-                    opacity: 1;
-                    visibility: visible;
-                    bottom: -35px;
-                }
-                
-                .tags-section {
-                    margin-bottom: 40px;
-                    padding: 24px;
-                    background: #F8FAFC;
-                    border-radius: 12px;
-                }
-                
-                .tags-section h3 {
-                    font-size: 1.25rem;
-                    margin-bottom: 16px;
-                    color: #2D3748;
-                }
-                
-                .tags {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                }
-                
-                .tag {
-                    padding: 8px 16px;
-                    background: white;
-                    border: 1px solid #E2E8F0;
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                    color: #4A5568;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                }
-                
-                .tag:hover {
-                    background: #6B46C1;
-                    color: white;
-                    transform: translateY(-2px);
-                    border-color: #6B46C1;
-                    box-shadow: 0 4px 6px -1px rgba(107, 70, 193, 0.2);
-                }
-                
-                .related-posts {
-                    margin-bottom: 40px;
-                }
-                
-                .related-posts h3 {
-                    font-size: 1.5rem;
-                    margin-bottom: 24px;
-                    color: #2D3748;
-                    position: relative;
-                    padding-bottom: 8px;
-                }
-                
-                .related-posts h3::after {
-                    content: "";
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 60px;
-                    height: 3px;
-                    background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%);
-                    border-radius: 2px;
-                }
-                
-                .related-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 24px;
-                }
-                
-                .related-card {
-                    border: 1px solid #E2E8F0;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    transition: all 0.3s ease;
-                    background: white;
-                }
-                
-                .related-card:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-                    border-color: #CBD5E0;
-                }
-                
-                .related-image {
-                    overflow: hidden;
-                }
-                
-                .related-image :global(img) {
-                    transition: transform 0.5s ease;
-                }
-                
-                .related-card:hover .related-image :global(img) {
-                    transform: scale(1.05);
-                }
-                
-                .related-content {
-                    padding: 20px;
-                }
-                
-                .related-content .category {
-                    font-size: 0.75rem;
-                    color: #6B46C1;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    letter-spacing: 0.5px;
-                }
-                
-                .related-content h4 {
-                    margin: 8px 0;
-                    font-size: 1.1rem;
-                    color: #2D3748;
-                    line-height: 1.4;
-                    transition: color 0.3s ease;
-                }
-                
-                .related-card:hover .related-content h4 {
-                    color: #6B46C1;
-                }
-                
-                .related-content .date {
-                    font-size: 0.8rem;
-                    color: #718096;
-                }
-                
-                .sidebar > div {
-                    margin-bottom: 30px;
-                    background: white;
-                    border-radius: 12px;
-                    padding: 24px;
-                    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                }
-                
-                .sidebar > div:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                }
-                
-                .sidebar h3 {
-                    font-size: 1.25rem;
-                    margin-bottom: 16px;
-                    color: #2D3748;
-                    position: relative;
-                    padding-bottom: 8px;
-                }
-                
-                .sidebar h3::after {
-                    content: "";
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 40px;
-                    height: 3px;
-                    background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%);
-                    border-radius: 2px;
-                }
-                
-                .search-widget {
-                    margin-bottom: 30px;
-                }
-                
-                .search-input {
-                    position: relative;
-                    display: flex;
-                }
-                
-                .search-input input {
-                    width: 100%;
-                    padding: 12px 16px;
-                    border: 1px solid #E2E8F0;
-                    border-radius: 8px 0 0 8px;
-                    font-size: 0.9rem;
-                    transition: border-color 0.3s ease;
-                }
-                
-                .search-input input:focus {
-                    outline: none;
-                    border-color: rgba(59,130,246,0.8);
-                    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
-                }
-                
-                .search-input button {
-                    padding: 12px 16px;
-                    background:rgba(59,130,246,0.8);
-                    color: white;
-                    border: none;
-                    border-radius: 0 8px 8px 0;
-                    cursor: pointer;
-                    transition: background 0.3s ease;
-                }
-                
-                .search-input button:hover {
-                    background: #553C9A;
-                }
-                
-                .popular-list {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 16px;
-                }
-                
-                .popular-item {
-                    display: flex;
-                    gap: 12px;
-                    align-items: center;
-                    padding: 12px 0;
-                    border-bottom: 1px solid #E2E8F0;
-                    transition: background-color 0.3s ease;
-                    border-radius: 4px;
-                }
-                
-                .popular-item:last-child {
-                    border-bottom: none;
-                }
-                
-                .popular-item:hover {
-                    background-color: #F7FAFC;
-                }
-                
-                .popular-image {
-                    flex-shrink: 0;
-                    border-radius: 8px;
-                    overflow: hidden;
-                }
-                
-                .popular-image :global(img) {
-                    object-fit: cover;
-                }
-                
-                .popular-content {
-                    flex: 1;
-                }
-                
-                .popular-content .category {
-                    font-size: 0.7rem;
-                    color: #6B46C1;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    letter-spacing: 0.5px;
-                }
-                
-                .popular-content h4 {
-                    margin: 4px 0;
-                    font-size: 0.9rem;
-                    color: #2D3748;
-                    line-height: 1.4;
-                    transition: color 0.3s ease;
-                }
-                
-                .popular-item:hover .popular-content h4 {
-                    color: #6B46C1;
-                }
-                
-                .popular-content .date {
-                    font-size: 0.75rem;
-                    color: #718096;
-                }
-                
-                .categories ul {
-                    list-style: none;
-                    padding: 0;
-                    margin: 0;
-                }
-                
-                .categories li {
-                    margin-bottom: 8px;
-                }
-                
-                .categories a {
-                    display: flex;
-                    justify-content: space-between;
-                    text-decoration: none;
-                    color: #4A5568;
-                    padding: 8px 12px;
-                    border-radius: 6px;
-                    transition: all 0.3s ease;
-                }
-                
-                .categories a:hover {
-                    background-color: #F8FAFC;
-                    color: #6B46C1;
-                    transform: translateX(4px);
-                }
-                
-                .categories span {
-                    color: #A0AEC0;
-                    font-size: 0.9rem;
-                }
-                
-                .newsletter {
-                    position: relative;
-                    overflow: hidden;
-                    background: blue;
-                    color: white;
-                }
-                
-                .newsletter-icon {
-                    position: absolute;
-                    top: -10px;
-                    right: -10px;
-                    opacity: 0.1;
-                    width: 80px;
-                    height: 80px;
-                }
-                
-                .newsletter h3 {
-                    color: white;
-                    position: relative;
-                    z-index: 1;
-                }
-                
-                .newsletter h3::after {
-                    background: white;
-                }
-                
-                .newsletter p {
-                    color: #EDF2F7;
-                    margin-bottom: 20px;
-                    position: relative;
-                    z-index: 1;
-                }
-                
-                .newsletter form {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-                    position: relative;
-                    z-index: 1;
-                }
-                
-                .newsletter input {
-                    padding: 12px;
-                    border: none;
-                    border-radius: 6px;
-                    background: white;
-                    color: #2D3748;
-                    font-size: 0.9rem;
-                }
-                
-                .newsletter input::placeholder {
-                    color: #A0AEC0;
-                    padding: 12px;
-                }
-                
-                .newsletter input:focus {
-                    outline: none;
-                    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
-                }
-                
-                .newsletter button {
-                    padding: 12px;
-                    background: #FFF;
-                    color: blue;
-                    border: none;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                }
-                
-                .newsletter button:hover {
-                    background: #ED8936;
-                    transform: translateY(-2px);
-                }
-                
-                .tags-cloud {
-                    margin-bottom: 30px;
-                }
-                
-                .tags-cloud .tags {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 8px;
-                }
-                
-                .tags-cloud .tag {
-                    padding: 6px 12px;
-                    background: #F8FAFC;
-                    border: 1px solid #E2E8F0;
-                    border-radius: 16px;
-                    font-size: 0.8rem;
-                    color: #4A5568;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                }
-                
-                .tags-cloud .tag:hover {
-                    background: #6B46C1;
-                    color: white;
-                    border-color: #6B46C1;
-                }
-                
-                @media (max-width: 968px) {
-                    .layout {
-                        grid-template-columns: 1fr;
-                        gap: 30px;
-                    }
-                    
-                    .title {
-                        font-size: 2rem;
-                    }
-                    
-                    .post-meta-header {
-                        flex-direction: column;
-                        align-items: flex-start;
-                    }
-                }
-                
-                @media (max-width: 640px) {
-                    .related-grid {
-                        grid-template-columns: 1fr;
-                    }
-                    
-                    .share-buttons {
-                        flex-wrap: wrap;
-                    }
-                    
-                    .content {
-                        font-size: 1rem;
-                    }
-                }
-                
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                
-                .main-content > * {
-                    animation: fadeIn 0.5s ease forwards;
-                }
-                
-                .sidebar > * {
-                    animation: fadeIn 0.5s ease forwards;
-                }
-                
-                .related-card:nth-child(1) { animation-delay: 0.1s; }
-                .related-card:nth-child(2) { animation-delay: 0.2s; }
-                .popular-item:nth-child(1) { animation-delay: 0.1s; }
-                .popular-item:nth-child(2) { animation-delay: 0.2s; }
-                .popular-item:nth-child(3) { animation-delay: 0.3s; }
-            `}</style>
+  .nav-link {
+    color: #6B46C1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #553C9A;
+    text-decoration: underline;
+  }
+
+  .nav-separator {
+    margin: 0 8px;
+    color: #CBD5E0;
+  }
+
+  .nav-current {
+    color: #718096;
+    font-weight: 500;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .image-section {
+    margin-bottom: 30px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    pointer-events: none;
+  }
+
+  .post-image {
+    transition: transform 0.5s ease;
+  }
+
+  .post-image:hover {
+    transform: scale(1.03);
+  }
+
+  .content-section {
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .post-meta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    background: rgba(59, 130, 246, 0.8);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .meta-details {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #718096;
+  }
+
+  .dot-separator {
+    font-size: 0.6rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    color: #2d3748;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .highlighted-quote {
+    border-left: 4px solid #6b46c1;
+    padding: 24px;
+    margin: 40px 0;
+    background-color: #f8fafc;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #2d3748;
+    border-radius: 0 8px 8px 0;
+    position: relative;
+  }
+
+  /* SHARE BUTTONS FIX */
+.share-buttons {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+
+.share-label {
+  font-weight: 600;
+  color: #4a5568;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+/* Icon container */
+.share-buttons-icons {
+  display: flex;
+  gap: 12px;
+}
+
+/* Individual buttons */
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Add padding */
+  border-radius: 50%; /* Fully rounded */
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 18px;
+}
+
+  .share-btn.twitter {
+    background: #1da1f2;
+  }
+
+  .share-btn.facebook {
+    background: #4267b2;
+  }
+
+  .share-btn.linkedin {
+    background: #2867b2;
+  }
+
+  .share-btn.copy {
+    background: #718096;
+  }
+
+  .share-btn.copy.copied {
+    background: #48bb78;
+  }
+
+  .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2d3748;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .share-btn.copy:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    bottom: -35px;
+  }
+
+  /* --- Responsive: keep share icons in one line --- */
+@media (max-width: 640px) {
+  .share-buttons {
+    flex-direction: column; /* Label on top, icons below */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .share-label {
+    margin-bottom: 6px;
+  }
+
+  .share-buttons-icons {
+    flex-direction: row;
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: flex-start; /* align icons left */
+  }
+
+  .share-buttons-icons button {
+    padding: 12px; /* slightly larger padding on mobile */
+    border-radius: 50%;
+  }
+}
+
+
+
+
+
+
+.tag {
+  display: inline-block;   /* fit width to content */
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;     /* prevent breaking inside the tag */
+}
+
+
+
+/* container */
+.tags {
+  display: flex;
+  flex-wrap: wrap;   /* allows multiple rows */
+  gap: 10px;         /* spacing between tags */
+}
+
+
+
+
+  .tag:hover {
+    background: #174db3ff;
+    color: white;
+    transform: translateY(-2px);
+    border-color: #6b46c1;
+    box-shadow: 0 4px 6px -1px rgba(107, 70, 193, 0.2);
+  }
+
+
+
+  .related-posts {
+    margin-bottom: 40px;
+  }
+
+  .related-posts h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    color: #2d3748;
+    position: relative;
+    padding-bottom: 8px;
+  }
+
+  .related-posts h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #6b46c1 0%, #805ad5 100%);
+    border-radius: 2px;
+  }
+
+  /* --- Responsive Adjustments --- */
+
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 20px;
+    }
+
+    .layout {
+      grid-template-columns: 65% 35%;
+      gap: 24px;
+    }
+
+    .title {
+      font-size: 26px;
+    }
+
+    .excerpt {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .sidebar {
+      padding-left: 10px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .layout {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .main-content,
+    .sidebar {
+      width: 100%;
+    }
+
+    .title {
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    .excerpt {
+      font-size: 15px;
+    }
+
+    .image-section img,
+    .post-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .post-meta-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .share-buttons {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+
+  .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: sticky; /* Make sidebar sticky on all screen sizes */
+  top: 100px;       /* Distance from top when scrolling */
+  align-self: start; /* Keep it aligned at the top of the layout */
+}
+
+.search-widget,
+.popular-posts, {
+  position: sticky; /* Each widget sticky if you want */
+  top: 100px;       /* Adjust as needed */
+}
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 16px;
+    }
+
+    .layout {
+      gap: 20px;
+    }
+
+    .title {
+      font-size: 20px;
+    }
+
+    .excerpt {
+      font-size: 14px;
+    }
+
+    .highlighted-quote {
+      font-size: 13px;
+      padding-left: 12px;
+    }
+
+  
+
+    .search-input input {
+      width: 100%;
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .search-input button {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+  }
+`}</style>
+
         </div>
     );
 }

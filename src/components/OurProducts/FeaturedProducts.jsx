@@ -337,7 +337,7 @@ export default function ProductDetails() {
 
         {/* Product Selector */}
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-          {productsData.slice(0, 3).map((p) => (
+          {productsData.slice(0, 2).map((p) => (
             <button
               key={p._id}
               onClick={() => setSelectedProduct(p)}

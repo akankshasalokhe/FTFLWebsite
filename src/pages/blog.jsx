@@ -3,17 +3,52 @@
 // components/BlogBanner.js
 import BlogPage from "@/components/Blog/Blog";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const Blog = () => {
+  const [latestPostDate, setLatestPostDate] = useState('');
+
+
+  useEffect(() => {
+    const fetchLatestPost = async () => {
+      try {
+        const response = await fetch('https://landing-page-yclw.vercel.app/api/blog');
+        const result = await response.json();
+        console.log('Fetched Blog Data:', result);
+        
+        // Access the data array from result.data
+        if (result && result.success && result.data && result.data.length > 0) {
+          // Sort posts by date to get the latest one
+          const sortedPosts = result.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          const latestPost = sortedPosts[0];
+
+          // Format the date
+          const formattedDate = new Date(latestPost.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          console.log('Latest Post Date:', formattedDate);
+
+          setLatestPostDate(formattedDate);
+        }
+      } catch (error) {
+        console.error('Error fetching blog data:', error);
+      }
+    };
+
+    fetchLatestPost();
+  }, []);
+
   return (
     <>
       <div className="relative mt-[80px] h-auto md:h-110 bg-blue-500 text-white overflow-hidden mb-4">
-       
+
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-4 py-12 sm:py-16 lg:px-8 lg:py-20">
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
-              <motion.h1 
+              <motion.h1
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -21,7 +56,7 @@ const Blog = () => {
               >
                 Our Blog
               </motion.h1>
-              <motion.p 
+              <motion.p
                 className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-6 md:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -29,19 +64,30 @@ const Blog = () => {
               >
                 Insights, ideas and stories from our team
               </motion.p>
-              <motion.div 
+              <motion.div
                 className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <button id="#blog" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base">
+                {/* <button href="#blog" className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base">
+                  Read Latest Post
+                </button> */}
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('blog');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base"
+                >
                   Read Latest Post
                 </button>
               </motion.div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="w-full lg:w-1/2 flex justify-center px-4 sm:px-0"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -59,13 +105,21 @@ const Blog = () => {
                     </div>
                     <div className="min-w-0">
                       <p className="font-semibold text-gray-900 text-sm sm:text-base truncate">Latest Post</p>
-                      <p className="text-xs sm:text-sm text-gray-500">May 15, 2023 • 5 min read</p>
+                      {/* <p className="text-xs sm:text-sm text-gray-500">May 15, 2023 • 5 min read</p> */}
+                      <p className="text-xs sm:text-sm text-gray-500">
+                        {latestPostDate ? `${latestPostDate} • 5 min read` : 'Loading...'}
+                      </p>
                     </div>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">Getting Started with Next.js</h3>
+                  {/* <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">Getting Started with Next.js</h3>
                   <p className="text-gray-600 text-sm sm:text-base line-clamp-2">Learn how to set up and build your first Next.js application with this comprehensive guide.</p>
                   <div className="mt-3 sm:mt-4 flex items-center text-xs sm:text-sm text-gray-500">
                     <span>Development</span>
+                  </div> */}
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">Insights Across Technology, Design, Marketing & Finance</h3>
+                  <p className="text-gray-600 text-sm sm:text-base line-clamp-2">Expert perspectives and innovative strategies driving success in today's digital landscape.</p>
+                  <div className="mt-3 sm:mt-4 flex items-center text-xs sm:text-sm text-gray-500">
+                    <span>Industry Insights</span>
                   </div>
                 </div>
               </div>

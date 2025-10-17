@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function OurProcess({ steps = [] }) {
+export default function OurProcess({ title, steps = [] }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -25,7 +25,7 @@ export default function OurProcess({ steps = [] }) {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
         >
-          Our Web Development Process
+          Our {title} Process
         </motion.h2>
 
         <motion.p
@@ -34,7 +34,7 @@ export default function OurProcess({ steps = [] }) {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
         >
-          We follow a structured process to deliver exceptional web applications tailored to your needs.
+         Transforming ideas into engaging digital experiences across all platforms and media.
         </motion.p>
 
         {isMobile ? (
@@ -74,9 +74,9 @@ function MobileView({ steps, activeStep, setActiveStep }) {
               className="object-contain rounded-2xl"
               priority
             />
-            <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
+            {/* <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
               Step {activeStep + 1}
-            </div>
+            </div> */}
           </div>
         </div>
       </motion.div>
@@ -267,9 +267,9 @@ function DesktopView({ steps, activeStep, setActiveStep }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="absolute top-20 left-1/2 transform -translate-x-1/2 z-30 w-80 text-center"
+        className="absolute mt-5 top-20 left-1/2 transform -translate-x-1/2 z-30 w-60 text-center"
       >
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 shadow-lg">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-2 shadow-lg">
           <div className="text-blue-900 font-bold text-lg mb-2">
             Step {activeStep + 1}: {steps[activeStep]?.title}
           </div>

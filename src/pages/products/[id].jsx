@@ -1198,9 +1198,9 @@ export default function ProductDetail() {
 
                 </div>
 
-                <button className="bg-transparent hover:bg-white hover:text-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+                {/* <button className="bg-transparent hover:bg-white hover:text-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                   View Case Study
-                </button>
+                </button> */}
               </div>
             </motion.div>
 
@@ -1237,6 +1237,7 @@ export default function ProductDetail() {
                   e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
                 }}
               />
+
             </motion.div>
           </div>
         </div>
@@ -1779,9 +1780,9 @@ export default function ProductDetail() {
                   Contact Our Team
                 </button>
               </Link>
-              <button className="bg-transparent hover:bg-blue-300 hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
+              {/* <button className="bg-transparent hover:bg-blue-300 hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                 Request a Demo
-              </button>
+              </button> */}
             </div>
           </motion.div>
         </div>

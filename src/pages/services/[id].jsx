@@ -1022,7 +1022,8 @@ export default function ServiceDetail() {
   const [faqData, setFaqData] = useState([]);
   const [faqOpen, setFaqOpen] = useState(null);
   const [serviceData, setServiceData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFaqLoading, setIsFaqLoading] = useState(false);
 
   // Animation variants
   const fadeIn = {
@@ -1072,11 +1073,12 @@ export default function ServiceDetail() {
   useEffect(() => {
     const fetchFaq = async () => {
       try {
-        setIsLoading(true);
+        setIsFaqLoading(true);
         const res = await axios.get(`https://landing-page-yclw.vercel.app/api/faq`);
         if (res.data.success) {
+          // Filter FAQs based on the current service/module name
           const filteredFaqs = res.data.data.filter(
-            (faq) => faq.module === "Services"
+            (faq) => faq.module === serviceData?.title
           );
           setFaqData(filteredFaqs);
         }
@@ -1084,56 +1086,43 @@ export default function ServiceDetail() {
       } catch (err) {
         console.error("Error fetching FAQ data:", err);
       } finally {
-        setIsLoading(false);
+        setIsFaqLoading(false);
       }
     };
 
-    fetchFaq();
-  }, []);
+    // Only fetch FAQs when serviceData is available
+    if (serviceData?.title) {
+      fetchFaq();
+    }
+  }, [serviceData]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (!serviceData) return <p>No service found.</p>;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (!serviceData) return <p className="min-h-screen flex items-center justify-center">No service found.</p>;
 
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* Hero Banner - Starts below navbar */}
       <section className="relative mt-[80px] h-[400px] flex items-center justify-center text-white">
-        {/* {serviceData?.bannerImage && (
+        {serviceData?.bannerImage && (
           <div className="absolute inset-0">
             <img
               src={serviceData.bannerImage}
               alt={serviceData.title || "Service Banner"}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover"
+              style={{ objectPosition: 'center 25%' }}
               priority
             />
           </div>
-        )} */}
-           {/* {serviceData?.bannerImage && (
-    <div className="absolute inset-0">
-      <img
-        src={serviceData.bannerImage}
-        alt={serviceData.title || "Service Banner"}
-        className="w-full h-full object-cover object-center md:object-top md:object-bottom" // object-top on desktop
-        priority
-      />
-    </div>
-  )} */}
-
-  {serviceData?.bannerImage && (
-  <div className="absolute inset-0">
-    <img
-      src={serviceData.bannerImage}
-      alt={serviceData.title || "Service Banner"}
-      className="w-full h-full object-cover"
-      style={{ objectPosition: 'center 25%' }} // 25% from top - shows both top and bottom
-      priority
-    />
-  </div>
-)}
-
+        )}
         
         <div className="absolute inset-0 bg-black/50" />
-
        
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.h1
@@ -1154,7 +1143,6 @@ export default function ServiceDetail() {
           </motion.p>
         </div>
 
-      
         <div className="absolute bottom-0 w-full overflow-hidden leading-none">
           <svg
             viewBox="0 0 500 150"
@@ -1169,79 +1157,78 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-
-     
-     <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6 items-start"> {/* Changed to items-start */}
-  <motion.div
-    className="lg:sticky lg:top-24 h-full flex items-center justify-center" // Removed self-start, added h-full
-    initial={{ opacity: 0, x: -50 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.7 }}
-    viewport={{ once: true }}
-  >
-    <div className="w-full max-w-md">
-      <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl aspect-square">
-        <img
-          src={serviceData.serviceImage1}
-          alt={serviceData.title}
-          className="w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
-          <p className="text-white text-base sm:text-lg font-medium">End-to-End Digital Excellence</p>
-        </div>
-      </div>
-    </div>
-  </motion.div>
-
-  <motion.div
-    variants={staggerChildren}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, margin: "-50px" }}
-    className="h-full flex flex-col justify-center" // Added h-full
-  >
-    <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
-      Our {serviceData.title} Services
-      <motion.div
-        className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
-        initial={{ width: 0 }}
-        whileInView={{ width: "50%" }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        viewport={{ once: true }}
-      />
-    </h2>
-
-    <div className="space-y-6 sm:space-y-8 md:space-y-10">
-      {serviceData.service.map((item, idx) => (
+      {/* Services Section */}
+      <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6 items-start">
         <motion.div
-          key={idx}
-          variants={fadeIn}
-          className="flex group flex-col sm:flex-row"
+          className="lg:sticky lg:top-24 h-full flex items-center justify-center"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
         >
-          <div className="flex-shrink-0 mr-5">
-            <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
+          <div className="w-full max-w-md">
+            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl aspect-square">
               <img
-                src={item.icon}
-                alt={item.title}
-                width={24}
-                height={24}
-                className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                src={serviceData.serviceImage1}
+                alt={serviceData.title}
+                className="w-full h-full object-cover object-center"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
+                <p className="text-white text-base sm:text-lg font-medium">End-to-End Digital Excellence</p>
+              </div>
             </div>
           </div>
-          <div className="flex-1">
-            <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
-              {item.title}
-            </h3>
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              {item.description}
-            </p>
+        </motion.div>
+
+        <motion.div
+          variants={staggerChildren}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="h-full flex flex-col justify-center"
+        >
+          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
+            Our {serviceData.title} Services
+            <motion.div
+              className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
+              initial={{ width: 0 }}
+              whileInView={{ width: "50%" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
+          </h2>
+
+          <div className="space-y-6 sm:space-y-8 md:space-y-10">
+            {serviceData.service.map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                className="flex group flex-col sm:flex-row"
+              >
+                <div className="flex-shrink-0 mr-5">
+                  <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
+                    <img
+                      src={item.icon}
+                      alt={item.title}
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
+                    />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
-      ))}
-    </div>
-  </motion.div>
-</section>
+      </section>
 
       {/* Why Choose Us */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
@@ -1261,7 +1248,7 @@ export default function ServiceDetail() {
               Why Choose Us
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
-              We deliver exceptional web development services that drive growth and ensure your digital success
+              We deliver exceptional {serviceData.title} services that drive growth and ensure your digital success
             </p>
           </motion.div>
 
@@ -1320,39 +1307,6 @@ export default function ServiceDetail() {
             </p>
           </motion.div>
 
-
-          {/* <motion.div
-            className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8 items-center"
-            variants={staggerChildren}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {serviceData.technology.map((tech, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.3 }
-                }}
-                className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300"
-              >
-                <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
-                  <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <img
-                    src={tech.icon}
-                    alt={tech.title}
-                    width={64}
-                    height={64}
-                    className="relative z-10 object-contain w-full h-full"
-                  />
-                </div>
-                <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
-              </motion.div>
-            ))}
-          </motion.div> */}
-
           <motion.div
             className="grid grid-cols-3 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 md:gap-8 items-center"
             variants={staggerChildren}
@@ -1401,56 +1355,72 @@ export default function ServiceDetail() {
               Frequently Asked Questions
             </h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Find answers to common questions about our web development process
+              Find answers to common questions about our {serviceData.title} process
             </p>
           </motion.div>
 
-          <div className="space-y-3 sm:space-y-4">
-            {faqData.map((faqObj, idx1) =>
-              faqObj.question.map((faq, idx2) => (
-                <motion.div
-                  key={`${idx1}-${idx2}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx2 * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-                >
-                  <button
-                    className="w-full p-4 sm:p-6 text-left flex justify-between items-center font-medium text-base sm:text-lg"
-                    onClick={() =>
-                      setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
-                    }
-                  >
-                    <span className="text-sm sm:text-base pr-4">{faq.question}</span>
-                    <motion.span
-                      animate={{ rotate: faqOpen === `${idx1}-${idx2}` ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-2 text-blue-600 text-lg sm:text-xl flex-shrink-0"
+          {isFaqLoading ? (
+            <div className="flex justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            </div>
+          ) : (
+            <div className="space-y-3 sm:space-y-4">
+              {faqData.length > 0 ? (
+                faqData.map((faqObj, idx1) =>
+                  faqObj.question.map((faq, idx2) => (
+                    <motion.div
+                      key={`${idx1}-${idx2}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: idx2 * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                     >
-                      ▼
-                    </motion.span>
-                  </button>
-
-                  <AnimatePresence>
-                    {faqOpen === `${idx1}-${idx2}` && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
+                      <button
+                        className="w-full p-4 sm:p-6 text-left flex justify-between items-center font-medium text-base sm:text-lg"
+                        onClick={() =>
+                          setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
+                        }
                       >
-                        <div className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-600 text-sm sm:text-base leading-relaxed">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        <span className="text-sm sm:text-base pr-4">{faq.question}</span>
+                        <motion.span
+                          animate={{ rotate: faqOpen === `${idx1}-${idx2}` ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="ml-2 text-blue-600 text-lg sm:text-xl flex-shrink-0"
+                        >
+                          ▼
+                        </motion.span>
+                      </button>
+
+                      <AnimatePresence>
+                        {faqOpen === `${idx1}-${idx2}` && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-600 text-sm sm:text-base leading-relaxed">
+                              {faq.answer}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ))
+                )
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center py-8 text-gray-500"
+                >
+                  No FAQs available for this service.
                 </motion.div>
-              ))
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -1506,7 +1476,6 @@ export default function ServiceDetail() {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
           >
-
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
