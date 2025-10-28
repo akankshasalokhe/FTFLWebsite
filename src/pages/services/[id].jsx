@@ -1137,7 +1137,7 @@ export default function ServiceDetail() {
             {serviceData.title}
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl mb-6 max-w-2xl mx-auto"
+            className="text-lg md:text-xl mb-18 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
