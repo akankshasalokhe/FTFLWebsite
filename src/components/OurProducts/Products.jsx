@@ -711,11 +711,11 @@ const ProductShowcase = () => {
                     isMobile
                       ? "w-32 sm:w-44 md:w-52 aspect-[9/16]"
                       : "w-[220px] h-[440px]"
-                  } bg-black rounded-2xl shadow-xl border-8 border-black overflow-hidden`}
+                  }  rounded-2xl shadow-xl border-2 border-black overflow-hidden`}
                 >
                   {/* Notch for desktop style */}
                   {!isMobile && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-b-2xl z-20"></div>
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5  z-20"></div>
                   )}
                   <img
                     src={product.mainImage}
