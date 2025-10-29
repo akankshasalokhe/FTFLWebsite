@@ -69,7 +69,7 @@ const HeroSection = () => {
                   fill
                   style={{ 
                     // objectFit: isMobile ? "cover" : "cover",
-                    objectPosition: isMobile ? "center cente" : "center center"
+                    objectPosition: isMobile ? "center center" : "center center"
                   }}
                   className="brightness-50"
                   priority={idx === 0}

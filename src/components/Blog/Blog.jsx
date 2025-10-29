@@ -1016,7 +1016,7 @@ const handleSubscribe = async (e) => {
                   variants={cardHoverVariants}
                   className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100"
                 >
-                  <div className="h-48 relative overflow-hidden">
+                  <div className="h-50 relative overflow-hidden">
                     <motion.img
                       src={post.headingImage}
                       alt={post.title}
