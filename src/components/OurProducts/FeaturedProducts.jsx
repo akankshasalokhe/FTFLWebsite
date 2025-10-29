@@ -313,7 +313,7 @@ export default function ProductDetails() {
     return (
       <div className="relative w-48 h-96 mx-auto shadow-2xl border-2 rounded-2xl border-black overflow-hidden">
         {/* Notch */}
-        {/* <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-5 z-20"></div> */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-5 z-20"></div>
         {/* Screen */}
         <div className="w-full h-full  overflow-hidden">
           <Image
