@@ -768,13 +768,14 @@ const ContactForm = () => {
                   )}
                 </div>
 
+
                 <div>
                   <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-2">
                     Department
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <FiBriefcase className="text-gray-400" />
+                    <div className="absolute inset-y-0 left-0 pl-3 space-x-2 flex items-center pointer-events-none">
+                      <FiBriefcase className="text-gray-400 ml-2" />
                     </div>
                     <select
                       id="department"
@@ -782,7 +783,7 @@ const ContactForm = () => {
                       value={formData.department}
                       onChange={handleChange}
                       disabled={isLoadingDepartments}
-                      className={`pl-10 w-full rounded-lg border ${errors.department ? 'border-red-500' : 'border-gray-300'} bg-white py-3 px-4 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${isLoadingDepartments ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`pl-10 w-full  rounded-lg border ${errors.department ? 'border-red-500' : 'border-gray-300'} bg-white py-3 px-4 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${isLoadingDepartments ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       <option value="">
                         {isLoadingDepartments ? 'Loading departments...' : 'Select Department'}

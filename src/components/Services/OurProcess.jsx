@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function OurProcess({ title, steps = [] }) {
+export default function OurProcess({ title, steps = [], serviceImage2 }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -42,12 +42,14 @@ export default function OurProcess({ title, steps = [] }) {
             steps={steps}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
+             serviceImage2={serviceImage2}
           />
         ) : (
           <DesktopView
             steps={steps}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
+             serviceImage2={serviceImage2}
           />
         )}
       </div>
@@ -56,7 +58,7 @@ export default function OurProcess({ title, steps = [] }) {
 }
 
 // 📱 Mobile View
-function MobileView({ steps, activeStep, setActiveStep }) {
+function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
   return (
     <div className="space-y-6">
       <motion.div
@@ -67,11 +69,18 @@ function MobileView({ steps, activeStep, setActiveStep }) {
       >
         <div className="w-72 h-96 rounded-2xl flex items-center justify-center overflow-hidden bg-white shadow-lg">
           <div className="w-full h-full relative">
-            <Image
+            {/* <Image
               src="/web-app.png"
               alt="Web App Mockup"
               fill
               className="object-contain rounded-2xl"
+              priority
+            /> */}
+             <Image
+              src={serviceImage2}
+              alt="Web App Mockup"
+              fill
+              className="object-cover rounded-2xl"
               priority
             />
             {/* <div className="absolute top-4 right-4 bg-blue-600 text-white text-sm font-bold py-1 px-3 rounded-full shadow-lg">
@@ -252,7 +261,7 @@ function MobileView({ steps, activeStep, setActiveStep }) {
 
 
 
-function DesktopView({ steps, activeStep, setActiveStep }) {
+function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
   const radius = steps.length > 7 ? 320 : 260;
   const centerX = 320;
   const centerY = 320;
@@ -270,7 +279,7 @@ function DesktopView({ steps, activeStep, setActiveStep }) {
         className="absolute mt-5 top-20 left-1/2 transform -translate-x-1/2 z-30 w-60 text-center"
       >
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-2 shadow-lg">
-          <div className="text-blue-900 font-bold text-lg mb-2">
+          <div className="text-blue-900 font-semibold text-sm mb-2">
             Step {activeStep + 1}: {steps[activeStep]?.title}
           </div>
           <div className="text-blue-700 text-sm leading-relaxed">
@@ -286,13 +295,20 @@ function DesktopView({ steps, activeStep, setActiveStep }) {
         transition={{ duration: 0.6 }}
         className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl mt-16" /* Added margin-top */
       >
-        <Image
+        {/* <Image
           src="/web-app.png"
           alt="Web App Mockup"
           fill
           className="object-contain"
           priority
-        />
+        /> */}
+         <Image
+              src={serviceImage2}
+              alt="Web App Mockup"
+              fill
+              className="object-cover rounded-2xl"
+              priority
+            />
         {/* Removed the bottom label since we moved it to the top */}
       </motion.div>
 
@@ -355,7 +371,7 @@ function DesktopView({ steps, activeStep, setActiveStep }) {
                 className="text-center"
               >
                 <div
-                  className={`text-blue-900 font-semibold text-sm leading-tight ${
+                  className={`text-blue-500 font-semibold text-sm leading-tight ${
                     activeStep === index ? "font-bold underline" : ""
                   }`}
                 >
