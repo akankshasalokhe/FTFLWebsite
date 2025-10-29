@@ -519,8 +519,8 @@ useEffect(() => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200"
                   >
                     <option value="">Select preference</option>
-                    <option value="Remote">Remote</option>
-                    <option value="Hybrid">Hybrid</option>
+                    {/* <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option> */}
                     <option value="On-site">On-site</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

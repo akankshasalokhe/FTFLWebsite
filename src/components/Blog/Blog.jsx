@@ -2,7 +2,7 @@
 // import Head from "next/head";
 // import { motion, AnimatePresence } from "framer-motion";
 // import Link from "next/link";
-
+// import axios from "axios";
 // // Sample blog posts data (removed author field)
 // const BLOG_POSTS = [
 //   {
@@ -85,13 +85,69 @@
 //   const [isScrolled, setIsScrolled] = useState(false);
 //   const [hoveredPost, setHoveredPost] = useState(null);
 //   const [blogData, setBlogData] = useState([]);
+//   const [categories, setCategories] = useState(["All"]);
+//   const [isMobile, setIsMobile] = useState(false);
+
+//   const [expandedPosts, setExpandedPosts] = useState({});
+
+//   const toggleExpand = (postId) => {
+//     setExpandedPosts(prev => ({
+//       ...prev,
+//       [postId]: !prev[postId]
+//     }));
+//   };
+
+//   useEffect(() => {
+//     const checkScreenSize = () => {
+//       setIsMobile(window.innerWidth < 768);
+//     };
+
+//     // Set initial value
+//     checkScreenSize();
+
+//     // Add event listener
+//     window.addEventListener('resize', checkScreenSize);
+
+//     // Cleanup
+//     return () => window.removeEventListener('resize', checkScreenSize);
+//   }, []);
+
 
 //   useEffect(() => {
 //     axios
 //       .get("https://landing-page-yclw.vercel.app/api/blog")
-//       .then((res) => setBlogData(res.data.data))
-//          .catch((err) => console.error(err));
-//      }, []);
+//       .then((res) => {
+//         const blogs = res.data.data;
+//         setBlogData(blogs);
+
+//         // ✅ Extract unique categories
+//         const uniqueCategories = [
+//           "All",
+//           ...new Set(blogs.map((post) => post.category)),
+//         ];
+//         setCategories(uniqueCategories);
+//       })
+//       .catch((err) => console.error(err));
+//   }, []);
+
+
+//   const handleSubscribe = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const res = await axios.post("https://landing-page-yclw.vercel.app/api/subscribe", {
+//         email,
+//       });
+
+//       if (res.status === 201 || res.status === 200) {
+//         setSubscribed(true);
+//         setEmail("");
+//         setTimeout(() => setSubscribed(false), 5000);
+//       }
+//     } catch (err) {
+//       console.error("Subscription failed:", err.response?.data || err.message);
+//       alert("Something went wrong. Please try again.");
+//     }
+//   };
 
 
 //   useEffect(() => {
@@ -102,30 +158,29 @@
 //     return () => window.removeEventListener("scroll", handleScroll);
 //   }, []);
 
-//   const categories = ["All", "Development", "Design", "Performance"];
+//   // const categories = ["All", "Development", "Design", "Performance"];
 
-//   const filteredPosts = activeCategory === "All" 
-//     ? BLOG_POSTS 
-//     : BLOG_POSTS.filter(post => post.category === activeCategory);
+//   const filteredPosts = activeCategory === "All"
+//     ? blogData.slice(0, 6)
+//     : blogData.filter(post => post.category === activeCategory);
 
 //   // Apply search filter
-//   const searchedPosts = searchQuery 
-//     ? filteredPosts.filter(post => 
-//         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//         post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-//       )
+//   const searchedPosts = searchQuery
+//     ? filteredPosts.filter(post =>
+//       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//       post.category.toLowerCase().includes(searchQuery.toLowerCase())
+//     )
 //     : filteredPosts;
 
-//   const featuredPosts = BLOG_POSTS.filter(post => post.featured);
+//   const featuredPosts = blogData.filter(post => post.featured);
 
-//   const handleSubscribe = (e) => {
-//     e.preventDefault();
-//     setSubscribed(true);
-//     setEmail("");
-//     // Reset subscription status after 5 seconds
-//     setTimeout(() => setSubscribed(false), 5000);
-//   };
+//   // const handleSubscribe = (e) => {
+//   //   e.preventDefault();
+//   //   setSubscribed(true);
+//   //   setEmail("");
+//   //   // Reset subscription status after 5 seconds
+//   //   setTimeout(() => setSubscribed(false), 5000);
+//   // };
 
 //   // Animation variants
 //   const containerVariants = {
@@ -150,12 +205,12 @@
 //   };
 
 //   const cardHoverVariants = {
-//     rest: { 
+//     rest: {
 //       scale: 1,
 //       y: 0,
 //       transition: { duration: 0.3 }
 //     },
-//     hover: { 
+//     hover: {
 //       scale: 1.03,
 //       y: -5,
 //       transition: { duration: 0.3 }
@@ -168,21 +223,41 @@
 //   };
 
 //   return (
-//     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+//     <div className="min-h-screen  bg-gradient-to-br from-gray-50 to-gray-100">
 //       <Head>
-//         <title>Blog | Muze Creative Insights</title>
+//         <title>Blog</title>
 //         <meta name="description" content="Insights, ideas and stories from the Muze team" />
 //       </Head>
 
-//       {/* Animated Background Elements */}
-//       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-//         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-//         <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-//         <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+//       {/* Animated Background Bubbles - MOVED OUTSIDE HEAD */}
+//       <div className="fixed inset-0 pointer-events-none z-0">
+//         {[...Array(25)].map((_, i) => (
+//           <motion.div
+//             key={i}
+//             className="absolute bg-white rounded-full z-0"
+//             style={{
+//               width: `${Math.random() * 10 + 5}px`,
+//               height: `${Math.random() * 10 + 5}px`,
+//               left: `${Math.random() * 100}%`,
+//               top: `${Math.random() * 100}%`,
+//               opacity: 0.4
+//             }}
+//             animate={{
+//               y: [0, Math.random() * 100 - 50],
+//               x: [0, Math.random() * 60 - 30],
+//             }}
+//             transition={{
+//               duration: Math.random() * 10 + 10,
+//               repeat: Infinity,
+//               repeatType: "reverse",
+//               ease: "easeInOut"
+//             }}
+//           />
+//         ))}
 //       </div>
 
 //       {/* Sticky Header */}
-//       <motion.header 
+//       <motion.header
 //         className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'}`}
 //         initial={{ y: -100 }}
 //         animate={{ y: 0 }}
@@ -190,22 +265,23 @@
 //       >
 //         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 //           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-//             <motion.div 
+//             <motion.div
 //               className="flex items-center"
 //               whileHover={{ scale: 1.05 }}
 //               transition={{ type: "spring", stiffness: 400, damping: 10 }}
 //             >
-//               <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+//               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
 //                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 //                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
 //                 </svg>
 //               </div>
-//               <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-//                Blog
+//               <h1 className="text-3xl font-bold ">
+//                 Blog
 //               </h1>
+
 //             </motion.div>
 
-//             <motion.div 
+//             <motion.div
 //               className="relative w-full md:w-64"
 //               whileFocus={{ scale: 1.05 }}
 //             >
@@ -230,9 +306,12 @@
 //                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
 //                 />
 //               </svg>
+
 //             </motion.div>
 //           </div>
 //         </div>
+
+
 //       </motion.header>
 
 //       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -249,16 +328,16 @@
 //             </span>
 //           </motion.div>
 
-//           <motion.h2 
+//           <motion.h2
 //             initial={{ opacity: 0, y: 20 }}
 //             animate={{ opacity: 1, y: 0 }}
 //             transition={{ duration: 0.5, delay: 0.1 }}
 //             className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
 //           >
-//             Explore Our <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Creative</span> Blog
+//             Explore Our <span className="bg-clip-text text-transparent bg-blue-600">Creative</span> Blog
 //           </motion.h2>
 
-//           <motion.p 
+//           <motion.p
 //             initial={{ opacity: 0, y: 20 }}
 //             animate={{ opacity: 1, y: 0 }}
 //             transition={{ duration: 0.5, delay: 0.2 }}
@@ -278,7 +357,7 @@
 //         </section>
 
 //         {/* Category Filters */}
-//         <motion.section 
+//         <motion.section
 //           className="mb-12"
 //           initial={{ opacity: 0 }}
 //           animate={{ opacity: 1 }}
@@ -291,11 +370,10 @@
 //                 whileHover={{ scale: 1.05 }}
 //                 whileTap={{ scale: 0.95 }}
 //                 onClick={() => setActiveCategory(category)}
-//                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-//                   activeCategory === category
-//                     ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-//                     : "bg-white/80 text-gray-700 hover:bg-gray-50 shadow-sm border border-gray-200 backdrop-blur-sm"
-//                 }`}
+//                 className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ${activeCategory === category
+//                   ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-lg"
+//                   : "bg-white/80 text-gray-700 hover:bg-gray-50 shadow-sm border border-gray-200 backdrop-blur-sm"
+//                   }`}
 //               >
 //                 {category}
 //               </motion.button>
@@ -304,13 +382,13 @@
 //         </motion.section>
 
 //         {/* Featured Posts Section */}
-//         <motion.section 
+//         <motion.section
 //           className="mb-16"
 //           initial="hidden"
 //           animate="visible"
 //           variants={containerVariants}
 //         >
-//           <motion.h2 
+//           <motion.h2
 //             variants={itemVariants}
 //             className="text-2xl font-bold text-gray-900 mb-8 flex items-center"
 //           >
@@ -320,7 +398,7 @@
 
 //           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 //             {featuredPosts.map((post, index) => (
-//               <motion.div 
+//               <motion.div
 //                 key={post.id}
 //                 variants={itemVariants}
 //                 className="relative group"
@@ -330,13 +408,13 @@
 //                 onMouseEnter={() => setHoveredPost(post.id)}
 //                 onMouseLeave={() => setHoveredPost(null)}
 //               >
-//                 <motion.div 
+//                 <motion.div
 //                   variants={cardHoverVariants}
 //                   className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100"
 //                 >
-//                   <div className="h-48 relative overflow-hidden">
-//                     <motion.img 
-//                       src={post.image} 
+//                   <div className="h-80 relative overflow-hidden">
+//                     <motion.img
+//                       src={post.headingImage}
 //                       alt={post.title}
 //                       className="w-full h-full object-cover"
 //                       variants={imageHoverVariants}
@@ -349,7 +427,7 @@
 //                     </div>
 //                     <div className="absolute top-4 right-4">
 //                       <motion.div
-//                         animate={{ 
+//                         animate={{
 //                           rotate: hoveredPost === post.id ? 360 : 0,
 //                           scale: hoveredPost === post.id ? 1.1 : 1
 //                         }}
@@ -364,16 +442,51 @@
 //                   </div>
 //                   <div className="p-6">
 //                     <div className="flex items-center text-sm text-gray-500 mb-3">
-//                       <span>{post.date}</span>
+
+//                       <span>
+//                         {new Date(post.createdAt).toLocaleDateString('en-US', {
+//                           year: 'numeric',
+//                           month: 'long',
+//                           day: 'numeric',
+//                         })}
+//                       </span>
+
 //                       <span className="mx-2">•</span>
-//                       <span>{post.readTime}</span>
+//                       <span>{post.readtime}</span>
 //                     </div>
 //                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-//                     <p className="text-gray-600 mb-4">{post.excerpt}</p>
-//                     <div className="flex flex-wrap gap-2">
+//                     {/* <p className="text-gray-600 mb-4">{post.description}</p> */}
+//                     {/* <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
+//                       {isMobile
+//                         ? `${post.description.slice(0, 150)}${post.description.length > 150 ? '...' : ''}`
+//                         : post.description
+//                       }
+//                     </p> */}
+
+//                    <div className="text-gray-700 leading-relaxed mt-2">
+//             {isMobile ? (
+//               `${post.description.slice(0, 150)}${post.description.length > 150 ? '...' : ''}`
+//             ) : (
+//               <>
+//                 {expandedPosts[post.id] 
+//                   ? post.description
+//                   : `${post.description.slice(0, 150)}${post.description.length > 150 ? '...' : ''}`
+//                 }
+//                 {post.description.length > 150 && (
+//                   <button
+//                     onClick={() => toggleExpand(post.id)}
+//                     className="text-blue-600 hover:text-blue-800 font-medium text-sm ml-1"
+//                   >
+//                     {expandedPosts[post.id] ? 'Show Less' : 'Show More'}
+//                   </button>
+//                 )}
+//               </>
+//             )}
+//           </div>
+//                     <div className="flex mt-2 flex-wrap gap-2">
 //                       {post.tags.slice(0, 3).map((tag, index) => (
 //                         <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-//                           #{tag}
+//                           {tag}
 //                         </span>
 //                       ))}
 //                     </div>
@@ -385,17 +498,17 @@
 //         </motion.section>
 
 //         {/* All Posts Section */}
-//         <motion.section 
+//         <motion.section
 //           className="mb-16"
 //           initial="hidden"
 //           animate="visible"
 //           variants={containerVariants}
 //         >
-//           <motion.h2 
+//           <motion.h2
 //             variants={itemVariants}
 //             className="text-2xl font-bold text-gray-900 mb-8 flex items-center"
 //           >
-//             <span className="bg-gradient-to-r from-blue-500 to-purple-600 h-0.5 w-8 mr-3"></span>
+//             <span id='blog' className="bg-gradient-to-r from-blue-500 to-purple-600 h-0.5 w-8 mr-3"></span>
 //             Latest Articles
 //             <span className="ml-3 text-sm font-normal text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
 //               {searchedPosts.length} articles
@@ -404,7 +517,7 @@
 
 //           <AnimatePresence mode="wait">
 //             {searchedPosts.length === 0 ? (
-//               <motion.div 
+//               <motion.div
 //                 key="no-results"
 //                 initial={{ opacity: 0, scale: 0.9 }}
 //                 animate={{ opacity: 1, scale: 1 }}
@@ -417,13 +530,13 @@
 //                 <p className="text-gray-600">No posts found. Try a different search or category.</p>
 //               </motion.div>
 //             ) : (
-//               <motion.div 
+//               <motion.div
 //                 key="posts-grid"
 //                 variants={containerVariants}
 //                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
 //               >
 //                 {searchedPosts.map((post, index) => (
-//                   <motion.article 
+//                   <motion.article
 //                     key={post.id}
 //                     variants={itemVariants}
 //                     layout
@@ -431,9 +544,9 @@
 //                     whileHover={{ y: -5 }}
 //                     transition={{ type: "spring", stiffness: 300 }}
 //                   >
-//                     <div className="h-40 relative overflow-hidden">
-//                       <img 
-//                         src={post.image} 
+//                     <div className="h-60 relative overflow-hidden">
+//                       <img
+//                         src={post.headingImage}
 //                         alt={post.title}
 //                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
 //                       />
@@ -446,22 +559,31 @@
 //                     </div>
 //                     <div className="p-5">
 //                       <div className="flex items-center text-xs text-gray-500 mb-2">
-//                         <span>{post.date}</span>
+//                         <span>
+//                           {new Date(post.createdAt).toLocaleDateString('en-US', {
+//                             year: 'numeric',
+//                             month: 'long',
+//                             day: 'numeric',
+//                           })}
+//                         </span>
+
+
 //                         <span className="mx-1">•</span>
-//                         <span>{post.readTime}</span>
+//                         <span>{post.readtime}</span>
 //                       </div>
 //                       <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-//                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
+//                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
 //                       <div className="flex flex-wrap gap-2 mb-4">
 //                         {post.tags.slice(0, 2).map((tag, index) => (
 //                           <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-//                             #{tag}
+//                             {tag}
 //                           </span>
 //                         ))}
 //                       </div>
 //                       <div className="flex justify-end">
-//                         <Link href={`/blog/${post.slug}`}>
-//                           <motion.button 
+
+//                         <Link href={`/blog/${post._id}`} className="flex-1">
+//                           <motion.button
 //                             className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
 //                             whileHover={{ x: 5 }}
 //                             transition={{ type: "spring", stiffness: 500 }}
@@ -482,7 +604,7 @@
 //         </motion.section>
 
 //         {/* Newsletter Section */}
-//         <motion.section 
+//         <motion.section
 //           initial={{ opacity: 0, y: 20 }}
 //           whileInView={{ opacity: 1, y: 0 }}
 //           viewport={{ once: true }}
@@ -505,7 +627,7 @@
 //               </svg>
 //             </motion.div>
 
-//             <motion.h2 
+//             <motion.h2
 //               initial={{ opacity: 0, y: 10 }}
 //               whileInView={{ opacity: 1, y: 0 }}
 //               viewport={{ once: true }}
@@ -515,7 +637,7 @@
 //               Stay in the loop
 //             </motion.h2>
 
-//             <motion.p 
+//             <motion.p
 //               initial={{ opacity: 0, y: 10 }}
 //               whileInView={{ opacity: 1, y: 0 }}
 //               viewport={{ once: true }}
@@ -526,7 +648,7 @@
 //             </motion.p>
 
 //             {subscribed ? (
-//               <motion.div 
+//               <motion.div
 //                 initial={{ opacity: 0, scale: 0.8 }}
 //                 animate={{ opacity: 1, scale: 1 }}
 //                 className="bg-white text-green-700 py-4 px-6 rounded-lg inline-flex items-center shadow-lg"
@@ -537,8 +659,8 @@
 //                 Thank you for subscribing!
 //               </motion.div>
 //             ) : (
-//               <motion.form 
-//                 onSubmit={handleSubscribe} 
+//               <motion.form
+//                 onSubmit={handleSubscribe}
 //                 className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
 //                 initial={{ opacity: 0, y: 10 }}
 //                 whileInView={{ opacity: 1, y: 0 }}
@@ -568,29 +690,29 @@
 //       </main>
 
 //       {/* Add custom styles for animations */}
-      // <style jsx global>{`
-      //   @keyframes blob {
-      //     0% { transform: translate(0px, 0px) scale(1); }
-      //     33% { transform: translate(30px, -50px) scale(1.1); }
-      //     66% { transform: translate(-20px, 20px) scale(0.9); }
-      //     100% { transform: translate(0px, 0px) scale(1); }
-      //   }
-      //   .animate-blob {
-      //     animation: blob 7s infinite;
-      //   }
-      //   .animation-delay-2000 {
-      //     animation-delay: 2s;
-      //   }
-      //   .animation-delay-4000 {
-      //     animation-delay: 4s;
-      //   }
-      //   .line-clamp-2 {
-      //     display: -webkit-box;
-      //     -webkit-line-clamp: 2;
-      //     -webkit-box-orient: vertical;
-      //     overflow: hidden;
-      //   }
-      // `}</style>
+//       <style jsx global>{`
+//         @keyframes blob {
+//           0% { transform: translate(0px, 0px) scale(1); }
+//           33% { transform: translate(30px, -50px) scale(1.1); }
+//           66% { transform: translate(-20px, 20px) scale(0.9); }
+//           100% { transform: translate(0px, 0px) scale(1); }
+//         }
+//         .animate-blob {
+//           animation: blob 7s infinite;
+//         }
+//         .animation-delay-2000 {
+//           animation-delay: 2s;
+//         }
+//         .animation-delay-4000 {
+//           animation-delay: 4s;
+//         }
+//         .line-clamp-2 {
+//           display: -webkit-box;
+//           -webkit-line-clamp: 2;
+//           -webkit-box-orient: vertical;
+//           overflow: hidden;
+//         }
+//       `}</style>
 //     </div>
 //   );
 // };
@@ -610,85 +732,11 @@
 
 
 
-
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import axios from "axios";
-// Sample blog posts data (removed author field)
-const BLOG_POSTS = [
-  {
-    id: 1,
-    title: "Getting Started with Next.js",
-    excerpt: "Learn how to set up and build your first Next.js application with this comprehensive guide.",
-    date: "May 15, 2023",
-    category: "Development",
-    readTime: "5 min read",
-    image: "/react.png",
-    featured: true,
-    slug: "getting-started-with-nextjs",
-    tags: ["Web Development", "React", "Next.js"]
-  },
-  {
-    id: 2,
-    title: "The Future of React in 2023",
-    excerpt: "Exploring the latest features and updates in React and how they will change frontend development.",
-    date: "April 28, 2023",
-    category: "Development",
-    readTime: "8 min read",
-    image: "/api/placeholder/400/250?text=React",
-    featured: true,
-    slug: "future-of-react-2023",
-    tags: ["React", "Frontend", "JavaScript"]
-  },
-  {
-    id: 3,
-    title: "UI/UX Design Principles for Developers",
-    excerpt: "Essential design principles that every developer should know to create better user experiences.",
-    date: "April 15, 2023",
-    category: "Design",
-    readTime: "6 min read",
-    image: "/api/placeholder/400/250?text=UI/UX",
-    slug: "ui-ux-design-principles",
-    tags: ["Design", "UI/UX", "Web Design"]
-  },
-  {
-    id: 4,
-    title: "Building Scalable APIs with GraphQL",
-    excerpt: "Learn how to design and implement scalable APIs using GraphQL and best practices.",
-    date: "March 22, 2023",
-    category: "Development",
-    readTime: "10 min read",
-    image: "/api/placeholder/400/250?text=GraphQL",
-    slug: "scalable-apis-with-graphql",
-    tags: ["GraphQL", "API", "Backend"]
-  },
-  {
-    id: 5,
-    title: "The Psychology of Color in Web Design",
-    excerpt: "How color choices impact user perception and behavior on your website.",
-    date: "March 10, 2023",
-    category: "Design",
-    readTime: "7 min read",
-    image: "/api/placeholder/400/250?text=Colors",
-    slug: "psychology-of-color-web-design",
-    tags: ["Design", "Colors", "Psychology"]
-  },
-  {
-    id: 6,
-    title: "Optimizing Website Performance",
-    excerpt: "Practical techniques to improve your website's loading speed and overall performance.",
-    date: "February 28, 2023",
-    category: "Performance",
-    readTime: "9 min read",
-    image: "/api/placeholder/400/250?text=Performance",
-    slug: "optimizing-website-performance",
-    tags: ["Performance", "Optimization", "Web"]
-  }
-];
-
-
 
 const BlogPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -699,60 +747,67 @@ const BlogPage = () => {
   const [hoveredPost, setHoveredPost] = useState(null);
   const [blogData, setBlogData] = useState([]);
   const [categories, setCategories] = useState(["All"]);
-    const [isMobile, setIsMobile] = useState(false);
-  
-    useEffect(() => {
-      const checkScreenSize = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-  
-      // Set initial value
-      checkScreenSize();
-  
-      // Add event listener
-      window.addEventListener('resize', checkScreenSize);
-  
-      // Cleanup
-      return () => window.removeEventListener('resize', checkScreenSize);
-    }, []);
-  
+  const [isMobile, setIsMobile] = useState(false);
 
-useEffect(() => {
-  axios
-    .get("https://landing-page-yclw.vercel.app/api/blog")
-    .then((res) => {
-      const blogs = res.data.data;
-      setBlogData(blogs);
+  // Track expanded state for each post by ID
+  const [expandedPosts, setExpandedPosts] = useState({});
 
-      // ✅ Extract unique categories
-      const uniqueCategories = [
-        "All",
-        ...new Set(blogs.map((post) => post.category)),
-      ];
-      setCategories(uniqueCategories);
-    })
-    .catch((err) => console.error(err));
-}, []);
+  const toggleExpand = (postId) => {
+    setExpandedPosts(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
-const handleSubscribe = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.post("https://landing-page-yclw.vercel.app/api/subscribe", {
-      email,
-    });
+    // Set initial value
+    checkScreenSize();
 
-    if (res.status === 201 || res.status === 200) {
-      setSubscribed(true);
-      setEmail("");
-      setTimeout(() => setSubscribed(false), 5000);
+    // Add event listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://landing-page-yclw.vercel.app/api/blog")
+      .then((res) => {
+        const blogs = res.data.data;
+        setBlogData(blogs);
+
+        // ✅ Extract unique categories
+        const uniqueCategories = [
+          "All",
+          ...new Set(blogs.map((post) => post.category)),
+        ];
+        setCategories(uniqueCategories);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("https://landing-page-yclw.vercel.app/api/subscribe", {
+        email,
+      });
+
+      if (res.status === 201 || res.status === 200) {
+        setSubscribed(true);
+        setEmail("");
+        setTimeout(() => setSubscribed(false), 5000);
+      }
+    } catch (err) {
+      console.error("Subscription failed:", err.response?.data || err.message);
+      alert("Something went wrong. Please try again.");
     }
-  } catch (err) {
-    console.error("Subscription failed:", err.response?.data || err.message);
-    alert("Something went wrong. Please try again.");
-  }
-};
-
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -762,29 +817,19 @@ const handleSubscribe = async (e) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // const categories = ["All", "Development", "Design", "Performance"];
-
   const filteredPosts = activeCategory === "All"
     ? blogData.slice(0, 6)
     : blogData.filter(post => post.category === activeCategory);
 
   // Apply search filter
-  const searchedPosts = searchQuery 
-    ? filteredPosts.filter(post => 
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-         post.category.toLowerCase().includes(searchQuery.toLowerCase()) 
-      )
+  const searchedPosts = searchQuery
+    ? filteredPosts.filter(post =>
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.category.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : filteredPosts;
 
   const featuredPosts = blogData.filter(post => post.featured);
-
-  // const handleSubscribe = (e) => {
-  //   e.preventDefault();
-  //   setSubscribed(true);
-  //   setEmail("");
-  //   // Reset subscription status after 5 seconds
-  //   setTimeout(() => setSubscribed(false), 5000);
-  // };
 
   // Animation variants
   const containerVariants = {
@@ -833,7 +878,7 @@ const handleSubscribe = async (e) => {
         <meta name="description" content="Insights, ideas and stories from the Muze team" />
       </Head>
 
-     {/* Animated Background Bubbles - MOVED OUTSIDE HEAD */}
+      {/* Animated Background Bubbles - MOVED OUTSIDE HEAD */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(25)].map((_, i) => (
           <motion.div
@@ -880,9 +925,9 @@ const handleSubscribe = async (e) => {
                 </svg>
               </div>
               <h1 className="text-3xl font-bold ">
-               Blog
+                Blog
               </h1>
-              
+
             </motion.div>
 
             <motion.div
@@ -910,12 +955,12 @@ const handleSubscribe = async (e) => {
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
-              
+
             </motion.div>
           </div>
         </div>
-        
-        
+
+
       </motion.header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -1003,20 +1048,20 @@ const handleSubscribe = async (e) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {featuredPosts.map((post, index) => (
               <motion.div
-                key={post.id}
+                key={post._id} 
                 variants={itemVariants}
                 className="relative group"
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
-                onMouseEnter={() => setHoveredPost(post.id)}
+                onMouseEnter={() => setHoveredPost(post._id)}
                 onMouseLeave={() => setHoveredPost(null)}
               >
                 <motion.div
                   variants={cardHoverVariants}
                   className="bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100"
                 >
-                  <div className="h-50 relative overflow-hidden">
+                  <div className="h-80 relative overflow-hidden">
                     <motion.img
                       src={post.headingImage}
                       alt={post.title}
@@ -1032,8 +1077,8 @@ const handleSubscribe = async (e) => {
                     <div className="absolute top-4 right-4">
                       <motion.div
                         animate={{
-                          rotate: hoveredPost === post.id ? 360 : 0,
-                          scale: hoveredPost === post.id ? 1.1 : 1
+                          rotate: hoveredPost === post._id ? 360 : 0,
+                          scale: hoveredPost === post._id ? 1.1 : 1
                         }}
                         transition={{ duration: 0.5 }}
                         className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm"
@@ -1046,7 +1091,6 @@ const handleSubscribe = async (e) => {
                   </div>
                   <div className="p-6">
                     <div className="flex items-center text-sm text-gray-500 mb-3">
-                      
                       <span>
                         {new Date(post.createdAt).toLocaleDateString('en-US', {
                           year: 'numeric',
@@ -1054,19 +1098,51 @@ const handleSubscribe = async (e) => {
                           day: 'numeric',
                         })}
                       </span>
-
                       <span className="mx-2">•</span>
                       <span>{post.readtime}</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-                    {/* <p className="text-gray-600 mb-4">{post.description}</p> */}
-                     <p className="text-gray-600 mb-4 leading-relaxed flex-grow">
-                {isMobile
-                  ? `${post.description.slice(0, 50)}${post.description.length > 50 ? '...' : ''}`
-                  : post.description
-                }
-              </p>
-                    <div className="flex flex-wrap gap-2">
+                    
+                    {/* Show More/Less functionality for desktop */}
+                    <div className="text-gray-600 mb-4 leading-relaxed">
+                      {isMobile ? (
+                        `${post.description.slice(0, 150)}${post.description.length > 150 ? '...' : ''}`
+                      ) : (
+                        <div className="flex flex-col">
+                          <span>
+                            {expandedPosts[post._id]  
+                              ? post.description
+                              : `${post.description.slice(0, 150)}${post.description.length > 150 ? '...' : ''}`
+                            }
+                          </span>
+                          
+                          {post.description.length > 150 && (
+                            <button
+                              onClick={() => toggleExpand(post._id)} 
+                              className="text-blue-600 hover:text-blue-800 font-medium text-sm mt-2 self-start flex items-center gap-1 transition-colors"
+                            >
+                              {expandedPosts[post._id] ? ( 
+                                <>
+                                  Show Less
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                  </svg>
+                                </>
+                              ) : (
+                                <>
+                                  Show More
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                </>
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex mt-2 flex-wrap gap-2">
                       {post.tags.slice(0, 3).map((tag, index) => (
                         <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
                           {tag}
@@ -1120,7 +1196,7 @@ const handleSubscribe = async (e) => {
               >
                 {searchedPosts.map((post, index) => (
                   <motion.article
-                    key={post.id}
+                    key={post._id}
                     variants={itemVariants}
                     layout
                     className="bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
@@ -1149,13 +1225,36 @@ const handleSubscribe = async (e) => {
                             day: 'numeric',
                           })}
                         </span>
-
-
                         <span className="mx-1">•</span>
                         <span>{post.readtime}</span>
                       </div>
                       <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-blue-600 transition-colors duration-300">{post.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
+                      
+                      {/* Show More/Less functionality for desktop in latest articles */}
+                      <div className="text-gray-600 text-sm mb-4">
+                        {isMobile ? (
+                          <div className="line-clamp-2">{post.description}</div>
+                        ) : (
+                          <div className="flex flex-col">
+                            <span className={expandedPosts[post._id] ? "" : "line-clamp-2"}>
+                              {expandedPosts[post._id]
+                                ? post.description
+                                : post.description
+                              }
+                            </span>
+                            
+                            {post.description.length > 100 && (
+                              <button
+                                onClick={() => toggleExpand(post._id)}
+                                className="text-blue-600 hover:text-blue-800 font-medium text-xs mt-1 self-start transition-colors"
+                              >
+                                {expandedPosts[post._id] ? 'Show Less' : 'Show More'}
+                              </button>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
                       <div className="flex flex-wrap gap-2 mb-4">
                         {post.tags.slice(0, 2).map((tag, index) => (
                           <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
@@ -1164,8 +1263,7 @@ const handleSubscribe = async (e) => {
                         ))}
                       </div>
                       <div className="flex justify-end">
-                     
-                           <Link href={`/blog/${post._id}`} className="flex-1">
+                        <Link href={`/blog/${post._id}`} className="flex-1">
                           <motion.button
                             className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
                             whileHover={{ x: 5 }}
@@ -1178,7 +1276,7 @@ const handleSubscribe = async (e) => {
                           </motion.button>
                         </Link>
                       </div>
-                    </div>  
+                    </div>
                   </motion.article>
                 ))}
               </motion.div>
@@ -1301,9 +1399,3 @@ const handleSubscribe = async (e) => {
 };
 
 export default BlogPage;
-
-
-
-
-
-

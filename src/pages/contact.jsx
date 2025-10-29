@@ -244,9 +244,9 @@ export default function ContactPage() {
 
             {/* Company Info (Height Increased) */}
             <div className="bg-gradient-to-br from-blue-200 via-blue-300 to-blue-400 rounded-3xl shadow-2xl p-6 hover:shadow-3xl transform hover:-translate-y-1 transition-all h-72">
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">Company Information</h3>
-                <p className="text-sm text-blue-800 leading-relaxed">{footerData?.address}</p>
-              <div className="mt-4 space-y-2 text-sm text-blue-900">
+              <h3 className="text-lg font-semibold text-black-900 mb-2">Company Information</h3>
+                <p className="text-sm text-black-800 leading-relaxed">{footerData?.address}</p>
+              <div className="mt-4 space-y-2 text-sm text-black-900">
                 <div className="flex items-center gap-2"><FiMapPin className="w-5 h-5" />Head Office: 3rd Floor, Block B</div>
                 <div className="flex items-center gap-2"><FiClock className="w-5 h-5" />  {footerData?.workinghours} </div>
                 <div className="flex items-center gap-2"><FiPhone className="w-5 h-5" /><a href={`tel:${footerData?.phone}`}>+91 {footerData?.phone}</a></div>
