@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://www.ftfltechnology.com/sitemap.xml
+
+# Google Adsbot
+User-agent: AdsBot-Google
+Allow: /
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
