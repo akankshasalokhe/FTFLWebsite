@@ -463,6 +463,18 @@ const BlogPage = () => {
                         </span>
                       ))}
                     </div>
+                         <Link href={`/blog/${post._id}`} className="flex-1 ">
+                          <motion.button
+                            className="text-xs mt-4 cursor-pointer font-medium text-blue-600 hover:text-blue-700 flex items-center"
+                            whileHover={{ x: 5 }}
+                            transition={{ type: "spring", stiffness: 500 }}
+                          >
+                            Read more
+                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </motion.button>
+                        </Link>
                   </div>
                 </motion.div>
               </motion.div>
@@ -557,7 +569,7 @@ const BlogPage = () => {
 
                         <Link href={`/blog/${post._id}`} className="flex-1">
                           <motion.button
-                            className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
+                            className="text-xs  cursor-pointer font-medium text-blue-600 hover:text-blue-700 flex items-center"
                             whileHover={{ x: 5 }}
                             transition={{ type: "spring", stiffness: 500 }}
                           >

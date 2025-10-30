@@ -1448,7 +1448,7 @@ const CurriculumAccordion = ({ curriculum }) => {
             <button
               id={`accordion-${item.step}-heading`}
               onClick={() => toggleAccordion(index)}
-              className="flex justify-between items-center w-full px-6 py-5 text-left text-lg font-semibold text-gray-800 hover:bg-blue-50 transition-all duration-300"
+              className="flex justify-between cursor-pointer items-center w-full px-6 py-5 text-left text-lg font-semibold text-gray-800 hover:bg-blue-50 transition-all duration-300"
               aria-expanded={openIndex === index}
               aria-controls={`accordion-${item.step}-content`}
             >
@@ -2038,10 +2038,10 @@ export default function CourseDetails() {
       <nav className="bg-white shadow-sm mt-18">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center  gap-2">
-            <div className="flex items-center">
+            <div className="flex items-center ">
               <button
                 onClick={() => back()}
-                className="flex items-center text-blue-600 font-medium hover:text-blue-800 transition text-sm sm:text-base"
+                className="flex items-center cursor-pointer text-blue-600 font-medium hover:text-blue-800 transition text-sm sm:text-base"
               >
                 <FaArrowLeft className="mr-2 w-4 h-4" aria-hidden="true" />
                 Back to Courses
@@ -2129,7 +2129,7 @@ export default function CourseDetails() {
                     alert('Syllabus link not available');
                   }
                 }}
-                className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]"
+                className="border cursor-pointer border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]"
               >
                 Download Syllabus
               </button>
