@@ -277,19 +277,45 @@ export default function CourseDetails() {
     const router = useRouter();
     const { id } = router.query;
 
-    useEffect(() => {
+    // useEffect(() => {
+    //     if (!id) return;
+
+    //     const fetchInternshipData = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const res = await axios.get(`https://landing-page-yclw.vercel.app/api/normalInternship/${id}`);
+    //             if (res.data.success) {
+    //                 setInternshipData(res.data.data);
+    //             }
+    //             console.log("Fetched Internship Data:", res.data.data);
+    //         } catch (err) {
+    //             console.error("Error fetching internship data:", err);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+
+    //     fetchInternshipData();
+    // }, [id]);
+
+
+       useEffect(() => {
         if (!id) return;
 
         const fetchInternshipData = async () => {
             try {
                 setIsLoading(true);
+                setError(null);
                 const res = await axios.get(`https://landing-page-yclw.vercel.app/api/normalInternship/${id}`);
-                if (res.data.success) {
+                
+                if (res.data.success && res.data.data) {
                     setInternshipData(res.data.data);
+                } else {
+                    setError('Course not found');
                 }
-                console.log("Fetched Internship Data:", res.data.data);
             } catch (err) {
                 console.error("Error fetching internship data:", err);
+                setError('Failed to load course');
             } finally {
                 setIsLoading(false);
             }
@@ -333,15 +359,42 @@ export default function CourseDetails() {
         fetchFaq();
     }, []);
 
-    if (isLoading || !internshipData) {
+    // if (isLoading) {
+    //     return <LoadingSkeleton />;
+    // }
+
+    // if (!isLoading && (!internshipData || Object.keys(internshipData).length === 0)) {
+    //     return (
+    //         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+    //             <div className="max-w-md text-center">
+    //                 <h1 className="text-2xl font-bold text-gray-800 mb-4">Course Not Found</h1>
+    //                 <p className="text-gray-600 mb-6">
+    //                     The course you're looking for doesn't exist or has been moved.
+    //                 </p>
+    //                 <Link
+    //                     href="/"
+    //                     className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition"
+    //                 >
+    //                     Browse All Courses
+    //                 </Link>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
+
+     if (isLoading) {
         return <LoadingSkeleton />;
     }
 
-    if (!isLoading && (!internshipData || Object.keys(internshipData).length === 0)) {
+    // Show error/not found
+    if (error || !internshipData) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
                 <div className="max-w-md text-center">
-                    <h1 className="text-2xl font-bold text-gray-800 mb-4">Course Not Found</h1>
+                    <h1 className="text-2xl font-bold text-gray-800 mb-4">
+                        {error || 'Course Not Found'}
+                    </h1>
                     <p className="text-gray-600 mb-6">
                         The course you're looking for doesn't exist or has been moved.
                     </p>
@@ -400,10 +453,10 @@ export default function CourseDetails() {
             {/* Navigation */}
             <nav className="bg-white shadow-sm mt-18">
                 <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-                    <div className="flex items-center">
+                    <div className="flex items-center cursor-pointer">
                         <button
                             onClick={() => back()}
-                            className="flex items-center text-blue-600 font-medium hover:text-blue-800 transition"
+                            className="flex items-center  text-blue-600 font-medium hover:text-blue-800 transition"
                         >
                             <FaArrowLeft className="mr-2" aria-hidden="true" />
                             Back to Courses

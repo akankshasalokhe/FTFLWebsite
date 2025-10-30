@@ -627,7 +627,7 @@ useEffect(() => {
               <div className="ml-3 text-sm">
                 <label htmlFor="consent" className="text-gray-700">
                   I consent to having my data collected and stored according to the{' '}
-                  <a href="/privacy" className="text-blue-600 hover:text-blue-800 underline">privacy policy</a>.
+                  <a href="/PrivacyPage" className="text-blue-600 hover:text-blue-800 underline">privacy policy</a>.
                 </label>
               </div>
             </div>

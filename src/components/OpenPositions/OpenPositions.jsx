@@ -982,6 +982,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
   const [locationFilter, setLocationFilter] = useState('');
   const [jobTypeFilter, setJobTypeFilter] = useState('');
   const [allData, setAllData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   
   // Get category from URL params (Page Router way)
@@ -998,6 +999,10 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
       console.error('Error fetching jobs:', error);
       setAllData([]);
     }
+    finally {
+        setLoading(false);
+        console.log('Loading set to false');
+      }
   };
 
   useEffect(() => {
@@ -1111,7 +1116,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
               </p>
               <button
                 onClick={resetFilters}
-                className="text-sm text-gray-500 hover:text-gray-700 mt-2 underline"
+                className="text-sm cursor-pointer text-gray-500 hover:text-gray-700 mt-2 underline"
               >
                 Show all jobs
               </button>
@@ -1175,7 +1180,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
         </div>
 
         {/* Job Listings */}
-        <div className="grid gap-4 md:gap-6">
+        {/* <div className="grid gap-4 md:gap-6">
           {filteredJobs.length > 0 ? (
             filteredJobs.map((job, index) => {
               const deadlineStatus = getDeadlineStatus(job.applicationDeadline);
@@ -1191,7 +1196,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                   whileHover={{ y: -4, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}
                   className="bg-white rounded-xl overflow-hidden border-l-[5px] md:border-l-[6px] border-blue-500 shadow-sm transition-all relative"
                 >
-                  {/* Deadline status badge - top right */}
+                 
                   <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs md:text-sm font-medium flex items-center ${deadlineStatus.className}`}>
                     {deadlineStatus.icon}
                     {deadlineStatus.text}
@@ -1291,7 +1296,180 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
               </div>
             </div>
           )}
+        </div> */}
+
+
+        <div className="grid gap-4 md:gap-6">
+  {loading ? (
+    // Loading skeleton
+    <div className="space-y-4">
+      {[...Array(3)].map((_, index) => (
+        <div key={index} className="bg-white rounded-xl overflow-hidden border-l-[5px] border-gray-200 shadow-sm animate-pulse">
+          <div className="p-5 md:p-6">
+            {/* Deadline status badge skeleton */}
+            <div className="absolute top-4 right-4 w-20 h-6 bg-gray-200 rounded-full"></div>
+            
+            {/* New badge skeleton */}
+            <div className="absolute top-4 left-4 w-10 h-5 bg-gray-200 rounded-full"></div>
+
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 mb-4">
+              <div className="flex-1">
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              </div>
+              <div className="w-16 h-6 bg-gray-200 rounded-full"></div>
+            </div>
+
+            {/* Skills skeleton */}
+            <div className="my-3 md:my-4 flex flex-wrap gap-1 md:gap-2">
+              {[...Array(4)].map((_, skillIndex) => (
+                <div key={skillIndex} className="w-16 h-6 bg-gray-200 rounded-full"></div>
+              ))}
+            </div>
+
+            {/* Description skeleton */}
+            <div className="space-y-2 mb-4">
+              <div className="h-4 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+            </div>
+
+            {/* Details grid skeleton */}
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-5">
+              {[...Array(4)].map((_, detailIndex) => (
+                <div key={detailIndex} className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 rounded flex-1"></div>
+                </div>
+              ))}
+            </div>
+
+            {/* Buttons skeleton */}
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+              <div className="flex-1 h-10 bg-gray-200 rounded-lg"></div>
+              <div className="flex-1 h-10 bg-gray-200 rounded-lg"></div>
+            </div>
+          </div>
         </div>
+      ))}
+    </div>
+  ) : filteredJobs.length > 0 ? (
+    // Actual jobs content
+    filteredJobs.map((job, index) => {
+      const deadlineStatus = getDeadlineStatus(job.applicationDeadline);
+      const isNewJob = isNew(job.createdAt);
+
+      return (
+        <motion.div
+          key={job._id}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+          viewport={{ once: true }}
+          whileHover={{ y: -4, boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)" }}
+          className="bg-white rounded-xl overflow-hidden border-l-[5px] md:border-l-[6px] border-blue-500 shadow-sm transition-all relative"
+        >
+          {/* Deadline status badge - top right */}
+          <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs md:text-sm font-medium flex items-center ${deadlineStatus.className}`}>
+            {deadlineStatus.icon}
+            {deadlineStatus.text}
+          </div>
+
+          {isNewJob && (
+            <span className="absolute top-1 left-4 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+              New
+            </span>
+          )}
+
+          <div className="p-5 md:p-6 pt-10 pr-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center pr-8 gap-2">
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-900">{job.title}</h3>
+                <p className="text-blue-600 font-medium text-sm md:text-base">{job.department}</p>
+              </div>
+              <span className="mt-2 sm:mt-0 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                {job.jobType}
+              </span>
+            </div>
+
+            <div className="my-3 md:my-4 flex flex-wrap gap-1 md:gap-2">
+              {(job.requiredSkills || []).slice(0,5).map((skill, skillIndex) => (
+                <span
+                  key={skill._id || skillIndex}
+                  className="px-2 py-0.5 md:px-2.5 md:py-1 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-full"
+                >
+                  {skill.title || skill}
+                </span>
+              ))}
+            </div>
+
+            <p className="text-gray-600 text-sm md:text-base mb-4">{job.about || job.description}</p>
+
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-5 text-xs md:text-sm">
+              <div className="flex items-center gap-1 md:gap-2">
+                <FiMapPin className="text-gray-400 flex-shrink-0" />
+                <span className="truncate">{job.location}</span>
+              </div>
+              <div className="flex items-center gap-1 md:gap-2">
+                <FiDollarSign className="text-gray-400 flex-shrink-0" />
+                <span className="truncate">{job.salary || 'Not specified'}</span>
+              </div>
+              <div className="flex items-center gap-1 md:gap-2">
+                <FiCalendar className="text-gray-400 flex-shrink-0" />
+                <span>Posted: {formatDate(job.createdAt)}</span>
+              </div>
+              <div className="flex items-center gap-1 md:gap-2">
+                <FiClock className="text-gray-400 flex-shrink-0" />
+                <span>Closes: {formatDate(job.applicationDeadline)}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
+              <Link href={`/jobs/${job._id}`} className="flex-1">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full px-4 py-2 md:px-5 md:py-2.5 border border-gray-300 rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                >
+                  <FiEye className="flex-shrink-0" />
+                  <span>Details</span>
+                </motion.button>
+              </Link>
+              <Link href={`/apply?id=${job._id}`} className="flex-1">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                >
+                  <FiBriefcase className="flex-shrink-0" />
+                  <span>Apply</span>
+                </motion.button>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      );
+    })
+  ) : (
+    // No jobs found
+    <div className="bg-white p-8 rounded-xl text-center border border-dashed border-gray-300">
+      <div className="mx-auto max-w-md">
+        <FiSearch className="mx-auto text-3xl md:text-4xl text-gray-400 mb-3 md:mb-4" />
+        <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
+          {searchTerm ? `No jobs found for "${searchTerm}"` : 'No jobs found'}
+        </h3>
+        <p className="text-gray-500 text-sm md:text-base mb-4 md:mb-6">
+          Try adjusting your search filters or browse our general opportunities
+        </p>
+        <button
+          onClick={resetFilters}
+          className="px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white rounded-lg font-medium text-sm md:text-base"
+        >
+          Reset filters
+        </button>
+      </div>
+    </div>
+  )}
+</div>
 
         {/* CTA Section */}
         <div className="mt-12 md:mt-16 text-center">

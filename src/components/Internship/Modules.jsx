@@ -810,8 +810,8 @@ const InternshipCourses = () => {
                         key={item || Math.random()}
                         onClick={() => setActiveRole(item)}
                         className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${activeRole === item
-                            ? 'bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                       >
                         {item ? item.charAt(0).toUpperCase() + item.slice(1) : ''}
@@ -873,9 +873,9 @@ const InternshipCourses = () => {
                     {/* <span className="bg-black text-white px-2 py-1 rounded-full">
                       {course.category}
                     </span> */}
-                  <span className="bg-black text-white px-2 py-1 rounded-full text-xs font-medium max-w-[120px] truncate">
-  {course.category}
-</span>
+                    <span className="bg-black text-white px-2 py-1 rounded-full text-xs font-medium max-w-[120px] truncate">
+                      {course.category}
+                    </span>
                   </div>
 
                   {/* Tags */}
@@ -902,7 +902,7 @@ const InternshipCourses = () => {
                       className="block w-full"
                     >
                       {/* <Link href={`/courses/${course._id}`} className="block w-full"></Link> */}
-                      <button className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all flex items-center justify-center">
+                      <button className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:from-blue-700 hover:to-blue-900 transition-all flex items-center justify-center">
                         Explore Internship
                         <svg
                           className="w-4 h-4 ml-2"
