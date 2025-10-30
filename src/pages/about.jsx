@@ -162,22 +162,41 @@
 
 
 
-import React from 'react';
-import { useEffect, useRef } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
 // import AboutUsSection from '@/components/AboutUs/AboutUs';
-import MissionSection from '@/components/OurMission/OurMission';
-import BoardMembers from '@/components/TeamMembers/TeamMembers';
-import Gallery from '@/components/Gallery/Gallery';
-import WhyChooseUs from '@/components/WhyChooseUs/WhyChooseUs';
-import Testimonials from '@/components/Testimonial/Testimonial';
-import ContactForm from '@/components/ContactUs/ContactUs';
-import StorySection from '@/components/OurStory/OurStory';
+import MissionSection from "@/components/OurMission/OurMission";
+import BoardMembers from "@/components/TeamMembers/TeamMembers";
+import Gallery from "@/components/Gallery/Gallery";
+import WhyChooseUs from "@/components/WhyChooseUs/WhyChooseUs";
+import Testimonials from "@/components/Testimonial/Testimonial";
+import ContactForm from "@/components/ContactUs/ContactUs";
+import StorySection from "@/components/OurStory/OurStory";
 
 function About() {
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [banner, setBanner] = useState(null);
+
+  // ✅ Fetch banner by title "About"
+  useEffect(() => {
+    const fetchBanner = async () => {
+      try {
+        const res = await fetch(
+          `https://landing-page-yclw.vercel.app/api/banner?title=About`
+        );
+        const data = await res.json();
+        if (data.success && data.data.length > 0) {
+          setBanner(data.data[0]);
+        }
+      } catch (error) {
+        console.error("Error fetching banner:", error);
+      }
+    };
+    fetchBanner();
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -191,9 +210,9 @@ function About() {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.3
-      }
-    }
+        delayChildren: 0.3,
+      },
+    },
   };
 
   const itemVariants = {
@@ -205,9 +224,9 @@ function About() {
         type: "spring",
         stiffness: 100,
         damping: 10,
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
@@ -217,30 +236,32 @@ function About() {
         ref={ref}
         className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[500px] max-h-[700px] overflow-hidden"
       >
-        {/* Background Image with Parallax Effect - Same as HeroSection */}
+        {/* Background Image with Parallax Effect */}
         <motion.div
           className="absolute inset-0 bg-center z-0"
           style={{
-            // backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
+            backgroundImage: banner
+              ? `url(${banner.bannerImage})`
+              : "url('/default-banner.jpg')",
             backgroundPosition: "center center",
             backgroundSize: "cover",
-            backgroundRepeat: "no-repeat"
+            backgroundRepeat: "no-repeat",
           }}
           initial={{ scale: 1.3, opacity: 0 }}
           animate={isInView ? { scale: 1, opacity: 1 } : {}}
           transition={{
             duration: 1.5,
             ease: [0.16, 0.77, 0.47, 0.97],
-            opacity: { duration: 1.2 }
+            opacity: { duration: 1.2 },
           }}
         />
 
-        {/* Gradient Overlay - EXACT SAME as HeroSection */}
+        {/* Gradient Overlay */}
         <motion.div
           className="absolute inset-0 z-10"
-          // style={{
-          //   background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
-          // }}
+          style={{
+            background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 40%)",
+          }}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1.2, delay: 0.3 }}
@@ -253,7 +274,6 @@ function About() {
           animate={{ opacity: 0.15 }}
           transition={{ duration: 2 }}
         >
-          {/* Geometric shapes */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full transform translate-x-1/2 -translate-y-1/2 mix-blend-overlay opacity-70"></div>
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-white rounded-lg transform -translate-x-1/3 translate-y-1/3 rotate-45 mix-blend-overlay opacity-70"></div>
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 mix-blend-overlay opacity-70"></div>
@@ -269,7 +289,7 @@ function About() {
               height: `${Math.random() * 10 + 5}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              opacity: 0.4
+              opacity: 0.4,
             }}
             animate={{
               y: [0, Math.random() * 100 - 50],
@@ -279,57 +299,12 @@ function About() {
               duration: Math.random() * 10 + 10,
               repeat: Infinity,
               repeatType: "reverse",
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
           />
         ))}
 
         {/* Content - Full width container */}
-        {/* <motion.div
-          className="w-full h-full flex flex-col justify-center items-center px-6 relative z-20 text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate={controls}
-        >
-          <div className="max-w-4xl mx-auto">
-            <motion.h1
-              className="text-5xl md:text-7xl font-bold text-white mb-6"
-              variants={itemVariants}
-            >
-              Our Journey
-            </motion.h1>
-
-            <motion.p
-              className="text-xl md:text-2xl text-white mb-8 leading-relaxed"
-              variants={itemVariants}
-            >
-              We combine innovation with passion to create exceptional experiences that make a difference.
-            </motion.p>
-
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 justify-center">
-              <button
-
-                className="px-8 py-3 hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
-                onClick={() => {
-                  document.getElementById('team-section')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Meet Our Board Directors
-              </button>
-             
-              <button
-                className="px-8 py-3  text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
-                onClick={() => {
-                  document.getElementById('values-section')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Our Values
-              </button>
-            </motion.div>
-          </div>
-        </motion.div> */}
-
-
         <motion.div
           className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 py-8 relative z-20 text-center"
           variants={containerVariants}
@@ -341,21 +316,27 @@ function About() {
               className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6"
               variants={itemVariants}
             >
-              Our Journey
+              {"Our Journey"}
             </motion.h1>
 
             <motion.p
               className="text-lg sm:text-xl md:text-2xl text-white mb-8 leading-relaxed px-2 sm:px-0"
               variants={itemVariants}
             >
-              We combine innovation with passion to create exceptional experiences that make a difference.
+              We combine innovation with passion to create exceptional
+              experiences that make a difference.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0"
+            >
               <button
                 className="px-6 sm:px-8 py-3 hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
                 onClick={() => {
-                  document.getElementById('team-section')?.scrollIntoView({ behavior: 'smooth' });
+                  document
+                    .getElementById("team-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 Meet Our Board Directors
@@ -363,7 +344,9 @@ function About() {
               <button
                 className="px-6 sm:px-8 py-3 text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
                 onClick={() => {
-                  document.getElementById('values-section')?.scrollIntoView({ behavior: 'smooth' });
+                  document
+                    .getElementById("values-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 Our Values
@@ -371,7 +354,6 @@ function About() {
             </motion.div>
           </div>
         </motion.div>
-
 
         {/* Clean bottom edge */}
         <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle z-30"></div>
