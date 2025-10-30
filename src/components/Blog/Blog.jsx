@@ -896,6 +896,7 @@ const BlogPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-site-verification" content="1eXd0MDgMmbMVcKIm8vOHJwZEKLptACE72ScbiZHM7M" />
         
+        
         {/* Language and Region */}
         <meta name="language" content="English" />
         <meta name="geo.region" content="IN" />
