@@ -1291,6 +1291,37 @@ export default function BlogDetail() {
             <Head>
                 <title>{blogData.title} | BizBooster Blog</title>
                 <meta name="description" content={blogData.description} />
+                <meta name="description" content={blogData.description} />
+                <meta name="keywords" content={blogData.tags.join(', ')} />
+
+                {/* Open Graph for social sharing */}
+                <meta property="og:title" content={blogData.title} />
+                <meta property="og:description" content={blogData.description} />
+                <meta property="og:type" content="article" />
+
+                {/* Structured Data for this specific post */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "BlogPosting",
+                            "headline": blogData.title,
+                            "description": blogData.description,
+                            "datePublished": blogData.createdAt,
+                            "dateModified": blogData.updatedAt || blogData.createdAt,
+                            "author": {
+                                "@type": "Organization",
+                                "name": "FTFL Technology"
+                            },
+                            "keywords": blogData.tags.join(', '),
+                            "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id": `https://www.ftfltechnology.com/blog/${blogData._id}`
+                            }
+                        })
+                    }}
+                />
             </Head>
 
             <nav className="navigation mt-20">
@@ -1659,7 +1690,7 @@ export default function BlogDetail() {
                         </form>
                     </div>
 
-                  
+
                 </aside>
             </div>
 

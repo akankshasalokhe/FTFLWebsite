@@ -332,7 +332,7 @@ function About() {
               className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0"
             >
               <button
-                className="px-6 sm:px-8 py-3 hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 cursor-pointer hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
                 onClick={() => {
                   document
                     .getElementById("team-section")
@@ -342,7 +342,7 @@ function About() {
                 Meet Our Board Directors
               </button>
               <button
-                className="px-6 sm:px-8 py-3 text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 cursor-pointer text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
                 onClick={() => {
                   document
                     .getElementById("values-section")
