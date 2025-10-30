@@ -1579,11 +1579,7 @@ if (!productsData) {
 
 
 
-      {/* Testimonials Section */}
-
-
-
-      <ProductTestimonial />
+     
 
 
 
@@ -1796,6 +1792,10 @@ if (!productsData) {
           </div>
         </section>
       )}
+
+
+       {/* Testimonials Section */}
+       <ProductTestimonial />
 
       {/* CTA Section */}
       <section className="py-16 bg-gray-400 text-white">
