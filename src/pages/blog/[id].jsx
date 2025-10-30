@@ -1462,7 +1462,7 @@ export default function BlogDetail() {
                     </article>
 
                     <div className="tags-section">
-                        <h3>Tags</h3>
+                        <h3>Tags:</h3>
                         <div className="tags mt-2">
                             {blogData.tags && blogData.tags.length > 0 ? (
                                 blogData.tags.map(tag => (
@@ -1940,8 +1940,36 @@ export default function BlogDetail() {
 
 
 
+// .tag {
+//   display: inline-block;
+//   padding: 8px 16px;
+//   background: white;
+//   border: 1px solid #e2e8f0;
+//   border-radius: 20px;
+//   font-size: 0.9rem;
+//   color: #4a5568;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   white-space: nowrap;    
+// }
+
+
+
+
+// .tags {
+//   display: flex;
+//   flex-wrap: wrap;   
+//   gap: 10px;         
+// }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .tag {
-  display: inline-block;   /* fit width to content */
+  display: inline-block;
   padding: 8px 16px;
   background: white;
   border: 1px solid #e2e8f0;
@@ -1950,29 +1978,34 @@ export default function BlogDetail() {
   color: #4a5568;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;     /* prevent breaking inside the tag */
+  white-space: nowrap;
 }
 
-
-
-/* container */
-.tags {
-  display: flex;
-  flex-wrap: wrap;   /* allows multiple rows */
-  gap: 10px;         /* spacing between tags */
+.tag:hover {
+  background: #174db3ff;
+  color: white;
+  transform: translateY(-2px);
+  border-color: #6b46c1;
+  box-shadow: 0 4px 6px -1px rgba(107, 70, 193, 0.2);
 }
 
-
-
-
-  .tag:hover {
-    background: #174db3ff;
-    color: white;
-    transform: translateY(-2px);
-    border-color: #6b46c1;
-    box-shadow: 0 4px 6px -1px rgba(107, 70, 193, 0.2);
+/* Mobile: 2 tags per row */
+@media (max-width: 768px) {
+  .tags {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
+  
+  .tag {
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 
+ 
 
 
   .related-posts {
