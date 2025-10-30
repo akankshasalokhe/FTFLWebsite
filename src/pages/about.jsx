@@ -165,7 +165,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-// import AboutUsSection from '@/components/AboutUs/AboutUs';
 import MissionSection from "@/components/OurMission/OurMission";
 import BoardMembers from "@/components/TeamMembers/TeamMembers";
 import Gallery from "@/components/Gallery/Gallery";
@@ -180,23 +179,31 @@ function About() {
   const isInView = useInView(ref, { once: true });
   const [banner, setBanner] = useState(null);
 
-  // ✅ Fetch banner by title "About"
+  const pageTitle = "About"; // 👈 change per page if needed
+
+  // ✅ Fetch correct banner by matching title dynamically
   useEffect(() => {
     const fetchBanner = async () => {
       try {
         const res = await fetch(
-          `https://landing-page-yclw.vercel.app/api/banner?title=About`
+          `https://landing-page-yclw.vercel.app/api/banner`
         );
         const data = await res.json();
-        if (data.success && data.data.length > 0) {
-          setBanner(data.data[0]);
+
+        if (data.success && Array.isArray(data.data)) {
+          // Find the banner where title matches pageTitle (case-insensitive)
+          const matchedBanner = data.data.find(
+            (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
+          );
+          setBanner(matchedBanner || null);
         }
       } catch (error) {
         console.error("Error fetching banner:", error);
       }
     };
+
     fetchBanner();
-  }, []);
+  }, [pageTitle]);
 
   useEffect(() => {
     if (isInView) {
@@ -231,12 +238,12 @@ function About() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero Section - Fixed width and height */}
+      {/* Hero Section */}
       <div
         ref={ref}
         className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[500px] max-h-[700px] overflow-hidden"
       >
-        {/* Background Image with Parallax Effect */}
+        {/* Background Image */}
         <motion.div
           className="absolute inset-0 bg-center z-0"
           style={{
@@ -260,14 +267,15 @@ function About() {
         <motion.div
           className="absolute inset-0 z-10"
           style={{
-            background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 40%)",
+            background:
+              "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 40%)",
           }}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1.2, delay: 0.3 }}
         />
 
-        {/* Modern background elements */}
+        {/* Decorative Background Elements */}
         <motion.div
           className="absolute inset-0 z-15"
           initial={{ opacity: 0 }}
@@ -279,7 +287,7 @@ function About() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 mix-blend-overlay opacity-70"></div>
         </motion.div>
 
-        {/* Floating dots animation */}
+        {/* Floating Dots */}
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
@@ -304,7 +312,7 @@ function About() {
           />
         ))}
 
-        {/* Content - Full width container */}
+        {/* Content */}
         <motion.div
           className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 py-8 relative z-20 text-center"
           variants={containerVariants}
@@ -355,16 +363,15 @@ function About() {
           </div>
         </motion.div>
 
-        {/* Clean bottom edge */}
+        {/* Bottom Edge */}
         <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle z-30"></div>
       </div>
 
+      {/* Page Sections */}
       <StorySection />
-      {/* <AboutUsSection />    */}
       <MissionSection />
       <BoardMembers />
       <WhyChooseUs />
-      {/* <CompanyEventsGallery /> */}
       {/* <Gallery /> */}
       <Testimonials />
       <ContactForm />
@@ -373,3 +380,4 @@ function About() {
 }
 
 export default About;
+
