@@ -186,7 +186,7 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl mt-16"
+        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-2xs mt-16"
       >
         <Image
           src={serviceImage2}
