@@ -1400,7 +1400,7 @@ if (!productsData) {
       </section>
 
       {/* Technology Stack Section */}
-      <section id="technology" className="py-16 bg-gray-50">
+      {/* <section id="technology" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -1431,7 +1431,7 @@ if (!productsData) {
               </div>
 
               {/* Development Timeline */}
-              {getDevelopmentTimeline().length > 0 && (
+              {/* {getDevelopmentTimeline().length > 0 && (
                 <div className="mt-10">
                   <h3 className="text-xl font-semibold mb-6">Development Timeline</h3>
                   <div className="space-y-4">
@@ -1455,7 +1455,7 @@ if (!productsData) {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </motion.div> */}
 
             {/* <motion.div
               initial="hidden"
@@ -1474,7 +1474,7 @@ if (!productsData) {
                 }}
               />
             </motion.div> */}
-            <motion.div
+            {/* <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1493,12 +1493,12 @@ if (!productsData) {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
 
       {/* Measuarable Section */}
-      <section id="results" className="py-16 bg-white">
+      {/* <section id="results" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -1512,7 +1512,7 @@ if (!productsData) {
           </motion.div>
 
           {/* Team Section */}
-          {getMeasurableResults().length > 0 && (
+          {/* {getMeasurableResults().length > 0 && (
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1533,15 +1533,15 @@ if (!productsData) {
 
             </motion.div>
           )}
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
 
 
 
 
 
       {/* Results Section */}
-      <section id="results" className="py-16 bg-white">
+      {/* <section id="results" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial="hidden"
@@ -1555,7 +1555,7 @@ if (!productsData) {
           </motion.div>
 
           {/* Team Section */}
-          {getProjectTeam().length > 0 && (
+          {/* {getProjectTeam().length > 0 && (
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1574,8 +1574,8 @@ if (!productsData) {
               </div>
             </motion.div>
           )}
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
 
 
 
