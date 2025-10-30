@@ -1190,8 +1190,8 @@ export default function ServiceDetail() {
           viewport={{ once: true, margin: "-50px" }}
           className="h-full flex flex-col justify-center"
         >
-          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block">
-            Our {serviceData.title} Services
+          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block  capitalize">
+            Our {serviceData.name?.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())} Services
             <motion.div
               className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
               initial={{ width: 0 }}
@@ -1251,7 +1251,8 @@ export default function ServiceDetail() {
               Why Choose Us
             </h2>
             <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
-              We deliver exceptional {serviceData.title} services that drive growth and ensure your digital success
+              We deliver exceptional {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} services that drive growth and ensure your digital success
+              
             </p>
           </motion.div>
 

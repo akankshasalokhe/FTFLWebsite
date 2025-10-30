@@ -25,7 +25,13 @@ export default function OurProcess({ title, steps = [], serviceImage2 }) {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-bold mb-4 text-blue-900"
         >
-          Our {title} Process
+        
+          Our{" "}
+          {title
+            ?.toLowerCase()
+            ?.replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
+          Process
+
         </motion.h2>
 
         <motion.p
@@ -34,7 +40,7 @@ export default function OurProcess({ title, steps = [], serviceImage2 }) {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-xl text-blue-700 mb-12 max-w-3xl mx-auto"
         >
-         Transforming ideas into engaging digital experiences across all platforms and media.
+          Transforming ideas into engaging digital experiences across all platforms and media.
         </motion.p>
 
         {isMobile ? (
@@ -42,14 +48,14 @@ export default function OurProcess({ title, steps = [], serviceImage2 }) {
             steps={steps}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
-             serviceImage2={serviceImage2}
+            serviceImage2={serviceImage2}
           />
         ) : (
           <DesktopView
             steps={steps}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
-             serviceImage2={serviceImage2}
+            serviceImage2={serviceImage2}
           />
         )}
       </div>
@@ -76,7 +82,7 @@ function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
               className="object-contain rounded-2xl"
               priority
             /> */}
-             <Image
+            <Image
               src={serviceImage2}
               alt="Web App Mockup"
               fill
@@ -97,25 +103,22 @@ function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
             onClick={() => setActiveStep(index)}
-            className={`flex items-start cursor-pointer ${
-              activeStep === index ? "scale-[1.02]" : ""
-            }`}
+            className={`flex items-start cursor-pointer ${activeStep === index ? "scale-[1.02]" : ""
+              }`}
           >
             <div
-              className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 transition-all duration-300 ${
-                activeStep === index
+              className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 transition-all duration-300 ${activeStep === index
                   ? "bg-blue-600 shadow-lg scale-110"
                   : "bg-blue-400"
-              }`}
+                }`}
             >
               {index + 1}
             </div>
             <div
-              className={`border rounded-xl p-4 flex-1 text-left transition-all duration-300 ${
-                activeStep === index
+              className={`border rounded-xl p-4 flex-1 text-left transition-all duration-300 ${activeStep === index
                   ? "bg-blue-50 border-blue-300 shadow-md"
                   : "bg-white border-gray-200"
-              }`}
+                }`}
             >
               <h3 className="font-semibold text-blue-900">{step.title}</h3>
               <AnimatePresence>
@@ -250,9 +253,8 @@ function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
                 className="text-center"
               >
                 <div
-                  className={`text-blue-500 font-semibold text-sm leading-tight ${
-                    activeStep === index ? "font-bold underline" : ""
-                  }`}
+                  className={`text-blue-500 font-semibold text-sm leading-tight ${activeStep === index ? "font-bold underline" : ""
+                    }`}
                 >
                   {step.title}
                 </div>

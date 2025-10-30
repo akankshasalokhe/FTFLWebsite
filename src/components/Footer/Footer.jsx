@@ -485,7 +485,7 @@
 //                   <motion.div whileHover={{ x: 3 }}>
 //                     <Link
 //                       href={`/services/${service._id}`}
-                     
+
 //                       scroll={false}
 //                       className="flex items-center gap-1.5 hover:text-[#FFD166] text-sm"
 //                     >
@@ -496,7 +496,7 @@
 //               ))}
 //             </ul>
 //           </motion.div>
-        
+
 
 //           {/* Contact */}
 //           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.4 }}>
@@ -709,9 +709,9 @@ const VibrantFooter = () => {
         {/* Links - Updated for mobile layout */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 text-left">
           {/* Company - 1st on mobile */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
             className="order-1"
           >
@@ -737,9 +737,9 @@ const VibrantFooter = () => {
           </motion.div>
 
           {/* Services - 2nd on mobile */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
             className="order-2"
           >
@@ -753,7 +753,9 @@ const VibrantFooter = () => {
                       scroll={false}
                       className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
                     >
-                      <FiArrowRight className="text-xs opacity-70" /> {service.title}
+                      <FiArrowRight className="text-xs opacity-70" /> {service.title
+                        ?.toLowerCase()
+                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
                     </Link>
                   </motion.div>
                 </li>
@@ -762,9 +764,9 @@ const VibrantFooter = () => {
           </motion.div>
 
           {/* Contact - 3rd on mobile (full width below Company & Services) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.4 }}
             className="order-3 col-span-2 md:col-span-1 lg:col-span-1"
           >
@@ -805,9 +807,9 @@ const VibrantFooter = () => {
           </motion.div>
 
           {/* Connect - 4th on mobile (full width below Contact) */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.5 }}
             className="order-4 col-span-2 md:col-span-1 lg:col-span-1"
           >
