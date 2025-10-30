@@ -139,7 +139,135 @@ function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
   );
 }
 
-// // 💻 Desktop View (Dynamic Arc)
+// 💻 Desktop View (Dynamic Arc with Auto and Click)
+function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
+  const radius = steps.length > 7 ? 320 : 260;
+  const centerX = 320;
+  const centerY = 320;
+  const startAngle = -160;
+  const endAngle = 160;
+  const angleStep = (endAngle - startAngle) / (steps.length - 1);
+
+  // Auto-play step rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % steps.length);
+    }, 4000); // 4 seconds per step
+    return () => clearInterval(interval);
+  }, [steps.length, setActiveStep]);
+
+  return (
+    <div className="relative flex items-center justify-center min-h-[750px]">
+      {/* Description Box */}
+      <motion.div
+        key={activeStep}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.6 }}
+        className="absolute mt-5 top-20 left-1/2 transform -translate-x-1/2 z-30 w-70 text-center"
+      >
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 shadow-lg h-40">
+          <div className="text-blue-900 font-semibold text-base mb-2">
+            Step {activeStep + 1}: {steps[activeStep]?.title}
+          </div>
+          <div className="text-blue-700 text-sm leading-relaxed">
+            {steps[activeStep]?.description}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Center Image */}
+      <motion.div
+        key={steps[activeStep]?.title}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl mt-16"
+      >
+        <Image
+          src={serviceImage2}
+          alt="Web App Mockup"
+          fill
+          className="object-cover rounded-2xl"
+          priority
+        />
+      </motion.div>
+
+      {/* Steps in Arc */}
+      <svg
+        viewBox="0 0 640 640"
+        className="absolute inset-0 w-full h-full z-10"
+        aria-label="Web development process steps"
+      >
+        {steps.map((step, index) => {
+          const angle = startAngle + angleStep * index;
+          const rad = (angle * Math.PI) / 180;
+          const x = centerX + radius * Math.cos(rad);
+          const y = centerY + radius * Math.sin(rad);
+
+          return (
+            <motion.g
+              key={index}
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.15 }}
+              className="cursor-pointer"
+              onClick={() => setActiveStep(index)}
+            >
+              <line
+                x1={centerX}
+                y1={centerY}
+                x2={x}
+                y2={y}
+                stroke="#93c5fd"
+                strokeWidth="1"
+                className="opacity-60"
+              />
+              <motion.circle
+                cx={x}
+                cy={y}
+                r="16"
+                fill={activeStep === index ? "#2563eb" : "#3b82f6"}
+                stroke="white"
+                strokeWidth="3"
+                whileHover={{ scale: 1.2 }}
+                transition={{ duration: 0.2 }}
+              />
+              <text
+                x={x}
+                y={y + 5}
+                textAnchor="middle"
+                className="fill-white font-bold text-xs pointer-events-none"
+              >
+                {index + 1}
+              </text>
+              <motion.foreignObject
+                x={x - 80}
+                y={y - (y > centerY ? 60 : 50)}
+                width="160"
+                height="40"
+                className="text-center"
+              >
+                <div
+                  className={`text-blue-500 font-semibold text-sm leading-tight ${
+                    activeStep === index ? "font-bold underline" : ""
+                  }`}
+                >
+                  {step.title}
+                </div>
+              </motion.foreignObject>
+            </motion.g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+
+
+
 // function DesktopView({ steps, activeStep, setActiveStep }) {
 //   const radius = steps.length > 7 ? 320 : 260; // adjust radius based on step count
 //   const centerX = 320;
@@ -261,129 +389,3 @@ function MobileView({ steps, activeStep, setActiveStep, serviceImage2 }) {
 
 
 
-function DesktopView({ steps, activeStep, setActiveStep, serviceImage2 }) {
-  const radius = steps.length > 7 ? 320 : 260;
-  const centerX = 320;
-  const centerY = 320;
-  const startAngle = -160;
-  const endAngle = 160;
-  const angleStep = (endAngle - startAngle) / (steps.length - 1);
-
-  return (
-    <div className="relative flex items-center justify-center min-h-[700px]">
-      {/* Description Box - Positioned above the center image */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="absolute mt-5 top-20 left-1/2 transform -translate-x-1/2 z-30 w-60 text-center"
-      >
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-2 shadow-lg">
-          <div className="text-blue-900 font-semibold text-sm mb-2">
-            Step {activeStep + 1}: {steps[activeStep]?.title}
-          </div>
-          <div className="text-blue-700 text-sm leading-relaxed">
-            {steps[activeStep]?.description}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Center Image */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-20 w-80 h-64 rounded-2xl overflow-hidden bg-white shadow-xl mt-16" /* Added margin-top */
-      >
-        {/* <Image
-          src="/web-app.png"
-          alt="Web App Mockup"
-          fill
-          className="object-contain"
-          priority
-        /> */}
-         <Image
-              src={serviceImage2}
-              alt="Web App Mockup"
-              fill
-              className="object-cover rounded-2xl"
-              priority
-            />
-        {/* Removed the bottom label since we moved it to the top */}
-      </motion.div>
-
-      {/* Steps in Arc */}
-      <svg
-        viewBox="0 0 640 640"
-        className="absolute inset-0 w-full h-full z-10"
-        aria-label="Web development process steps"
-      >
-        {steps.map((step, index) => {
-          const angle = startAngle + angleStep * index;
-          const rad = (angle * Math.PI) / 180;
-          const x = centerX + radius * Math.cos(rad);
-          const y = centerY + radius * Math.sin(rad);
-
-          return (
-            <motion.g
-              key={index}
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.15 }}
-              className="cursor-pointer"
-              onClick={() => setActiveStep(index)}
-            >
-              <line
-                x1={centerX}
-                y1={centerY}
-                x2={x}
-                y2={y}
-                stroke="#93c5fd"
-                strokeWidth="1"
-                className="opacity-60"
-              />
-              <motion.circle
-                cx={x}
-                cy={y}
-                r="16"
-                fill={activeStep === index ? "#2563eb" : "#3b82f6"}
-                stroke="white"
-                strokeWidth="3"
-                whileHover={{ scale: 1.2 }}
-                transition={{ duration: 0.2 }}
-                className="shadow-sm"
-              />
-              <text
-                x={x}
-                y={y + 5}
-                textAnchor="middle"
-                className="fill-white font-bold text-xs pointer-events-none"
-              >
-                {index + 1}
-              </text>
-              
-              {/* Step Title */}
-              <motion.foreignObject
-                x={x - 80}
-                y={y - (y > centerY ? 60 : 50)}
-                width="160"
-                height="40"
-                className="text-center"
-              >
-                <div
-                  className={`text-blue-500 font-semibold text-sm leading-tight ${
-                    activeStep === index ? "font-bold underline" : ""
-                  }`}
-                >
-                  {step.title}
-                </div>
-              </motion.foreignObject>
-
-              {/* Removed the description from SVG since we moved it to the top */}
-            </motion.g>
-          );
-        })}
-      </svg>
-    </div>
-  );
-}
