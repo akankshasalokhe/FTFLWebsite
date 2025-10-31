@@ -356,7 +356,7 @@ function Careers() {
       ) : (
         <div>
           {/* Back to categories button */}
-          <div className="text-center mb-4">
+          <div className="text-center mb-4 mt-10">
             <button
               onClick={handleBackToCategories}
               className="px-6 py-2 cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors"
