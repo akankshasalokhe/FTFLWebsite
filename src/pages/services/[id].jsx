@@ -1117,7 +1117,7 @@ export default function ServiceDetail() {
     <img
       src={serviceData.bannerImage}
       alt={serviceData.title || "Service Banner"}
-      className="w-full h-full object-fit" 
+      className="w-full h-full object-fill" 
       style={{ objectPosition: 'center' }} 
       priority
     />
