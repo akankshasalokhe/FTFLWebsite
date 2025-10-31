@@ -1484,9 +1484,9 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                   General Application
                 </button>
               </Link>
-              <button className="px-4 py-2 md:px-6 md:py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-lg font-medium text-sm md:text-base transition-colors">
+              {/* <button className="px-4 py-2 md:px-6 md:py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-lg font-medium text-sm md:text-base transition-colors">
                 Talent Network
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
