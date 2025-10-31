@@ -845,7 +845,7 @@ const ProductShowcase = () => {
               <div className="mt-auto flex flex-col sm:flex-row gap-2">
                 {/* Learn More button */}
                 <Link href={`/products/${product._id}`} className="flex-1">
-                  <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                  <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 cursor-pointer hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition text-sm sm:text-base">
                     Learn More
                   </button>
                 </Link>

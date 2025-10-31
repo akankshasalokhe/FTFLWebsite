@@ -43,7 +43,7 @@ function PrivacyPage() {
           />
         </>
       ) : (
-        <p className="text-center text-gray-500">Loading Privacy Policy...</p>
+        <p className="text-center mt-15 text-gray-500">Loading Privacy Policy...</p>
       )}
     </div>
   );

@@ -2520,9 +2520,11 @@ export default function CourseDetails() {
             >
               Enroll Now
             </button> */}
+            <Link href='/contact'>
             <button className="border border-white text-white font-semibold px-8 py-3 rounded-xl shadow hover:bg-white hover:text-blue-700 transition">
               Schedule a Mentor Call
             </button>
+            </Link>
           </motion.div>
           <p className="mt-4 text-blue-100 text-sm">Limited seats available</p>
         </div>

@@ -43,7 +43,7 @@ function TermsPage() {
           />
         </>
       ) : (
-        <p className="text-center text-gray-500">Loading Terms and Conditions...</p>
+        <p className="text-center mt-15 text-gray-500">Loading Terms and Conditions...</p>
       )}
     </div>
   );
