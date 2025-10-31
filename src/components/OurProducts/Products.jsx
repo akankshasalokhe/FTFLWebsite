@@ -851,7 +851,7 @@ const ProductShowcase = () => {
                 </Link>
 
                 {/* Live Demo button */}
-                {product.livedemoLink ? (
+                {/* {product.livedemoLink ? (
                   <a
                     href={product.livedemoLink}
                     target="_blank"
@@ -881,7 +881,7 @@ const ProductShowcase = () => {
                   >
                     Live Demo
                   </button>
-                )}
+                )} */}
               </div>
             </div>
           </motion.div>
