@@ -310,7 +310,7 @@ function Careers() {
           <Link href='#openpositions'>
           <button 
             // onClick={handleViewAllPositions}
-            className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
+            className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-[#2478d4] cursor-pointer text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
           >
             <span className="flex items-center gap-2">
               View Open Positions

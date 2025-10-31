@@ -1381,7 +1381,7 @@ export default function ServiceDetail() {
                       className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                     >
                       <button
-                        className="w-full p-4 sm:p-6 text-left flex justify-between items-center font-medium text-base sm:text-lg"
+                        className="w-full cursor-pointer p-4 sm:p-6 text-left flex justify-between items-center font-medium text-base sm:text-lg"
                         onClick={() =>
                           setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
                         }
@@ -1483,7 +1483,7 @@ export default function ServiceDetail() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="!text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              className="!text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 cursor-pointer sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Link href="/contact">Get in Touch</Link>
             </motion.button>

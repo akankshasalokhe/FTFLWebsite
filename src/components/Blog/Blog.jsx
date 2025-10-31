@@ -1166,7 +1166,7 @@ const BlogPage = () => {
                     </div>
                     <Link href={`/blog/${post._id}`} className="inline-block mt-4">
                       <motion.button
-                        className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
+                        className="text-xs cursor-pointer font-medium text-blue-600 hover:text-blue-700 flex items-center"
                         whileHover={{ x: 5 }}
                         transition={{ type: "spring", stiffness: 500 }}
                       >
@@ -1188,6 +1188,7 @@ const BlogPage = () => {
           className="mb-16"
           initial="hidden"
           animate="visible"
+          id="blog"
           variants={containerVariants}
         >
           <motion.h2
@@ -1271,7 +1272,7 @@ const BlogPage = () => {
                       <div className="flex justify-end">
                         <Link href={`/blog/${post._id}`} className="flex-1">
                           <motion.button
-                            className="text-xs font-medium text-blue-600 hover:text-blue-700 flex items-center"
+                            className="text-xs cursor-pointer font-medium text-blue-600 hover:text-blue-700 flex items-center"
                             whileHover={{ x: 5 }}
                             transition={{ type: "spring", stiffness: 500 }}
                           >

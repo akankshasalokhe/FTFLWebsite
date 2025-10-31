@@ -1810,7 +1810,7 @@ if (!productsData) {
             <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {productsData.title} can help you achieve your goals</p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href='/contact'>
-                <button className="bg-white hover:bg-blue-300 text-gray-900 px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <button className="bg-white hover:bg-blue-300 text-gray-900 cursor-pointer px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
                   Contact Our Team
                 </button>
               </Link>

@@ -1125,8 +1125,8 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
         </div>
 
         {/* Filters */}
-        <div className="bg-white p-4 md:p-6 rounded-xl shadow-xs border border-gray-200 mb-8 md:mb-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
+        <div className="bg-white p-4 md:p-6  rounded-xl shadow-xs border border-gray-200 mb-8 md:mb-10">
+          <div className="grid grid-cols-1  md:grid-cols-12 gap-3 md:gap-4">
             <div className="md:col-span-5 relative">
               <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -1386,7 +1386,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                 <h3 className="text-lg md:text-xl font-bold text-gray-900">{job.title}</h3>
                 <p className="text-blue-600 font-medium text-sm md:text-base">{job.department}</p>
               </div>
-              <span className="mt-2 sm:mt-0 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              <span className=" sm:mt-0 px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                 {job.jobType}
               </span>
             </div>
