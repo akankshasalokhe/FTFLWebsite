@@ -129,6 +129,30 @@ export default function ContactPage() {
   const [footerData, setFooterData] = useState(null);
   const [contactData, setContactData] = useState({});
 
+   const pageTitle = "Contact";
+  const [banner, setBanner] = useState(null);
+
+  useEffect(() => {
+    const fetchBanner = async () => {
+      try {
+        const res = await fetch("https://landing-page-yclw.vercel.app/api/banner");
+        const data = await res.json();
+
+        if (data.success && Array.isArray(data.data)) {
+          // ✅ Match banner by title (case-insensitive)
+          const matchedBanner = data.data.find(
+            (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
+          );
+          setBanner(matchedBanner || null);
+        }
+      } catch (error) {
+        console.error("Error fetching banner:", error);
+      }
+    };
+
+    fetchBanner();
+  }, [pageTitle]);
+
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/displaycontact")
@@ -151,7 +175,7 @@ export default function ContactPage() {
       const footer = res.data.data;
       console.log("footer data:", footer);
       if (footer.length > 0) {
-        setFooterData(footer[0]); // 👈 pick first entry
+        setFooterData(footer[0]); 
       }
     })
     .catch((err) => console.error(err));
@@ -194,22 +218,64 @@ export default function ContactPage() {
     font-sans text-gray-800 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
 
       {/* Banner */}
-      <motion.header initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative h-64 md:h-96 flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg">
-        <div className="absolute inset-0 bg-cover bg-center scale-110 hover:scale-125 transition-transform duration-[6000ms]" style={{ backgroundImage: "url('/images/contact-banner.jpg')" }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 opacity-80" />
-        <div className="relative z-10 text-center px-4">
-          <motion.h1 initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.3, duration: 0.7 }} className="text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-lg">
-            <Typewriter options={{ strings: ["Get in Touch", "Connect with Us", "We'd Love to Hear from You"], autoStart: true, loop: true, delay: 50 }} />
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-3 md:mt-5 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Choose a department and send us a message — we’ll respond within 24-48 hours.
-          </motion.p>
-        </div>
+        <motion.header
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="relative h-64 md:h-96 flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg"
+    >
+      {/* ✅ Dynamic Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center scale-110 hover:scale-125 transition-transform duration-[6000ms]"
+        style={{
+          backgroundImage: `url(${banner?.bannerImage || "/images/contact-banner.jpg"})`,
+        }}
+      />
 
-        {/* Animated Floating Shapes */}
-        <motion.div animate={{ y: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 4 }} className="absolute top-10 left-5 w-5 h-5 bg-blue-300 rounded-full opacity-70"></motion.div>
-        <motion.div animate={{ y: [0, 20, 0] }} transition={{ repeat: Infinity, duration: 6 }} className="absolute bottom-10 right-10 w-8 h-8 bg-blue-400 rounded-full opacity-60"></motion.div>
-      </motion.header>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-blue-900 opacity-80" />
+
+      {/* Text Content */}
+      <div className="relative z-10 text-center px-4">
+        <motion.h1
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.7 }}
+          className="text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-lg"
+        >
+          <Typewriter
+            options={{
+              strings: ["Get in Touch", "Connect with Us", "We'd Love to Hear from You"],
+              autoStart: true,
+              loop: true,
+              delay: 50,
+            }}
+          />
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-3 md:mt-5 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed"
+        >
+          Choose a department and send us a message — we’ll respond within 24-48 hours.
+        </motion.p>
+      </div>
+
+      {/* Floating Shapes */}
+      <motion.div
+        animate={{ y: [0, -15, 0] }}
+        transition={{ repeat: Infinity, duration: 4 }}
+        className="absolute top-10 left-5 w-5 h-5 bg-blue-300 rounded-full opacity-70"
+      />
+      <motion.div
+        animate={{ y: [0, 20, 0] }}
+        transition={{ repeat: Infinity, duration: 6 }}
+        className="absolute bottom-10 right-10 w-8 h-8 bg-blue-400 rounded-full opacity-60"
+      />
+    </motion.header>
+  
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto -mt-16 relative z-20 px-4 pb-20">
