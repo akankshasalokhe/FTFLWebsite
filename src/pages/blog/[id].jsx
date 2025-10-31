@@ -1349,7 +1349,6 @@ export default function BlogDetail() {
             </Head>
 
             <nav className="navigation mt-20">
-                <link rel="canonical" href={`https://www.ftfltechnology.com/blog/${id}`} />
                 <Link href="/blog" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
                 <span className="nav-current">{blogData.title}</span>
