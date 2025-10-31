@@ -1290,16 +1290,29 @@ export default function BlogDetail() {
         <div className="container">
             <Head>
                 <title>{blogData.title} | BizBooster Blog</title>
-                <meta name="description" content={blogData.description} />
-                <meta name="description" content={blogData.description} />
-                <meta name="keywords" content={blogData.tags.join(', ')} />
 
-                {/* Open Graph for social sharing */}
+                {/* Basic Meta */}
+                <meta name="description" content={blogData.description} />
+                <meta name="keywords" content={blogData.tags?.join(', ') || ''} />
+                <link rel="canonical" href={`https://www.ftfltechnology.com/blog/${id}`} />
+
+                {/* Open Graph */}
                 <meta property="og:title" content={blogData.title} />
                 <meta property="og:description" content={blogData.description} />
                 <meta property="og:type" content="article" />
+                <meta property="og:url" content={`https://www.ftfltechnology.com/blog/${id}`} />
+                <meta property="og:image" content={blogData.mainImage || "/default-og-image.jpg"} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:site_name" content="FTFL Technology" />
 
-                {/* Structured Data for this specific post */}
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={blogData.title} />
+                <meta name="twitter:description" content={blogData.description} />
+                <meta name="twitter:image" content={blogData.mainImage || "/default-twitter-image.jpg"} />
+
+                {/* Structured Data */}
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
@@ -1312,19 +1325,31 @@ export default function BlogDetail() {
                             "dateModified": blogData.updatedAt || blogData.createdAt,
                             "author": {
                                 "@type": "Organization",
-                                "name": "FTFL Technology"
+                                "name": "FTFL Technology",
+                                "url": "https://www.ftfltechnology.com"
                             },
-                            "keywords": blogData.tags.join(', '),
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "FTFL Technology",
+                                "logo": {
+                                    "@type": "ImageObject",
+                                    "url": "https://www.ftfltechnology.com/logo.png"
+                                }
+                            },
                             "mainEntityOfPage": {
                                 "@type": "WebPage",
-                                "@id": `https://www.ftfltechnology.com/blog/${blogData._id}`
-                            }
+                                "@id": `https://www.ftfltechnology.com/blog/${id}`
+                            },
+                            "image": blogData.mainImage ? [blogData.mainImage] : [],
+                            "keywords": blogData.tags?.join(', ') || '',
+                            "articleSection": blogData.category
                         })
                     }}
                 />
             </Head>
 
             <nav className="navigation mt-20">
+                <link rel="canonical" href={`https://www.ftfltechnology.com/blog/${id}`} />
                 <Link href="/blog" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
                 <span className="nav-current">{blogData.title}</span>
