@@ -593,7 +593,7 @@ const renderMobileMockup = (product) => (
               <p className="text-lg text-blue-600 font-semibold mb-3">
                 {selectedProduct.subTitle}
               </p>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-6 leading-relaxed text-justify">
                 {selectedProduct.description.substring(0, 150)}...
               </p>
 
