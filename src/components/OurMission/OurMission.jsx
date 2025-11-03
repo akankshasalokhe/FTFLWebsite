@@ -261,7 +261,7 @@ const MissionSection = () => {
     {
       title: "Our Vision",
       description:
-        "To be a world leader in next-generation technology, utilizing cloud computing, IoT, AI, and other cutting-edge digital advancements to completely transform how people and organizations interact, function, and expand. In our ideal society, technology will foresee requirements, propel clever answers, and facilitate smooth, long-lasting, and revolutionary advancement. We want to build a future where digital possibilities are boundless, enabling every company and people to prosper in a constantly changing, linked world by pushing the limits of innovation and excellence.",
+        "To be a world leader in next-generation technology, utilizing cloud computing, IoT, AI, and other cutting-edge digital advancements to completely transform how people and organizations interact, function, and expand. In our ideal society, technology will foresee requirements, and facilitate smooth, long-lasting, and revolutionary advancement. We want to build a future where digital possibilities are boundless, enabling every company and people to prosper in a constantly changing, linked world by pushing the limits of innovation and excellence.",
       image: "logos/ourvision.jpg",
       typeData: "vision",
     },
@@ -321,13 +321,13 @@ const MissionSection = () => {
               {/* ---------- MOBILE: show title + description below image ---------- */}
               <div className="block lg:hidden mt-4 px-0">
                 <h3
-                  style={{ fontFamily: '"Roboto Slab", serif' }}
+                  // style={{ fontFamily: '"Roboto Slab", serif' }}
                   className="text-2xl font-bold text-gray-900 mb-2 px-0"
                 >
                   {item.title}
                 </h3>
                 <p
-                  style={{ fontFamily: '"Playfair Display", serif' }}
+                  // style={{ fontFamily: '"Playfair Display", serif' }}
                   className="text-gray-700 leading-relaxed"
                 >
                   {item.description}
@@ -370,7 +370,7 @@ const MissionSection = () => {
                 {/* Title */}
                 <div className="absolute inset-x-0 top-6 flex justify-center text-black group-hover:text-white z-20">
                   <h3
-                    style={{ fontFamily: '"Roboto Slab", serif' }}
+                    // style={{ fontFamily: '"Roboto Slab", serif' }}
                     className="text-4xl font-bold drop-shadow-lg"
                   >
                     {item.title}
@@ -379,12 +379,12 @@ const MissionSection = () => {
 
                 {/* Text reveal on hover (comes from right) */}
                 <div
-                  className="absolute inset-x-0 top-14 flex flex-col items-start justify-between text-left text-white font-medium
+                  className="absolute inset-x-0 top-14 flex flex-col items-start justify-between text-left text-white font-sm
                 opacity-0 translate-x-8 group-hover:opacity-100 group-hover:translate-x-0
                 transition-all duration-700 ease-out p-6 z-20"
                 >
                   <p
-                    style={{ fontFamily: '"Playfair Display", serif' }}
+                    // style={{ fontFamily: '"Playfair Display", serif' }}
                     className="text-md leading-relaxed"
                   >
                     {item.description}

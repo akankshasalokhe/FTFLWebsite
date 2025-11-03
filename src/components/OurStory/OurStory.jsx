@@ -80,11 +80,11 @@ const StorySection = () => {
               Our Story
             </h3>
             <div className="text-md lg:text-lg text-gray-600 space-y-3">
-              <p style={{ fontFamily: '"Roboto Slab", serif' }}>
+              <p >
                 As the provider of IT infrastructure services, FTFL is dedicated to maintaining and enhancing the critical systems at the core of the digital economy. With our partners and thousands of customers nationwide, we co-create solutions to help enterprises reach their peak digital performance.
               </p>
               <p className="font-bold mt-2 mb-2 text-2xl">Who we are and what our believes</p>
-              <p style={{ fontFamily: '"Roboto Slab", serif' }}>
+              <p>
                 At FTFL we build a strong bond with customers and with each other. Our people are at the heart of our business evoking new growth and connections. By working together, we are growing.
                 <br />
                 Two of the fundamental ideas that form our identity at FTFL are new growth and human relationships. These ideas have a direct connection to our goal to drive innovation, to transform the world, and to advance development on daily basis. These values are reflected in the work we conduct at FTFL.
