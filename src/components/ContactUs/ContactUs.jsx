@@ -513,7 +513,7 @@ export default function ContactSectionAnimated() {
       <div className="absolute inset-0 bg-black/65" />
 
       {/* soft glowing circles behind left panel */}
-      <div className="absolute left-12 top-24 -z-10 pointer-events-none">
+      <div className="absolute left-12 top-24 -z-10 pointer-events-none ">
         <div className="relative w-[420px] h-[420px]">
           <motion.div
             animate={{ y: [0, -18, 0], opacity: [0.85, 0.6, 0.85], scale: [1, 1.05, 1] }}
@@ -530,7 +530,7 @@ export default function ContactSectionAnimated() {
         </div>
       </div>
 
-      <div className="relative z-10 container max-w-6xl mx-auto px-6">
+      <div className="relative z-10 container max-w-6xl mx-auto px-6 mb-10 mt-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.98, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -539,7 +539,7 @@ export default function ContactSectionAnimated() {
         >
           {/* LEFT: Heading + paragraph (no phone/email/socials here per request) */}
           <div className="text-white px-6 md:px-0">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4 ">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-200 to-cyan-200">
                 Contact Us
               </span>
