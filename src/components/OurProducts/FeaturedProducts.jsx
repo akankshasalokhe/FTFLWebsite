@@ -485,20 +485,20 @@ const rotateY = useTransform(x, [-100, 100], [-15, 15]);
 // 3D tilt mockup JSX
 const renderMobileMockup = (product) => (
   <motion.div
-    style={{ rotateX, rotateY }}
-    onMouseMove={(e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      x.set(e.clientX - rect.left - rect.width / 2);
-      y.set(e.clientY - rect.top - rect.height / 2);
-    }}
-    onMouseLeave={() => {
-      x.set(0);
-      y.set(0);
-    }}
-    transition={{ type: "spring", stiffness: 100, damping: 10 }}
-    className="relative w-56 h-[420px] mx-auto shadow-[0_20px_60px_rgba(0,0,0,0.25)] border-[3px] rounded-[2rem] border-gray-800 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-700"
+    // style={{ rotateX, rotateY }}
+    // onMouseMove={(e) => {
+    //   const rect = e.currentTarget.getBoundingClientRect();
+    //   x.set(e.clientX - rect.left - rect.width / 2);
+    //   y.set(e.clientY - rect.top - rect.height / 2);
+    // }}
+    // onMouseLeave={() => {
+    //   x.set(0);
+    //   y.set(0);
+    // }}
+    // transition={{ type: "spring", stiffness: 100, damping: 10 }}
+    className="relative w-60 h-[500px] mx-auto  overflow-hidden"
   >
-    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-gray-600 rounded-full"></div>
+    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-1.5"></div>
     <Image
       src={product.mainImage}
       alt={product.title}

@@ -701,7 +701,7 @@ const ProductShowcase = () => {
           >
             {/* Device Mockup */}
             <div
-              className={`relative flex items-center justify-center bg-gray-100 ${
+              className={`relative flex items-center justify-center  ${
                 isMobile ? "p-4 sm:p-6" : "p-6 md:w-1/2"
               }`}
             >
@@ -710,12 +710,12 @@ const ProductShowcase = () => {
                   className={`relative ${
                     isMobile
                       ? "w-32 sm:w-44 md:w-52 aspect-[9/16]"
-                      : "w-[220px] h-[440px]"
-                  }  rounded-2xl shadow-xl border-2 border-black overflow-hidden`}
+                      : "w-[220px] h-[550px]"
+                  }   overflow-hidden`}
                 >
                   {/* Notch for desktop style */}
                   {!isMobile && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5  z-20"></div>
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-34 h-5  z-20"></div>
                   )}
                   <img
                     src={product.mainImage}
