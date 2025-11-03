@@ -11,12 +11,12 @@
   "dependencies": {
     "@headlessui/react": "^2.2.7",
     "@heroicons/react": "^2.2.0",
-    "@react-three/drei": "^10.6.1",
-    "@react-three/fiber": "^9.3.0",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
     "aos": "^2.3.4",
     "axios": "^1.11.0",
     "countup": "^1.8.2",
-    "framer-motion": "^12.23.12",
+    "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.539.0",
     "marked": "^16.2.0",
@@ -32,6 +32,7 @@
     "react-tsparticles": "^2.12.2",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.2.10",
+    "three": "^0.181.0",
     "typewriter-effect": "^2.22.0"
   },
   "devDependencies": {

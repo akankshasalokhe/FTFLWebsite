@@ -1,4 +1,21 @@
 /* 🌟 Base Dropdown Styling */
+
+.navbar {
+  background:white;
+  /* color: rgba(246, 241, 241, 0.893); */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0a1f44;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 20px;
+} */
 .multiLevelDropdown {
   position: absolute;
   top: 100%;

@@ -1,369 +1,140 @@
 .services {
-  padding: 4rem 1rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   position: relative;
-  min-height: 100vh;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.sectionTitle {
-  font-size: clamp(2rem, 5vw, 2.5rem);
-  font-weight: 700;
-  color: black;
-  margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
-}
-
-.sectionTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #4361ee, #3a0ca3);
-  border-radius: 2px;
-}
-
-.sectionSubtitle {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  color: #718096;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-  padding: 0 1rem;
-}
-
-.cardsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  margin-bottom: 3rem;
-}
-
-.card {
-  background: white;
-  border-radius: 12px;
-  /* width: 400px; */
+  padding: 100px 0;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  height: 90%;
-  cursor: pointer;
-  margin: 0 0.5rem; /* Equal left and right margin */
+  color: #fff;
 }
 
-.card:hover, .card.active {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-.cardInner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-.imageContainer {
-  position: relative;
-  height: 340px;
-  width: 400px;
-  overflow: hidden;
-}
-
-.image {
-  object-fit: fill;
-  transition: transform 0.5s ease;
-}
-
-.card:hover .image {
-  transform: scale(1.05);
-}
-
-.overlay {
+.bgImage {
+  background-image: url("/bgTech.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: brightness(0.7);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%); */
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  z-index: 0;
 }
 
-.card:hover .overlay {
-  opacity: 0.8;
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.sectionSubtitle {
+  font-size: 1.1rem;
+  color: #ddd;
+  max-width: 600px;
+  margin: 10px auto 0;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
 }
 
 .content {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 180px;
+  padding: 20px;
 }
 
 .title {
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-size: 1.4rem;
   font-weight: 600;
-  color: #2d3748;
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
 }
 
 .description {
-  color: #718096;
+  color: #ccc;
+  font-size: 1rem;
   line-height: 1.5;
-  flex-grow: 1;
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
-  margin: 0 0.5rem; /* Equal left and right margin for text */
-}
-
-.action {
-  margin-top: auto;
-  padding-top: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 .learnMoreBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #4361ee;
+  margin-top: 12px;
+  display: inline-block;
+  color: #00c6ff;
+  text-decoration: none;
   font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
-  transition: all 0.2s ease;
-  margin: 0 0.5rem 0 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .learnMoreBtn:hover {
-  color: #3a0ca3;
-  gap: 0.75rem;
+  color: #fff;
 }
 
 .cta {
   text-align: center;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin: 0 1.5rem; /* Equal left and right margin */
-}
-
-.cta p {
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
-  color: #2d3748;
-  margin-bottom: 1rem;
+  margin-top: 80px;
 }
 
 .ctaButton {
-  background: linear-gradient(90deg, #125bbb, #4361ee);
-  color: white;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #007cf0, #00dfd8);
   border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
+  padding: 12px 28px;
+  color: white;
+  border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(67, 97, 238, 0.3);
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  font-weight: 600;
+  transition: transform 0.3s ease;
 }
 
 .ctaButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(67, 97, 238, 0.4);
-}
-
-/* Responsive Breakpoints with consistent side margins */
-@media (max-width: 480px) {
-  .services {
-    padding: 2rem 0.5rem;
-  }
-  
-  .container {
-    padding: 0 1rem;
-  }
-  
-  .header {
-    margin-bottom: 2rem;
-  }
-  
-  .cardsContainer {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  .card {
-    margin: 0 0.25rem; /* Equal but smaller margin on mobile */
-  }
-  
-  .imageContainer {
-    height: 250px;
-    width: 100%;
-  }
-  
-  .content {
-    padding: 1rem;
-    min-height: 160px;
-  }
-  
-  .cta {
-    padding: 1.5rem 1rem;
-    margin: 0 0.5rem; /* Equal margin on mobile */
-  }
-  
-  .description, .learnMoreBtn {
-    margin: 0 0.25rem; /* Equal but smaller margin on mobile */
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .cardsContainer {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  
-  .card {
-    margin: 0 0.5rem; /* Equal margin */
-  }
-  
-  .imageContainer {
-    height: 250px;
-    width: 100%;
-  }
-  
-  .content {
-    min-height: 170px;
-  }
-  
-  .cta {
-    margin: 0 1rem; /* Equal margin */
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .cardsContainer {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  
-  .card {
-    margin: 0 0.75rem; /* Equal margin */
-  }
-  
-  .imageContainer {
-    height: 300px;
-    width: 100%;
-  }
-  
-  .cta {
-    margin: 0 1.5rem; /* Equal margin */
-  }
-}
-
-@media (min-width: 1025px) {
-  .cardsContainer {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .card {
-    margin: 0 0.5rem; /* Equal margin */
-  }
-  .imageContainer {
-    height: 300px;
-    width: 100%;
-  }
-}
-
-/* Large screens */
-@media (min-width: 1440px) {
-  .container {
-    max-width: 1400px;
-  }
-  
-  .cardsContainer {
-    gap: 2rem;
-  }
-  
-  .card {
-    margin: 0 1rem; /* Equal margin */
-  }
-  
-  .cta {
-    margin: 0 2rem; /* Equal margin */
-  }
-  .imageContainer {
-    height: 350px;
-    width: 100%;
-}
-}
-
-/* Extra margin for very large screens */
-@media (min-width: 1600px) {
-  .container {
-    max-width: 1500px;
-  }
-  
-  .card {
-    margin: 0 1rem; /* Equal margin */
-  }
-  .imageContainer {
-    height: 400px;
-    width: 100%;
-  }
-}
-
-/* Touch device optimizations and reduced motion styles remain the same */
-
-/* Touch device optimizations */
-@media (hover: none) {
-  .card:hover {
-    transform: none;
-  }
-  
-  .card.active {
-    transform: translateY(-5px);
-  }
-  
-  .learnMoreBtn:hover {
-    gap: 0.5rem;
-  }
-}
-
-/* Reduced motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .card, .image, .learnMoreBtn, .ctaButton {
-    transition: none;
-  }
-  
-  .card:hover .image {
-    transform: none;
-  }
-}
-
-/* Extra margin for very large screens */
-@media (min-width: 1600px) {
-  .container {
-    max-width: 1500px;
-  }
-  
-  .card {
-    margin: 0 2rem;
-  }
+  transform: scale(1.05);
 }
