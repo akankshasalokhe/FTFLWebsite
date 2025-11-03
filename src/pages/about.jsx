@@ -167,11 +167,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import MissionSection from "@/components/OurMission/OurMission";
 import BoardMembers from "@/components/TeamMembers/TeamMembers";
-import Gallery from "@/components/Gallery/Gallery";
-import WhyChooseUs from "@/components/WhyChooseUs/WhyChooseUs";
-import Testimonials from "@/components/Testimonial/Testimonial";
-import ContactForm from "@/components/ContactUs/ContactUs";
+// import Testimonials from "@/components/Testimonial/Testimonial";
+// import ContactForm from "@/components/ContactUs/ContactUs";
 import StorySection from "@/components/OurStory/OurStory";
+import OurJourney from "@/components/OurJourney/OurJourney";
 
 function About() {
   const controls = useAnimation();
@@ -241,7 +240,7 @@ function About() {
       {/* Hero Section */}
       <div
         ref={ref}
-        className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[500px] max-h-[700px] overflow-hidden"
+        className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[700px] max-h-[800px] overflow-hidden"
       >
         {/* Background Image */}
         <motion.div
@@ -364,17 +363,19 @@ function About() {
         </motion.div>
 
         {/* Bottom Edge */}
-        <div className="absolute bottom-0 left-0 w-full h-16 bg-white clip-path-angle z-30"></div>
+        <div className="absolute bottom-0 left-0 w-full h-8 bg-white clip-path-angle z-30"></div>
       </div>
 
       {/* Page Sections */}
-      <StorySection />
+     
+      {/* <OurJourney /> */}
       <MissionSection />
+       <StorySection />
       <BoardMembers />
-      <WhyChooseUs />
+      {/* <WhyChooseUs /> */}
       {/* <Gallery /> */}
-      <Testimonials />
-      <ContactForm />
+      {/* <Testimonials /> */}
+      {/* <ContactForm /> */}
     </div>
   );
 }

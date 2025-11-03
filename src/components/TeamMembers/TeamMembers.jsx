@@ -295,8 +295,11 @@ const BoardMembers = () => {
   };
 
   return (
-    <section id="team-section" className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    // <section id="team-section" className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
+    //   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="team-section" className="pt-0 pb-16 sm:pt-8 sm:pb-20 lg:pt-0 lg:pb-24 bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-2 sm:px-6 lg:px-8">
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -348,7 +351,7 @@ const BoardMembers = () => {
                     src={member.mainImage}
                     alt={member.fullName}
                     // className="w-full h-full  transition-all duration-300 group-hover:scale-105"
-                      className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
+                    className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                     onError={(e) => {
                       e.currentTarget.onerror = null;
                       e.currentTarget.src = "/images/placeholder-member.jpg";

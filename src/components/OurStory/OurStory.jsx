@@ -43,7 +43,12 @@ const StorySection = () => {
   }, []);
 
   return (
-    <section id='story' className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    // <section id='story' className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section
+      id="story"
+      className="pt-0 pb-16 sm:pt-0 sm:pb-20 lg:pt-0 lg:pb-24 px-4 sm:px-6 lg:px-8 bg-white"
+    >
+
       <div className="max-w-7xl mx-auto">
         {loading ? (
           // Simple loading text instead of skeleton
@@ -78,13 +83,24 @@ const StorySection = () => {
                 {/* Text Content */}
                 <div className="lg:w-1/2">
                   <div className={`w-16 h-1.5 rounded-full bg-gradient-to-r ${item.color} mb-6`} />
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  <h3
+                    style={{ fontFamily: '"Roboto Slab", serif' }}
+                    className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4"
+                  >
                     Our Story
                   </h3>
+
                   <div className="text-lg text-gray-600 space-y-3">
-                    {item.description.map((paragraph, index) => (
+                    {/* {item.description.map((paragraph, index) => (
                       <p key={index}>{paragraph}</p>
-                    ))}
+                    ))} */}
+                    <p style={{ fontFamily: '"Roboto Slab", serif' }} >As the provider of IT infrastructure services, FTFL is dedicated to maintaining and enhancing the critical systems at the core of the digital economy. With our partners and thousands of customers nationwide, we co-create solutions to help enterprises reach their peak digital performance.
+
+                      <p className="font-bold mt-2 mb-2 text-3xl">Who we are and what our believes</p>
+
+                      At FTFL we build a strong bond with customers and with each other. Our people are at the heart of our business evoking new growth and connections. By working together, we are growing.
+
+                      Two of the fundamental ideas that form our identity at FTFL are new growth and human relationships. These ideas have a direct connection to our goal to drive innovation, to transform the world, and to advance development on daily basis. These values are reflected in the work we conduct at FTFL.</p>
                   </div>
                 </div>
               </div>
