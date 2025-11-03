@@ -297,7 +297,12 @@ const BoardMembers = () => {
   return (
     // <section id="team-section" className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
     //   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    <section id="team-section" className="pt-0 pb-16 sm:pt-8 sm:pb-20 lg:pt-0 lg:pb-24 bg-gradient-to-b from-white to-gray-50">
+    // <section id="team-section" className="pt-0 pb-16 sm:pt-8 sm:pb-20 lg:pt-0 lg:pb-24 bg-gradient-to-b from-white to-gray-50">
+    <section
+      id="team-section"
+      className="pt-6 pb-16 sm:pt-12 sm:pb-20 lg:pt-0 lg:pb-24 bg-gradient-to-b from-white to-gray-50"
+    >
+
       <div className="container mx-auto px-2 sm:px-6 lg:px-8">
 
         <motion.div

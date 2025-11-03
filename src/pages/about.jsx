@@ -367,10 +367,11 @@ function About() {
       </div>
 
       {/* Page Sections */}
-     
+
       {/* <OurJourney /> */}
+      <StorySection />
       <MissionSection />
-       <StorySection />
+
       <BoardMembers />
       {/* <WhyChooseUs /> */}
       {/* <Gallery /> */}
