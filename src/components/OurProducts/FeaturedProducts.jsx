@@ -511,7 +511,7 @@ const renderMobileMockup = (product) => (
 
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-24 px-6 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-100">
+    <section className="relative min-h-screen flex items-center justify-center py-15 px-6 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-100">
       {/* Floating tech icons */}
       <FloatingIcon Icon={FaReact} delay={0} top="10%" left="5%" color="blue" />
       <FloatingIcon Icon={FaNodeJs} delay={1} top="20%" left="80%" color="green" />
@@ -537,7 +537,7 @@ const renderMobileMockup = (product) => (
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-600 to-indigo-700 text-transparent bg-clip-text"
+          className="text-3xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-600 to-indigo-700 text-transparent bg-clip-text"
         >
           Discover Our Innovative Creations
         </motion.h1>
@@ -587,13 +587,13 @@ const renderMobileMockup = (product) => (
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.9 }}
             >
-              <h2 className="text-3xl font-bold mb-3 text-gray-900">
+              <h2 className="text-3xl font-bold mb-3 text-gray-900 ">
                 {selectedProduct.title}
               </h2>
               <p className="text-lg text-blue-600 font-semibold mb-3">
                 {selectedProduct.subTitle}
               </p>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-6 leading-relaxed text-justify">
                 {selectedProduct.description.substring(0, 150)}...
               </p>
 
