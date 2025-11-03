@@ -240,8 +240,9 @@ function About() {
       {/* Hero Section */}
       <div
         ref={ref}
-        className="relative mt-[80px] w-screen bg-blue-500 h-[70vh] min-h-[700px] max-h-[800px] overflow-hidden"
+        className="relative mt-[80px] w-screen bg-blue-500 h-[60vh] min-h-[500px] max-h-[650px] overflow-hidden"
       >
+
         {/* Background Image */}
         <motion.div
           className="absolute inset-0 bg-center z-0"

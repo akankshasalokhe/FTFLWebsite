@@ -79,7 +79,7 @@ const StorySection = () => {
             >
               Our Story
             </h3>
-            <div className="text-lg text-gray-600 space-y-3">
+            <div className="text-md lg:text-lg text-gray-600 space-y-3">
               <p style={{ fontFamily: '"Roboto Slab", serif' }}>
                 As the provider of IT infrastructure services, FTFL is dedicated to maintaining and enhancing the critical systems at the core of the digital economy. With our partners and thousands of customers nationwide, we co-create solutions to help enterprises reach their peak digital performance.
               </p>

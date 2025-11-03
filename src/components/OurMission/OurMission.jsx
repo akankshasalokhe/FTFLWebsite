@@ -284,14 +284,14 @@ const MissionSection = () => {
   return (
     <section
       id="values-section"
-      className="pt-0 pb-12 sm:pt-4 sm:pb-16 lg:pt-0 lg:pb-16 px-4 sm:px-6 lg:px-8 bg-white"
+      className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-10 lg:pb-16 px-4 sm:px-6 lg:px-8  bg-gradient-to-b from-blue-50 via-white to-blue-50"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl sm:text-8xl md:text-5xl font-bold text-gray-900 mb-4">
             Our{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-600">
+            <span className="bg-clip-text  text-transparent bg-gradient-to-r from-blue-500 to-blue-600">
               Guiding Principles
             </span>
           </h2>
