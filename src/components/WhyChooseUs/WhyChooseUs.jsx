@@ -361,7 +361,7 @@ const WhyChooseUs = () => {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 place-items-center">
+        <div className="grid gap-15 sm:grid-cols-2 lg:grid-cols-4 place-items-center">
           {reasons.map((reason, index) => (
             <motion.div
               key={index}
