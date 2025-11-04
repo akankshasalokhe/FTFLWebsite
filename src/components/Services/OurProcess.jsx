@@ -329,7 +329,7 @@ export default function HowWeWorkHex({ title, steps = [] }) {
               <div className="flip-card relative w-48 h-52">
                 {/* Front Side */}
                 <div className="flip-card-inner group-hover:rotate-y-180 transition-transform duration-700">
-                  <div className="flip-card-front hexagon bg-gradient-to-br from-blue-500 to-blue-900 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
+                  <div className="flip-card-front hexagon bg-gradient-to-br from-blue-600/90 to-blue-900/100 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
                     <div className="text-3xl text-blue-400 mb-3">
                       {iconMap[step.icon?.toLowerCase()] || <FiTarget />}
                     </div>
@@ -337,7 +337,7 @@ export default function HowWeWorkHex({ title, steps = [] }) {
                   </div>
 
                   {/* Back Side */}
-                  <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg rotate-y-180">
+                  <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg rotate-y-180">
                     <p className="text-sm text-gray-200">
                       {step.description || step.desc || "No description"}
                     </p>
