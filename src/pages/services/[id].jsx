@@ -1130,7 +1130,7 @@ export default function ServiceDetail() {
           <img
             src={serviceData.bannerImage}
             alt={serviceData.title || "Service Banner"}
-            className="w-full h-full lg:object-fill object-center sm:object-[50%_30%]"
+            className="w-full h-[500px] lg:object-fill object-center sm:object-[50%_30%]"
           />
         </motion.div>
       )}
@@ -1213,11 +1213,11 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-full  max-w-md rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={serviceData.serviceImage1}
                 alt={serviceData.title}
-                className="w-full h-[340px] sm:h-[420px] object-cover"
+                className="w-full h-[340px] sm:h-[480px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
