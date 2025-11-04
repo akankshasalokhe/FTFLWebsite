@@ -140,7 +140,7 @@ const HeroSection = () => {
   return (
     <section
       ref={ref}
-      className="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-[#07121f] text-white px-6"
+      className="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-[#143154] text-white px-6"
     >
       {/* 🔷 Glowing Animated Background */}
       <motion.div
