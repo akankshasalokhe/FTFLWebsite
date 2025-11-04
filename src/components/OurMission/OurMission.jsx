@@ -305,7 +305,7 @@ const MissionSection = () => {
           {content.map((item, index) => (
             <div
               key={index}
-              className="group relative rounded-xl overflow-hidden transition-all duration-500 h-auto lg:h-[26rem]"
+              className="group relative rounded-xl overflow-hidden transition-all duration-500 h-auto lg:h-[420px] w-[400px]"
             >
               {/* Image (mobile: natural height; desktop: fill card) */}
               <img

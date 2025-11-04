@@ -240,7 +240,7 @@ function About() {
       {/* Hero Section */}
       <div
         ref={ref}
-        className="relative mt-[80px] w-screen bg-blue-500 h-[60vh] min-h-[500px] max-h-[650px] overflow-hidden"
+        className="relative mt-[80px]  bg-blue-500 h-[40vh] min-h-[580px] max-h-[650px] overflow-hidden"
       >
 
         {/* Background Image */}
