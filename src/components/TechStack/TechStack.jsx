@@ -379,105 +379,227 @@ const TechStack = () => {
   };
 
   return (
+    // <section className="py-16 bg-gradient-to-b from-blue-50 via-white to-blue-50 overflow-hidden">
+    //   <div className="max-w-7xl mx-auto px-4">
+    //     {/* Header */}
+    //     <div className="text-center mb-12">
+    //       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+    //         Our{" "}
+    //         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+    //           Technology Stack
+    //         </span>
+    //       </h2>
+    //       <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+    //         Innovative tools and technologies we use to build next-gen products.
+    //       </p>
+    //     </div>
+
+    //     {/* Tabs */}
+    //     <div className="flex flex-wrap justify-center gap-3 mb-10">
+    //       {Object.keys(techData).map((tab) => (
+    //         <button
+    //           key={tab}
+    //           onClick={() => setActiveTab(tab)}
+    //           className={`px-5 py-2.5 rounded-full font-medium text-sm md:text-base transition-all duration-300 ${
+    //             activeTab === tab
+    //               ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
+    //               : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
+    //           }`}
+    //         >
+    //           {tab}
+    //         </button>
+    //       ))}
+    //     </div>
+
+    //     {/* Tech Icons Grid - Desktop */}
+    //     {!isMobile && activeTab && (
+    //       <div
+    //         className={`flex flex-wrap justify-center gap-6 transition-all duration-500 ${
+    //           techData[activeTab]?.length >= 8 ? "max-w-6xl mx-auto" : "max-w-4xl mx-auto"
+    //         }`}
+    //       >
+    //         {techData[activeTab]?.map((tech) => (
+    //           <div
+    //             key={tech.id}
+    //             className="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-lg border border-blue-50 w-[90px] sm:w-[100px] transition-all duration-300 hover:-translate-y-1"
+    //           >
+    //             <div className="p-2 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center w-14 h-14 mb-2 hover:from-blue-100 hover:to-indigo-100 transition-all duration-300">
+    //               <img
+    //                 src={tech.icon}
+    //                 alt={tech.name}
+    //                 className="w-8 h-8 object-contain"
+    //               />
+    //             </div>
+    //             <span className="text-xs sm:text-sm font-medium text-gray-800 text-center leading-tight">
+    //               {tech.name}
+    //             </span>
+    //           </div>
+    //         ))}
+    //       </div>
+    //     )}
+
+    //     {/* Tech Slider - Mobile */}
+    //     {isMobile && activeTab && (
+    //       <div className="md:hidden px-4">
+    //         <Slider ref={sliderRef} {...sliderSettings}>
+    //           {/* Group into chunks of 6 */}
+    //           {(() => {
+    //             const chunks = [];
+    //             const items = techData[activeTab] || [];
+    //             for (let i = 0; i < items.length; i += 6) {
+    //               chunks.push(items.slice(i, i + 6));
+    //             }
+    //             return chunks.map((chunk, index) => (
+    //               <div key={index}>
+    //                 <div className="grid grid-cols-3 gap-3 justify-items-center">
+    //                   {chunk.map((tech) => (
+    //                     <div
+    //                       key={tech.id}
+    //                       className="flex flex-col items-center p-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-blue-50 w-[90px] transition-all duration-300"
+    //                     >
+    //                       <div className="p-2 bg-blue-50 rounded-full flex items-center justify-center w-12 h-12 mb-1 hover:bg-blue-100 transition-colors duration-300">
+    //                         <img
+    //                           src={tech.icon}
+    //                           alt={tech.name}
+    //                           className="w-7 h-7 object-contain"
+    //                         />
+    //                       </div>
+    //                       <span className="text-xs font-medium text-gray-800 text-center leading-tight">
+    //                         {tech.name}
+    //                       </span>
+    //                     </div>
+    //                   ))}
+    //                 </div>
+    //               </div>
+    //             ));
+    //           })()}
+    //         </Slider>
+    //       </div>
+    //     )}
+    //   </div>
+    // </section>
+
     <section className="py-16 bg-gradient-to-b from-blue-50 via-white to-blue-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
-            Our{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
-              Technology Stack
-            </span>
-          </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Innovative tools and technologies we use to build next-gen products.
-          </p>
-        </div>
+  <div className="max-w-7xl mx-auto px-4">
+    {/* Header */}
+    <div className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
+        Our{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+          Technology Stack
+        </span>
+      </h2>
+      <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        Innovative tools and technologies we use to build next-gen products.
+      </p>
+    </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {Object.keys(techData).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-5 py-2.5 rounded-full font-medium text-sm md:text-base transition-all duration-300 ${
-                activeTab === tab
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
-                  : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+    {/* Tabs */}
+    <div className="flex flex-wrap justify-center gap-3 mb-10">
+      {Object.keys(techData).map((tab) => (
+        <button
+          key={tab}
+          onClick={() => setActiveTab(tab)}
+          className={`px-5 py-2.5 rounded-full font-medium text-sm md:text-base transition-all duration-300 ${
+            activeTab === tab
+              ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
+              : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
+          }`}
+        >
+          {tab}
+        </button>
+      ))}
+    </div>
 
-        {/* Tech Icons Grid - Desktop */}
-        {!isMobile && activeTab && (
-          <div
-            className={`flex flex-wrap justify-center gap-6 transition-all duration-500 ${
-              techData[activeTab]?.length >= 8 ? "max-w-6xl mx-auto" : "max-w-4xl mx-auto"
-            }`}
-          >
+    {/* Tech Icons Grid - Desktop */}
+    {!isMobile && activeTab && (
+      <div className="max-w-7xl mx-auto">
+        {/* Check if less than 7 items - center them */}
+        {techData[activeTab]?.length < 7 ? (
+          <div className="flex flex-wrap justify-center gap-4 transition-all duration-500">
             {techData[activeTab]?.map((tech) => (
               <div
                 key={tech.id}
-                className="flex flex-col items-center p-3 bg-white rounded-2xl shadow-sm hover:shadow-lg border border-blue-50 w-[90px] sm:w-[100px] transition-all duration-300 hover:-translate-y-1"
+                className="flex flex-col items-center p-2 bg-white rounded-xl shadow-sm hover:shadow-lg border border-blue-50 w-[80px] transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="p-2 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center w-14 h-14 mb-2 hover:from-blue-100 hover:to-indigo-100 transition-all duration-300">
+                <div className="p-1.5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center w-12 h-12 mb-1 hover:from-blue-100 hover:to-indigo-100 transition-all duration-300">
                   <img
                     src={tech.icon}
                     alt={tech.name}
-                    className="w-8 h-8 object-contain"
+                    className="w-6 h-6 object-contain"
                   />
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-gray-800 text-center leading-tight">
+                <span className="text-xs font-medium text-gray-800 text-center leading-tight">
+                  {tech.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* 7 or more items - use 10-column grid */
+          <div className="grid grid-cols-5 xl:grid-cols-10 gap-4 justify-items-center transition-all duration-500">
+            {techData[activeTab]?.map((tech) => (
+              <div
+                key={tech.id}
+                className="flex flex-col items-center p-2 bg-white rounded-xl shadow-sm hover:shadow-lg border border-blue-50 w-full max-w-[80px] transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="p-1.5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center w-12 h-12 mb-1 hover:from-blue-100 hover:to-indigo-100 transition-all duration-300">
+                  <img
+                    src={tech.icon}
+                    alt={tech.name}
+                    className="w-6 h-6 object-contain"
+                  />
+                </div>
+                <span className="text-xs font-medium text-gray-800 text-center leading-tight">
                   {tech.name}
                 </span>
               </div>
             ))}
           </div>
         )}
-
-        {/* Tech Slider - Mobile */}
-        {isMobile && activeTab && (
-          <div className="md:hidden px-4">
-            <Slider ref={sliderRef} {...sliderSettings}>
-              {/* Group into chunks of 6 */}
-              {(() => {
-                const chunks = [];
-                const items = techData[activeTab] || [];
-                for (let i = 0; i < items.length; i += 6) {
-                  chunks.push(items.slice(i, i + 6));
-                }
-                return chunks.map((chunk, index) => (
-                  <div key={index}>
-                    <div className="grid grid-cols-3 gap-3 justify-items-center">
-                      {chunk.map((tech) => (
-                        <div
-                          key={tech.id}
-                          className="flex flex-col items-center p-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-blue-50 w-[90px] transition-all duration-300"
-                        >
-                          <div className="p-2 bg-blue-50 rounded-full flex items-center justify-center w-12 h-12 mb-1 hover:bg-blue-100 transition-colors duration-300">
-                            <img
-                              src={tech.icon}
-                              alt={tech.name}
-                              className="w-7 h-7 object-contain"
-                            />
-                          </div>
-                          <span className="text-xs font-medium text-gray-800 text-center leading-tight">
-                            {tech.name}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ));
-              })()}
-            </Slider>
-          </div>
-        )}
       </div>
-    </section>
+    )}
+
+    {/* Tech Slider - Mobile */}
+    {isMobile && activeTab && (
+      <div className="md:hidden px-4">
+        <Slider ref={sliderRef} {...sliderSettings}>
+          {/* Group into chunks of 6 */}
+          {(() => {
+            const chunks = [];
+            const items = techData[activeTab] || [];
+            for (let i = 0; i < items.length; i += 6) {
+              chunks.push(items.slice(i, i + 6));
+            }
+            return chunks.map((chunk, index) => (
+              <div key={index}>
+                <div className="grid grid-cols-3 gap-3 justify-items-center">
+                  {chunk.map((tech) => (
+                    <div
+                      key={tech.id}
+                      className="flex flex-col items-center p-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-blue-50 w-[90px] transition-all duration-300"
+                    >
+                      <div className="p-2 bg-blue-50 rounded-full flex items-center justify-center w-12 h-12 mb-1 hover:bg-blue-100 transition-colors duration-300">
+                        <img
+                          src={tech.icon}
+                          alt={tech.name}
+                          className="w-7 h-7 object-contain"
+                        />
+                      </div>
+                      <span className="text-xs font-medium text-gray-800 text-center leading-tight">
+                        {tech.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ));
+          })()}
+        </Slider>
+      </div>
+    )}
+  </div>
+</section>
   );
 };
 
