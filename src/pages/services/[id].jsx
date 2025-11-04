@@ -1160,11 +1160,11 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-[500px] lg:max-w-[600px] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={serviceData.serviceImage1}
                 alt={serviceData.title}
-                className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
+                className="w-full  h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
