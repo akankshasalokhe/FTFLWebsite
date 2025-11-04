@@ -428,7 +428,7 @@ export default function TeamMembers() {
               ? "grid-cols-1 max-w-sm"
               : filteredMembers.length === 2
               ? "grid-cols-1 sm:grid-cols-2 max-w-3xl"
-              : "grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl"
+              : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl"
           }`}
         >
           {filteredMembers.map((member, index) => (

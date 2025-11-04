@@ -83,7 +83,7 @@ const StorySection = () => {
               <p >
                 As the provider of IT infrastructure services, FTFL is dedicated to maintaining and enhancing the critical systems at the core of the digital economy. With our partners and thousands of customers nationwide, we co-create solutions to help enterprises reach their peak digital performance.
               </p>
-              <p className="font-bold mt-2 mb-2 text-2xl">Who we are and what our believes</p>
+              <p className="font-bold mt-2 mb-2 text-2xl">Who We Are and What Our Believes</p>
               <p>
                 At FTFL we build a strong bond with customers and with each other. Our people are at the heart of our business evoking new growth and connections. By working together, we are growing.
                 <br />
