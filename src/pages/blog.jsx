@@ -110,7 +110,8 @@ const Blog = () => {
                     const element = document.getElementById("blog");
                     if (element) element.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="bg-white text-blue-600 hover:bg-blue-50 cursor-pointer font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base"
+                  // className="bg-white text-blue-600 hover:bg-blue-50 cursor-pointer font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 text-sm sm:text-base"
+                   className="mt-8 px-8 py-3 cursor-pointer rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
                 >
                   Read Latest Post
                 </button>

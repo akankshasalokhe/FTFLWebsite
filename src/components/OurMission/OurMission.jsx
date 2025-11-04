@@ -282,148 +282,137 @@ const MissionSection = () => {
   ]);
 
   return (
-    <section
-      id="values-section"
-      className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-10 lg:pb-16 px-4 sm:px-6 lg:px-8  bg-gradient-to-b from-blue-50 via-white to-blue-50"
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12 lg:mb-14">
-          <h2 className="text-4xl sm:text-8xl md:text-5xl font-bold text-gray-900 mb-4">
-            Our{" "}
-            <span className="bg-clip-text  text-transparent bg-gradient-to-r from-blue-500 to-blue-600">
-              Guiding Principles
-            </span>
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            The foundation of everything we do at our company
-          </p>
-        </div>
+<section
+  id="values-section"
+  className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-10 lg:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 via-white to-blue-50"
+>
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <div className="text-center mb-12 lg:mb-14">
+      <h2 className="text-4xl sm:text-5xl md:text-5xl font-bold text-gray-900 mb-4">
+        Our{" "}
+        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+          Guiding Principles
+        </span>
+      </h2>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        The foundation of everything we do at our company
+      </p>
+    </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {content.map((item, index) => (
-            <div
-              key={index}
-              className="group relative rounded-xl overflow-hidden transition-all duration-500 h-auto lg:h-[420px] w-[400px]"
-            >
-              {/* Image (mobile: natural height; desktop: fill card) */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-auto lg:h-full object-cover transition-transform duration-700 ease-out"
-                loading="lazy"
-                onError={(e) => {
-                  e.target.src = "https://via.placeholder.com/800x450?text=Image+Not+Found";
-                }}
-              />
+    {/* Cards */}
+    {/* Mobile: 1 column, Tablet: 1 column, Desktop: 3 columns */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+      {content.map((item, index) => (
+        <div
+          key={index}
+          className="group relative rounded-xl overflow-hidden transition-all duration-500 w-full lg:w-[400px] lg:h-[420px]"
+        >
+          {/* Image (mobile & tablet: natural height; desktop: fill card) */}
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-auto lg:h-full object-cover transition-transform duration-700 ease-out"
+            loading="lazy"
+            onError={(e) => {
+              e.target.src = "https://via.placeholder.com/800x450?text=Image+Not+Found";
+            }}
+          />
 
-              {/* ---------- MOBILE: show title + description below image ---------- */}
-              <div className="block lg:hidden mt-4 px-0">
-                <h3
-                  // style={{ fontFamily: '"Roboto Slab", serif' }}
-                  className="text-2xl font-bold text-gray-900 mb-2 px-0"
-                >
-                  {item.title}
-                </h3>
-                <p
-                  // style={{ fontFamily: '"Playfair Display", serif' }}
-                  className="text-gray-700 leading-relaxed"
-                >
-                  {item.description}
-                </p>
+          {/* ---------- MOBILE & TABLET: show title + description below image ---------- */}
+          <div className="block lg:hidden mt-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3 text-left">
+              {item.title}
+            </h3>
+            <p className="text-gray-700 leading-relaxed text-base text-left">
+              {item.description}
+            </p>
 
-                {item.typeData === "corevalues" && (
-                  <ul className="mt-4 grid grid-cols-2 gap-2">
-                    {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
-                      (value, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center gap-2 text-gray-800 text-sm"
-                        >
-                          <svg
-                            className="w-4 h-4 text-emerald-500"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 13l4 4L19 7"
-                            />
-                          </svg>
-                          {value}
-                        </li>
-                      )
-                    )}
-                  </ul>
+            {item.typeData === "corevalues" && (
+              <ul className="mt-4 grid grid-cols-2 gap-3">
+                {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
+                  (value, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 text-gray-800 text-sm text-left"
+                    >
+                      <svg
+                        className="w-4 h-4 text-emerald-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      {value}
+                    </li>
+                  )
                 )}
-              </div>
+              </ul>
+            )}
+          </div>
 
-              {/* ---------- DESKTOP: exact original hover behavior (unchanged) ---------- */}
-              <div className="hidden lg:block">
-                {/* Black background only on hover */}
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
+          {/* ---------- DESKTOP: exact original hover behavior (unchanged) ---------- */}
+          <div className="hidden lg:block">
+            {/* Black background only on hover */}
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
 
-                {/* Title */}
-                <div className="absolute inset-x-0 top-6 flex justify-center text-black group-hover:text-white z-20">
-                  <h3
-                    // style={{ fontFamily: '"Roboto Slab", serif' }}
-                    className="text-4xl font-bold drop-shadow-lg"
-                  >
-                    {item.title}
-                  </h3>
-                </div>
+            {/* Title */}
+            <div className="absolute inset-x-0 top-6 flex justify-center text-black group-hover:text-white z-20">
+              <h3 className="text-4xl font-bold drop-shadow-lg">
+                {item.title}
+              </h3>
+            </div>
 
-                {/* Text reveal on hover (comes from right) */}
-                <div
-                  className="absolute inset-x-0 top-14 flex flex-col items-start justify-between text-left text-white font-sm
+            {/* Text reveal on hover (comes from right) */}
+            <div
+              className="absolute inset-x-0 top-14 flex flex-col items-start justify-between text-left text-white font-sm
                 opacity-0 translate-x-8 group-hover:opacity-100 group-hover:translate-x-0
                 transition-all duration-700 ease-out p-6 z-20"
-                >
-                  <p
-                    // style={{ fontFamily: '"Playfair Display", serif' }}
-                    className="text-md leading-relaxed"
-                  >
-                    {item.description}
-                  </p>
+            >
+              <p className="text-md leading-relaxed">
+                {item.description}
+              </p>
 
-                  {item.typeData === "corevalues" && (
-                    <ul className="mt-4 grid grid-cols-2 gap-2">
-                      {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
-                        (value, i) => (
-                          <li
-                            key={i}
-                            className="flex items-center justify-center gap-2 text-white text-sm"
-                          >
-                            <svg
-                              className="w-4 h-4 text-emerald-400"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 13l4 4L19 7"
-                              />
-                            </svg>
-                            {value}
-                          </li>
-                        )
-                      )}
-                    </ul>
+              {item.typeData === "corevalues" && (
+                <ul className="mt-4 grid grid-cols-2 gap-2">
+                  {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
+                    (value, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center justify-center gap-2 text-white text-sm"
+                      >
+                        <svg
+                          className="w-4 h-4 text-emerald-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        {value}
+                      </li>
+                    )
                   )}
-                </div>
-              </div>
+                </ul>
+              )}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
   );
 };
 

@@ -569,64 +569,83 @@ export default function TeamMembers() {
     activeRole === "All"
       ? departmentboardData
       : departmentboardData.filter(
-          (m) =>
-            m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
-        );
+        (m) =>
+          m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
+      );
 
   // ✅ Handle card touch toggle
   const handleCardTouch = (index) => {
     setActiveCard(activeCard === index ? null : index);
   };
 
-  // ✅ Get the perfect grid layout
-  const getGridLayout = () => {
-    const count = filteredMembers.length;
-    
-    // If 4 or fewer cards, use flex to center them
-    if (count <= 4) {
-      return {
-        containerClass: "flex flex-wrap justify-center gap-6 mx-auto max-w-6xl",
-        useWrapper: false
-      };
-    }
-    
-    // If more than 4 cards, use grid
-    return {
-      containerClass: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto max-w-6xl",
-      useWrapper: true
-    };
-  };
+  // ✅ Simple grid container class
+  // const getContainerClass = () => {
+  //   const count = filteredMembers.length;
 
-  // ✅ Check if card needs special centering
-  const needsCentering = (index) => {
+  //   if (count <= 4) {
+  //     // 1-4 cards: flex centered with more gap
+  //     return "flex flex-wrap justify-center gap-x-12 gap-y-8 mx-auto max-w-7xl px-4";
+  //   } else {
+  //     // 5+ cards: grid layout
+  //     return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mx-auto max-w-7xl px-4";
+  //   }
+  // };
+
+
+  // ✅ Check if this card should be centered in the last row
+  const shouldCenterCard = (index) => {
     const count = filteredMembers.length;
-    
     if (count <= 4) return false; // Already centered with flex
-    
+
     const itemsInLastRow = count % 4;
-    if (itemsInLastRow === 0) return false; // Perfect grid
-    
+    if (itemsInLastRow === 0) return false; // Perfect multiple of 4
+
     const startOfLastRow = count - itemsInLastRow;
     return index >= startOfLastRow;
   };
 
-  // ✅ Get grid column class for centered positioning
-  const getCenteredColumnClass = (index) => {
-    const count = filteredMembers.length;
-    const itemsInLastRow = count % 4;
-    const startOfLastRow = count - itemsInLastRow;
-    const positionInLastRow = index - startOfLastRow;
+  // ✅ Get the exact grid column class for perfect centering
+// --- helper: container class (grid always; flex only for 1-3 handled below) ---
+const getContainerClass = () => {
+  // always grid; centering controlled per-card for last-row leftovers
+  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
+};
 
-    if (itemsInLastRow === 1) {
-      return "lg:col-start-2 lg:col-span-2";
-    } else if (itemsInLastRow === 2) {
-      return positionInLastRow === 0 ? "lg:col-start-2" : "lg:col-start-3";
-    } else if (itemsInLastRow === 3) {
-      return ""; // 3 cards naturally look centered
-    }
-    
+// --- helper: compute grid offset classes for leftover items in last row ---
+const getCenteredColumnClass = (index) => {
+  const count = filteredMembers.length;
+  const itemsInLastRow = count % 4;
+  if (itemsInLastRow === 0) return ""; // perfect rows, nothing to do
+
+  const startOfLastRow = count - itemsInLastRow;
+  if (index < startOfLastRow) return ""; // not in last row
+
+  // position within last row (0-based)
+  const pos = index - startOfLastRow;
+
+  // For lg breakpoint only:
+  // 1 leftover -> span 2 columns and start at column 2 (centers it)
+  // 2 leftover -> place them in col 2 and col 3
+  // 3 leftover -> place them in col 1,2,3 (we can optionally shift to center a bit by start 1)
+  if (itemsInLastRow === 1) {
+    // single item -> center by spanning middle two columns
+    return "lg:col-start-2 lg:col-span-2";
+  }
+  if (itemsInLastRow === 2) {
+    // first leftover -> start at col 2, second -> start at col 3
+    return pos === 0 ? "lg:col-start-2" : "lg:col-start-3";
+  }
+  if (itemsInLastRow === 3) {
+    // three items: they will occupy cols 1-3; to make them more centered you can
+    // shift them one column right by starting the first at col-start-1 (no change)
+    // usually no special classes needed; return "" to use default placement
     return "";
-  };
+  }
+
+  return "";
+};
+
+
 
   // Prevent SSR hydration issues
   if (!isClient) {
@@ -652,7 +671,7 @@ export default function TeamMembers() {
     );
   }
 
-  const { containerClass, useWrapper } = getGridLayout();
+  const containerClass = getContainerClass();
 
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
@@ -693,11 +712,10 @@ export default function TeamMembers() {
                   setActiveRole(role);
                   setActiveCard(null);
                 }}
-                className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                  activeRole === role
-                    ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
-                }`}
+                className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
+                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
+                  }`}
               >
                 {role}
               </button>
@@ -706,70 +724,74 @@ export default function TeamMembers() {
         </motion.div>
 
         {/* Team Members Grid */}
-        <div className={containerClass}>
-          {filteredMembers.map((member, index) => (
-            <motion.div
-              key={member._id || index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className={`
-                group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl 
-                transition-all duration-300 border border-gray-200 w-full max-w-[300px]
-                ${useWrapper && needsCentering(index) ? getCenteredColumnClass(index) : ''}
-              `}
-              ref={(el) => (cardRefs.current[index] = el)}
-            >
-              {/* Image */}
-              <div
-                className="relative w-full h-64 overflow-hidden flex items-center justify-center bg-gray-50"
-                onTouchStart={() => handleCardTouch(index)}
+      {/* Team Members Grid */}
+<div className={getContainerClass()}>
+  {filteredMembers.map((member, index) => {
+    const offsetClass = getCenteredColumnClass(index);
+
+    return (
+      <motion.div
+        key={member._id || index}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: index * 0.06 }}
+        whileHover={{ y: -5 }}
+        ref={(el) => (cardRefs.current[index] = el)}
+        className={`group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl
+          transition-all duration-300 border border-gray-200 w-[280px] sm:w-[300px] ${offsetClass}`}
+      >
+        {/* Image */}
+        <div
+          className="relative w-full h-64 overflow-hidden flex items-center justify-center bg-gray-50"
+          onTouchStart={() => handleCardTouch(index)}
+        >
+          <img
+            src={member.mainImage}
+            alt={member.fullName}
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+
+        {/* Info Section */}
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-bold text-gray-900">
+              {member.fullName.includes(" - ")
+                ? member.fullName.split(" - ")[0]
+                : member.fullName}
+            </h3>
+
+            {member.linkedIn && (
+              <motion.a
+                href={member.linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+                whileHover={{ scale: 1.1 }}
               >
-                <img
-                  src={member.mainImage}
-                  alt={member.fullName}
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-
-              {/* Info Section */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-gray-900">
-                    {member.fullName.includes(" - ")
-                      ? member.fullName.split(" - ")[0]
-                      : member.fullName}
-                  </h3>
-
-                  {member.linkedIn && (
-                    <motion.a
-                      href={member.linkedIn}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <svg
+                {/* icon */}
+                 <svg
                         className="w-4 h-4"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                       </svg>
-                    </motion.a>
-                  )}
-                </div>
+              </motion.a>
+            )}
+          </div>
 
-                {member.fullName.includes(" - ") && (
-                  <p className="text-sm text-gray-600 font-medium">
-                    {member.fullName.split(" - ")[1]}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          ))}
+          {member.fullName.includes(" - ") && (
+            <p className="text-sm text-gray-600 font-medium">
+              {member.fullName.split(" - ")[1]}
+            </p>
+          )}
         </div>
+      </motion.div>
+    );
+  })}
+</div>
+
       </div>
     </section>
   );

@@ -403,7 +403,12 @@ export default function JobCategory({ onCategoryClick }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header - Single heading like in the image */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+          <h1  className="relative text-3xl sm:text-5xl md:text-5xl font-bold 
+             bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+             bg-clip-text text-transparent leading-none mb-6
+             inline-block pb-3"
+              style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
+              >
             Choose Categories
           </h1>
         </div>

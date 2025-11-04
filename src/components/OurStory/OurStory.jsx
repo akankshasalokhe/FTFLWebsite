@@ -72,7 +72,7 @@ const StorySection = () => {
 
           {/* Text Content */}
           <div className="lg:w-1/2">
-            <div className={`w-16 h-1.5 rounded-full bg-gradient-to-r ${item.color} mb-6`} />
+            <div className={`w-16 h-1.5 rounded-full bg-gradient-to-r from-[#298cf3] to-blue-600 mb-6`} />
             <h3
               style={{ fontFamily: '"Roboto Slab", serif' }}
               className="text-4xl sm:text-3xl font-extrabold text-gray-900 mb-4"

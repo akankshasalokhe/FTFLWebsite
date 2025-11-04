@@ -300,7 +300,7 @@ const BoardMembers = () => {
     // <section id="team-section" className="pt-0 pb-16 sm:pt-8 sm:pb-20 lg:pt-0 lg:pb-24 bg-gradient-to-b from-white to-gray-50">
     <section
       id="team-section"
-      className="pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-10 lg:pb-24 bg-gradient-to-b from-white to-gray-50"
+      className="pt-10 pb-16 sm:pt-12 sm:pb-20 lg:pt-10 lg:pb-24"
     >
 
       <div className="container mx-auto px-2 sm:px-6 lg:px-8">
@@ -311,7 +311,19 @@ const BoardMembers = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Board of Directors</h2>
+          <h2 className="text-3xl md:text-5xl font-bold  mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+            Board of Directors</h2>
+          {/* <h2
+            className="text-3xl md:text-5xl font-bold mb-4 
+     bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700  bg-clip-text text-transparent"
+            style={{
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            Board of Directors
+          </h2> */}
+
           <div className="w-20 h-1 bg-[#298cf3] mx-auto mb-6"></div>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Guiding our vision with unparalleled expertise and strategic leadership

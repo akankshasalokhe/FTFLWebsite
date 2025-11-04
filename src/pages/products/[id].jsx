@@ -1809,11 +1809,17 @@ if (!productsData) {
             <h2 className="text-3xl font-bold mb-6">Ready to transform your business?</h2>
             <p className="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Let's discuss how {productsData.title} can help you achieve your goals</p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href='/contact'>
+              {/* <Link href='/contact'>
                 <button className="bg-white hover:bg-blue-300 text-gray-900 cursor-pointer px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
                   Contact Our Team
-                </button>
-              </Link>
+                </button> */}
+                 <button
+                onClick={() => router.push("/contact")}
+                className="mt-8 px-8 py-3 cursor-pointer rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
+              >
+               Contact Our Team
+              </button>
+              {/* </Link> */}
               {/* <button className="bg-transparent hover:bg-blue-300 hover:bg-opacity-10 border border-white text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
                 Request a Demo
               </button> */}

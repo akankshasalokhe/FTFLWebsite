@@ -320,12 +320,25 @@ function About() {
           animate={controls}
         >
           <div className="max-w-4xl mx-auto w-full px-4">
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6"
+            {/* <motion.h1
+              className="text-4xl bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent sm:text-5xl md:text-7xl font-bold text-white mb-6"
               variants={itemVariants}
             >
               {"Our Journey"}
+            </motion.h1> */}
+            <motion.h1
+              className="relative text-3xl sm:text-5xl md:text-7xl font-bold 
+             bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+             bg-clip-text text-transparent leading-none mb-6
+             inline-block pb-3"
+              style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
+              variants={itemVariants}
+            >
+              Our Journey
             </motion.h1>
+
+
+
 
             <motion.p
               className="text-lg sm:text-xl md:text-2xl text-white mb-8 leading-relaxed px-2 sm:px-0"
@@ -340,7 +353,8 @@ function About() {
               className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0"
             >
               <button
-                className="px-6 sm:px-8 py-3 cursor-pointer hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                // className="px-6 sm:px-8 py-3 cursor-pointer hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                  className="mt-8 px-8 py-3 rounded-lg cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
                 onClick={() => {
                   document
                     .getElementById("team-section")
@@ -349,8 +363,10 @@ function About() {
               >
                 Meet Our Board Directors
               </button>
+             
               <button
-                className="px-6 sm:px-8 py-3 cursor-pointer text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                // className="px-6 sm:px-8 py-3 cursor-pointer text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
+                className="mt-8 px-8 py-3 rounded-lg cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
                 onClick={() => {
                   document
                     .getElementById("values-section")

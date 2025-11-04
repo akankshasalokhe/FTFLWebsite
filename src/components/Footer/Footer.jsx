@@ -698,10 +698,16 @@ const VibrantFooter = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center cursor-pointer gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-blue-500 font-bold rounded-md whitespace-nowrap text-xs sm:text-sm mt-2 lg:mt-0"
+                className="flex items-center justify-center gap-2 
+             px-6 py-3 rounded-lg cursor-pointer
+             bg-gradient-to-r from-[#298cf3] to-blue-600 
+             text-white font-semibold text-sm sm:text-base 
+             hover:shadow-lg transition-transform duration-300"
               >
-                Get Started <FiArrowRight className="text-sm" />
+                Get Started
+                <FiArrowRight className="text-lg" />
               </motion.button>
+
             </Link>
           </div>
         </motion.div>
@@ -727,7 +733,7 @@ const VibrantFooter = () => {
               ].map((item) => (
                 <li key={item.label}>
                   <motion.div whileHover={{ x: 3 }}>
-                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-xmd">
+                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-sm">
                       <FiArrowRight className="text-xs opacity-70" /> {item.label}
                     </Link>
                   </motion.div>
@@ -751,7 +757,7 @@ const VibrantFooter = () => {
                     <Link
                       href={`/services/${service._id}`}
                       scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-md"
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
                     >
                       <FiArrowRight className="text-xs opacity-70" /> {service.title
                         ?.toLowerCase()
@@ -793,11 +799,11 @@ const VibrantFooter = () => {
                 <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full">
                   <MdEmail className="text-xs" />
                 </div>
-                <Link href="mailto:info@ftfltechnology.com" className="text-sm">
+                <Link href="mailto:info@ftfltechnology.com" className="text-md">
                   info@ftfltechnology.com
                 </Link>
               </li>
-              <li className="flex items-start gap-2.5">
+              <li className="flex items-start gap-2.5 ">
                 <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
                 </div>

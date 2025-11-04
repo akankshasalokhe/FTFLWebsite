@@ -621,7 +621,7 @@ const ContactForm = () => {
             <span className="text-white font-medium">Apply for Internship</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            Start Your <span className="text-blue-600">Career Journey</span>
+            Start Your <span className="bg-gradient-to-r from-[#298cf3] to-blue-600 bg-clip-text text-transparent">Career Journey</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Join our internship program and gain real-world experience with industry experts.
@@ -853,7 +853,7 @@ const ContactForm = () => {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white ${isSubmitting ? 'bg-blue-500/80' : 'bg-blue-600 hover:bg-blue-700'} transition-all duration-300 shadow-md`}
+                className={`w-full flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white ${isSubmitting ? 'bg-gradient-to-r from-[#298cf3] to-blue-600' : 'bg-gradient-to-r from-[#298cf3] to-blue-600'} transition-all duration-300 shadow-md`}
               >
                 {isSubmitting ? (
                   <>

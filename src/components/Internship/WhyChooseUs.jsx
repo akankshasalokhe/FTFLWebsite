@@ -530,7 +530,7 @@ const WhyChooseUs = () => {
   };
 
   return (
-    <section className="relative py-12 md:py-16 lg:py-20 bg-gradient-to-br from-indigo-50 via-white to-purple-50 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-12 md:py-16 lg:py-20 bg-gradient-to-br from-cyan-50 via-white to-blue-50 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Top Wave Separator */}
       <svg
         className="absolute top-0 left-0 w-full -mt-20"
@@ -618,7 +618,7 @@ const WhyChooseUs = () => {
               className="relative bg-white rounded-xl md:rounded-2xl p-4 md:p-6 h-full border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 group overflow-hidden"
               style={{
                 background:
-                  "linear-gradient(white, white) padding-box, linear-gradient(to right, #9333EA, #EC4899) border-box",
+                  "linear-gradient(white, white) padding-box, linear-gradient(to right, #38bdf8, #2563eb) border-box",
                 border: "2px solid transparent",
               }}
             >
@@ -643,7 +643,7 @@ const WhyChooseUs = () => {
             className="mb-10 md:mb-12"
           >
             <div className="text-center mb-8 md:mb-10">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-3">
+              <h3 className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent mb-2 md:mb-3">
                 Student Testimonials
               </h3>
               <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">

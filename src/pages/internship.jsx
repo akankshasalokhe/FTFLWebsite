@@ -89,7 +89,7 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="relative z-10 px-6 max-w-4xl text-white">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-          <span className="text-blue-300">Your Journey </span> from Classroom to Corporate Begins Here.
+          <span className="text-blue-300 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">Your Journey </span> from Classroom to Corporate Begins Here.
         </h1>
         <p className="text-lg md:text-xl mb-6 max-w-3xl mx-auto text-white/90">
             Join FTFL to explore limitless opportunities, enhance your skills, and accelerate your journey toward success.        </p>

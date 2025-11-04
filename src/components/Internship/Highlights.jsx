@@ -47,7 +47,7 @@ const InternshipHighlights = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6"
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#298cf3] to-blue-600">
             KickStart Your Journey<br />Shape Your Future
           </span>
         </motion.h2>
