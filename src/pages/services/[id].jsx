@@ -1026,48 +1026,28 @@ export default function ServiceDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFaqLoading, setIsFaqLoading] = useState(false);
 
-  // Animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   const staggerChildren = {
-    visible: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+    visible: { transition: { staggerChildren: 0.1 } },
   };
 
   useEffect(() => {
-    console.log('id:', id)
     if (!id) return;
-
     const fetchServiceData = async () => {
       try {
         setIsLoading(true);
-        const res = await axios.get(
-          `https://landing-page-yclw.vercel.app/api/service/${id}`
-        );
-
-        if (res.data.success) {
-          setServiceData(res.data.data);
-          console.log("✅ Fetched Service Data:", res.data.data);
-        } else {
-          console.log("❌ API did not return success:", res.data);
-        }
+        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/service/${id}`);
+        if (res.data.success) setServiceData(res.data.data);
       } catch (err) {
         console.error("Error fetching service data:", err);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchServiceData();
   }, [id]);
 
@@ -1077,135 +1057,102 @@ export default function ServiceDetail() {
         setIsFaqLoading(true);
         const res = await axios.get(`https://landing-page-yclw.vercel.app/api/faq`);
         if (res.data.success) {
-          // Filter FAQs based on the current service/module name
-          const filteredFaqs = res.data.data.filter(
-            (faq) => faq.module === serviceData?.title
-          );
+          const filteredFaqs = res.data.data.filter((faq) => faq.module === serviceData?.title);
           setFaqData(filteredFaqs);
         }
-        console.log("Fetched FAQ Data:", res.data.data);
       } catch (err) {
         console.error("Error fetching FAQ data:", err);
       } finally {
         setIsFaqLoading(false);
       }
     };
-
-    // Only fetch FAQs when serviceData is available
-    if (serviceData?.title) {
-      fetchFaq();
-    }
+    if (serviceData?.title) fetchFaq();
   }, [serviceData]);
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   if (!serviceData) return <p className="min-h-screen flex items-center justify-center">No service found.</p>;
 
-
-  
-
   return (
     <div className="bg-gray-50 overflow-hidden">
-      {/* Hero Banner - Starts below navbar */}
-    <section className="relative mt-[80px] flex flex-col items-center justify-center text-white overflow-hidden min-h-[70vh] sm:min-h-[80vh]">
-      {/* 🌆 Animated Background */}
-      {serviceData?.bannerImage && (
-        <motion.div
-          className="absolute inset-0"
-          initial={{ scale: 1.05 }}
-          animate={{ scale: 1 }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        >
-          <img
-            src={serviceData.bannerImage}
-            alt={serviceData.title || "Service Banner"}
-            className="w-full h-[500px] lg:object-fill object-center sm:object-[50%_30%]"
-          />
-        </motion.div>
-      )}
+      {/* ✅ HERO SECTION */}
+      <section className="relative mt-[80px] flex flex-col items-center justify-center text-white overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh]">
+        {serviceData?.bannerImage && (
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+          >
+            <img
+              src={serviceData.bannerImage}
+              alt={serviceData.title || "Service Banner"}
+              className="w-full h-[70vh] md:h-[70vh] lg:h-[90vh] object-fill object-center"
+            />
+          </motion.div>
+        )}
 
-      {/* 🌈 Gradient Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/40" />
 
-      {/* 💧 Floating Blobs */}
-      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-blue-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-pink-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-700" />
-
-      {/* 📝 Text Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-[140px] pb-[120px] sm:pt-[180px] sm:pb-[150px]">
-        <motion.h1
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-700 via-blue-500 to-pink-300 bg-clip-text text-transparent leading-tight"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {serviceData?.title || "Transforming Ideas Into Impact"}
-        </motion.h1>
-
-        <motion.p
-          className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto text-white/90"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {serviceData?.description ||
-            "We deliver innovative, scalable, and reliable solutions to accelerate your digital growth."}
-        </motion.p>
-
-        {/* 🚀 Call To Action */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <button className="px-8 py-3 bg-white text-black font-semibold rounded-full shadow-lg hover:bg-gray-100 transition duration-300">
-            Explore Services
-          </button>
-        </motion.div> */}
-      </div>
-
-      {/* 🌊 Full-Width SVG Wave Divider */}
-      <div className="absolute bottom-0 w-full overflow-hidden leading-none">
-        <svg
-          className="w-full h-[100px] sm:h-[140px]"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill="url(#softGradient)"
-            fillOpacity="1"
-            d="M0,192L60,170.7C120,149,240,107,360,106.7C480,107,600,149,720,176C840,203,960,213,1080,197.3C1200,181,1320,139,1380,117.3L1440,96V320H0Z"
-          ></path>
-          <defs>
-            <linearGradient id="softGradient" gradientTransform="rotate(90)">
-              <stop offset="0%" stopColor="#ffffff" />
-              <stop offset="100%" stopColor="#f4f7ff" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    </section>
-
-      {/* Services Section */}
-        <section className="relative pb-24 pt-10 px-6 overflow-hidden bg-gradient-to-b from-white to-blue-50">
         {/* Animated Blobs */}
-        <div className="absolute top-0 -left-10 w-80 sm:w-96 h-80 sm:h-96 bg-gradient-to-r from-blue-400 to-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute bottom-0 -right-10 w-80 sm:w-96 h-80 sm:h-96 bg-gradient-to-r from-blue-300 to-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -top-20 -left-20 w-[350px] h-[350px] bg-blue-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-pink-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-700" />
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
-          {/* Left Image */}
+        <div className="relative z-10 text-center px-4 sm:px-8 max-w-5xl mx-auto py-20 md:py-28 lg:py-32">
+          <motion.h1
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-700 via-blue-500 to-pink-300 bg-clip-text text-transparent leading-tight"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {serviceData?.title || "Transforming Ideas Into Impact"}
+          </motion.h1>
+
+          <motion.p
+            className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto text-white/90"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {serviceData?.description ||
+              "We deliver innovative, scalable, and reliable solutions to accelerate your digital growth."}
+          </motion.p>
+        </div>
+
+        <div className="absolute bottom-0 w-full overflow-hidden leading-none">
+          <svg
+            className="w-full h-[100px] sm:h-[140px]"
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="url(#softGradient)"
+              d="M0,192L60,170.7C120,149,240,107,360,106.7C480,107,600,149,720,176C840,203,960,213,1080,197.3C1200,181,1320,139,1380,117.3L1440,96V320H0Z"
+            ></path>
+            <defs>
+              <linearGradient id="softGradient" gradientTransform="rotate(90)">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="100%" stopColor="#f4f7ff" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </section>
+
+      {/* ✅ SERVICE SECTION */}
+      <section className="relative pb-24 pt-10 px-4 md:px-8 bg-gradient-to-b from-white to-blue-50">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
           <motion.div
             className="flex items-center justify-center"
             initial={{ opacity: 0, x: -50 }}
@@ -1213,11 +1160,11 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="relative w-full  max-w-md rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={serviceData.serviceImage1}
                 alt={serviceData.title}
-                className="w-full h-[340px] sm:h-[480px] object-cover"
+                className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
@@ -1227,7 +1174,6 @@ export default function ServiceDetail() {
             </div>
           </motion.div>
 
-          {/* Right Content */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -1258,129 +1204,78 @@ export default function ServiceDetail() {
             </motion.p>
           </motion.div>
         </div>
-
-        {/* Floating Blob Animation */}
-        <style jsx>{`
-          .animate-blob {
-            animation: blob 8s infinite;
-          }
-          .animation-delay-2000 {
-            animation-delay: 2s;
-          }
-          @keyframes blob {
-            0%,
-            100% {
-              transform: translate(0px, 0px) scale(1);
-            }
-            33% {
-              transform: translate(20px, -30px) scale(1.1);
-            }
-            66% {
-              transform: translate(-20px, 20px) scale(0.9);
-            }
-          }
-        `}</style>
       </section>
 
-      {/* Why Choose Us */}
-       <section className="relative py-24 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 overflow-hidden">
-      {/* Animated Blobs */}
-      <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-blue-300 to-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-purple-300 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      {/* ✅ WHY CHOOSE US */}
+      <section className="relative py-24 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 overflow-hidden px-4 md:px-8">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            className="text-center mb-14"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3">
+              Why Choose Us
+            </h2>
+            <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
+              We deliver exceptional{" "}
+              <span className="font-semibold text-indigo-600">
+                {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}
+              </span>{" "}
+              services that drive growth and ensure your digital success.
+            </p>
+          </motion.div>
 
-      {/* Content Container */}
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3">
-            Why Choose Us
-          </h2>
-          <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
-            We deliver exceptional{" "}
-            <span className="font-semibold text-indigo-600">
-              {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}
-            </span>{" "}
-            services that drive growth and ensure your digital success.
-          </p>
-        </motion.div>
-
-        {/* Cards Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={staggerChildren}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-        >
-          {serviceData?.whyChooseUs.map((reason, idx) => (
-            <motion.div
-              key={idx}
-              variants={fadeIn}
-              custom={idx}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="relative group rounded-2xl backdrop-blur-lg bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-500 p-6 text-center"
-            >
-              {/* Icon with glow */}
-              <div className="flex justify-center mb-5">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-blue-500/40 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                  <img
-                    src={reason.icon}
-                    alt={reason.title}
-                    width={50}
-                    height={50}
-                    className="w-12 h-12 sm:w-14 sm:h-14 relative z-10 object-contain transform group-hover:scale-110 transition duration-500"
-                  />
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            {serviceData?.whyChooseUs.map((reason, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeIn}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="relative group rounded-2xl backdrop-blur-lg bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-500 p-6 text-center"
+              >
+                <div className="flex justify-center mb-5">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-blue-500/40 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <img
+                      src={reason.icon}
+                      alt={reason.title}
+                      width={50}
+                      height={50}
+                      className="w-12 h-12 sm:w-14 sm:h-14 relative z-10 object-contain transform group-hover:scale-110 transition duration-500"
+                    />
+                  </div>
                 </div>
-              </div>
+                <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                  {reason.title}
+                </h3>
+                <p className="mt-3 text-gray-600 text-sm leading-relaxed">{reason.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
-              <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
-                {reason.title}
-              </h3>
-              <p className="mt-3 text-gray-600 text-sm leading-relaxed">
-                {reason.description}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Floating Animation */}
-      <style jsx>{`
-        .animate-blob {
-          animation: blob 8s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        @keyframes blob {
-          0%,
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(20px, -30px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-        }
-      `}</style>
-    </section>
-
-      {/* Our Process */}
+      {/* ✅ OUR PROCESS */}
       {serviceData?.process?.length > 0 && (
-        <OurProcess title={serviceData.title} steps={serviceData.process} serviceImage2={serviceData.serviceImage2} />
+        <OurProcess
+          title={serviceData.title}
+          steps={serviceData.process}
+          serviceImage2={serviceData.serviceImage2}
+        />
       )}
 
-      {/* Technologies We Use */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      {/* ✅ TECHNOLOGIES */}
+      <section className="py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 px-4 sm:px-6 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -1391,35 +1286,30 @@ export default function ServiceDetail() {
             <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               Technologies We Use
             </h2>
-            <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
-              We leverage cutting-edge technologies to build fast, secure, and scalable web applications
+            <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
+              We leverage cutting-edge technologies to build fast, secure, and scalable applications.
             </p>
           </motion.div>
 
           <motion.div
-            className="grid grid-cols-3 md:grid-cols-3 lg:flex lg:flex-wrap lg:justify-center gap-4 sm:gap-6 md:gap-8 items-center"
+            className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 items-center justify-center"
             variants={staggerChildren}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
           >
             {serviceData.technology.map((tech, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeIn}
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.3 }
-                }}
-                className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 lg:w-32"
+                whileHover={{ scale: 1.1 }}
+                className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-36"
               >
                 <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
                   <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <img
                     src={tech.icon}
                     alt={tech.title}
-                    width={64}
-                    height={64}
                     className="relative z-10 object-contain w-full h-full"
                   />
                 </div>
@@ -1430,9 +1320,9 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gray-100 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+      {/* ✅ FAQ */}
+      <section className="py-16 lg:py-20 bg-gray-100 px-4 sm:px-6 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -1444,7 +1334,8 @@ export default function ServiceDetail() {
               Frequently Asked Questions
             </h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Find answers to common questions about our {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} process
+              Find answers to common questions about our{" "}
+              {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} process
             </p>
           </motion.div>
 
@@ -1453,7 +1344,7 @@ export default function ServiceDetail() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
             </div>
           ) : (
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-4">
               {faqData.length > 0 ? (
                 faqData.map((faqObj, idx1) =>
                   faqObj.question.map((faq, idx2) => (
@@ -1461,21 +1352,21 @@ export default function ServiceDetail() {
                       key={`${idx1}-${idx2}`}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: idx2 * 0.1 }}
+                      transition={{ duration: 0.5 }}
                       viewport={{ once: true }}
-                      className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
+                      className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                     >
                       <button
-                        className="w-full cursor-pointer p-4 sm:p-6 text-left flex justify-between items-center font-medium text-base sm:text-lg"
+                        className="w-full cursor-pointer p-4 sm:p-6 text-left flex justify-between items-start sm:items-center font-medium text-sm sm:text-base lg:text-lg leading-snug"
                         onClick={() =>
                           setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
                         }
                       >
-                        <span className="text-sm sm:text-base pr-4">{faq.question}</span>
+                        <span className="text-gray-800 pr-4">{faq.question}</span>
                         <motion.span
                           animate={{ rotate: faqOpen === `${idx1}-${idx2}` ? 180 : 0 }}
                           transition={{ duration: 0.3 }}
-                          className="ml-2 text-blue-600 text-lg sm:text-xl flex-shrink-0"
+                          className="ml-2 text-blue-600 text-lg flex-shrink-0"
                         >
                           ▼
                         </motion.span>
@@ -1500,86 +1391,12 @@ export default function ServiceDetail() {
                   ))
                 )
               ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-center py-8 text-gray-500"
-                >
-                  No FAQs available for this service.
-                </motion.div>
+                <p className="text-center text-gray-500 text-sm sm:text-base">
+                  No FAQs found for this service.
+                </p>
               )}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 text-center bg-gradient-to-r from-blue-300 to-blue-500 text-white relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-white/10"
-              style={{
-                width: Math.random() * 60 + 20,
-                height: Math.random() * 60 + 20,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                scale: [0, 1, 0],
-                opacity: [0, 0.3, 0],
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
-          <motion.h2
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            Ready to start your project?
-          </motion.h2>
-          <motion.p
-            className="text-lg sm:text-xl mb-6 sm:mb-8 opacity-90"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 0.9, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Let&apos;s build something amazing together.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="!text-white bg-gradient-to-r from-[#298cf3] to-blue-600 px-6 cursor-pointer sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <Link href="/contact">Get in Touch</Link>
-            </motion.button>
-            {/* <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-base sm:text-lg hover:bg-white/10 transition-all duration-300"
-            >
-              View Portfolio
-            </motion.button> */}
-          </motion.div>
         </div>
       </section>
     </div>
