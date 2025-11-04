@@ -76,7 +76,7 @@ export default function TestimonialCarousel() {
             role: item.title,
             stars: item.rating,
             // avatar: `/avatars/avatar${(i % 5) + 1}.jpg` // Fallback avatar
-             avatar: "/logos/testimonialskeleton.png"
+            avatar: "/logos/testimonialskeleton.png"
           }));
           setTestimonials(mapped);
         }
@@ -160,9 +160,14 @@ export default function TestimonialCarousel() {
     <div className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-14">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-500 mb-3 md:mb-4">
+          {/* <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent mb-3 md:mb-4">
+            Client Testimonials
+          </h2> */}
+          <h2 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent mb-3 md:mb-4">
             Client Testimonials
           </h2>
+
+
           <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
             What our clients say about our services
           </p>
@@ -208,8 +213,8 @@ export default function TestimonialCarousel() {
                       <div className="flex items-center mt-4 md:mt-6">
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold mr-3 md:mr-4 flex-shrink-0">
                           {testimonial.avatar ? (
-                            <img 
-                              src={testimonial.avatar} 
+                            <img
+                              src={testimonial.avatar}
                               alt={testimonial.name}
                               className="w-full h-full rounded-full object-cover"
                             />
@@ -218,8 +223,8 @@ export default function TestimonialCarousel() {
                           )}
                         </div>
 
-                       
-                     
+
+
                         <div className="min-w-0">
                           <h4 className="font-medium text-gray-900 text-sm md:text-base truncate">{testimonial.name}</h4>
                           <p className="text-gray-500 text-xs md:text-sm truncate">{testimonial.role}</p>
@@ -253,9 +258,9 @@ export default function TestimonialCarousel() {
                     setCurrentIndex(newIndex);
                   }}
                   className={`mx-1 w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${currentIndex >= index * itemsToShow &&
-                      currentIndex < (index + 1) * itemsToShow
-                      ? 'bg-blue-600 w-4 md:w-6'
-                      : 'bg-gray-300'
+                    currentIndex < (index + 1) * itemsToShow
+                    ? 'bg-blue-600 w-4 md:w-6'
+                    : 'bg-gray-300'
                     }`}
                   aria-label={`Go to testimonial group ${index + 1}`}
                 />

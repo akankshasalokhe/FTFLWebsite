@@ -183,7 +183,7 @@
 //                       >
 //                         Get Started <FiArrowRight />
 //                       </motion.button>
-                    
+
 //                     </div> */}
 //                   </div>
 //                 </div>
@@ -253,7 +253,7 @@
 //                       <button className="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 w-full justify-center">
 //                         Get Started <FiArrowRight />
 //                       </button>
-                  
+
 //                     </div> */}
 //                   </motion.div>
 //                 )}
@@ -350,10 +350,13 @@ const WhyChooseUs = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-16"
+          className="mb-16 "
         >
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
-            Why <span className="text-blue-600">Choose Us</span>
+            Why <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+              Choose Us
+            </span>
+
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Empowering your business with smart, innovative, and scalable digital solutions.
@@ -369,13 +372,12 @@ const WhyChooseUs = () => {
               onClick={() =>
                 setActiveReason(activeReason === index ? null : index)
               }
-              className={`relative w-[90%] sm:w-64 md:w-72 bg-white/70 backdrop-blur-lg border border-gray-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer ${
-                activeReason === index ? "ring-2 ring-blue-500/40" : ""
-              }`}
+              className={`relative w-[90%] sm:w-64 md:w-72 bg-white/70 backdrop-blur-lg border border-gray-200 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer ${activeReason === index ? "ring-2 ring-blue-500/40" : ""
+                }`}
             >
               <div className="p-8 flex flex-col items-center text-center">
                 <div
-                  className={`w-16 h-16 mb-5 rounded-full bg-gradient-to-r ${reason.gradient} flex items-center justify-center text-white shadow-lg`}
+                  className={`w-16 h-16 mb-5 rounded-full bg-gradient-to-r from-[#298cf3] to-blue-600 flex items-center justify-center text-white shadow-lg`}
                 >
                   {reason.icon}
                 </div>

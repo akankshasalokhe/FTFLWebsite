@@ -867,7 +867,7 @@ export default function AboutUsSection() {
         >
           <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
             Who{" "}
-            <span className="bg-gradient-to-r from-[#298cf3] to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
               We Are
             </span>
           </h1>

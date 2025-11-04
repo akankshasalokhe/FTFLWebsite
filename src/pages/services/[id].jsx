@@ -1107,186 +1107,271 @@ export default function ServiceDetail() {
 
   if (!serviceData) return <p className="min-h-screen flex items-center justify-center">No service found.</p>;
 
+
+  
+
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* Hero Banner - Starts below navbar */}
-    <section className="relative mt-[80px] pt-[168px] pb-[136px] flex items-center justify-center text-white">
-     
-        {serviceData?.bannerImage && (
-  <div className="absolute inset-0">
-    <img
-      src={serviceData.bannerImage}
-      alt={serviceData.title || "Service Banner"}
-      className="w-full h-full object-fill" 
-      style={{ objectPosition: 'center' }} 
-      priority
-    />
-  </div>
-)}
+    <section className="relative mt-[80px] flex flex-col items-center justify-center text-white overflow-hidden min-h-[70vh] sm:min-h-[80vh]">
+      {/* 🌆 Animated Background */}
+      {serviceData?.bannerImage && (
+        <motion.div
+          className="absolute inset-0"
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1 }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        >
+          <img
+            src={serviceData.bannerImage}
+            alt={serviceData.title || "Service Banner"}
+            className="w-full h-full lg:object-fill object-center sm:object-[50%_30%]"
+          />
+        </motion.div>
+      )}
 
-        
-        <div className="absolute inset-0 bg-black/50" />
-       
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.h1
-            className="text-4xl md:text-5xl font-bold mb-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            {serviceData.title}
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl mb-18 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            {serviceData.description}
-          </motion.p>
-        </div>
+      {/* 🌈 Gradient Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
 
-        <div className="absolute bottom-0 w-full overflow-hidden leading-none">
-          <svg
-            viewBox="0 0 500 150"
-            preserveAspectRatio="none"
-            className="w-full h-12 sm:h-16"
-          >
-            <path
-              d="M0.00,49.98 C150.00,150.00 349.60,-49.98 500.00,49.98 L500.00,150.00 L0.00,150.00 Z"
-              className="fill-white"
-            />
-          </svg>
-        </div>
-      </section>
+      {/* 💧 Floating Blobs */}
+      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-blue-500/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse" />
+      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-pink-400/20 rounded-full mix-blend-overlay filter blur-3xl animate-pulse delay-700" />
+
+      {/* 📝 Text Content */}
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-[140px] pb-[120px] sm:pt-[180px] sm:pb-[150px]">
+        <motion.h1
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-700 via-blue-500 to-pink-300 bg-clip-text text-transparent leading-tight"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          {serviceData?.title || "Transforming Ideas Into Impact"}
+        </motion.h1>
+
+        <motion.p
+          className="text-base sm:text-lg md:text-xl mb-8 max-w-2xl mx-auto text-white/90"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          {serviceData?.description ||
+            "We deliver innovative, scalable, and reliable solutions to accelerate your digital growth."}
+        </motion.p>
+
+        {/* 🚀 Call To Action */}
+        {/* <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <button className="px-8 py-3 bg-white text-black font-semibold rounded-full shadow-lg hover:bg-gray-100 transition duration-300">
+            Explore Services
+          </button>
+        </motion.div> */}
+      </div>
+
+      {/* 🌊 Full-Width SVG Wave Divider */}
+      <div className="absolute bottom-0 w-full overflow-hidden leading-none">
+        <svg
+          className="w-full h-[100px] sm:h-[140px]"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="url(#softGradient)"
+            fillOpacity="1"
+            d="M0,192L60,170.7C120,149,240,107,360,106.7C480,107,600,149,720,176C840,203,960,213,1080,197.3C1200,181,1320,139,1380,117.3L1440,96V320H0Z"
+          ></path>
+          <defs>
+            <linearGradient id="softGradient" gradientTransform="rotate(90)">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#f4f7ff" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </section>
 
       {/* Services Section */}
-      <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 py-20 px-6 items-start">
-        <motion.div
-          className="lg:sticky lg:top-24 h-full flex items-center justify-center"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-        >
-          <div className="w-full max-w-md">
-            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-2xl aspect-square">
+        <section className="relative pb-24 pt-10 px-6 overflow-hidden bg-gradient-to-b from-white to-blue-50">
+        {/* Animated Blobs */}
+        <div className="absolute top-0 -left-10 w-80 sm:w-96 h-80 sm:h-96 bg-gradient-to-r from-blue-400 to-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute bottom-0 -right-10 w-80 sm:w-96 h-80 sm:h-96 bg-gradient-to-r from-blue-300 to-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
+          {/* Left Image */}
+          <motion.div
+            className="flex items-center justify-center"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={serviceData.serviceImage1}
                 alt={serviceData.title}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-[340px] sm:h-[420px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 flex items-end p-4 sm:p-6">
-                <p className="text-white text-base sm:text-lg font-medium">End-to-End Digital Excellence</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
+                <p className="text-white text-lg font-medium tracking-wide">
+                  End-to-End Digital Excellence
+                </p>
               </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Right Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="flex flex-col justify-center"
+          >
+            <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-6 capitalize relative inline-block">
+              Our {serviceData.name?.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())} Services
+              <motion.div
+                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
+                initial={{ width: 0 }}
+                whileInView={{ width: "60%" }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+              />
+            </h2>
+
+            <motion.p
+              className="text-gray-700 text-base sm:text-lg leading-relaxed bg-white/70 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-md"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              {serviceData?.description ||
+                `At ${serviceData.title}, we specialize in delivering comprehensive, high-impact digital solutions designed to elevate your brand. From innovative web and mobile development to seamless integrations, our team crafts scalable strategies that ensure long-term success.`}
+            </motion.p>
+          </motion.div>
+        </div>
+
+        {/* Floating Blob Animation */}
+        <style jsx>{`
+          .animate-blob {
+            animation: blob 8s infinite;
+          }
+          .animation-delay-2000 {
+            animation-delay: 2s;
+          }
+          @keyframes blob {
+            0%,
+            100% {
+              transform: translate(0px, 0px) scale(1);
+            }
+            33% {
+              transform: translate(20px, -30px) scale(1.1);
+            }
+            66% {
+              transform: translate(-20px, 20px) scale(0.9);
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* Why Choose Us */}
+       <section className="relative py-24 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 overflow-hidden">
+      {/* Animated Blobs */}
+      <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-blue-300 to-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-purple-300 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+      {/* Content Container */}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3">
+            Why Choose Us
+          </h2>
+          <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
+            We deliver exceptional{" "}
+            <span className="font-semibold text-indigo-600">
+              {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}
+            </span>{" "}
+            services that drive growth and ensure your digital success.
+          </p>
         </motion.div>
 
+        {/* Cards Grid */}
         <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={staggerChildren}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="h-full flex flex-col justify-center"
         >
-          <h2 className="text-3xl text-blue-500 font-bold mb-10 relative inline-block  capitalize">
-            Our {serviceData.name?.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())} Services
+          {serviceData?.whyChooseUs.map((reason, idx) => (
             <motion.div
-              className="absolute -bottom-2 left-0 w-1/2 h-1 bg-blue-500"
-              initial={{ width: 0 }}
-              whileInView={{ width: "50%" }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
-          </h2>
-
-          <div className="space-y-6 sm:space-y-8 md:space-y-10">
-            {serviceData.service.map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                className="flex group flex-col sm:flex-row"
-              >
-                <div className="flex-shrink-0 mr-5">
-                  <div className="w-14 h-14 rounded-xl bg-blue-100 group-hover:bg-blue-500 transition-colors duration-300 flex items-center justify-center text-2xl group-hover:text-white">
-                    <img
-                      src={item.icon}
-                      alt={item.title}
-                      width={24}
-                      height={24}
-                      className="w-6 h-6 sm:w-8 sm:h-8 object-contain"
-                    />
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-blue-600 transition-colors duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-          <motion.div
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-              Why Choose Us
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto px-4 sm:px-0">
-              We deliver exceptional {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} services that drive growth and ensure your digital success
-              
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-            variants={staggerChildren}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {serviceData?.whyChooseUs.map((reason, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 group"
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <div className="text-3xl mb-4 group-hover:text-blue-600 transition-colors duration-300">
+              key={idx}
+              variants={fadeIn}
+              custom={idx}
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="relative group rounded-2xl backdrop-blur-lg bg-white/60 border border-white/40 shadow-lg hover:shadow-2xl transition-all duration-500 p-6 text-center"
+            >
+              {/* Icon with glow */}
+              <div className="flex justify-center mb-5">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-blue-500/40 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
                   <img
                     src={reason.icon}
                     alt={reason.title}
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 sm:w-10 sm:h-10 relative z-10 object-contain"
+                    width={50}
+                    height={50}
+                    className="w-12 h-12 sm:w-14 sm:h-14 relative z-10 object-contain transform group-hover:scale-110 transition duration-500"
                   />
                 </div>
-                <h3 className="font-semibold text-base sm:text-lg leading-tight">
-                  {reason.description}
-                </h3>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+              </div>
+
+              <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                {reason.title}
+              </h3>
+              <p className="mt-3 text-gray-600 text-sm leading-relaxed">
+                {reason.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Floating Animation */}
+      <style jsx>{`
+        .animate-blob {
+          animation: blob 8s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        @keyframes blob {
+          0%,
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(20px, -30px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+        }
+      `}</style>
+    </section>
 
       {/* Our Process */}
       {serviceData?.process?.length > 0 && (

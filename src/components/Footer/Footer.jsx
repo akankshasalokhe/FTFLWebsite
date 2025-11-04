@@ -727,7 +727,7 @@ const VibrantFooter = () => {
               ].map((item) => (
                 <li key={item.label}>
                   <motion.div whileHover={{ x: 3 }}>
-                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-sm">
+                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-xmd">
                       <FiArrowRight className="text-xs opacity-70" /> {item.label}
                     </Link>
                   </motion.div>
@@ -751,7 +751,7 @@ const VibrantFooter = () => {
                     <Link
                       href={`/services/${service._id}`}
                       scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-md"
                     >
                       <FiArrowRight className="text-xs opacity-70" /> {service.title
                         ?.toLowerCase()
@@ -784,7 +784,7 @@ const VibrantFooter = () => {
                       <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-sm">
                         +91 {contactInfo?.phone}
                       </Link>
-                      <p className="text-xs text-white/70">{contactInfo?.workinghours}</p>
+                      <p className="text-sm text-white/70">{contactInfo?.workinghours}</p>
                     </>
                   )}
                 </div>
@@ -801,7 +801,7 @@ const VibrantFooter = () => {
                 <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
                 </div>
-                <p className="text-xs">{contactInfo?.address}</p>
+                <p className="text-sm">{contactInfo?.address}</p>
               </li>
             </ul>
           </motion.div>

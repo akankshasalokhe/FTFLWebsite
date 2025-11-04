@@ -537,7 +537,7 @@ const renderMobileMockup = (product) => (
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-600 to-indigo-700 text-transparent bg-clip-text"
+          className="text-3xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 text-transparent bg-clip-text"
         >
           Discover Our Innovative Creations
         </motion.h1>

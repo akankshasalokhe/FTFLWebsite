@@ -540,7 +540,7 @@ export default function ContactSectionAnimated() {
           {/* LEFT: Heading + paragraph (no phone/email/socials here per request) */}
           <div className="text-white px-6 md:px-0">
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4 ">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-200 to-cyan-200">
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
                 Contact Us
               </span>
             </h1>
@@ -679,8 +679,8 @@ export default function ContactSectionAnimated() {
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full inline-flex items-center justify-center gap-3 py-3 rounded-lg font-medium ${
-                      isSubmitting ? "bg-indigo-400" : "bg-gradient-to-r from-indigo-500 to-cyan-400 hover:from-indigo-600"
+                    className={`w-full inline-flex items-center cursor-pointer justify-center gap-3 py-3 rounded-lg font-medium ${
+                      isSubmitting ? "bg-indigo-400" : "bg-gradient-to-r from-[#298cf3] to-blue-600"
                     } text-white shadow-lg`}
                   >
                     {isSubmitting ? (

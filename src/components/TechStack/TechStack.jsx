@@ -485,7 +485,7 @@ const TechStack = () => {
     <div className="text-center mb-12">
       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-3">
         Our{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-600">
+        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
           Technology Stack
         </span>
       </h2>
@@ -502,7 +502,7 @@ const TechStack = () => {
           onClick={() => setActiveTab(tab)}
           className={`px-5 py-2.5 rounded-md font-medium text-sm md:text-base transition-all duration-300 ${
             activeTab === tab
-              ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
+              ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md scale-105"
               : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"
           }`}
         >

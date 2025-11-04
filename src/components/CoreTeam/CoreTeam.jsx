@@ -509,7 +509,6 @@
 
 
 
-
 "use client";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -579,20 +578,54 @@ export default function TeamMembers() {
     setActiveCard(activeCard === index ? null : index);
   };
 
-  // ✅ Get grid class based on number of cards
-  const getGridClass = () => {
+  // ✅ Get the perfect grid layout
+  const getGridLayout = () => {
     const count = filteredMembers.length;
     
-    if (count === 1) {
-      return "flex justify-center";
-    } else if (count === 2) {
-      return "grid grid-cols-1 md:grid-cols-2 gap-6 justify-center mx-auto max-w-2xl";
-    } else if (count === 3) {
-      return "grid grid-cols-1 md:grid-cols-3 gap-6 justify-center mx-auto max-w-3xl";
-    } else {
-      // 4 or more cards
-      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto max-w-6xl";
+    // If 4 or fewer cards, use flex to center them
+    if (count <= 4) {
+      return {
+        containerClass: "flex flex-wrap justify-center gap-6 mx-auto max-w-6xl",
+        useWrapper: false
+      };
     }
+    
+    // If more than 4 cards, use grid
+    return {
+      containerClass: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto max-w-6xl",
+      useWrapper: true
+    };
+  };
+
+  // ✅ Check if card needs special centering
+  const needsCentering = (index) => {
+    const count = filteredMembers.length;
+    
+    if (count <= 4) return false; // Already centered with flex
+    
+    const itemsInLastRow = count % 4;
+    if (itemsInLastRow === 0) return false; // Perfect grid
+    
+    const startOfLastRow = count - itemsInLastRow;
+    return index >= startOfLastRow;
+  };
+
+  // ✅ Get grid column class for centered positioning
+  const getCenteredColumnClass = (index) => {
+    const count = filteredMembers.length;
+    const itemsInLastRow = count % 4;
+    const startOfLastRow = count - itemsInLastRow;
+    const positionInLastRow = index - startOfLastRow;
+
+    if (itemsInLastRow === 1) {
+      return "lg:col-start-2 lg:col-span-2";
+    } else if (itemsInLastRow === 2) {
+      return positionInLastRow === 0 ? "lg:col-start-2" : "lg:col-start-3";
+    } else if (itemsInLastRow === 3) {
+      return ""; // 3 cards naturally look centered
+    }
+    
+    return "";
   };
 
   // Prevent SSR hydration issues
@@ -619,6 +652,8 @@ export default function TeamMembers() {
     );
   }
 
+  const { containerClass, useWrapper } = getGridLayout();
+
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -630,7 +665,7 @@ export default function TeamMembers() {
             transition={{ duration: 0.6 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           >
-            Meet Our <span className="text-blue-600">Dream Team</span>
+            Meet Our <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">Dream Team</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -671,7 +706,7 @@ export default function TeamMembers() {
         </motion.div>
 
         {/* Team Members Grid */}
-        <div className={getGridClass()}>
+        <div className={containerClass}>
           {filteredMembers.map((member, index) => (
             <motion.div
               key={member._id || index}
@@ -679,7 +714,11 @@ export default function TeamMembers() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 w-full max-w-[300px]"
+              className={`
+                group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl 
+                transition-all duration-300 border border-gray-200 w-full max-w-[300px]
+                ${useWrapper && needsCentering(index) ? getCenteredColumnClass(index) : ''}
+              `}
               ref={(el) => (cardRefs.current[index] = el)}
             >
               {/* Image */}
