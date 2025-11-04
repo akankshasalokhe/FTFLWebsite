@@ -291,54 +291,94 @@ const iconMap = {
 
 export default function HowWeWorkHex({ title, steps = [] }) {
   return (
-    <section className="relative py-15 bg-gradient-to-br from-[#253967] to-[#284065] text-white overflow-hidden">
+    <section className="relative py-20 bg-[#1d2c53ec] text-white overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80"
+          alt="Background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3d5eab] to-[#446dab] mix-blend-multiply"></div>
+      </div>
+
       {/* Header */}
-      <div className="text-center mb-16">
+      <div className="relative text-center mb-16 z-10">
         <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
           How We Work
         </h2>
         {title && <p className="text-blue-400 text-lg mb-2">{title}</p>}
-        <p className="text-gray-400 max-w-2xl mx-auto">
+        <p className="text-gray-300 max-w-2xl mx-auto">
           From idea to execution — every step designed to deliver excellence.
         </p>
       </div>
 
-      {/* One-Line Hexagon Layout */}
+      {/* Hexagon Steps */}
       {steps.length === 0 ? (
         <p className="text-center text-gray-400">Loading process...</p>
       ) : (
-        <div className="flex flex-wrap justify-center gap-10 px-8">
+        <div className="relative flex flex-wrap justify-center gap-10 px-8 z-10">
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="relative group"
+              className="relative group perspective"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15 }}
             >
-              <div className="hexagon w-48 h-52 bg-gradient-to-br from-blue-500/10 to-blue-700/10 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:border-blue-400 group-hover:shadow-blue-500/30">
-                <div className="text-3xl text-blue-400 mb-3">
-                  {iconMap[step.icon?.toLowerCase()] || <FiTarget />}
+              <div className="flip-card relative w-48 h-52">
+                {/* Front Side */}
+                <div className="flip-card-inner group-hover:rotate-y-180 transition-transform duration-700">
+                  <div className="flip-card-front hexagon bg-gradient-to-br from-blue-500 to-blue-900 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
+                    <div className="text-3xl text-blue-400 mb-3">
+                      {iconMap[step.icon?.toLowerCase()] || <FiTarget />}
+                    </div>
+                    <h3 className="text-lg font-semibold">{step.title}</h3>
+                  </div>
+
+                  {/* Back Side */}
+                  <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-indigo-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg rotate-y-180">
+                    <p className="text-sm text-gray-200">
+                      {step.description || step.desc || "No description"}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                {/* <p className="text-sm text-gray-300">
-                  {step.description || step.desc}
-                </p> */}
               </div>
             </motion.div>
           ))}
         </div>
       )}
 
-      {/* Hexagon Shape */}
+      {/* Custom Styles */}
       <style jsx>{`
         .hexagon {
           clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+        }
+        .perspective {
+          perspective: 1000px;
+        }
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+        .flip-card-front,
+        .flip-card-back {
+          backface-visibility: hidden;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+        }
+        .flip-card-back {
+          transform: rotateY(180deg);
         }
       `}</style>
     </section>
   );
 }
+
 
 
 
