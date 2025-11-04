@@ -550,9 +550,9 @@ const renderMobileMockup = (product) => (
               whileTap={{ scale: 0.9 }}
               key={p._id}
               onClick={() => setSelectedProduct(p)}
-              className={`px-6 py-2 rounded-full text-sm font-semibold shadow-lg transition-all duration-300 ${
+              className={`px-6 py-2 rounded-lg text-sm font-semibold shadow-lg transition-all duration-300 ${
                 selectedProduct?._id === p._id
-                  ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white"
+                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
                   : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-100"
               }`}
             >
@@ -641,7 +641,7 @@ const renderMobileMockup = (product) => (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg shadow-md font-semibold text-sm"
+                    className="px-6 py-2.5 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white rounded-lg shadow-md font-semibold text-sm"
                   >
                     Learn More
                   </motion.button>

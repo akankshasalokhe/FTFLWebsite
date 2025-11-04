@@ -500,7 +500,7 @@ const TechStack = () => {
         <button
           key={tab}
           onClick={() => setActiveTab(tab)}
-          className={`px-5 py-2.5 rounded-full font-medium text-sm md:text-base transition-all duration-300 ${
+          className={`px-5 py-2.5 rounded-md font-medium text-sm md:text-base transition-all duration-300 ${
             activeTab === tab
               ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md scale-105"
               : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50"

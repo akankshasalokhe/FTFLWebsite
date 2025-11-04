@@ -125,11 +125,13 @@
 
 .ctaButton {
   margin-top: 10px;
-  background: linear-gradient(90deg, #007cf0, #00dfd8);
+  /* background: linear-gradient(90deg, #007cf0, #00dfd8); */
+  background: linear-gradient(to right, #298cf3, #2563eb);
+
   border: none;
   padding: 12px 28px;
   color: white;
-  border-radius: 30px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   transition: transform 0.3s ease;
