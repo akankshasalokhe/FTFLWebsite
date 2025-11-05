@@ -712,7 +712,7 @@ const getCenteredColumnClass = (index) => {
                   setActiveRole(role);
                   setActiveCard(null);
                 }}
-                className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
+                className={`px-3 py-2 sm:px-4 sm:py-2.5 cursor-pointer rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
                   ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
                   : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
                   }`}
