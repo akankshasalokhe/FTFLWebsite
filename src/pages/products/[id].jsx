@@ -854,6 +854,29 @@ export default function ProductDetail() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const [banner, setBanner] = useState(null);
+  const pageTitle = "Products";
+  useEffect(() => {
+    const fetchBanner = async () => {
+      try {
+        const res = await fetch(
+          `https://landing-page-yclw.vercel.app/api/banner`
+        );
+        const data = await res.json();
+
+        if (data.success && Array.isArray(data.data)) {
+          // ✅ find banner with title = pageTitle (case-insensitive)
+          const matchedBanner = data.data.find(
+            (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
+          );
+          setBanner(matchedBanner || null);
+        }
+      } catch (error) {
+        console.error("Error fetching banner:", error);
+      }
+    };
+    fetchBanner();
+  }, []);
   // If product not found or page is loading
   // if (loading) {
   //   return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
@@ -865,37 +888,37 @@ export default function ProductDetail() {
 
 
   if (loading) {
-  return (
-    <div className="min-h-screen mt-30 p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="h-96 bg-gray-200 rounded"></div>
-            <div className="space-y-4">
-              <div className="h-6 bg-gray-200 rounded"></div>
-              <div className="h-6 bg-gray-200 rounded w-2/3"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+    return (
+      <div className="min-h-screen mt-30 p-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="h-96 bg-gray-200 rounded"></div>
+              <div className="space-y-4">
+                <div className="h-6 bg-gray-200 rounded"></div>
+                <div className="h-6 bg-gray-200 rounded w-2/3"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-if (!productsData) {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <div className="text-6xl mb-4">😕</div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h2>
-        <p className="text-gray-600">The product you're looking for doesn't exist.</p>
+  if (!productsData) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">😕</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h2>
+          <p className="text-gray-600">The product you're looking for doesn't exist.</p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 
 
@@ -1028,34 +1051,41 @@ if (!productsData) {
           </button>
         </div>
       </motion.header>
+      <div className="relative  bg-blue-500  h-[40vh] sm:h-[50vh] md:h-[50vh] lg:h-[60vh]
+    min-h-[300px] md:min-h-[400px] overflow-hidden">
+        {/* Background Banner Image */}
+        <Image
+          src={banner?.bannerImage ? banner.bannerImage : "/download (4).jpeg"}
+          alt={banner?.title || `${pageTitle} Banner`}
+          fill
+          priority
+          className="object-cover"
+        />
 
-      {/* Hero Section */}
-      {/* <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <div className="absolute inset-0 bg-black"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Overlay */}
+        <div
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
+          }}
+          className="absolute inset-0 flex flex-col px-8 md:px-36 items-start py-8 md:py-0 justify-center "
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeIn}
-              className="text-center lg:text-left"
+              className=" lg:text-left"
             >
               <span className="inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
                 {productsData.category}
               </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{productsData.title}</h1>
-              <p className="text-xl opacity-90 mb-8">{productsData.subTitle}</p>
-              <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p>
+              <h1 className="text-4xl md:text-5xl text-white font-bold mb-4">{productsData.title}</h1>
+              <p className="text-xl opacity-90 text-blue-200 mb-8">{productsData.subTitle}</p>
+              {/* <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p> */}
 
-             
-
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                {productsData.livedemoLink && (
+              <div className="flex flex-wrap gap-4 justify-start lg:justify-start">
+                {/* {productsData.livedemoLink && (
                   <a
                     href={productsData.livedemoLink}
                     target="_blank"
@@ -1067,66 +1097,64 @@ if (!productsData) {
                     </svg>
                     Live Demo
                   </a>
-                )}
+                )} */}
 
-               
-                <div className="flex gap-3">
-                
-                  <a
-                    href="https://play.google.com/store/apps/details?id=your.app.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                    title="Download on Google Play"
-                  >
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L12.864 12l4.834-4.491zM3.063 2.25L14.5 8.363 7.303 15.56 3.062 2.251z" />
-                    </svg>
-                  </a>
+                {/* App Store Buttons - Compact Version */}
+                <div className="flex justify-start gap-3">
+                  {/* Google Play Store Button */}
+                  {productsData.googleStoreLink && (
+                    <a
 
-                
-                  <a
-                    href="https://apps.apple.com/app/your-app-id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-black hover:bg-gray-800 text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                    title="Download on App Store"
-                  >
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                    </svg>
-                  </a>
+                      href={productsData.googleStoreLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-start"
+                      title="Download on Google Play"
+                    >
+
+                      <svg
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                      </svg>
+
+                    </a>
+                  )}
+
+                  {/* Apple App Store Button */}
+                  {/* {productsData.appleStoreLink && (
+                    <a
+                      href={productsData.appleStoreLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-black hover:bg-gray-800 text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
+                      title="Download on App Store"
+                    >
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                      </svg>
+                    </a>
+                  )} */}
+
                 </div>
 
-                <button className="bg-transparent hover:bg-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
-                  View Case Study
-                </button>
+
               </div>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={scaleUp}
-              className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
-            >
-              <img
-                src={productsData.bannerImage || "/placeholder.jpg"}
-                alt={productsData.title}
-                layout="fill"
-                objectFit="cover"
-                onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                }}
-              />
-            </motion.div>
+
+
           </div>
         </div>
-      </section> */}
+      </div>
 
 
-      <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
-        {/* Animated Background Bubbles */}
+
+      {/* <section className="relative py-16 md:py-24 bg-blue-500 text-white overflow-hidden">
+       
         <div className="absolute inset-0 z-0 pointer-events-none">
           {[...Array(25)].map((_, i) => (
             <motion.div
@@ -1151,131 +1179,17 @@ if (!productsData) {
               }}
             />
           ))}
-        </div>
+        </div> */}
 
-        {/* Existing background effects */}
-        <div className="absolute inset-0 z-0 opacity-20">
+      {/* Existing background effects */}
+      {/* <div className="absolute inset-0 z-0 opacity-20">
           <div className="absolute inset-0 bg-black"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse animation-delay-2000"></div>
-        </div>
+        </div> */}
 
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              className="text-center lg:text-left"
-            >
-              <span className="inline-block px-4 py-1 mb-4 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                {productsData.category}
-              </span>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{productsData.title}</h1>
-              <p className="text-xl opacity-90 mb-8">{productsData.subTitle}</p>
-              <p className="text-gray-300 mb-8 leading-relaxed">{productsData.description}</p>
 
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                {productsData.livedemoLink && (
-                  <a
-                    href={productsData.livedemoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-white hover:bg-gray-300 text-gray-900 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                  >
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    Live Demo
-                  </a>
-                )}
-
-                {/* App Store Buttons - Compact Version */}
-                <div className="flex gap-3">
-                  {/* Google Play Store Button */}
-                  {productsData.googleStoreLink && (
-                    <a
-
-                      href={productsData.googleStoreLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                      title="Download on Google Play"
-                    >
-
-                      <svg
-                        className="w-6 h-6"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                      </svg>
-
-                    </a>
-                  )}
-
-                  {/* Apple App Store Button */}
-                  {productsData.appleStoreLink && (
-                    <a
-                      href={productsData.appleStoreLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-black hover:bg-gray-800 text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center"
-                      title="Download on App Store"
-                    >
-                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                      </svg>
-                    </a>
-                  )}
-
-                </div>
-
-                {/* <button className="bg-transparent hover:bg-white hover:text-black hover:bg-opacity-10 border border-white text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:-translate-y-1">
-                  View Case Study
-                </button> */}
-              </div>
-            </motion.div>
-
-            {/* <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={scaleUp}
-              className="relative h-80 md:h-96 rounded-3xl overflow-hidden shadow-2xl"
-            >
-              <img
-                src={productsData.bannerImage || "/placeholder.jpg"}
-                alt={productsData.title}
-                layout="fill"
-                objectFit="cover"
-                onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                }}
-              />
-            </motion.div> */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={scaleUp}
-              className="relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl"
-            >
-              <Image
-                src={productsData.bannerImage || "/placeholder.jpg"}
-                alt={productsData.title}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 60vw"
-                className="object-cover"
-                priority
-                onError={(e) => {
-                  e.target.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
-                }}
-              />
-
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* </section> */}
 
 
       {/* Stats Section */}
@@ -1431,7 +1345,7 @@ if (!productsData) {
               </div>
 
               {/* Development Timeline */}
-              {/* {getDevelopmentTimeline().length > 0 && (
+      {/* {getDevelopmentTimeline().length > 0 && (
                 <div className="mt-10">
                   <h3 className="text-xl font-semibold mb-6">Development Timeline</h3>
                   <div className="space-y-4">
@@ -1457,7 +1371,7 @@ if (!productsData) {
               )}
             </motion.div> */}
 
-            {/* <motion.div
+      {/* <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1474,7 +1388,7 @@ if (!productsData) {
                 }}
               />
             </motion.div> */}
-            {/* <motion.div
+      {/* <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -1512,7 +1426,7 @@ if (!productsData) {
           </motion.div>
 
           {/* Team Section */}
-          {/* {getMeasurableResults().length > 0 && (
+      {/* {getMeasurableResults().length > 0 && (
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1555,7 +1469,7 @@ if (!productsData) {
           </motion.div>
 
           {/* Team Section */}
-          {/* {getProjectTeam().length > 0 && (
+      {/* {getProjectTeam().length > 0 && (
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1579,7 +1493,7 @@ if (!productsData) {
 
 
 
-     
+
 
 
 
@@ -1714,8 +1628,8 @@ if (!productsData) {
       )}
 
 
-       {/* Testimonials Section */}
-       <ProductTestimonial />
+      {/* Testimonials Section */}
+      <ProductTestimonial />
 
       {/* CTA Section */}
       {/* <section className="py-16 bg-gray-400 text-white">
@@ -1743,50 +1657,54 @@ if (!productsData) {
       </section> */}
 
 
-<section
-  className="relative py-20 text-white text-center overflow-hidden"
-  style={{
-    backgroundImage: "url('/logos/ourmission.jpg')", // ✅ Make sure this path is correct
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-     height: "50vh",
-  }}
->
-  {/* Overlay for better text contrast */}
-  <div className="absolute inset-0 bg-blue-900/60" />
+      <section
+            // className="relative py-20 text-white text-center overflow-hidden"
+             className="
+    relative py-20 text-white text-center overflow-hidden
+    h-auto min-h-[60vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[40vh]
+  "
+            style={{
+              backgroundImage: "url('/logos/ourmission.jpg')", // ✅ Make sure this path is correct
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              height: "50vh",
+            }}
+          >
+        {/* Overlay for better text contrast */}
+        <div className="absolute inset-0 bg-blue-900/60" />
 
-  {/* Text content */}
-  <div className="relative z-10 max-w-7xl mx-auto px-4">
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeIn}
-    >
-      <h2 className="text-3xl md:text-4xl font-bold mb-6">
-        Ready to transform your business?
-      </h2>
+        {/* Text content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to transform your business?
+            </h2>
 
-      <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl mx-auto">
-        Let's discuss how{" "}
-        <span className="font-semibold text-blue-200">
-          {productsData.title}
-        </span>{" "}
-        can help you achieve your goals.
-      </p>
+            <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl mx-auto">
+              Let's discuss how{" "}
+              <span className="font-semibold text-blue-200">
+                {productsData.title}
+              </span>{" "}
+              can help you achieve your goals.
+            </p>
 
-      <div className="flex flex-wrap gap-4 justify-center">
-        <button
-          onClick={() => router.push("/contact")}
-          className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
-        >
-          Contact Our Team
-        </button>
-      </div>
-    </motion.div>
-  </div>
-</section>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <button
+                onClick={() => router.push("/contact")}
+                className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
+              >
+                Contact Our Team
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
 
 

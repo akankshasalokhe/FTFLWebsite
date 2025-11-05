@@ -32,7 +32,8 @@ const InternshipHighlights = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-lavender-50 px-6 overflow-hidden">
+    <section className="relative py-20 bg-gradient-to-br from-blue-50 via-white to-lavender-50 px-6 overflow-hidden mt-[-2px]">
+
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
       <div className="absolute top-0 right-0 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
@@ -73,9 +74,9 @@ const InternshipHighlights = () => {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ 
-                y: -10, 
-                transition: { duration: 0.3 } 
+              whileHover={{
+                y: -10,
+                transition: { duration: 0.3 }
               }}
               className="group relative"
             >
@@ -103,7 +104,17 @@ const InternshipHighlights = () => {
             href="#contactform"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group"
+            // className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="
+  flex items-center justify-center gap-2
+  px-6 py-3 rounded-lg cursor-pointer
+  bg-gradient-to-r from-[#298cf3] to-blue-600
+  text-white font-semibold text-sm sm:text-base
+  hover:shadow-lg transition-transform duration-300
+  w-full md:w-1/2 mx-auto
+"
+
+
           >
             Start Your Internship Journey
             <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />

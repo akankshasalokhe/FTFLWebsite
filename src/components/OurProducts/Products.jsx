@@ -494,7 +494,7 @@ const ProductShowcase = () => {
                     </div>
 
                     <Link href={`/products/${product._id}`}>
-                      <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-5 rounded-lg transition font-semibold text-sm shadow-md">
+                      <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 cursor-pointer text-white py-2 px-5 rounded-lg transition font-semibold text-sm shadow-md">
                         Learn More →
                       </button>
                     </Link>

@@ -2139,7 +2139,7 @@ export default function CourseDetails() {
       </section>
 
       {/* Stats - Responsive grid */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 -mt-8 sm:-mt-10 relative z-10">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 justify-center -mt-8 sm:-mt-10 relative z-10">
         <motion.div
           className="bg-white rounded-lg sm:rounded-xl shadow-md sm:shadow-lg p-3 sm:p-5 flex items-center gap-2 sm:gap-3 transition hover:shadow-lg sm:hover:shadow-xl"
           initial="hidden"

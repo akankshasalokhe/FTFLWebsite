@@ -1377,122 +1377,126 @@ const BlogPage = () => {
             )}
           </div>
         </motion.section> */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex justify-center">
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="
+      relative rounded-2xl p-8 text-white mb-16 overflow-hidden
+      w-[90%] h-auto sm:h-[60vh]
+    "
+            style={{
+              backgroundImage: "url('logos/ourmission.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            {/* Dark overlay for better text contrast */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
 
-        <motion.section
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.5 }}
-  className="relative rounded-2xl p-8 text-white mb-16 overflow-hidden"
-  style={{
-    backgroundImage: "url('logos/ourmission.jpg')", // 🔹 replace with your banner image path
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  {/* Dark overlay for better text contrast */}
-  <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+            {/* Decorative blur circles (optional) */}
+            <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
+            <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full"></div>
 
-  {/* Decorative blur circles (optional) */}
-  <div className="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full"></div>
-  <div className="absolute -left-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full"></div>
+            {/* Main content */}
+            <div className="max-w-3xl mx-auto text-center relative z-10">
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6"
+              >
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </motion.div>
 
-  {/* Main content */}
-  <div className="max-w-3xl mx-auto text-center relative z-10">
-    <motion.div
-      initial={{ scale: 0 }}
-      whileInView={{ scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6"
-    >
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-        />
-      </svg>
-    </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="text-3xl font-bold mb-4"
+              >
+                Stay in the loop
+              </motion.h2>
 
-    <motion.h2
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-      className="text-3xl font-bold mb-4"
-    >
-      Stay in the loop
-    </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-blue-100 mb-6 max-w-md mx-auto"
+              >
+                Get the latest articles, news and updates delivered to your inbox. No spam.
+              </motion.p>
 
-    <motion.p
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-      className="text-blue-100 mb-6 max-w-md mx-auto"
-    >
-      Get the latest articles, news and updates delivered to your inbox. No spam.
-    </motion.p>
-
-    {subscribed ? (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-white text-green-700 py-4 px-6 rounded-lg inline-flex items-center shadow-lg"
-      >
-        <svg
-          className="w-5 h-5 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        Thank you for subscribing!
-      </motion.div>
-    ) : (
-      <motion.form
-        onSubmit={handleSubscribe}
-        className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <input
-          type="email"
-          placeholder="Your email address"
-          className="flex-grow border border-white/30 bg-white/10 px-4 h-12 rounded-lg text-white placeholder-blue-100 focus:outline-none focus:ring-2 focus:ring-white backdrop-blur-sm"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <motion.button
-          type="submit"
-          className="px-8 py-3 cursor-pointer rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Subscribe
-        </motion.button>
-      </motion.form>
-    )}
-  </div>
-</motion.section>
+              {subscribed ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-white text-green-700 py-4 px-6 rounded-lg inline-flex items-center shadow-lg"
+                >
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Thank you for subscribing!
+                </motion.div>
+              ) : (
+                <motion.form
+                  onSubmit={handleSubscribe}
+                  className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className="flex-grow border border-white/30 bg-white/10 px-4 h-12 rounded-lg text-white placeholder-blue-100 focus:outline-none focus:ring-2 focus:ring-white backdrop-blur-sm"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <motion.button
+                    type="submit"
+                    className="px-8 py-3 cursor-pointer rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Subscribe
+                  </motion.button>
+                </motion.form>
+              )}
+            </div>
+          </motion.section>
+        </div>
 
       </main>
 

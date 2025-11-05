@@ -562,27 +562,7 @@ const InternshipProcess = () => {
               Join our next cohort and transform your future with hands-on experience and industry connections
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center relative z-10 px-4">
-              {/* <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl shadow-2xl hover:shadow-cyan-500/25 transition-all duration-300 flex items-center justify-center gap-3 text-base md:text-lg"
-                aria-label="Start your journey"
-              >
-                <FaRocket />
-                Start Your Journey
-                <FaArrowRight />
-              </motion.button> */}
-              
-              {/* <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white/10 text-white font-bold px-6 py-4 md:px-8 md:py-4 rounded-2xl border border-white/20 hover:bg-white/20 backdrop-blur-md transition-all duration-300 text-base md:text-lg"
-                aria-label="View success stories"
-              >
-                View Success Stories
-              </motion.button> */}
-            </div>
+          
           </div>
         </motion.div>
       </div>
