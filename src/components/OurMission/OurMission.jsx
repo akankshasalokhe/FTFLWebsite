@@ -302,11 +302,11 @@ const MissionSection = () => {
 
     {/* Cards */}
     {/* Mobile: 1 column, Tablet: 1 column, Desktop: 3 columns */}
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-25">
       {content.map((item, index) => (
         <div
           key={index}
-          className="group relative rounded-xl overflow-hidden transition-all duration-500 w-full lg:w-[400px] lg:h-[420px]"
+          className="group relative rounded-xl overflow-hidden transition-all duration-500 w-full lg:w-[430px] lg:h-[460px] lg:-ms-8"
         >
           {/* Image (mobile & tablet: natural height; desktop: fill card) */}
           <img
@@ -321,14 +321,14 @@ const MissionSection = () => {
 
           {/* ---------- MOBILE & TABLET: show title + description below image ---------- */}
           <div className="block lg:hidden mt-4">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3 text-left">
+            <h3 className="text-2xl font-bold text-gray-900 mb-3 text-justify">
               {item.title}
             </h3>
-            <p className="text-gray-700 leading-relaxed text-base text-left">
+            <p className="text-gray-700 leading-relaxed text-base text-justify">
               {item.description}
             </p>
 
-            {item.typeData === "corevalues" && (
+            {/* {item.typeData === "corevalues" && (
               <ul className="mt-4 grid grid-cols-2 gap-3">
                 {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
                   (value, i) => (
@@ -354,7 +354,7 @@ const MissionSection = () => {
                   )
                 )}
               </ul>
-            )}
+            )} */}
           </div>
 
           {/* ---------- DESKTOP: exact original hover behavior (unchanged) ---------- */}
@@ -379,7 +379,7 @@ const MissionSection = () => {
                 {item.description}
               </p>
 
-              {item.typeData === "corevalues" && (
+              {/* {item.typeData === "corevalues" && (
                 <ul className="mt-4 grid grid-cols-2 gap-2">
                   {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
                     (value, i) => (
@@ -405,7 +405,7 @@ const MissionSection = () => {
                     )
                   )}
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
         </div>
