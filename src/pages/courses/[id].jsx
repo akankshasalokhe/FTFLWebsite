@@ -2478,7 +2478,7 @@ export default function CourseDetails() {
             >
               <h3 className="text-lg font-bold text-blue-800 mb-3">Need help deciding?</h3>
               <p className="text-blue-700 mb-4">Talk to our program counsellor</p>
-              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition w-full">
+              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-[#298cf3] to-blue-600 transition w-full">
                 Request a Callback
               </button>
             </motion.div>

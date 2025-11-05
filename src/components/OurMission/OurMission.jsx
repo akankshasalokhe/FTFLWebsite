@@ -261,21 +261,21 @@ const MissionSection = () => {
     {
       title: "Our Vision",
       description:
-        "Our vision is to redefine the digital landscape by creating innovative, intelligent, and impactful technology solutions that empower businesses to achieve sustainable growth. We aspire to become a globally recognized leader in digital transformation — where creativity meets technology and ideas turn into real-world success. By continuously embracing innovation, emerging technologies, and customer-centric approaches, we aim to bridge the gap between possibilities and performance. Our vision is to shape a smarter, connected, and future-ready world driven by excellence, integrity, and the transformative power of technology.",
+        "To be a world leader in next-generation technology, utilizing cloud computing, IoT, AI, and other cutting-edge digital advancements to completely transform how people and organizations interact, function, and expand. In our ideal society, technology will foresee requirements, and facilitate smooth, long-lasting, and revolutionary advancement. We want to build a future where digital possibilities are boundless, enabling every company and people to prosper in a constantly changing, linked world by pushing the limits of innovation and excellence.",
       image: "logos/ourvision.jpg",
       typeData: "vision",
     },
     {
       title: "Our Mission",
       description:
-        "Our mission to provide outstanding technological solutions that enable companies to thrive in the digital age. We are committed to provide dependable, effective, and scalable services in the areas of web development, mobile apps, digital marketing, and creative design—all of which are customized to satisfy particular corporate objectives. Our dedication to excellence, openness, and ongoing development serves as the foundation for our purpose. By combining strategic thinking, advanced technology, and customer-focused execution, we strive to create meaningful digital experiences that add value, inspire trust, and drive long-term success for our clients and partners worldwide.",
+        "Our mission is to provide our clients with scalable, dependable, and creative technological solutions that promote quantifiable efficiency and growth. To help people and organizations accomplish their objectives and create a smarter, more connected digital world, we work to harness cutting-edge technology, encourage innovation, and uphold the highest standards of quality and integrity.",
       image: "logos/ourmission.jpg",
       typeData: "mission",
     },
     {
       title: "Core Values",
       description:
-        "Our core values define who we are and guide every decision we make. “Integrity” is at the heart of our operations, ensuring honesty and transparency in all our relationships. We believe in innovation, constantly exploring new technologies to deliver creative and impactful solutions. “Excellence” drives us to maintain the highest standards in every project we undertake. We prioritize customer satisfaction, building lasting partnerships through trust and commitment. With “Teamwork”, accountability, and a passion for progress, FTFL Technology stands firm on values that inspire growth, empower success, and shape a better digital future for all.",
+        "We are committed to developing technology that truly changes the world. Our work at FTFL Technology Private Limited is motivated by responsibility, curiosity, and a desire to advance. In today's interconnected world, we work to empower individuals, encourage teamwork, and provide solutions that are not just creative but also significant and long-lasting.",
       image: "logos/corevalues.png",
       typeData: "corevalues",
     },

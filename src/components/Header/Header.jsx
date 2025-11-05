@@ -240,7 +240,7 @@ const HeroSection = () => {
       </motion.div>
 
       {/* 🌌 Floating Particles */}
-      {[...Array(30)].map((_, i) => (
+      {/* {[...Array(30)].map((_, i) => (
         <motion.span
           key={i}
           className="absolute w-[3px] h-[3px] bg-cyan-400 rounded-full"
@@ -260,7 +260,31 @@ const HeroSection = () => {
             delay: i * 0.2,
           }}
         />
-      ))}
+      ))} */}
+
+      {/* Code Syntax Particles */}
+{[...Array(20)].map((_, i) => (
+  <motion.span
+    key={i}
+    className="absolute text-[10px] font-mono text-blue-400/70"
+    style={{
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+    }}
+    animate={{
+      y: [0, -20, 0],
+      opacity: [0, 5, 2],
+      scale: [1, 1.3, 1],
+    }}
+    transition={{
+      duration: 4 + Math.random() * 2,
+      repeat: Infinity,
+      delay: i * 0.2,
+    }}
+  >
+    {['</>', '{ }', '=>', '()', '[]', '{}', '<div>', 'fn()', 'const', 'import'][i % 10]}
+  </motion.span>
+))}
     </section>
   );
 };

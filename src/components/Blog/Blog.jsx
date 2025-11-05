@@ -1385,7 +1385,7 @@ const BlogPage = () => {
   transition={{ duration: 0.5 }}
   className="relative rounded-2xl p-8 text-white mb-16 overflow-hidden"
   style={{
-    backgroundImage: "url('logos/corevalues.png')", // 🔹 replace with your banner image path
+    backgroundImage: "url('logos/ourmission.jpg')", // 🔹 replace with your banner image path
     backgroundSize: "cover",
     backgroundPosition: "center",
   }}
