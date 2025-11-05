@@ -1125,7 +1125,7 @@ export default function ServiceDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {serviceData?.description ||
+            {serviceData?.description[0] ||
               "We deliver innovative, scalable, and reliable solutions to accelerate your digital growth."}
           </motion.p>
         </div>
@@ -1184,7 +1184,7 @@ export default function ServiceDetail() {
             <h2 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-6 capitalize relative inline-block">
               Our {serviceData.name?.toLowerCase().replace(/^\w/, (c) => c.toUpperCase())} Services
               <motion.div
-                className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
+                className="absolute -bottom-2 left-0 h-1 bg-blue-500 rounded-full"
                 initial={{ width: 0 }}
                 whileInView={{ width: "60%" }}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -1199,7 +1199,7 @@ export default function ServiceDetail() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              {serviceData?.description ||
+              {serviceData?.description[1] ||
                 `At ${serviceData.title}, we specialize in delivering comprehensive, high-impact digital solutions designed to elevate your brand. From innovative web and mobile development to seamless integrations, our team crafts scalable strategies that ensure long-term success.`}
             </motion.p>
           </motion.div>
@@ -1207,7 +1207,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* ✅ WHY CHOOSE US */}
-      <section className="relative py-24 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 overflow-hidden px-4 md:px-8">
+      <section className="relative py-24 bg-white overflow-hidden px-4 md:px-8">
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             className="text-center mb-14"
