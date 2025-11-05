@@ -1274,51 +1274,54 @@ export default function ServiceDetail() {
       )}
 
       {/* ✅ TECHNOLOGIES */}
-      <section className="py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 px-4 sm:px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-              Technologies We Use
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
-              We leverage cutting-edge technologies to build fast, secure, and scalable applications.
-            </p>
-          </motion.div>
+      {serviceData?.technology && serviceData.technology.length > 0 && (
+  <section className="py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 px-4 sm:px-6 relative overflow-hidden">
+    <div className="max-w-7xl mx-auto">
+      <motion.div
+        className="text-center mb-12 sm:mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+          Technologies We Use
+        </h2>
+        <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
+          We leverage cutting-edge technologies to build fast, secure, and scalable applications.
+        </p>
+      </motion.div>
 
+      <motion.div
+        className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 items-center justify-center"
+        variants={staggerChildren}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {serviceData.technology.map((tech, idx) => (
           <motion.div
-            className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 items-center justify-center"
-            variants={staggerChildren}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            key={idx}
+            variants={fadeIn}
+            whileHover={{ scale: 1.1 }}
+            className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-36"
           >
-            {serviceData.technology.map((tech, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeIn}
-                whileHover={{ scale: 1.1 }}
-                className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-36"
-              >
-                <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
-                  <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <img
-                    src={tech.icon}
-                    alt={tech.title}
-                    className="relative z-10 object-contain w-full h-full"
-                  />
-                </div>
-                <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
-              </motion.div>
-            ))}
+            <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
+              <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <img
+                src={tech.icon}
+                alt={tech.title}
+                className="relative z-10 object-contain w-full h-full"
+              />
+            </div>
+            <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </motion.div>
+    </div>
+  </section>
+)}
+
 
       {/* ✅ FAQ */}
       <section className="py-16 lg:py-20 bg-gray-100 px-4 sm:px-6 relative overflow-hidden">
