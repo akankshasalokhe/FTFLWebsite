@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Styles from "./Header.module.css"; 
+import Styles from "./Header.module.css";
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
@@ -33,8 +33,8 @@ const HeroSection = () => {
         }}
         initial={{ scale: 1.3, opacity: 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ 
-          duration: 1.5, 
+        transition={{
+          duration: 1.5,
           ease: [0.16, 0.77, 0.47, 0.97],
           opacity: { duration: 1.2 }
         }}
@@ -63,7 +63,7 @@ const HeroSection = () => {
             {/* <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-blue-900 bg-opacity-40 rounded-full backdrop-blur-sm mb-4 sm:mb-6 border border-blue-700">
               <span className="text-blue-300 font-medium text-sm sm:text-base">Innovating Since 2015</span>
             </div> */}
-            
+
             <motion.h1
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
             >
@@ -117,28 +117,28 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Data Intelligence Particles */}
-{[...Array(12)].map((_, i) => (
-  <motion.div
-    key={i}
-    className="absolute text-[11px] text-indigo-500"
-    style={{
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-    }}
-    animate={{
-      scale: [1, 1.8, 1],
-      opacity: [0.3, 0.8, 0.3],
-      y: [0, 8, 0],
-    }}
-    transition={{
-      duration: 3 + Math.random() * 2,
-      repeat: Infinity,
-      delay: i * 0.25,
-    }}
-  >
-    {['📉', '📊', '📈', '🎲', '🎯', '🎪', '🧮', '🔢'][i % 8]}
-  </motion.div>
-))}
+          {/* {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-[11px] text-indigo-500"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                scale: [1, 1.8, 1],
+                opacity: [0.3, 0.8, 0.3],
+                y: [0, 8, 0],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: i * 0.25,
+              }}
+            >
+              {['📉', '📊', '📈', '🎲', '🎯', '🎪', '🧮', '🔢'][i % 8]}
+            </motion.div>
+          ))} */}
         </div>
       </div>
     </section>

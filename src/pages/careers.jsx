@@ -268,128 +268,61 @@ function Careers() {
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10 bg-[url('/grid-pattern.svg')]"></div>
 
-        {/* <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center ms-5 gap-8">
+        <section
+          className="relative flex items-center justify-center text-white overflow-hidden 
+        h-[60vh] sm:h-[50vh] md:h-[45vh] lg:h-[40vh] 
+        min-h-[400px] sm:min-h-[480px] md:min-h-[550px] lg:min-h-[580px] 
+        max-h-[650px]"
+          style={{
+            backgroundImage: "url('/logos/ourmission.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        >
+          {/* Optional overlay for readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold"
+            >
+              Join Our <span className="text-blue-300">Team</span>
+            </motion.h1>
+
+            <motion.p
+              key={currentRole}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mt-4 text-xl md:text-2xl"
+            >
+              We're hiring <span className="text-blue-200">{ROLES[currentRole]}</span>
+            </motion.p>
+
+            <p className="mt-6 text-lg opacity-90">
+              Build the future with us. Grow your career in an innovative environment.
+            </p>
 
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="lg:w-full "
-              style={{
-                backgroundImage: "url('/logos/ourmission.jpg')", // ✅ Make sure this path is correct
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-
-              }}
+              className="mt-8"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
-                Join Our <span className="text-white">Team</span>
-              </h1>
-
-              <div className="h-16 overflow-hidden">
-                <motion.p
-                  key={currentRole}
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-xl md:text-2xl text-black"
-                >
-                  We're hiring <span className="text-white">{ROLES[currentRole]}</span>
-                </motion.p>
-              </div>
-
-              <motion.p
-                className="text-lg text-black"
-                whileHover={{ scale: 1.02 }}
-              >
-                Build the future with us. Grow your career in an innovative environment.
-              </motion.p>
-
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onHoverStart={() => setIsHovered(true)}
-                onHoverEnd={() => setIsHovered(false)}
-              >
-                <Link href='#openpositions'>
-                  <button
-                    // onClick={handleViewAllPositions}
-                    className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:bg-[#2478d4] cursor-pointer text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-[#298CF3]/30"
-                  >
-                    <span className="flex items-center gap-2">
-                      View Open Positions
-                      <motion.span
-                        animate={{ x: isHovered ? 5 : 0 }}
-                        transition={{ type: 'spring', stiffness: 500 }}
-                      >
-                        →
-                      </motion.span>
-                    </span>
-                  </button>
-                </Link>
-              </motion.div>
+              <Link href="#openpositions">
+                <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg">
+                  <span className="flex items-center justify-center gap-2">
+                    View Open Positions →
+                  </span>
+                </button>
+              </Link>
             </motion.div>
-
-
           </div>
-        </div> */}
+        </section>
 
-        <section
-  className="relative flex items-center justify-center text-white overflow-hidden"
-  style={{
-    backgroundImage: "url('/logos/ourmission.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    height: "80vh", // ✅ Full viewport height
-    width: "100%", // ✅ Full width
-  }}
->
-  {/* Optional overlay for readability */}
-  <div className="absolute inset-0 bg-black/50"></div>
-
-  <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
-    <motion.h1
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="text-4xl md:text-5xl lg:text-6xl font-bold"
-    >
-      Join Our <span className="text-blue-300">Team</span>
-    </motion.h1>
-
-    <motion.p
-      key={currentRole}
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="mt-4 text-xl md:text-2xl"
-    >
-      We're hiring <span className="text-blue-200">{ROLES[currentRole]}</span>
-    </motion.p>
-
-    <p className="mt-6 text-lg opacity-90">
-      Build the future with us. Grow your career in an innovative environment.
-    </p>
-
-    <motion.div
-      className="mt-8"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <Link href="#openpositions">
-        <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-[#2478d4] text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 shadow-lg">
-          <span className="flex items-center justify-center gap-2">
-            View Open Positions →
-          </span>
-        </button>
-      </Link>
-    </motion.div>
-  </div>
-</section>
 
       </div>
 

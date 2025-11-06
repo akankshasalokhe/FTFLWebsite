@@ -1741,8 +1741,9 @@ export default function ProductDetail() {
  }
 
 
- <section id="gallery" className="py-16 bg-white">
+<section id="gallery" className="py-12 bg-white">
   <div className="max-w-7xl mx-auto px-4">
+    {/* Section Heading */}
     <motion.div
       initial="hidden"
       whileInView="visible"
@@ -1754,15 +1755,16 @@ export default function ProductDetail() {
       <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
     </motion.div>
 
+    {/* Gallery Top Section */}
     {productsData?.galleryImages?.length > 0 ? (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Top Left: Big Image */}
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
+        {/* Left: Big Image */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={scaleUp}
-          className="rounded-2xl overflow-hidden shadow-lg h-[500px]"
+          className="rounded-2xl overflow-hidden shadow-lg h-[450px]"
         >
           <img
             src={productsData.galleryImages[0]}
@@ -1775,7 +1777,7 @@ export default function ProductDetail() {
           />
         </motion.div>
 
-        {/* Top Right: Two stacked images */}
+        {/* Right: Two Stacked Smaller Images */}
         <div className="grid grid-rows-2 gap-4">
           {productsData.galleryImages.slice(1, 3).map((img, index) => (
             <motion.div
@@ -1784,7 +1786,7 @@ export default function ProductDetail() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
-              className="rounded-2xl overflow-hidden shadow-lg h-[240px]"
+              className="rounded-2xl overflow-hidden shadow-lg h-[220px]"
             >
               <img
                 src={img}
@@ -1805,7 +1807,7 @@ export default function ProductDetail() {
       </div>
     )}
 
-    {/* Bottom row: Three square images */}
+    {/* Bottom Row: Three Square Images */}
     {productsData?.galleryImages?.length > 3 && (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {productsData.galleryImages.slice(3, 6).map((img, index) => (
@@ -1815,7 +1817,7 @@ export default function ProductDetail() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="rounded-2xl overflow-hidden shadow-lg h-[250px]"
+            className="rounded-2xl overflow-hidden shadow-lg h-[230px]"
           >
             <img
               src={img}

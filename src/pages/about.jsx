@@ -331,8 +331,8 @@ function About() {
              text-white 
              bg-clip-text text-transparent leading-none mb-6
              inline-block pb-3"
-              // style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
-              // variants={itemVariants}
+            // style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
+            // variants={itemVariants}
             >
               Our Journey
             </motion.h1>
@@ -350,11 +350,17 @@ function About() {
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center w-full px-2 sm:px-0"
+              className="flex flex-col sm:flex-row gap-1 lg:gap-4 justify-center w-full px-2 sm:px-0"
             >
+              {/* Meet Our Board Directors */}
               <button
-                // className="px-6 sm:px-8 py-3 cursor-pointer hover:bg-blue-500 border-white border-2 text-white rounded-lg font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
-                  className="mt-8 px-8 py-3 rounded-lg cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                className="flex items-center justify-center gap-2
+      px-6 py-3 sm:px-6 sm:py-2 lg:px-5 lg:py-1.5
+      rounded-lg cursor-pointer
+      bg-gradient-to-r from-[#298cf3] to-blue-600
+      text-white font-semibold 
+      text-md sm:text-base lg:text-md
+      hover:shadow-lg hover:scale-[1.02] transition-transform duration-300"
                 onClick={() => {
                   document
                     .getElementById("team-section")
@@ -363,19 +369,23 @@ function About() {
               >
                 Meet Our Board Directors
               </button>
-             
+
+              {/* Our Values */}
               <button
-                // className="px-6 sm:px-8 py-3 cursor-pointer text-white border-2 border-white rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 w-full sm:w-auto"
-                className="mt-8 px-8 py-3 rounded-lg cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300"
+                className="mt-8 sm:mt-0 px-8 py-3 rounded-lg cursor-pointer 
+      bg-gradient-to-r from-[#298cf3] to-blue-600 
+      text-white font-semibold hover:shadow-lg hover:scale-105 
+      transition-transform duration-300"
                 onClick={() => {
                   document
                     .getElementById("values-section")
-                    ?.scrollIntoView({ behavior: "smooth" });
+                    ?.scrollIntoView({ behavior: 'smooth' });
                 }}
               >
                 Our Values
               </button>
             </motion.div>
+
           </div>
         </motion.div>
 
