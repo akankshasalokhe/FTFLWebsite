@@ -1095,11 +1095,28 @@ export default function ServiceDetail() {
               ease: "easeInOut",
             }}
           >
-            <img
+            {/* <img
               src={serviceData.bannerImage}
               alt={serviceData.title || "Service Banner"}
               className="w-full h-[70vh] md:h-[70vh] lg:h-[90vh] object-fill object-center"
-            />
+            /> */}
+            {serviceData?.bannerImage?.match(/\.(mp4|webm|ogg)$/i) ? (
+              <video
+                src={serviceData.bannerImage}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-[70vh] md:h-[70vh] lg:h-[90vh] object-fill object-center"
+              />
+            ) : (
+              <img
+                src={serviceData.bannerImage}
+                alt={serviceData.title || "Service Banner"}
+                className="w-full h-[70vh] md:h-[70vh] lg:h-[90vh] object-fill object-center"
+              />
+            )}
+
           </motion.div>
         )}
 
@@ -1161,11 +1178,28 @@ export default function ServiceDetail() {
             viewport={{ once: true }}
           >
             <div className="relative w-[500px] lg:max-w-[600px] rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              {/* <img
                 src={serviceData.serviceImage1}
                 alt={serviceData.title}
                 className="w-full  h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
-              />
+              /> */}
+              {serviceData?.serviceImage1?.match(/\.(mp4|webm|ogg)$/i) ? (
+                <video
+                  src={serviceData.serviceImage1}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
+                />
+              ) : (
+                <img
+                  src={serviceData.serviceImage1}
+                  alt={serviceData.title}
+                  className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
+                />
+              )}
+
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
                   End-to-End Digital Excellence
@@ -1275,52 +1309,52 @@ export default function ServiceDetail() {
 
       {/* ✅ TECHNOLOGIES */}
       {serviceData?.technology && serviceData.technology.length > 0 && (
-  <section className="py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 px-4 sm:px-6 relative overflow-hidden">
-    <div className="max-w-7xl mx-auto">
-      <motion.div
-        className="text-center mb-12 sm:mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-          Technologies We Use
-        </h2>
-        <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
-          We leverage cutting-edge technologies to build fast, secure, and scalable applications.
-        </p>
-      </motion.div>
+        <section className="py-16 lg:py-20 bg-gradient-to-b from-white to-blue-50 px-4 sm:px-6 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              className="text-center mb-12 sm:mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                Technologies We Use
+              </h2>
+              <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
+                We leverage cutting-edge technologies to build fast, secure, and scalable applications.
+              </p>
+            </motion.div>
 
-      <motion.div
-        className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 items-center justify-center"
-        variants={staggerChildren}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        {serviceData.technology.map((tech, idx) => (
-          <motion.div
-            key={idx}
-            variants={fadeIn}
-            whileHover={{ scale: 1.1 }}
-            className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-36"
-          >
-            <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
-              <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <img
-                src={tech.icon}
-                alt={tech.title}
-                className="relative z-10 object-contain w-full h-full"
-              />
-            </div>
-            <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  </section>
-)}
+            <motion.div
+              className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 items-center justify-center"
+              variants={staggerChildren}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {serviceData.technology.map((tech, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={fadeIn}
+                  whileHover={{ scale: 1.1 }}
+                  className="bg-white rounded-2xl shadow-md p-4 sm:p-6 flex flex-col items-center justify-center group hover:shadow-lg transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-36"
+                >
+                  <div className="relative w-12 h-12 sm:w-16 sm:h-16 mb-3 sm:mb-4">
+                    <div className="absolute inset-0 bg-blue-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <img
+                      src={tech.icon}
+                      alt={tech.title}
+                      className="relative z-10 object-contain w-full h-full"
+                    />
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-center">{tech.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
 
       {/* ✅ FAQ */}
