@@ -1757,14 +1757,14 @@ export default function ProductDetail() {
 
     {/* Gallery Top Section */}
     {productsData?.galleryImages?.length > 0 ? (
-      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-0">
         {/* Left: Big Image */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={scaleUp}
-          className="rounded-2xl overflow-hidden shadow-lg h-[450px]"
+          className="overflow-hidden shadow-lg h-[450px]"
         >
           <img
             src={productsData.galleryImages[0]}
@@ -1778,7 +1778,7 @@ export default function ProductDetail() {
         </motion.div>
 
         {/* Right: Two Stacked Smaller Images */}
-        <div className="grid grid-rows-2 gap-4">
+        <div className="grid grid-rows-2 gap-0">
           {productsData.galleryImages.slice(1, 3).map((img, index) => (
             <motion.div
               key={index}
@@ -1786,7 +1786,7 @@ export default function ProductDetail() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
-              className="rounded-2xl overflow-hidden shadow-lg h-[220px]"
+              className="overflow-hidden shadow-lg h-[220px]"
             >
               <img
                 src={img}
@@ -1809,7 +1809,7 @@ export default function ProductDetail() {
 
     {/* Bottom Row: Three Square Images */}
     {productsData?.galleryImages?.length > 3 && (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 mt-0">
         {productsData.galleryImages.slice(3, 6).map((img, index) => (
           <motion.div
             key={index}
@@ -1817,7 +1817,7 @@ export default function ProductDetail() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeIn}
-            className="rounded-2xl overflow-hidden shadow-lg h-[230px]"
+            className=" overflow-hidden shadow-lg h-[230px]"
           >
             <img
               src={img}
