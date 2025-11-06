@@ -328,11 +328,11 @@ function About() {
             </motion.h1> */}
             <motion.h1
               className="relative text-3xl sm:text-5xl md:text-7xl font-bold 
-             bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 
+             text-white 
              bg-clip-text text-transparent leading-none mb-6
              inline-block pb-3"
-              style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
-              variants={itemVariants}
+              // style={{ WebkitTextFillColor: "transparent", lineHeight: "1.1" }}
+              // variants={itemVariants}
             >
               Our Journey
             </motion.h1>

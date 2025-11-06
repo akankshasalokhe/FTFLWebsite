@@ -1395,7 +1395,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
               {(job.requiredSkills || []).slice(0,5).map((skill, skillIndex) => (
                 <span
                   key={skill._id || skillIndex}
-                  className="px-2 py-0.5 md:px-2.5 md:py-1 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-full"
+                  className="px-2 py-0.5 md:px-2.5 md:py-1 border border-gray-300 bg-gray-100 text-gray-700 text-xs md:text-sm rounded-full"
                 >
                   {skill.title || skill}
                 </span>
@@ -1428,7 +1428,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-4 py-2 md:px-5 md:py-2.5 border border-gray-300 rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                  className="w-full px-4 py-2 cursor-pointer md:px-5 md:py-2.5 border border-gray-300 rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
                 >
                   <FiEye className="flex-shrink-0" />
                   <span>Details</span>
@@ -1438,7 +1438,7 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
+                  className="w-full px-4 py-2 md:px-5 md:py-2.5 cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600  text-white rounded-lg font-medium flex items-center justify-center gap-1 md:gap-2 text-sm md:text-base"
                 >
                   <FiBriefcase className="flex-shrink-0" />
                   <span>Apply</span>
@@ -1480,9 +1480,13 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
             </p>
             <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
               <Link href="/jobs/generalApplication">
-                <button className="px-4 py-2 md:px-6 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm md:text-base transition-colors">
+               <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-4 py-2 md:px-6 md:py-3 cursor-pointer bg-gradient-to-r from-[#298cf3] to-blue-600  text-white rounded-lg font-medium text-sm md:text-base transition-colors"
+                >
                   General Application
-                </button>
+                </motion.button>
               </Link>
               {/* <button className="px-4 py-2 md:px-6 md:py-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 rounded-lg font-medium text-sm md:text-base transition-colors">
                 Talent Network

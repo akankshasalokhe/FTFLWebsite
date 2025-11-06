@@ -1452,15 +1452,15 @@ const CurriculumAccordion = ({ curriculum }) => {
               aria-expanded={openIndex === index}
               aria-controls={`accordion-${item.step}-content`}
             >
-              
+
               <span className="flex items-center gap-3">
                 {/* <span className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
                   
                   {item.icon}
                 </span> */}
-              <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden border-2 border-blue-200">
-  {item.icon}
-</span>
+                <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden border-2 border-blue-200">
+                  {item.icon}
+                </span>
                 {item.title}
               </span>
               {openIndex === index ? <FaChevronUp className="text-blue-600" /> : <FaChevronDown className="text-blue-600" />}
@@ -2017,7 +2017,7 @@ export default function CourseDetails() {
         <img
           src={item.currIcon}
           alt={item.currTitle}
-         className="w-full h-full object-fit rounded-full"
+          className="w-full h-full object-fit rounded-full"
         />
       ),
       topics: item.currDescription || [],
@@ -2112,7 +2112,7 @@ export default function CourseDetails() {
               </button>
             </motion.div> */}
 
-           
+
             {/* Download Button - Opens in new tab */}
             <motion.div
               className="flex flex-wrap gap-3"
@@ -2487,7 +2487,7 @@ export default function CourseDetails() {
       </div>
 
       {/* Enroll CTA */}
-      <section className="bg-gray-600">
+      {/* <section className="bg-gray-600">
         <div className="max-w-6xl mx-auto px-6 py-16 text-center text-white">
           <motion.h3
             className="text-3xl font-bold mb-4"
@@ -2514,12 +2514,6 @@ export default function CourseDetails() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {/* <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-white text-blue-700 font-semibold px-8 py-3 rounded-xl shadow hover:bg-blue-50 transition focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-800"
-            >
-              Enroll Now
-            </button> */}
             <Link href='/contact'>
             <button className="border border-white text-white font-semibold px-8 py-3 rounded-xl shadow hover:bg-white hover:text-blue-700 transition">
               Schedule a Mentor Call
@@ -2528,7 +2522,58 @@ export default function CourseDetails() {
           </motion.div>
           <p className="mt-4 text-blue-100 text-sm">Limited seats available</p>
         </div>
+      </section> */}
+
+
+      <section
+        className="relative bg-cover bg-center bg-no-repeat text-white"
+        style={{
+          backgroundImage: "url('/logos/ourmission.jpg')",
+        }}
+      >
+        {/* Dark overlay for better contrast */}
+        <div className="absolute inset-0 bg-black/50"></div>
+
+        {/* Content */}
+        <div className="relative max-w-6xl mx-auto px-6 py-20 text-center">
+          <motion.h3
+            className="text-3xl font-bold mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Ready to Start Your Career?
+          </motion.h3>
+
+          <motion.p
+            className="opacity-90 mb-6 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            Enroll today, complete the training, receive a guaranteed internship with stipend,
+            and unlock placement opportunities with our partner companies.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link href="/contact">
+              <button className="border border-white text-white font-semibold px-8 py-3 rounded-xl shadow hover:bg-white hover:text-blue-700 transition">
+                Schedule a Mentor Call
+              </button>
+            </Link>
+          </motion.div>
+
+          <p className="mt-4 text-blue-100 text-sm">Limited seats available</p>
+        </div>
       </section>
+
 
       {/* Enrollment Modal */}
       {/* <AnimatePresence>
