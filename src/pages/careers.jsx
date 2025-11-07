@@ -271,7 +271,7 @@ function Careers() {
         <section
           className="relative flex items-center justify-center text-white overflow-hidden 
         h-[60vh] sm:h-[50vh] md:h-[45vh] lg:h-[40vh] 
-        min-h-[400px] sm:min-h-[480px] md:min-h-[550px] lg:min-h-[580px] 
+        min-h-[400px] sm:min-h-[480px] md:min-h-[550px] lg:min-h-[500px] 
         max-h-[650px]"
           style={{
             backgroundImage: "url('/logos/ourmission.jpg')",
