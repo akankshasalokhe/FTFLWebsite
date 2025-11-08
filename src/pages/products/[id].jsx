@@ -1274,19 +1274,11 @@ export default function ProductDetail() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeIn}
-              className="space-y-10"
+              className="space-y-10 w-full lg:w-3/4 mx-auto"
             >
-              {getOverview().map((item, index) => (
-                <div
-                  key={index}
-                  className="p-6 bg-white/80 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1"
-                >
-                  <h3 className="text-2xl font-semibold text-blue-800 mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-700 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
+              <p className="p-8  backdrop-blur-md text-xl  transition transform hover:-translate-y-1 min-h-[200px] flex items-center">
+                {productsData.description}
+              </p>
             </motion.div>
 
             {/* Overview Image */}
@@ -1295,7 +1287,7 @@ export default function ProductDetail() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={scaleUp}
-              className="relative rounded-3xl overflow-hidden shadow-2xl border border-blue-100 h-72 sm:h-[450px]"
+              className="relative rounded-3xl overflow-hidden shadow-2xl border border-blue-100 h-68 sm:h-84 md:h-80"
             >
               <img
                 src={productsData?.overviewImage || "/placeholder.jpg"}
@@ -1303,7 +1295,7 @@ export default function ProductDetail() {
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
                   e.currentTarget.src =
-                    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly83d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+                    "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-transparent"></div>
