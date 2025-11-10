@@ -1,252 +1,409 @@
-// "use client";
+"use client";
 
-// import Link from "next/link";
-// import { useState, useEffect, useRef } from "react";
-// import { usePathname } from "next/navigation";
-// import Image from "next/image";
-// import {
-//   FaTimes, FaBars, FaLaptopCode, FaMobileAlt, FaServer,
-//   FaPalette, FaPenNib, FaVideo, FaFilm
-// } from "react-icons/fa";
-// import styles from "./Navbar.module.css";
-// import axios from "axios";
+import Link from "next/link";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { FaTimes, FaBars } from "react-icons/fa";
+import styles from "./Navbar.module.css";
+import axios from "axios";
 
+// Debounce function
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
-
-// const Navbar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [servicesExpanded, setServicesExpanded] = useState(false);
-//   const [selectedService, setSelectedService] = useState(null);
-//   const [isMobile, setIsMobile] = useState(false);
-//   const [isScrolled, setIsScrolled] = useState(false);
-
-//   const pathname = usePathname();
-//   const isActive = (path) => pathname === path;
-//   const navRef = useRef(null);
-//   const [servicesData, setServicesData] = useState([]);
-//   const [modulesData, setModulesData] = useState([]);
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   useEffect(() => {
-//     const fetchServices = async () => {
-//       try {
-//         setIsLoading(true);
-//         const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
-//         if (res.data.success) {
-
-//           const services = res.data.data;
-//   const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [servicesData, setServicesData] = useState([]);
+  const [isLoadingServices, setIsLoadingServices] = useState(true);
+  const [servicesError, setServicesError] = useState(null);
+  const [hideHamburger, setHideHamburger] = useState(false);
 
 
-//           // ✅ Group services by module
-//           const grouped = uniqueModules.map((module) => ({
-//             id: module.toLowerCase(),
-//             name: module,
-//             subServices: services
-//               .filter((s) => s.module === module)
-//               .map((s) => ({
-//                 name: s.name,
-//                 // href: `/services/${s.name.toLowerCase().replace(/\s+/g, "-")}`, // dynamic route
-//                 href: `/services/${s._id}`,
-//                 icon: (
-//                   <img
-//                     src={s.serviceIcon}
-//                     alt={s.name}
-//                     className="w-5 h-5 object-contain"
-//                   />
-//                 ),
-//               })),
-//           }));
+  const pathname = usePathname();
+  const navRef = useRef(null);
+  const servicesToggleRef = useRef(null);
 
-//           setServicesData(grouped);
-//           if (grouped.length > 0) {
-//             setSelectedService(grouped[0].id);
-//           }
-//         }
-//       } catch (err) {
-//         console.error("Error fetching services:", err);
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
+  const isActive = (path) => pathname === path;
 
-//     fetchServices();
-//   }, []);
+  // ✅ Fetch services
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        setIsLoadingServices(true);
+        setServicesError(null);
+        const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
+        if (res.data.success) {
+          const services = res.data.data;
+          const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
 
-//   useEffect(() => {
-//     const handleResize = () => setIsMobile(window.innerWidth <= 768);
-//     handleResize();
-//     window.addEventListener("resize", handleResize);
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
+          const grouped = uniqueModules.map((module) => ({
+            id: module.toLowerCase(),
+            name: module,
+            subServices: services
+              .filter((s) => s.module === module)
+              .map((s) => ({
+                name: s.name,
+                href: `/services/${s._id}`,
+              })),
+          }));
 
-//   useEffect(() => {
-//     const handleScroll = () => setIsScrolled(window.scrollY > 50);
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
+          setServicesData(grouped);
+        }
+      } catch (err) {
+        console.error("Error fetching services:", err);
+        setServicesError("Failed to load services");
+        setServicesData([]);
+      } finally {
+        setIsLoadingServices(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (
-//         servicesExpanded &&
-//         navRef.current &&
-//         !navRef.current.contains(event.target)
-//       ) {
-//         setServicesExpanded(false);
-//       }
-//     };
+  // ✅ Auto-close Services dropdown when scrolling on desktop
+useEffect(() => {
+  const handleScrollCloseDropdown = () => {
+    if (window.innerWidth > 768) {
+      setServicesExpanded(false);
+    }
+  };
+  window.addEventListener("scroll", handleScrollCloseDropdown);
+  return () => window.removeEventListener("scroll", handleScrollCloseDropdown);
+}, []);
 
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => document.removeEventListener("mousedown", handleClickOutside);
-//   }, [servicesExpanded]);
 
-//   const toggleServices = () => {
-//     setServicesExpanded(!servicesExpanded);
-//   };
+  // ✅ Debounced scroll listener
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
+    const debouncedScroll = debounce(handleScroll, 10);
 
-//   const closeMenu = () => {
-//     setIsOpen(false);
-//     setServicesExpanded(false);
-//     setSelectedService(servicesData[0].id);
+    window.addEventListener("scroll", debouncedScroll);
+    return () => window.removeEventListener("scroll", debouncedScroll);
+  }, []);
 
-//   };
+  // ✅ Hide hamburger on scroll in desktop
+useEffect(() => {
+  const handleScrollHamburger = () => {
+    if (window.innerWidth > 768 && window.scrollY > 60) {
+      setHideHamburger(true);
+    } else {
+      setHideHamburger(false);
+    }
+  };
 
-//   return (
-//     <>
-//       {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
+  window.addEventListener("scroll", handleScrollHamburger);
+  window.addEventListener("resize", handleScrollHamburger);
+  handleScrollHamburger();
 
-//       <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""} ${servicesExpanded ? styles.servicesExpanded : ""}`}>
-//         <div className={styles.navContainer}>
-//           {/* Logo */}
-//           <Link href="/" className={styles.logo} onClick={closeMenu}>
-//             <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
-//             <span className={styles.tagline}>From Scratch to Success</span>
-//           </Link>
+  return () => {
+    window.removeEventListener("scroll", handleScrollHamburger);
+    window.removeEventListener("resize", handleScrollHamburger);
+  };
+}, []);
 
-//           {/* Hamburger */}
-//           <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
-//             {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
-//           </div>
 
-//           {/* Navigation Menu */}
-//           <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
-//             <li>
-//               <Link href="/" className={isActive("/") ? styles.activeLink : ""} onClick={closeMenu}>Home</Link>
-//             </li>
-//             <li>
-//               <Link href="/about" className={isActive("/about") ? styles.activeLink : ""} onClick={closeMenu}>About</Link>
-//             </li>
+  // ✅ Resize listener
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const debouncedResize = debounce(handleResize, 100);
 
-//             {/* Services Item */}
-//             <li className={styles.servicesItem}>
-//               <span
-//                 onMouseEnter={toggleServices}
-//                 className={`${isActive("/services") ? styles.activeLink : ""} ${styles.servicesTrigger}`}
-//               >
-//                 Services
-//                 {/* <span className={styles.dropdownArrow}>
-//                   {servicesExpanded ? "▲" : "▼"}
-//                 </span> */}
-//               </span>
+    handleResize();
+    window.addEventListener("resize", debouncedResize);
+    return () => window.removeEventListener("resize", debouncedResize);
+  }, []);
 
-//               {/* Mobile Services Dropdown */}
-//               {isMobile && servicesExpanded && (
-//                 <div className={styles.mobileServicesDropdown}>
-//                   <div className={styles.mobileServicesContainer}>
-//                     {/* Left Column - Main Services */}
-//                     <div className={styles.mobileServicesLeft}>
-//                       {servicesData.map((service) => (
-//                         <div
-//                           key={service.id}
-//                           className={`${styles.mobileServiceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
-//                           onClick={() => setSelectedService(service.id)}
-//                         >
-//                           {service.name}
-//                         </div>
-//                       ))}
-//                     </div>
+  // ✅ Outside click handler for dropdown auto-close
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setServicesExpanded(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-//                     {/* Right Column - Sub Services */}
-//                     <div className={styles.mobileServicesRight}>
-//                       <div className={styles.mobileSubServiceGrid}>
-//                         {servicesData
-//                           .find((s) => s.id === selectedService)
-//                           ?.subServices.map((sub) => (
-//                             <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.mobileSubServiceItem}>
-//                               <div className={styles.mobileSubServiceContent}>
-//                                 <span className={styles.mobileSubIcon}>{sub.icon}</span>
-//                                 <span className={styles.mobileSubServiceName}>{sub.name}</span>
-//                               </div>
-//                             </Link>
-//                           ))}
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               )}
-//             </li>
+  // ✅ Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setServicesExpanded(false);
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
-//             <li>
-//               <Link href="/internship" className={isActive("/internship") ? styles.activeLink : ""} onClick={closeMenu}>Internship</Link>
-//             </li>
-//             <li>
-//               <Link href="/careers" className={isActive("/careers") ? styles.activeLink : ""} onClick={closeMenu}>Careers</Link>
-//             </li>
-//             <li>
-//               <Link href="/products" className={isActive("/products") ? styles.activeLink : ""} onClick={closeMenu}>Products</Link>
-//             </li>
-//             <li>
-//               <Link href="/blog" className={isActive("/blog") ? styles.activeLink : ""} onClick={closeMenu}>Blog</Link>
-//             </li>
-//             <li>
-//               <Link href="/contact" className={isActive("/contact") ? styles.activeLink : ""} onClick={closeMenu}>Contact</Link>
-//             </li>
-//           </ul>
-//         </div>
+  // ✅ Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen, isMobile]);
 
-//         {/* Desktop Services Expanded Content */}
-//         {!isMobile && servicesExpanded && (
-//           <div className={styles.servicesContent}>
-//             <div className={styles.servicesContainer}>
-//               {/* Left Column - Main Services */}
-//               <div className={styles.servicesLeft}>
-//                 {servicesData.map((service) => (
-//                   <div
-//                     key={service.id}
-//                     className={`${styles.serviceItem} ${selectedService === service.id ? styles.selectedService : ""}`}
-//                     onMouseEnter={() => setSelectedService(service.id)}
-//                     onClick={() => setSelectedService(service.id)}
-//                   >
-//                     {service.name}
-//                   </div>
-//                 ))}
-//               </div>
+  const closeMenu = useCallback(() => {
+    setIsOpen(false);
+    setServicesExpanded(false);
+  }, []);
 
-//               {/* Right Column - Sub Services */}
-//               <div className={styles.servicesRight}>
-//                 <div className={styles.subServiceGrid}>
-//                   {servicesData
-//                     .find((s) => s.id === selectedService)
-//                     ?.subServices.map((sub) => (
-//                       <Link href={sub.href} key={sub.name} onClick={closeMenu} className={styles.subServiceItem}>
-//                         <div className={styles.subServiceContent}>
-//                           <span className={styles.subIcon}>{sub.icon}</span>
-//                           <span className={styles.subServiceName}>{sub.name}</span>
-//                         </div>
-//                       </Link>
-//                     ))}
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         )}
-//       </nav>
-//     </>
-//   );
-// };
+  const handleServicesToggle = useCallback(
+    (e) => {
+      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+      setServicesExpanded((prev) => !prev);
+    },
+    []
+  );
 
-// export default Navbar;
+  const handleHamburgerKeyDown = useCallback((e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setIsOpen((prev) => !prev);
+    }
+  }, []);
+
+  return (
+    <>
+      {isOpen && isMobile && (
+        <div
+          className={styles.mobileOverlay}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      <nav
+        ref={navRef}
+        className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}
+        aria-label="Main navigation"
+      >
+        <div className={styles.navContainer}>
+          {/* Logo */}
+          <Link
+            href="/"
+            className={styles.logo}
+            onClick={closeMenu}
+            aria-label="Home"
+          >
+            <Image
+              src="/Group.png"
+              alt="FTFL Logo"
+              width={180}
+              height={70}
+              priority
+            />
+            <span className={styles.tagline}>From Scratch to Success</span>
+          </Link>
+
+          {/* Hamburger / Close */}
+{!hideHamburger && (
+  <div
+    className={styles.hamburger}
+    onClick={() => setIsOpen(!isOpen)}
+    onKeyDown={handleHamburgerKeyDown}
+    aria-expanded={isOpen}
+    aria-label="Toggle menu"
+    role="button"
+    tabIndex={0}
+  >
+    {isOpen ? (
+      <FaTimes className={styles.icon} aria-hidden="true" />
+    ) : (
+      <FaBars className={styles.icon} aria-hidden="true" />
+    )}
+  </div>
+)}
+
+
+          {/* Menu */}
+          <ul
+            className={`${styles.navMenu} ${
+              isOpen || isScrolled ? styles.active : ""
+            } ${isScrolled ? styles.scrolledMenu : ""}`}
+            style={{
+              overflowY: isMobile ? "auto" : "visible", // ✅ allow navbar scroll
+              maxHeight: isMobile ? "100vh" : "none",
+            }}
+          >
+            <li>
+              <Link
+                href="/"
+                className={isActive("/") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className={isActive("/about") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                About
+              </Link>
+            </li>
+            <li className={styles.servicesItem}>
+              <span
+                ref={servicesToggleRef}
+                onClick={handleServicesToggle}
+                onKeyDown={handleServicesToggle}
+                className={styles.dropdownToggle}
+                aria-expanded={servicesExpanded}
+                role="button"
+                tabIndex={0}
+              >
+                Services <span className={styles.arrow}>›</span>
+              </span>
+
+              {/* Mobile dropdown */}
+              {isMobile && servicesExpanded && (
+                <div className={styles.mobileDropdown}>
+                  {isLoadingServices ? (
+                    <div className={styles.loadingState}>
+                      Loading services...
+                    </div>
+                  ) : servicesError ? (
+                    <div className={styles.errorState}>{servicesError}</div>
+                  ) : servicesData.length > 0 ? (
+                    servicesData.map((service) => (
+                      <div key={service.id}>
+                        <h4 className={styles.mobileServiceTitle}>
+                          {service.name}
+                        </h4>
+                        {service.subServices.map((sub) => (
+                          <Link
+                            href={sub.href}
+                            key={sub.name}
+                            className={styles.mobileSubService}
+                            onClick={closeMenu}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    ))
+                  ) : (
+                    <div className={styles.errorState}>
+                      No services available
+                    </div>
+                  )}
+                </div>
+              )}
+            </li>
+            <li>
+              <Link
+                href="/internship"
+                className={isActive("/internship") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Internship
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/careers"
+                className={isActive("/careers") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Careers
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/products"
+                className={isActive("/products") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Products
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/blog"
+                className={isActive("/blog") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Blog
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className={isActive("/contact") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        {/* Desktop Services Dropdown */}
+        {!isMobile && (
+          <div
+            className={`${styles.servicesContent} ${
+              servicesExpanded ? styles.show : ""
+            }`}
+            aria-hidden={!servicesExpanded}
+          >
+            <div className={styles.servicesGrid}>
+              {isLoadingServices ? (
+                <div className={styles.loadingState}>Loading services...</div>
+              ) : servicesError ? (
+                <div className={styles.errorState}>{servicesError}</div>
+              ) : servicesData.length > 0 ? (
+                servicesData.map((service) => (
+                  <div key={service.id}>
+                    <h3 className={styles.serviceTitle}>{service.name}</h3>
+                    {service.subServices.map((sub) => (
+                      <Link
+                        href={sub.href}
+                        key={sub.name}
+                        className={styles.subServiceItem}
+                        onClick={closeMenu}
+                      >
+                        <div className={styles.subServiceContent}>
+                          <span className={styles.subArrow}>›</span>
+                          <span className={styles.subServiceName}>
+                            {sub.name}
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <div className={styles.errorState}>No services available</div>
+              )}
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;
+
+
+
+
 
 
 
@@ -832,283 +989,283 @@
 
 
 
-"use client";
+// "use client";
 
-import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import {
-  FaTimes, FaBars, FaChevronRight, FaChevronDown,
-  FaHome, FaInfoCircle, FaLaptopCode, FaBriefcase,
-  FaShoppingBag, FaBlog, FaEnvelope, FaCogs
-} from "react-icons/fa";
-import styles from "./Navbar1.module.css";
-import axios from "axios";
+// import Link from "next/link";
+// import { useState, useEffect, useRef } from "react";
+// import { usePathname } from "next/navigation";
+// import Image from "next/image";
+// import {
+//   FaTimes, FaBars, FaChevronRight, FaChevronDown,
+//   FaHome, FaInfoCircle, FaLaptopCode, FaBriefcase,
+//   FaShoppingBag, FaBlog, FaEnvelope, FaCogs
+// } from "react-icons/fa";
+// import styles from "./Navbar1.module.css";
+// import axios from "axios";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [servicesExpanded, setServicesExpanded] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+// const Navbar = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [servicesExpanded, setServicesExpanded] = useState(false);
+//   const [selectedCategory, setSelectedCategory] = useState(null);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [isScrolled, setIsScrolled] = useState(false);
 
-  const pathname = usePathname();
-  const isActive = (path) => pathname === path;
-  const navRef = useRef(null);
-  const [servicesData, setServicesData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+//   const pathname = usePathname();
+//   const isActive = (path) => pathname === path;
+//   const navRef = useRef(null);
+//   const [servicesData, setServicesData] = useState([]);
+//   const [isLoading, setIsLoading] = useState(false);
 
-  // Navigation items with icons
-  const navItems = [
-    { name: "Home", href: "/", icon: FaHome },
-    { name: "About", href: "/about", icon: FaInfoCircle },
-    { name: "Services", href: "/services", icon: FaCogs },
-    { name: "Internship", href: "/internship", icon: FaLaptopCode },
-    { name: "Careers", href: "/careers", icon: FaBriefcase },
-    { name: "Products", href: "/products", icon: FaShoppingBag },
-    { name: "Blog", href: "/blog", icon: FaBlog },
-    { name: "Contact", href: "/contact", icon: FaEnvelope },
-  ];
+//   // Navigation items with icons
+//   const navItems = [
+//     { name: "Home", href: "/", icon: FaHome },
+//     { name: "About", href: "/about", icon: FaInfoCircle },
+//     { name: "Services", href: "/services", icon: FaCogs },
+//     { name: "Internship", href: "/internship", icon: FaLaptopCode },
+//     { name: "Careers", href: "/careers", icon: FaBriefcase },
+//     { name: "Products", href: "/products", icon: FaShoppingBag },
+//     { name: "Blog", href: "/blog", icon: FaBlog },
+//     { name: "Contact", href: "/contact", icon: FaEnvelope },
+//   ];
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setIsLoading(true);
-        const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
-        if (res.data.success) {
-          const services = res.data.data;
-          const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
+//   useEffect(() => {
+//     const fetchServices = async () => {
+//       try {
+//         setIsLoading(true);
+//         const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
+//         if (res.data.success) {
+//           const services = res.data.data;
+//           const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
 
-          const grouped = uniqueModules.map((module) => ({
-            id: module.toLowerCase().replace(/\s+/g, "-"),
-            name: module,
-            subServices: services
-              .filter((s) => s.module === module)
-              .map((s) => ({
-                name: s.name,
-                href: `/services/${s._id}`,
-              })),
-          }));
+//           const grouped = uniqueModules.map((module) => ({
+//             id: module.toLowerCase().replace(/\s+/g, "-"),
+//             name: module,
+//             subServices: services
+//               .filter((s) => s.module === module)
+//               .map((s) => ({
+//                 name: s.name,
+//                 href: `/services/${s._id}`,
+//               })),
+//           }));
 
-          setServicesData(grouped);
-        }
-      } catch (err) {
-        console.error("Error fetching services:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+//           setServicesData(grouped);
+//         }
+//       } catch (err) {
+//         console.error("Error fetching services:", err);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
 
-    fetchServices();
-  }, []);
+//     fetchServices();
+//   }, []);
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+//   useEffect(() => {
+//     const handleResize = () => setIsMobile(window.innerWidth <= 768);
+//     handleResize();
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+//   useEffect(() => {
+//     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        servicesExpanded &&
-        navRef.current &&
-        !navRef.current.contains(event.target)
-      ) {
-        setServicesExpanded(false);
-        setSelectedCategory(null);
-      }
-    };
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (
+//         servicesExpanded &&
+//         navRef.current &&
+//         !navRef.current.contains(event.target)
+//       ) {
+//         setServicesExpanded(false);
+//         setSelectedCategory(null);
+//       }
+//     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [servicesExpanded]);
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => document.removeEventListener("mousedown", handleClickOutside);
+//   }, [servicesExpanded]);
 
-  // Auto-select first category when services dropdown opens
-  useEffect(() => {
-    if (servicesExpanded && !isMobile && servicesData.length > 0 && !selectedCategory) {
-      setSelectedCategory(servicesData[0].id);
-    }
-  }, [servicesExpanded, servicesData, isMobile, selectedCategory]);
+//   // Auto-select first category when services dropdown opens
+//   useEffect(() => {
+//     if (servicesExpanded && !isMobile && servicesData.length > 0 && !selectedCategory) {
+//       setSelectedCategory(servicesData[0].id);
+//     }
+//   }, [servicesExpanded, servicesData, isMobile, selectedCategory]);
 
-  const toggleServices = () => {
-    setServicesExpanded(!servicesExpanded);
-    if (!servicesExpanded) {
-      setSelectedCategory(null);
-    }
-  };
+//   const toggleServices = () => {
+//     setServicesExpanded(!servicesExpanded);
+//     if (!servicesExpanded) {
+//       setSelectedCategory(null);
+//     }
+//   };
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(selectedCategory === categoryId ? null : categoryId);
-  };
+//   const handleCategoryClick = (categoryId) => {
+//     setSelectedCategory(selectedCategory === categoryId ? null : categoryId);
+//   };
 
-  const closeMenu = () => {
-    setIsOpen(false);
-    setServicesExpanded(false);
-    setSelectedCategory(null);
-  };
+//   const closeMenu = () => {
+//     setIsOpen(false);
+//     setServicesExpanded(false);
+//     setSelectedCategory(null);
+//   };
 
-  const getCurrentSubServices = () => {
-    return servicesData.find(category => category.id === selectedCategory)?.subServices || [];
-  };
+//   const getCurrentSubServices = () => {
+//     return servicesData.find(category => category.id === selectedCategory)?.subServices || [];
+//   };
 
-  return (
-    <>
-      {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
+//   return (
+//     <>
+//       {isOpen && <div className={`${styles.mobileOverlay} ${isOpen ? styles.active : ""}`} onClick={closeMenu}></div>}
 
-      <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
-        <div className={styles.navContainer}>
-          <Link href="/" className={styles.logo} onClick={closeMenu}>
-            <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
-            <span className={styles.tagline}>From Scratch to Success</span>
-          </Link>
+//       <nav ref={navRef} className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}>
+//         <div className={styles.navContainer}>
+//           <Link href="/" className={styles.logo} onClick={closeMenu}>
+//             <Image src="/Group.png" alt="FTFL Logo" width={180} height={70} />
+//             <span className={styles.tagline}>From Scratch to Success</span>
+//           </Link>
 
-          <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
-          </div>
+//           <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
+//             {isOpen ? <FaTimes className={styles.icon} /> : <FaBars className={styles.icon} />}
+//           </div>
 
-          <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
-            {navItems.map((item) => (
-              item.name === "Services" ? (
-                <li
-                  key={item.name}
-                  className={styles.servicesItem}
-                >
-                  <span
-                    onClick={toggleServices}
-                    className={`${isActive(item.href) ? styles.activeLink : ""} ${styles.servicesTrigger}`}
-                  >
-                    {isMobile && <item.icon className={styles.navIcon} />}
-                    {item.name}
-                    <span className={styles.dropdownArrow}>
-                      {servicesExpanded ? "▲" : "▼"}
-                    </span>
-                  </span>
+//           <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
+//             {navItems.map((item) => (
+//               item.name === "Services" ? (
+//                 <li
+//                   key={item.name}
+//                   className={styles.servicesItem}
+//                 >
+//                   <span
+//                     onClick={toggleServices}
+//                     className={`${isActive(item.href) ? styles.activeLink : ""} ${styles.servicesTrigger}`}
+//                   >
+//                     {isMobile && <item.icon className={styles.navIcon} />}
+//                     {item.name}
+//                     <span className={styles.dropdownArrow}>
+//                       {servicesExpanded ? "▲" : "▼"}
+//                     </span>
+//                   </span>
 
-                  {/* Desktop Multi-Level Dropdown */}
-                  {!isMobile && servicesExpanded && (
-                    <div className={styles.multiLevelDropdown}>
-                      <div className={styles.dropdownContainer}>
-                        {/* Categories Column */}
-                        <div className={styles.categoriesColumn}>
-                          <div className={styles.categoriesList}>
-                            {servicesData.map((category) => (
-                              <div
-                                key={category.id}
-                                className={`${styles.categoryItem} ${selectedCategory === category.id ? styles.categoryItemActive : ""
-                                  }`}
-                                onClick={() => handleCategoryClick(category.id)}
-                              >
-                                <span className={styles.categoryName}>
-                                  {category.name}
-                                </span>
-                                <FaChevronRight className={styles.categoryArrow} />
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+//                   {/* Desktop Multi-Level Dropdown */}
+//                   {!isMobile && servicesExpanded && (
+//                     <div className={styles.multiLevelDropdown}>
+//                       <div className={styles.dropdownContainer}>
+//                         {/* Categories Column */}
+//                         <div className={styles.categoriesColumn}>
+//                           <div className={styles.categoriesList}>
+//                             {servicesData.map((category) => (
+//                               <div
+//                                 key={category.id}
+//                                 className={`${styles.categoryItem} ${selectedCategory === category.id ? styles.categoryItemActive : ""
+//                                   }`}
+//                                 onClick={() => handleCategoryClick(category.id)}
+//                               >
+//                                 <span className={styles.categoryName}>
+//                                   {category.name}
+//                                 </span>
+//                                 <FaChevronRight className={styles.categoryArrow} />
+//                               </div>
+//                             ))}
+//                           </div>
+//                         </div>
 
-                        {/* Sub Services Column */}
-                        {selectedCategory && (
-                          <div className={styles.subServicesColumn}>
-                            <div className={styles.subServicesList}>
-                              {getCurrentSubServices().map((sub) => (
-                                <Link
-                                  href={sub.href}
-                                  key={sub.name}
-                                  onClick={closeMenu}
-                                  className={styles.subServiceItem}
-                                >
-                                  {sub.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </li>
-              ) : (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={isActive(item.href) ? styles.activeLink : ""}
-                    onClick={closeMenu}
-                  >
-                    {isMobile && <item.icon className={styles.navIcon} />}
-                    {item.name}
-                  </Link>
-                </li>
-              )
-            ))}
-          </ul>
-        </div>
+//                         {/* Sub Services Column */}
+//                         {selectedCategory && (
+//                           <div className={styles.subServicesColumn}>
+//                             <div className={styles.subServicesList}>
+//                               {getCurrentSubServices().map((sub) => (
+//                                 <Link
+//                                   href={sub.href}
+//                                   key={sub.name}
+//                                   onClick={closeMenu}
+//                                   className={styles.subServiceItem}
+//                                 >
+//                                   {sub.name}
+//                                 </Link>
+//                               ))}
+//                             </div>
+//                           </div>
+//                         )}
+//                       </div>
+//                     </div>
+//                   )}
+//                 </li>
+//               ) : (
+//                 <li key={item.name}>
+//                   <Link
+//                     href={item.href}
+//                     className={isActive(item.href) ? styles.activeLink : ""}
+//                     onClick={closeMenu}
+//                   >
+//                     {isMobile && <item.icon className={styles.navIcon} />}
+//                     {item.name}
+//                   </Link>
+//                 </li>
+//               )
+//             ))}
+//           </ul>
+//         </div>
 
-        {/* Mobile Services Dropdown */}
-        {isMobile && servicesExpanded && (
-          <div className={styles.mobileServicesDropdown}>
-            <div className={styles.mobileDropdownContent}>
-              <div className={styles.mobileViewHeader}>
-                <button className={styles.mobileBackButton} onClick={toggleServices}>
-                  <FaChevronRight className={styles.backIcon} />
-                  Back
-                </button>
-                <button className={styles.mobileCloseButton} onClick={closeMenu}>
-                  <FaTimes className={styles.closeIcon} />
-                </button>
-              </div>
+//         {/* Mobile Services Dropdown */}
+//         {isMobile && servicesExpanded && (
+//           <div className={styles.mobileServicesDropdown}>
+//             <div className={styles.mobileDropdownContent}>
+//               <div className={styles.mobileViewHeader}>
+//                 <button className={styles.mobileBackButton} onClick={toggleServices}>
+//                   <FaChevronRight className={styles.backIcon} />
+//                   Back
+//                 </button>
+//                 <button className={styles.mobileCloseButton} onClick={closeMenu}>
+//                   <FaTimes className={styles.closeIcon} />
+//                 </button>
+//               </div>
 
-              {/* Accordion list */}
-              <div className={styles.mobileCategoriesList}>
-                {servicesData.map((category) => (
-                  <div key={category.id} className={styles.mobileCategoryItem}>
-                    {/* Category Header */}
-                    <div
-                      className={`${styles.mobileCategoryHeader} ${selectedCategory === category.id ? styles.mobileCategoryHeaderActive : ""
-                        }`}
-                      onClick={() => handleCategoryClick(category.id)}
-                    >
-                      <span>{category.name}</span>
-                      <span className={styles.mobileCategoryArrow}>
-                        {selectedCategory === category.id ? <FaChevronDown /> : <FaChevronRight />}
-                      </span>
-                    </div>
+//               {/* Accordion list */}
+//               <div className={styles.mobileCategoriesList}>
+//                 {servicesData.map((category) => (
+//                   <div key={category.id} className={styles.mobileCategoryItem}>
+//                     {/* Category Header */}
+//                     <div
+//                       className={`${styles.mobileCategoryHeader} ${selectedCategory === category.id ? styles.mobileCategoryHeaderActive : ""
+//                         }`}
+//                       onClick={() => handleCategoryClick(category.id)}
+//                     >
+//                       <span>{category.name}</span>
+//                       <span className={styles.mobileCategoryArrow}>
+//                         {selectedCategory === category.id ? <FaChevronDown /> : <FaChevronRight />}
+//                       </span>
+//                     </div>
 
-                    {/* Subcategories BELOW */}
-                    <div
-                      className={`${styles.mobileSubServicesWrapper} ${selectedCategory === category.id ? styles.showSubServices : ""
-                        }`}
-                    >
-                      {category.subServices.map((sub) => (
-                        <Link
-                          href={sub.href}
-                          key={sub.name}
-                          onClick={closeMenu}
-                          className={styles.mobileSubServiceItem}
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+//                     {/* Subcategories BELOW */}
+//                     <div
+//                       className={`${styles.mobileSubServicesWrapper} ${selectedCategory === category.id ? styles.showSubServices : ""
+//                         }`}
+//                     >
+//                       {category.subServices.map((sub) => (
+//                         <Link
+//                           href={sub.href}
+//                           key={sub.name}
+//                           onClick={closeMenu}
+//                           className={styles.mobileSubServiceItem}
+//                         >
+//                           {sub.name}
+//                         </Link>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         )}
 
-      </nav>
-    </>
-  );
-};
+//       </nav>
+//     </>
+//   );
+// };
 
-export default Navbar;
+// export default Navbar;

@@ -4,7 +4,8 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ModulesSection from "@/components/Internship/Modules";
-import InternshipHighlights from "@/components/Internship/Highlights";
+import Highlights from "@/components/Internship/Highlights";
+import Benifits from "@/components/Internship/Benifits";
 import InternshipProcess from "@/components/Internship/Process";
 import WhyChooseUs from "@/components/Internship/WhyChooseUs";
 import CTASection from "@/components/Internship/CTASection";
@@ -56,7 +57,7 @@ const HeroSection = () => {
   return (
     <>
     <section        
-        className="relative mt-[80px] w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
+        className="relative  w-full h-[70vh] lg:h-[80vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden" role="region" aria-label="Internship Program Introduction">
       {/* Background Carousel */}
       <div className="absolute inset-0 z-0">
         <Slider {...sliderSettings}>
@@ -113,7 +114,8 @@ const HeroSection = () => {
         </div> */}
       </div>
     </section>
-    <InternshipHighlights />
+    <Highlights />
+    {/* <Benifits /> */}
     <InternshipProcess />
     <ModulesSection />
     <WhyChooseUs />

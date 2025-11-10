@@ -99,7 +99,7 @@ export default function ContactPage() {
 
 
   return (
-    <div className="w-full min-h-screen mt-[80px]
+    <div className="w-full min-h-screen
     font-sans text-gray-800 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
 
       {/* Banner */}

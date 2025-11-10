@@ -66,7 +66,7 @@ const Blog = () => {
     <>
       {/* ✅ Banner Section */}
       <div
-        className="relative mt-[80px] md:h-120 text-white overflow-hidden mb-4 flex items-center justify-center"
+        className="relative  md:h-120 text-white overflow-hidden mb-4 flex items-center justify-center"
       >
         {/* Dynamic Background */}
         <div

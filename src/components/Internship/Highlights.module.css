@@ -1,0 +1,50 @@
+/* ===============================
+   Animated Background Blobs
+=================================*/
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 40px) scale(0.95);
+  }
+}
+
+.animateBlob {
+  animation: blob 14s infinite ease-in-out;
+}
+
+.animationDelay2000 {
+  animation-delay: 2s;
+}
+
+/* ===============================
+   Fade Slide-in Animation
+=================================*/
+.fadeSlide {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.3s ease, transform 1.3s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===============================
+   Wrapper & Subtle Gradient Flow
+=================================*/
+.wrapper {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f0f6ff 50%,
+    #ffffff 100%
+  );
+  overflow: hidden;
+}

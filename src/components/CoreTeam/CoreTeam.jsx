@@ -608,7 +608,7 @@ export default function TeamMembers() {
 // --- helper: container class (grid always; flex only for 1-3 handled below) ---
 const getContainerClass = () => {
   // always grid; centering controlled per-card for last-row leftovers
-  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
+  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
 };
 
 // --- helper: compute grid offset classes for leftover items in last row ---
@@ -653,7 +653,7 @@ const getCenteredColumnClass = (index) => {
       <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Meet Our <span className="text-blue-600">Dream Team</span>
+            Meet Our <span className="text-blue-600">Dream Teams</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Passionate experts dedicated to innovation and collaboration.

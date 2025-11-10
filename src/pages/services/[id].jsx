@@ -1200,11 +1200,11 @@ export default function ServiceDetail() {
                 />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
+              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
                   End-to-End Digital Excellence
                 </p>
-              </div>
+              </div> */}
             </div>
           </motion.div>
 

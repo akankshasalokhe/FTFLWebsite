@@ -32,7 +32,7 @@ function ProductsPage() {
 
   return (
     <div>
-      <div className="relative w-full mt-[81px] h-64 sm:h-80 md:h-[400px] lg:h-[450px]">
+      <div className="relative w-full h-64 sm:h-80 md:h-[400px] lg:h-[450px]">
         {/* Background Banner Image */}
         <Image
           src={banner?.bannerImage ? banner.bannerImage : "/download (4).jpeg"}
