@@ -1168,7 +1168,8 @@ export default function ServiceDetail() {
       </section>
 
       {/* ✅ SERVICE SECTION */}
-      <section className="relative pb-24 pt-10 px-4 md:px-8 bg-gradient-to-b from-white to-blue-50">
+      {/* <section className="relative pb-24 pt-10 px-4 md:px-8 bg-transparent"> */}
+      <section className="relative pb-24 pt-10 px-4 md:px-8 bg-transparent">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center relative z-10">
           <motion.div
             className="flex items-center justify-center"
@@ -1177,12 +1178,8 @@ export default function ServiceDetail() {
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <div className="relative w-[500px] lg:max-w-[600px] rounded-2xl overflow-hidden shadow-2xl">
-              {/* <img
-                src={serviceData.serviceImage1}
-                alt={serviceData.title}
-                className="w-full  h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
-              /> */}
+            {/* <div className="relative w-[500px] lg:max-w-[450px] rounded-2xl overflow-hidden ">
+             
               {serviceData?.serviceImage1?.match(/\.(mp4|webm|ogg)$/i) ? (
                 <video
                   src={serviceData.serviceImage1}
@@ -1190,7 +1187,7 @@ export default function ServiceDetail() {
                   loop
                   muted
                   playsInline
-                  className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
+                  className="w-full h-[230px] sm:h-[200px] md:h-[300px] lg:h-[360px] object-cover rounded-xl"
                 />
               ) : (
                 <img
@@ -1200,7 +1197,35 @@ export default function ServiceDetail() {
                 />
               )}
 
-              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
+                <p className="text-white text-lg font-medium tracking-wide">
+                  End-to-End Digital Excellence
+                </p>
+              </div>
+            </div> */}
+            <div className="relative w-[500px] lg:max-w-[450px] rounded-2xl overflow-hidden">
+              {serviceData?.serviceImage1?.match(/\.(mp4|webm|ogg)$/i) ? (
+                <video
+                  src={serviceData.serviceImage1}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls={false}
+                  disablePictureInPicture
+                  disableRemotePlayback
+                  controlsList="nodownload nofullscreen noremoteplayback"
+                  className="w-full h-[230px] sm:h-[200px] md:h-[300px] lg:h-[480px] object-cover rounded-xl"
+                />
+              ) : (
+                <img
+                  src={serviceData.serviceImage1}
+                  alt={serviceData.title}
+                  className="w-full h-[280px] sm:h-[400px] md:h-[460px] lg:h-[520px] object-cover rounded-xl"
+                />
+              )}
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition duration-700 flex items-end p-6">
                 <p className="text-white text-lg font-medium tracking-wide">
                   End-to-End Digital Excellence
                 </p>

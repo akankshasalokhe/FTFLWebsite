@@ -121,3 +121,37 @@ footer {
 
 
 
+/* Remove all video controls including three dots menu */
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+video::-webkit-media-controls-panel {
+  display: none !important;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+}
+
+video::-webkit-media-controls-toggle-closed-captions-button {
+  display: none !important;
+}
+
+video::-webkit-media-controls-fullscreen-button {
+  display: none !important;
+}
+
+/* Remove the three dots overflow menu */
+video::-webkit-media-controls-overflow-button {
+  display: none !important;
+}
+
+/* For Firefox */
+video::-moz-media-controls {
+  display: none !important;
+}

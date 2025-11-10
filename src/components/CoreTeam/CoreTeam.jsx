@@ -509,6 +509,297 @@
 
 
 
+// "use client";
+// import axios from "axios";
+// import { motion } from "framer-motion";
+// import { useEffect, useState, useRef } from "react";
+
+// export default function TeamMembers() {
+//   const [departmentboardData, setDepartmentBoardData] = useState([]);
+//   const [roles, setRoles] = useState([]);
+//   const [activeRole, setActiveRole] = useState("All");
+//   const [activeCard, setActiveCard] = useState(null);
+//   const [isClient, setIsClient] = useState(false);
+//   const cardRefs = useRef([]);
+
+//   // ✅ Set client-side flag
+//   useEffect(() => {
+//     setIsClient(true);
+//   }, []);
+
+//   // ✅ Close active card when clicking outside
+//   useEffect(() => {
+//     if (!isClient) return;
+
+//     const handleClickOutside = (event) => {
+//       if (activeCard !== null) {
+//         const clickedOutside = cardRefs.current.every(
+//           (ref, index) => index !== activeCard && !ref?.contains(event.target)
+//         );
+//         if (clickedOutside) setActiveCard(null);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     document.addEventListener("touchstart", handleClickOutside);
+
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//       document.removeEventListener("touchstart", handleClickOutside);
+//     };
+//   }, [activeCard, isClient]);
+
+//   // ✅ Fetch data
+//   useEffect(() => {
+//     if (!isClient) return;
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/departmentboard")
+//       .then((res) => {
+//         const data = res.data.data || [];
+//         setDepartmentBoardData(data);
+//         const uniqueRoles = Array.from(new Set(data.map((m) => m.role)));
+//         setRoles(["All", ...uniqueRoles]);
+//         setActiveRole("All");
+//       })
+//       .catch((err) => console.error(err));
+//   }, [isClient]);
+
+//   // ✅ Filter members by role
+//   const filteredMembers =
+//     activeRole === "All"
+//       ? departmentboardData
+//       : departmentboardData.filter(
+//         (m) =>
+//           m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
+//       );
+
+//   // ✅ Handle card touch toggle
+//   const handleCardTouch = (index) => {
+//     setActiveCard(activeCard === index ? null : index);
+//   };
+
+//   // ✅ Simple grid container class
+//   // const getContainerClass = () => {
+//   //   const count = filteredMembers.length;
+
+//   //   if (count <= 4) {
+//   //     // 1-4 cards: flex centered with more gap
+//   //     return "flex flex-wrap justify-center gap-x-12 gap-y-8 mx-auto max-w-7xl px-4";
+//   //   } else {
+//   //     // 5+ cards: grid layout
+//   //     return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mx-auto max-w-7xl px-4";
+//   //   }
+//   // };
+
+
+//   // ✅ Check if this card should be centered in the last row
+//   const shouldCenterCard = (index) => {
+//     const count = filteredMembers.length;
+//     if (count <= 4) return false; // Already centered with flex
+
+//     const itemsInLastRow = count % 4;
+//     if (itemsInLastRow === 0) return false; // Perfect multiple of 4
+
+//     const startOfLastRow = count - itemsInLastRow;
+//     return index >= startOfLastRow;
+//   };
+
+//   // ✅ Get the exact grid column class for perfect centering
+//   // --- helper: container class (grid always; flex only for 1-3 handled below) ---
+//   const getContainerClass = () => {
+//     // always grid; centering controlled per-card for last-row leftovers
+//     return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
+//   };
+
+//   // --- helper: compute grid offset classes for leftover items in last row ---
+//   const getCenteredColumnClass = (index) => {
+//     const count = filteredMembers.length;
+//     const itemsInLastRow = count % 4;
+//     if (itemsInLastRow === 0) return ""; // perfect rows, nothing to do
+
+//     const startOfLastRow = count - itemsInLastRow;
+//     if (index < startOfLastRow) return ""; // not in last row
+
+//     // position within last row (0-based)
+//     const pos = index - startOfLastRow;
+
+//     // For lg breakpoint only:
+//     // 1 leftover -> span 2 columns and start at column 2 (centers it)
+//     // 2 leftover -> place them in col 2 and col 3
+//     // 3 leftover -> place them in col 1,2,3 (we can optionally shift to center a bit by start 1)
+//     if (itemsInLastRow === 1) {
+//       // single item -> center by spanning middle two columns
+//       return "lg:col-start-2 lg:col-span-2";
+//     }
+//     if (itemsInLastRow === 2) {
+//       // first leftover -> start at col 2, second -> start at col 3
+//       return pos === 0 ? "lg:col-start-2" : "lg:col-start-3";
+//     }
+//     if (itemsInLastRow === 3) {
+//       // three items: they will occupy cols 1-3; to make them more centered you can
+//       // shift them one column right by starting the first at col-start-1 (no change)
+//       // usually no special classes needed; return "" to use default placement
+//       return "";
+//     }
+
+//     return "";
+//   };
+
+
+
+//   // Prevent SSR hydration issues
+//   if (!isClient) {
+//     return (
+//       <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
+//         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+//           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+//             Meet Our <span className="text-blue-600">Dream Team</span>
+//           </h2>
+//           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+//             Passionate experts dedicated to innovation and collaboration.
+//           </p>
+//           <div className="flex justify-center gap-4 mt-10">
+//             {[...Array(4)].map((_, i) => (
+//               <div
+//                 key={i}
+//                 className="bg-gray-200 rounded-lg w-1/4 h-64 animate-pulse"
+//               ></div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+//     );
+//   }
+
+//   const containerClass = getContainerClass();
+
+//   return (
+//     <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
+//       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+//         {/* Header */}
+//         <div className="text-center mb-10 md:mb-16">
+//           <motion.h2
+//             initial={{ opacity: 0, y: 30 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6 }}
+//             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+//           >
+//             Meet Our <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">Dream Team</span>
+//           </motion.h2>
+//           <motion.p
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6, delay: 0.1 }}
+//             className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
+//           >
+//             Passionate experts dedicated to innovation, collaboration, and
+//             delivering exceptional results that drive success.
+//           </motion.p>
+//         </div>
+
+//         {/* Role Tabs */}
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.5 }}
+//           className="mb-10 md:mb-14 flex justify-center"
+//         >
+//           <div className="bg-gray-100 rounded-xl p-1.5 flex space-x-2 overflow-x-auto no-scrollbar">
+//             {roles.map((role, i) => (
+//               <button
+//                 key={i}
+//                 onClick={() => {
+//                   setActiveRole(role);
+//                   setActiveCard(null);
+//                 }}
+//                 className={`px-3 py-2 sm:px-4 sm:py-2.5 cursor-pointer rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
+//                   ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
+//                   : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
+//                   }`}
+//               >
+//                 {role}
+//               </button>
+//             ))}
+//           </div>
+//         </motion.div>
+
+
+//         {/* Team Members Grid */}
+//         <div className={getContainerClass()}>
+//           {filteredMembers.map((member, index) => {
+//             const offsetClass = getCenteredColumnClass(index);
+
+//             return (
+//               <motion.div
+//                 key={member._id || index}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 transition={{ duration: 0.4, delay: index * 0.06 }}
+//                 whileHover={{ y: -5 }}
+//                 ref={(el) => (cardRefs.current[index] = el)}
+//                 className={`group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl
+//           transition-all duration-300 border border-gray-200 w-[280px] sm:w-[300px] ${offsetClass}`}
+//               >
+//                 {/* Image */}
+//                 <div
+//                   className="relative w-full h-64 overflow-hidden flex items-center justify-center bg-gray-50"
+//                   onTouchStart={() => handleCardTouch(index)}
+//                 >
+//                   <img
+//                     src={member.mainImage}
+//                     alt={member.fullName}
+//                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+//                   />
+//                 </div>
+
+//                 {/* Info Section */}
+//                 <div className="p-6">
+//                   <div className="flex items-center justify-between mb-3">
+//                     <h3 className="text-lg font-bold text-gray-900">
+//                       {member.fullName.includes(" - ")
+//                         ? member.fullName.split(" - ")[0]
+//                         : member.fullName}
+//                     </h3>
+
+//                     {member.linkedIn && (
+//                       <motion.a
+//                         href={member.linkedIn}
+//                         target="_blank"
+//                         rel="noopener noreferrer"
+//                         className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+//                         whileHover={{ scale: 1.1 }}
+//                       >
+//                         {/* icon */}
+//                         <svg
+//                           className="w-4 h-4"
+//                           fill="currentColor"
+//                           viewBox="0 0 24 24"
+//                         >
+//                           <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+//                         </svg>
+//                       </motion.a>
+//                     )}
+//                   </div>
+
+//                   {member.fullName.includes(" - ") && (
+//                     <p className="text-sm text-gray-600 font-medium">
+//                       {member.fullName.split(" - ")[1]}
+//                     </p>
+//                   )}
+//                 </div>
+//               </motion.div>
+//             );
+//           })}
+//         </div>
+
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+
 "use client";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -522,12 +813,8 @@ export default function TeamMembers() {
   const [isClient, setIsClient] = useState(false);
   const cardRefs = useRef([]);
 
-  // ✅ Set client-side flag
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  useEffect(() => setIsClient(true), []);
 
-  // ✅ Close active card when clicking outside
   useEffect(() => {
     if (!isClient) return;
 
@@ -549,7 +836,6 @@ export default function TeamMembers() {
     };
   }, [activeCard, isClient]);
 
-  // ✅ Fetch data
   useEffect(() => {
     if (!isClient) return;
     axios
@@ -559,19 +845,17 @@ export default function TeamMembers() {
         setDepartmentBoardData(data);
         const uniqueRoles = Array.from(new Set(data.map((m) => m.role)));
         setRoles(["All", ...uniqueRoles]);
-        setActiveRole("All");
       })
       .catch((err) => console.error(err));
   }, [isClient]);
 
-  // ✅ Filter members by role
   const filteredMembers =
     activeRole === "All"
       ? departmentboardData
       : departmentboardData.filter(
-        (m) =>
-          m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
-      );
+          (m) =>
+            m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
+        );
 
   // ✅ Handle card touch toggle
   const handleCardTouch = (index) => {
@@ -608,46 +892,35 @@ export default function TeamMembers() {
 // --- helper: container class (grid always; flex only for 1-3 handled below) ---
 const getContainerClass = () => {
   // always grid; centering controlled per-card for last-row leftovers
-  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
+  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
 };
 
-// --- helper: compute grid offset classes for leftover items in last row ---
-const getCenteredColumnClass = (index) => {
-  const count = filteredMembers.length;
-  const itemsInLastRow = count % 4;
-  if (itemsInLastRow === 0) return ""; // perfect rows, nothing to do
+  // ✅ FIXED: Centering logic for 4 columns at 1440px
+  const getCenteredColumnClass = (index) => {
+    const count = filteredMembers.length;
+    
+    // For all 4-column layouts (lg, xl, 2xl)
+    const itemsInLastRow = count % 4;
+    if (itemsInLastRow === 0) return "";
 
-  const startOfLastRow = count - itemsInLastRow;
-  if (index < startOfLastRow) return ""; // not in last row
+    const startOfLastRow = count - itemsInLastRow;
+    if (index < startOfLastRow) return "";
 
-  // position within last row (0-based)
-  const pos = index - startOfLastRow;
+    const pos = index - startOfLastRow;
 
-  // For lg breakpoint only:
-  // 1 leftover -> span 2 columns and start at column 2 (centers it)
-  // 2 leftover -> place them in col 2 and col 3
-  // 3 leftover -> place them in col 1,2,3 (we can optionally shift to center a bit by start 1)
-  if (itemsInLastRow === 1) {
-    // single item -> center by spanning middle two columns
-    return "lg:col-start-2 lg:col-span-2";
-  }
-  if (itemsInLastRow === 2) {
-    // first leftover -> start at col 2, second -> start at col 3
-    return pos === 0 ? "lg:col-start-2" : "lg:col-start-3";
-  }
-  if (itemsInLastRow === 3) {
-    // three items: they will occupy cols 1-3; to make them more centered you can
-    // shift them one column right by starting the first at col-start-1 (no change)
-    // usually no special classes needed; return "" to use default placement
+    if (itemsInLastRow === 1) {
+      return "lg:col-start-2 lg:col-span-2 xl:col-start-2 xl:col-span-2 2xl:col-start-2 2xl:col-span-2";
+    }
+    if (itemsInLastRow === 2) {
+      return pos === 0 ? "lg:col-start-2 xl:col-start-2 2xl:col-start-2" : "lg:col-start-3 xl:col-start-3 2xl:col-start-3";
+    }
+    if (itemsInLastRow === 3) {
+      return "";
+    }
+
     return "";
-  }
+  };
 
-  return "";
-};
-
-
-
-  // Prevent SSR hydration issues
   if (!isClient) {
     return (
       <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
@@ -671,8 +944,6 @@ const getCenteredColumnClass = (index) => {
     );
   }
 
-  const containerClass = getContainerClass();
-
   return (
     <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -684,7 +955,10 @@ const getCenteredColumnClass = (index) => {
             transition={{ duration: 0.6 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
           >
-            Meet Our <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">Dream Team</span>
+            Meet Our{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+              Dream Team
+            </span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -712,10 +986,11 @@ const getCenteredColumnClass = (index) => {
                   setActiveRole(role);
                   setActiveCard(null);
                 }}
-                className={`px-3 py-2 sm:px-4 sm:py-2.5 cursor-pointer rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${activeRole === role
-                  ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
-                  }`}
+                className={`px-3 py-2 sm:px-4 sm:py-2.5 cursor-pointer rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                  activeRole === role
+                    ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white shadow-md shadow-blue-100"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-white/50"
+                }`}
               >
                 {role}
               </button>
@@ -723,75 +998,71 @@ const getCenteredColumnClass = (index) => {
           </div>
         </motion.div>
 
-        {/* Team Members Grid */}
-      {/* Team Members Grid */}
-<div className={getContainerClass()}>
-  {filteredMembers.map((member, index) => {
-    const offsetClass = getCenteredColumnClass(index);
-
-    return (
-      <motion.div
-        key={member._id || index}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: index * 0.06 }}
-        whileHover={{ y: -5 }}
-        ref={(el) => (cardRefs.current[index] = el)}
-        className={`group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl
-          transition-all duration-300 border border-gray-200 w-[280px] sm:w-[300px] ${offsetClass}`}
-      >
-        {/* Image */}
-        <div
-          className="relative w-full h-64 overflow-hidden flex items-center justify-center bg-gray-50"
-          onTouchStart={() => handleCardTouch(index)}
-        >
-          <img
-            src={member.mainImage}
-            alt={member.fullName}
-            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-
-        {/* Info Section */}
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-bold text-gray-900">
-              {member.fullName.includes(" - ")
-                ? member.fullName.split(" - ")[0]
-                : member.fullName}
-            </h3>
-
-            {member.linkedIn && (
-              <motion.a
-                href={member.linkedIn}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
-                whileHover={{ scale: 1.1 }}
+        {/* Team Members Grid - FIXED for 1440px */}
+        <div className={getContainerClass()}>
+          {filteredMembers.map((member, index) => {
+            const offsetClass = getCenteredColumnClass(index);
+            return (
+              <motion.div
+                key={member._id || index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                whileHover={{ y: -5 }}
+                ref={(el) => (cardRefs.current[index] = el)}
+                className={`group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 w-full max-w-[300px] ${offsetClass}`}
               >
-                {/* icon */}
-                 <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
+                {/* Image */}
+                <div
+                  className="relative w-full h-64 overflow-hidden flex items-center justify-center bg-gray-50"
+                  onTouchStart={() =>
+                    setActiveCard(activeCard === index ? null : index)
+                  }
+                >
+                  <img
+                    src={member.mainImage}
+                    alt={member.fullName}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {member.fullName.includes(" - ")
+                        ? member.fullName.split(" - ")[0]
+                        : member.fullName}
+                    </h3>
+                    {member.linkedIn && (
+                      <motion.a
+                        href={member.linkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-110"
+                        whileHover={{ scale: 1.1 }}
                       >
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                      </svg>
-              </motion.a>
-            )}
-          </div>
+                        <svg
+                          className="w-4 h-4"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                      </motion.a>
+                    )}
+                  </div>
 
-          {member.fullName.includes(" - ") && (
-            <p className="text-sm text-gray-600 font-medium">
-              {member.fullName.split(" - ")[1]}
-            </p>
-          )}
+                  {member.fullName.includes(" - ") && (
+                    <p className="text-sm text-gray-600 font-medium">
+                      {member.fullName.split(" - ")[1]}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </motion.div>
-    );
-  })}
-</div>
-
       </div>
     </section>
   );

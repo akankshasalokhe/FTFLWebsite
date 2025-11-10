@@ -315,8 +315,6 @@
 
 
 
-
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -326,16 +324,6 @@ import axios from "axios";
 
 const ProductShowcase = () => {
   const [productsData, setProductsData] = useState([]);
-  const [isMobile, setIsMobile] = useState(false);
-  const [flippedStates, setFlippedStates] = useState([]);
-
-  // Detect screen size
-  useEffect(() => {
-    const checkScreenSize = () => setIsMobile(window.innerWidth < 768);
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
 
   // Fetch products
   useEffect(() => {
@@ -344,7 +332,6 @@ const ProductShowcase = () => {
       .then((res) => {
         if (res.data?.data?.length > 0) {
           setProductsData(res.data.data);
-          setFlippedStates(new Array(res.data.data.length).fill(false));
         }
       })
       .catch((err) => {
@@ -352,178 +339,48 @@ const ProductShowcase = () => {
       });
   }, []);
 
-  // Handle flip states
-  const handleHoverStart = (index) => {
-    setFlippedStates((prev) => {
-      const updated = [...prev];
-      updated[index] = true;
-      return updated;
-    });
-  };
-
-  const handleHoverEnd = (index) => {
-    setFlippedStates((prev) => {
-      const updated = [...prev];
-      updated[index] = false;
-      return updated;
-    });
-  };
-
-  // Tap-to-flip toggle for mobile
-  const handleTapFlip = (index) => {
-    setFlippedStates((prev) => {
-      const updated = [...prev];
-      updated[index] = !updated[index];
-      return updated;
-    });
-  };
-
   return (
     <div className="py-8 sm:py-16 px-4 sm:px-8 md:px-16 bg-gray-50">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900">
         What We Offer
       </h2>
 
-      <div className="flex flex-wrap justify-center gap-x-16 gap-y-12 px-4 md:px-10 py-10">
-        {productsData.map((product, index) =>
-          isMobile ? (
-            // 📱 Mobile view: show both image + content together
-            <div
-              key={product._id}
-              className="w-[360px] sm:w-[400px]  rounded-2xl shadow-xl overflow-hidden flex flex-col"
-            >
+      {/* Responsive flex layout - centered on all screens except mobile */}
+      <div className="flex flex-col items-center md:flex-row md:flex-wrap md:justify-center gap-8 px-4 md:px-10 py-5">
+        {productsData.map((product, index) => (
+          <motion.div
+            key={product._id}
+            className="w-full max-w-[300px] sm:max-w-[320px] rounded-2xl shadow-lg overflow-hidden flex flex-col bg-white"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -5, transition: { duration: 0.3 } }}
+          >
+            {/* Title positioned close to the top */}
+            <h3 className="text-xl font-bold text-gray-900 mt-4 ml-4 mb-2">
+              {product.title}
+            </h3>
+            
+            {/* Product Image - Full display */}
+            <div className="w-full h-110 overflow-hidden flex items-center justify-center px-4 pb-4">
               <img
                 src={product.mainImage}
                 alt={product.title}
-                className="w-full h-100 object-contain"
+                className="w-full h-full object-contain"
               />
-              <div className="p-5 text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  {product.title}
-                </h3>
-                <p className="text-gray-700 text-sm mb-3">{product.subTitle}</p>
-                <p className="text-gray-500 text-sm leading-relaxed text-start mb-4">
-                  {product.description.length > 220
-                    ? product.description.slice(0, 220) + "..."
-                    : product.description}
-                </p>
-                <div className="flex flex-wrap gap-2 justify-center mb-4">
-                  {product.homeFeatureTags?.slice(0, 3).map((tag, i) => (
-                    <span
-                      key={i}
-                      className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Link href={`/products/${product._id}`}>
-                  <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-5 rounded-lg transition font-semibold text-sm shadow-md">
-                    Learn More →
-                  </button>
-                </Link>
-              </div>
             </div>
-          ) : (
-            // 💻 Desktop view: flip animation
-            <motion.div
-              key={product._id}
-              className="relative w-[360px] sm:w-[400px] md:w-[420px] lg:w-[440px] h-[70vh] perspective cursor-pointer"
-              onHoverStart={() => handleHoverStart(index)}
-              onHoverEnd={() => handleHoverEnd(index)}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              style={{ perspective: 1200 }}
-            >
-              {/* Inner Flip Container */}
-              <motion.div
-                className="relative w-full h-full transition-transform duration-700 preserve-3d"
-                animate={{ rotateY: flippedStates[index] ? 180 : 0 }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* FRONT SIDE */}
 
-                <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl backface-hidden bg-white flex justify-center items-center">
-                  <img
-                    src={product.mainImage}
-                    alt={product.title}
-                    className="object-contain w-full h-full"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-center">
-                    <h3 className="text-white text-lg font-semibold truncate">
-                      {product.title}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* BACK SIDE */}
-         <div
-  className="absolute inset-0 rounded-2xl shadow-2xl flex flex-col justify-center items-center backface-hidden overflow-hidden"
-  style={{ transform: "rotateY(180deg)" }}
->
-  {/* Soft blue gradient background */}
-  <div className="absolute inset-0 bg-gradient-to-br from-[#e8f1ff] via-[#dbeafe] to-[#bfd9ff]"></div>
-
-  {/* Decorative glow effects */}
-  <div className="absolute top-[-40px] right-[-40px] w-40 h-40 bg-blue-300/40 rounded-full blur-2xl"></div>
-  <div className="absolute bottom-[-30px] left-[-30px] w-32 h-32 bg-blue-500/30 rounded-full blur-2xl"></div>
-
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{
-      opacity: flippedStates[index] ? 1 : 0,
-      y: flippedStates[index] ? 0 : 20,
-    }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-    className="relative z-10 w-full p-8 flex flex-col justify-center text-center"
-  >
-    {/* Title */}
-    <h3 className="text-2xl font-extrabold text-blue-900 mb-2 tracking-tight">
-      {product.title}
-    </h3>
-
-    {/* Subtitle */}
-    <p className="text-blue-600 text-base mb-4 font-medium italic">
-      {product.subTitle}
-    </p>
-
-    {/* Description */}
-    <p className="text-gray-700 text-sm text-start mb-6 max-w-lg mx-auto">
-      {product.description.length > 1000
-        ? product.description.slice(0, 1000) + "..."
-        : product.description}
-    </p>
-
-    {/* Feature Tags */}
-    <div className="flex flex-wrap gap-2 mb-6 justify-center">
-      {product.homeFeatureTags?.slice(0, 3).map((tag, i) => (
-        <span
-          key={i}
-          className="px-3 py-1.5 bg-blue-100 text-blue-700 text-xs font-medium rounded-full border border-blue-500"
-        >
-          {tag}
-        </span>
-      ))}
-    </div>
-
-    {/* Button */}
-    <Link href={`/products/${product._id}`}>
-      <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 cursor-pointer text-white font-semibold py-3 px-7 rounded-xl shadow-md transition-transform transform hover:scale-105">
-        Learn More →
-      </button>
-    </Link>
-  </motion.div>
-</div>
-
-
-
-              </motion.div>
-            </motion.div>
-          )
-        )}
-
+            {/* Learn More Button */}
+            <div className="p-4 text-center flex flex-col items-center">
+              <Link href={`/products/${product._id}`}>
+                <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 cursor-pointer hover:from-blue-600 hover:to-blue-700 text-white py-3 px-8 rounded-lg transition font-semibold text-sm shadow-md hover:shadow-lg">
+                  Learn More →
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
