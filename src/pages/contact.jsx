@@ -334,7 +334,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="w-full min-h-screen mt-[80px] font-sans text-gray-800 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="w-full min-h-screen font-sans text-gray-800 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
 
       {/* Minimal Header Banner */}
       <motion.header
