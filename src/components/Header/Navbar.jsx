@@ -8,16 +8,12 @@ import { FaTimes, FaBars } from "react-icons/fa";
 import styles from "./Navbar.module.css";
 import axios from "axios";
 
-// Debounce function
+// Debounce helper
 function debounce(func, wait) {
   let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
+  return (...args) => {
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = setTimeout(() => func(...args), wait);
   };
 }
 
@@ -26,11 +22,12 @@ const Navbar = () => {
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hideHamburger, setHideHamburger] = useState(false);
+
+  // Data
   const [servicesData, setServicesData] = useState([]);
   const [isLoadingServices, setIsLoadingServices] = useState(true);
   const [servicesError, setServicesError] = useState(null);
-  const [hideHamburger, setHideHamburger] = useState(false);
-
 
   const pathname = usePathname();
   const navRef = useRef(null);
@@ -43,11 +40,14 @@ const Navbar = () => {
     const fetchServices = async () => {
       try {
         setIsLoadingServices(true);
-        setServicesError(null);
-        const res = await axios.get("https://landing-page-yclw.vercel.app/api/service");
+        const res = await axios.get(
+          "https://landing-page-yclw.vercel.app/api/service"
+        );
         if (res.data.success) {
           const services = res.data.data;
-          const uniqueModules = [...new Set(services.map((s) => s.module).filter(Boolean))];
+          const uniqueModules = [
+            ...new Set(services.map((s) => s.module).filter(Boolean)),
+          ];
 
           const grouped = uniqueModules.map((module) => ({
             id: module.toLowerCase(),
@@ -65,7 +65,6 @@ const Navbar = () => {
       } catch (err) {
         console.error("Error fetching services:", err);
         setServicesError("Failed to load services");
-        setServicesData([]);
       } finally {
         setIsLoadingServices(false);
       }
@@ -73,63 +72,71 @@ const Navbar = () => {
     fetchServices();
   }, []);
 
-  // ✅ Auto-close Services dropdown when scrolling on desktop
-useEffect(() => {
-  const handleScrollCloseDropdown = () => {
-    if (window.innerWidth > 768) {
-      setServicesExpanded(false);
-    }
-  };
-  window.addEventListener("scroll", handleScrollCloseDropdown);
-  return () => window.removeEventListener("scroll", handleScrollCloseDropdown);
-}, []);
-
-
-  // ✅ Debounced scroll listener
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 60);
-    const debouncedScroll = debounce(handleScroll, 10);
-
-    window.addEventListener("scroll", debouncedScroll);
-    return () => window.removeEventListener("scroll", debouncedScroll);
-  }, []);
-
-  // ✅ Hide hamburger on scroll in desktop
-useEffect(() => {
-  const handleScrollHamburger = () => {
-    if (window.innerWidth > 768 && window.scrollY > 60) {
-      setHideHamburger(true);
-    } else {
-      setHideHamburger(false);
-    }
-  };
-
-  window.addEventListener("scroll", handleScrollHamburger);
-  window.addEventListener("resize", handleScrollHamburger);
-  handleScrollHamburger();
-
-  return () => {
-    window.removeEventListener("scroll", handleScrollHamburger);
-    window.removeEventListener("resize", handleScrollHamburger);
-  };
-}, []);
-
-
-
-  // ✅ Resize listener
+  // ✅ Detect Mobile or Desktop
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    const debouncedResize = debounce(handleResize, 100);
-
     handleResize();
-    window.addEventListener("resize", debouncedResize);
-    return () => window.removeEventListener("resize", debouncedResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Outside click handler for dropdown auto-close
+  /* =======================================================
+     🖥 DESKTOP LOGIC (unchanged)
+  ======================================================= */
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) {
+    if (!isMobile) {
+      const handleScroll = () => setIsScrolled(window.scrollY > 60);
+      const debouncedScroll = debounce(handleScroll, 10);
+      window.addEventListener("scroll", debouncedScroll);
+
+      const handleScrollCloseDropdown = () => {
+        if (window.innerWidth > 768) setServicesExpanded(false);
+      };
+      window.addEventListener("scroll", handleScrollCloseDropdown);
+
+      const handleScrollHamburger = () => {
+        if (window.innerWidth > 768 && window.scrollY > 60) {
+          setHideHamburger(true);
+        } else {
+          setHideHamburger(false);
+        }
+      };
+      window.addEventListener("scroll", handleScrollHamburger);
+      handleScrollHamburger();
+
+      return () => {
+        window.removeEventListener("scroll", debouncedScroll);
+        window.removeEventListener("scroll", handleScrollCloseDropdown);
+        window.removeEventListener("scroll", handleScrollHamburger);
+      };
+    }
+  }, [isMobile]);
+
+  /* =======================================================
+     📱 MOBILE LOGIC (simplified, no scroll triggers)
+  ======================================================= */
+  useEffect(() => {
+    if (isMobile) {
+      setIsScrolled(false);
+      setHideHamburger(false);
+
+      const handleScroll = () => {
+        // ❌ Mobile navbar won’t auto-show/hide on scroll
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [isMobile]);
+
+  // ✅ Prevent background scroll when menu open (mobile only)
+  useEffect(() => {
+    document.body.style.overflow = isOpen && isMobile ? "hidden" : "";
+  }, [isOpen, isMobile]);
+
+  // ✅ Close when clicking outside (for dropdown)
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
         setServicesExpanded(false);
       }
     };
@@ -141,45 +148,27 @@ useEffect(() => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        setServicesExpanded(false);
         setIsOpen(false);
+        setServicesExpanded(false);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // ✅ Prevent background scroll when mobile menu is open
-  useEffect(() => {
-    if (isOpen && isMobile) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-  }, [isOpen, isMobile]);
-
+  // Handlers
   const closeMenu = useCallback(() => {
     setIsOpen(false);
     setServicesExpanded(false);
   }, []);
 
-  const handleServicesToggle = useCallback(
-    (e) => {
-      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
-      setServicesExpanded((prev) => !prev);
-    },
-    []
-  );
-
-  const handleHamburgerKeyDown = useCallback((e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setIsOpen((prev) => !prev);
-    }
+  const handleServicesToggle = useCallback(() => {
+    setServicesExpanded((prev) => !prev);
   }, []);
 
   return (
     <>
+      {/* Mobile overlay */}
       {isOpen && isMobile && (
         <div
           className={styles.mobileOverlay}
@@ -191,16 +180,10 @@ useEffect(() => {
       <nav
         ref={navRef}
         className={`${styles.navbar} ${isScrolled ? styles.scrolled : ""}`}
-        aria-label="Main navigation"
       >
         <div className={styles.navContainer}>
-          {/* Logo */}
-          <Link
-            href="/"
-            className={styles.logo}
-            onClick={closeMenu}
-            aria-label="Home"
-          >
+          {/* === Logo === */}
+          <Link href="/" className={styles.logo} onClick={closeMenu}>
             <Image
               src="/Group.png"
               alt="FTFL Logo"
@@ -211,35 +194,27 @@ useEffect(() => {
             <span className={styles.tagline}>From Scratch to Success</span>
           </Link>
 
-          {/* Hamburger / Close */}
-{!hideHamburger && (
-  <div
-    className={styles.hamburger}
-    onClick={() => setIsOpen(!isOpen)}
-    onKeyDown={handleHamburgerKeyDown}
-    aria-expanded={isOpen}
-    aria-label="Toggle menu"
-    role="button"
-    tabIndex={0}
-  >
-    {isOpen ? (
-      <FaTimes className={styles.icon} aria-hidden="true" />
-    ) : (
-      <FaBars className={styles.icon} aria-hidden="true" />
-    )}
-  </div>
-)}
+          {/* === Hamburger / Close === */}
+          {!hideHamburger && (
+            <div
+              className={styles.hamburger}
+              onClick={() => setIsOpen((p) => !p)}
+              role="button"
+              tabIndex={0}
+            >
+              {isOpen ? (
+                <FaTimes className={styles.icon} />
+              ) : (
+                <FaBars className={styles.icon} />
+              )}
+            </div>
+          )}
 
-
-          {/* Menu */}
+          {/* === Menu === */}
           <ul
             className={`${styles.navMenu} ${
               isOpen || isScrolled ? styles.active : ""
-            } ${isScrolled ? styles.scrolledMenu : ""}`}
-            style={{
-              overflowY: isMobile ? "auto" : "visible", // ✅ allow navbar scroll
-              maxHeight: isMobile ? "100vh" : "none",
-            }}
+            }`}
           >
             <li>
               <Link
@@ -259,15 +234,12 @@ useEffect(() => {
                 About
               </Link>
             </li>
+
+            {/* Services */}
             <li className={styles.servicesItem}>
               <span
-                ref={servicesToggleRef}
                 onClick={handleServicesToggle}
-                onKeyDown={handleServicesToggle}
                 className={styles.dropdownToggle}
-                aria-expanded={servicesExpanded}
-                role="button"
-                tabIndex={0}
               >
                 Services <span className={styles.arrow}>›</span>
               </span>
@@ -276,12 +248,10 @@ useEffect(() => {
               {isMobile && servicesExpanded && (
                 <div className={styles.mobileDropdown}>
                   {isLoadingServices ? (
-                    <div className={styles.loadingState}>
-                      Loading services...
-                    </div>
+                    <div className={styles.loadingState}>Loading...</div>
                   ) : servicesError ? (
                     <div className={styles.errorState}>{servicesError}</div>
-                  ) : servicesData.length > 0 ? (
+                  ) : (
                     servicesData.map((service) => (
                       <div key={service.id}>
                         <h4 className={styles.mobileServiceTitle}>
@@ -299,14 +269,11 @@ useEffect(() => {
                         ))}
                       </div>
                     ))
-                  ) : (
-                    <div className={styles.errorState}>
-                      No services available
-                    </div>
                   )}
                 </div>
               )}
             </li>
+
             <li>
               <Link
                 href="/internship"
@@ -355,20 +322,19 @@ useEffect(() => {
           </ul>
         </div>
 
-        {/* Desktop Services Dropdown */}
+        {/* === Desktop Services Dropdown === */}
         {!isMobile && (
           <div
             className={`${styles.servicesContent} ${
               servicesExpanded ? styles.show : ""
             }`}
-            aria-hidden={!servicesExpanded}
           >
             <div className={styles.servicesGrid}>
               {isLoadingServices ? (
                 <div className={styles.loadingState}>Loading services...</div>
               ) : servicesError ? (
                 <div className={styles.errorState}>{servicesError}</div>
-              ) : servicesData.length > 0 ? (
+              ) : (
                 servicesData.map((service) => (
                   <div key={service.id}>
                     <h3 className={styles.serviceTitle}>{service.name}</h3>
@@ -381,16 +347,12 @@ useEffect(() => {
                       >
                         <div className={styles.subServiceContent}>
                           <span className={styles.subArrow}>›</span>
-                          <span className={styles.subServiceName}>
-                            {sub.name}
-                          </span>
+                          <span>{sub.name}</span>
                         </div>
                       </Link>
                     ))}
                   </div>
                 ))
-              ) : (
-                <div className={styles.errorState}>No services available</div>
               )}
             </div>
           </div>
@@ -401,6 +363,7 @@ useEffect(() => {
 };
 
 export default Navbar;
+
 
 
 
