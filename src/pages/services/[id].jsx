@@ -1082,7 +1082,7 @@ export default function ServiceDetail() {
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* ✅ HERO SECTION */}
-      <section className="relative mt-[80px] flex flex-col items-center justify-center text-white overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh]">
+      <section className="relative flex flex-col items-center justify-center text-white overflow-hidden min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh]">
         {serviceData?.bannerImage && (
           <motion.div
             className="absolute inset-0"

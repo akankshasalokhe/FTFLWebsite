@@ -11,7 +11,7 @@
 }
 
 .navContainer {
-  width: 95%;
+  width: 100%;
   border-radius: 16px;
   /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); */
   padding: 0.6rem 5.5rem;
@@ -27,6 +27,7 @@
   background: white;
   top: 0;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  color: black !important;
 }
 
 
@@ -41,7 +42,7 @@
 }
 
 .logo:focus {
-  outline: 2px solid #007bff;
+  /* outline: 2px solid #007bff; */
   outline-offset: 4px;
   border-radius: 4px;
 }
@@ -73,7 +74,7 @@
 
 .icon {
   font-size: 1.8rem;
-  color: #222;
+  color: #f1eaea;
   transition: color 0.2s ease;
 }
 
@@ -97,7 +98,7 @@
 .navMenu li a,
 .navMenu li span {
   text-decoration: none;
-  color: #222;
+  color: #fff;
   font-weight: 500;
   transition: all 0.3s;
   cursor: pointer;
@@ -105,6 +106,8 @@
   border-radius: 6px;
   position: relative;
 }
+
+
 
 .navMenu li a:focus,
 .navMenu li span:focus {
@@ -352,6 +355,7 @@
     width: 100%;
     border-radius: 8px;
     margin: 3px 0;
+    color: #000;
   }
 
   .logo {
@@ -428,4 +432,26 @@
     height: auto;
   }
 }
+/* === Navbar link color on scroll === */
+.scrolled .navMenu li a,
+.scrolled .navMenu li span {
+  color: #000 !important;
+}
+
+/* === Keep close icon on right for all screens === */
+.hamburger {
+  position: absolute;
+  right: 2rem;
+  top: 1.2rem;
+  z-index: 2100;
+}
+
+/* Adjust mobile icon */
+@media (max-width: 768px) {
+  .hamburger {
+    right: 1rem;
+    top: 1rem;
+  }
+}
+
 
