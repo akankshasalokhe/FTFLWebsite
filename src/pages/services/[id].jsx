@@ -1095,11 +1095,11 @@ export default function ServiceDetail() {
               ease: "easeInOut",
             }}
           >
-            {/* <img
+            <img
               src={serviceData.bannerImage}
               alt={serviceData.title || "Service Banner"}
               className="w-full h-[70vh] md:h-[70vh] lg:h-[90vh] object-fill object-center"
-            /> */}
+            />
             {serviceData?.bannerImage?.match(/\.(mp4|webm|ogg)$/i) ? (
               <video
                 src={serviceData.bannerImage}
