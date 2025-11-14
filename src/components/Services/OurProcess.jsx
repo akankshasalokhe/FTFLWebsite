@@ -268,116 +268,120 @@
 // }
 
 
-"use client";
+// "use client";
 
-import { motion } from "framer-motion";
-import {
-  FiTarget,
-  FiUsers,
-  FiLayers,
-  FiCode,
-  FiCheckCircle,
-} from "react-icons/fi";
-import { FaRocket } from "react-icons/fa";
+// import { motion } from "framer-motion";
+// import {
+//   FiTarget,
+//   FiUsers,
+//   FiLayers,
+//   FiCode,
+//   FiCheckCircle,
+// } from "react-icons/fi";
+// import { FaRocket } from "react-icons/fa";
 
-const iconMap = {
-  target: <FiTarget />,
-  users: <FiUsers />,
-  layers: <FiLayers />,
-  code: <FiCode />,
-  rocket: <FaRocket />,
-  check: <FiCheckCircle />,
-};
+// const iconMap = {
+//   target: <FiTarget />,
+//   users: <FiUsers />,
+//   layers: <FiLayers />,
+//   code: <FiCode />,
+//   rocket: <FaRocket />,
+//   check: <FiCheckCircle />,
+// };
 
-export default function HowWeWorkHex({ title, steps = [] }) {
-  return (
-    <section className="relative py-20 bg-[#1d2c53ec] text-white overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80"
-          alt="Background"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#3d5eab] to-[#446dab] mix-blend-multiply"></div>
-      </div>
 
-      {/* Header */}
-      <div className="relative text-center mb-16 z-10">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-          How We Work
-        </h2>
-        {title && <p className="text-blue-400 text-lg mb-2">{title}</p>}
-        <p className="text-gray-300 max-w-2xl mx-auto">
-          From idea to execution — every step designed to deliver excellence.
-        </p>
-      </div>
+// export default function HowWeWorkHex({ title, steps = [] }) {
+//   return (
+//     <section className="relative py-20 bg-[#1d2c53ec] text-white overflow-hidden">
+//       {/* Background Image with Overlay */}
+//       <div className="absolute inset-0">
+//         <img
+//           src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80"
+//           alt="Background"
+//           className="w-full h-full object-cover opacity-20"
+//         />
+//         <div className="absolute inset-0 bg-gradient-to-br from-[#3d5eab] to-[#446dab] mix-blend-multiply"></div>
+//       </div>
 
-      {/* Hexagon Steps */}
-      {steps.length === 0 ? (
-        <p className="text-center text-gray-400">Loading process...</p>
-      ) : (
-        <div className="relative flex flex-wrap justify-center gap-10 px-8 z-10">
-          {steps.map((step, index) => (
-            <motion.div
-              key={index}
-              className="relative group perspective"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-            >
-              <div className="flip-card relative w-48 h-52">
-                {/* Front Side */}
-                <div className="flip-card-inner group-hover:rotate-y-180 transition-transform duration-700">
-                  <div className="flip-card-front hexagon bg-gradient-to-br from-blue-600/90 to-blue-900/100 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
-                    <div className="text-3xl text-blue-400 mb-3">
-                      {iconMap[step.icon?.toLowerCase()] || <FiTarget />}
-                    </div>
-                    <h3 className="text-lg font-semibold">{step.title}</h3>
-                  </div>
+//       {/* Header */}
+//       <div className="relative text-center mb-16 z-10">
+//         <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+//           How We Work
+//         </h2>
+//         {title && <p className="text-blue-400 text-lg mb-2">{title}</p>}
+//         <p className="text-gray-300 max-w-2xl mx-auto">
+//           From idea to execution — every step designed to deliver excellence.
+//         </p>
+//       </div>
 
-                  {/* Back Side */}
-                  <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg rotate-y-180">
-                    <p className="text-sm text-gray-200">
-                      {step.description || step.desc || "No description"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      )}
+//       {/* Hexagon Steps */}
+//       {steps.length === 0 ? (
+//         <p className="text-center text-gray-400">Loading process...</p>
+//       ) : (
+//         <div className="relative flex flex-wrap justify-center gap-10 px-8 z-10">
+//           {steps.map((step, index) => (
+//             <motion.div
+//               key={index}
+//               className="relative group perspective"
+//               initial={{ opacity: 0, y: 40 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ delay: index * 0.15 }}
+//             >
+//               <div className="flip-card relative w-48 h-52">
+//                 {/* Front Side */}
+//                 <div className="flip-card-inner group-hover:rotate-y-180 transition-transform duration-700">
+//                   <div className="flip-card-front hexagon bg-gradient-to-br from-blue-600/90 to-blue-900/100 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
+//                     <div className="text-3xl text-blue-400 mb-3">
+//                       {iconMap[step.icon?.toLowerCase()] || <FiTarget />}
+//                     </div>
+//                     <h3 className="text-lg font-semibold">{step.title}</h3>
+//                   </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        .hexagon {
-          clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
-        }
-        .perspective {
-          perspective: 1000px;
-        }
-        .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          transform-style: preserve-3d;
-        }
-        .flip-card-front,
-        .flip-card-back {
-          backface-visibility: hidden;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 12px;
-        }
-        .flip-card-back {
-          transform: rotateY(180deg);
-        }
-      `}</style>
-    </section>
-  );
-}
+//                   {/* Back Side */}
+//                   <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg rotate-y-180">
+//                     <p className="text-sm text-gray-200">
+//                       {step.description || step.desc || "No description"}
+//                     </p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       )}
+
+//       {/* Custom Styles */}
+//       <style jsx>{`
+//         .hexagon {
+//           clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+//         }
+//         .perspective {
+//           perspective: 1000px;
+//         }
+//         .flip-card-inner {
+//           position: relative;
+//           width: 100%;
+//           height: 100%;
+//           transform-style: preserve-3d;
+//         }
+//         .flip-card-front,
+//         .flip-card-back {
+//           backface-visibility: hidden;
+//           position: absolute;
+//           width: 100%;
+//           height: 100%;
+//           border-radius: 12px;
+//         }
+//         .flip-card-back {
+//           transform: rotateY(180deg);
+//         }
+//       `}</style>
+//     </section>
+//   );
+// }
+
+
+
 
 
 
@@ -505,6 +509,164 @@ export default function HowWeWorkHex({ title, steps = [] }) {
 //   );
 // }
 
+"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Lightbulb, Layers, PenTool, Code, Rocket } from "lucide-react";
+
+export default function FtflProcess() {
+  const [flippedIndex, setFlippedIndex] = useState(null);
+
+  const steps = [
+    {
+      icon: "Lightbulb",
+      title: "Research",
+      description:
+        "We analyze your goals, audience, and competitors to create a clear project vision.",
+    },
+    {
+      icon: "PenTool",
+      title: "Design",
+      description:
+        "Our creative team designs stunning, user-friendly experiences tailored to your brand.",
+    },
+    {
+      icon: "Code",
+      title: "Development",
+      description:
+        "We build clean, scalable, and high-performing code to bring your ideas to life.",
+    },
+    {
+      icon: "Layers",
+      title: "Testing",
+      description:
+        "Rigorous QA ensures your product is bug-free and performs flawlessly.",
+    },
+    {
+      icon: "Rocket",
+      title: "Launch",
+      description:
+        "We deploy and optimize for performance, ensuring a successful launch.",
+    },
+  ];
+
+  const iconMap = {
+    Lightbulb: <Lightbulb size={36} />,
+    PenTool: <PenTool size={36} />,
+    Code: <Code size={36} />,
+    Layers: <Layers size={36} />,
+    Rocket: <Rocket size={36} />,
+  };
+
+  const handleFlip = (index) => {
+    setFlippedIndex(flippedIndex === index ? null : index);
+  };
+
+  return (
+    <section className="relative py-20 bg-[#1d2c53ec] text-white overflow-hidden">
+      {/* === Background Image with Overlay === */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80"
+          alt="Background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3d5eab] to-[#446dab] mix-blend-multiply"></div>
+      </div>
+
+      {/* === Header === */}
+      <div className="relative text-center mb-16 z-10 px-4">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
+        >
+          How We Work
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-blue-300 text-lg max-w-2xl mx-auto"
+        >
+          From idea to execution — every step designed to deliver excellence.
+        </motion.p>
+      </div>
+
+      {/* === Hexagon Steps === */}
+      <div className="relative flex flex-wrap justify-center gap-8 sm:gap-10 px-4 md:px-8 z-10">
+        {steps.map((step, index) => {
+          const isFlipped = flippedIndex === index;
+          return (
+            <motion.div
+              key={index}
+              className="relative group perspective cursor-pointer"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              viewport={{ once: true }}
+              onClick={() => handleFlip(index)}
+            >
+              <div className="flip-card relative w-40 h-44 sm:w-48 sm:h-52 md:w-56 md:h-60">
+                <div
+                  className={`flip-card-inner ${
+                    isFlipped ? "flipped" : ""
+                  } transition-transform duration-700`}
+                >
+                  {/* === Front === */}
+                  <div className="flip-card-front hexagon bg-gradient-to-br from-blue-600/90 to-blue-900/100 border border-blue-400/30 backdrop-blur-md text-center flex flex-col items-center justify-center p-4 shadow-lg">
+                    <div className="text-3xl text-blue-400 mb-3">
+                      {iconMap[step.icon]}
+                    </div>
+                    <h3 className="text-lg font-semibold">{step.title}</h3>
+                  </div>
+
+                  {/* === Back === */}
+                  <div className="flip-card-back hexagon absolute inset-0 bg-gradient-to-br from-blue-600/20 to-blue-600/20 border border-blue-400/30 backdrop-blur-md text-center flex items-center justify-center p-4 shadow-lg">
+                    <p className="text-sm text-gray-200 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* === Custom CSS === */}
+      <style jsx>{`
+        .hexagon {
+          clip-path: polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%);
+        }
+        .perspective {
+          perspective: 1000px;
+        }
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+        .flip-card-front,
+        .flip-card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+          backface-visibility: hidden;
+        }
+        .flip-card-back {
+          transform: rotateY(180deg);
+        }
+        .flipped {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+    </section>
+  );
+}
 
 
 

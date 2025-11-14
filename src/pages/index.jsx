@@ -20,6 +20,7 @@ export default function Home() {
       <TechStack />
       <Testimonial />
       <ContactUs />
+      
     </div>
   );
 }

@@ -319,6 +319,15 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
+            {/* <li>
+              <Link
+                href="/services"
+                className={isActive("/services") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Service
+              </Link>
+            </li> */}
           </ul>
         </div>
 
