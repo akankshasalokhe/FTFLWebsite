@@ -1742,7 +1742,7 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto   md:ms-0 lg:me-30 xl:me-0 relative z-10 justify-between">
+  <div className="max-w-7xl mx-auto md:ms-0 lg:me-30 xl:me-0 relative z-10 justify-between">
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -1780,7 +1780,7 @@ useEffect(() => {
             transition={{ type: "spring", stiffness: 200 }}
             className="
               h-full 
-              w-80 sm:w-100 md:w-85  lg:w-80 
+              w-80  
               xl:w-[270px]
               flex flex-col 
               bg-white/80 backdrop-blur-md 
