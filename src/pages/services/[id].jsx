@@ -1478,13 +1478,17 @@ import Image from 'next/image';
 
 export default function ServiceDetail() {
   const router = useRouter();
-  const id = router.query?.id;   // safer
+  const id = router.query?.id;
 
-  const [serviceData, setServiceData] = useState(null);
+
+  const [serviceData, setServiceData] = useState({});
+      const { question } = serviceData;
+
   const [loading, setLoading] = useState(true);
   const [faqData, setFaqData] = useState([]);
   const [isFaqLoading, setIsFaqLoading] = useState(false);
   const [faqOpen, setFaqOpen] = useState(null);
+
 
   // Fetch service
 useEffect(() => {
@@ -1704,6 +1708,8 @@ useEffect(() => {
 {/* ==== What is "{Service Name}" Section ==== */}
 <section className="pb-10 bg-gray-50 border-t border-gray-100">
   <div className="max-w-7xl mx-auto lg:ps-0 px-6 sm:px-20 text-center">
+    
+    {/* Title */}
     <motion.h2
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -1711,30 +1717,26 @@ useEffect(() => {
       viewport={{ once: true }}
       className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1d2c53] mb-6 text-left"
     >
-      What is <span className="text-[#4379f7]">"{serviceData?.title}"</span>?
+      What is <span className="text-[#4379f7]">"{question?.title}"</span>?
     </motion.h2>
 
-    {/* Main description content */}
-    <motion.p
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: true }}
-      className="text-base sm:text-lg text-gray-700 text-justify"
-    >
-      {serviceData?.description?.content}
-    </motion.p>
-
-    {/* Optional points if available */}
-    {serviceData?.description?.points?.length > 0 && (
-      <ul className="mt-4 list-disc list-inside text-gray-700 text-justify space-y-2">
-        {serviceData.description.points.map((point, idx) => (
-          <li key={idx}>{point}</li>
+    {/* Optional answers list */}
+    {question?.answer?.length > 0 && (
+      <motion.ul
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="mt-4 list-disc list-inside text-gray-700 text-justify space-y-2 list-none"
+      >
+        {question.answer.map((ans, idx) => (
+          <li key={idx}>{ans}</li>
         ))}
-      </ul>
+      </motion.ul>
     )}
   </div>
 </section>
+
 
 {/* ==== Process Section ==== */}
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
