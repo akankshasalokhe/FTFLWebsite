@@ -1727,7 +1727,7 @@ useEffect(() => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="mt-4  list-inside text-gray-700 text-justify space-y-2 list-none"
+        className="mt-4  list-inside text-gray-700 text-justify space-y-3 list-none "
       >
         {question.answer.map((ans, idx) => (
           <li key={idx}>{ans}</li>
@@ -1742,14 +1742,14 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto ms-15 md:ms-0 me-15 lg:me-0 relative z-10">
+  <div className="max-w-7xl mx-auto ms-20 md:ms-0 me-15 lg:me-0 relative z-10">
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
     >
-      Our <span className="text-blue-600">{serviceData?.title} Process</span>
+      Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
     <div className="flex flex-wrap lg:flex-nowrap justify-center md:justify-between items-stretch gap-6 lg:gap-16 relative">
@@ -1765,11 +1765,11 @@ useEffect(() => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="h-full w-full sm:w-[100%] md:w-[95%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300"
+            className="h-full w-full sm:w-[100%] md:w-[95%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 "
           >
             {/* Dynamic Icon Image */}
             {step.icon && (
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
                 <img
                   src={step.icon}
                   alt={step.title}
