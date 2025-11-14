@@ -1742,12 +1742,12 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto ms-20 md:ms-0 me-15 lg:me-0 relative z-10">
+  <div className="max-w-7xl mx-auto ms-15 md:ms-0 me-15 lg:me-0 relative z-10">
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20 justify-center ms-30"
+      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
     >
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
