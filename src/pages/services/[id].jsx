@@ -1765,7 +1765,7 @@ useEffect(() => {
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="h-full w-full sm:w-[100%] md:w-[95%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 "
+            className="h-full  sm:w-[100%] md:w-[100%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 "
           >
             {/* Dynamic Icon Image */}
             {step.icon && (
