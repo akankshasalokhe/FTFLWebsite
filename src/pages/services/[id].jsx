@@ -1742,7 +1742,7 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto ms-20 xl:ms-20 md:ms-0 me-15 lg:me-0 xl:me-0 relative z-10 justify-between">
+  <div className="max-w-7xl mx-auto   md:ms-0 lg:me-30 xl:me-0 relative z-10 justify-between">
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -1752,7 +1752,19 @@ useEffect(() => {
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
-    <div className="flex flex-wrap lg:flex-nowrap justify-center md:justify-between items-stretch gap-6 lg:gap-16 relative">
+    {/* ==== GRID LAYOUT ==== */}
+    <div
+      className="
+        grid 
+        grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-2 
+        lg:grid-cols-3 
+        xl:grid-cols-5 
+        gap-6 lg:gap-10 xl:gap-40
+        place-items-stretch
+      "
+    >
       {serviceData?.process?.map((step, index) => (
         <motion.div
           key={index}
@@ -1760,14 +1772,26 @@ useEffect(() => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: index * 0.15 }}
           viewport={{ once: true }}
-          className="relative flex flex-col items-center text-center md:text-left w-full sm:w-[48%] md:w-[48%] lg:w-[18%] group"
+          className="relative flex flex-col items-center text-center md:text-left group"
         >
+          {/* MAIN CARD */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="h-full  sm:w-[100%] md:w-[100%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 "
+            className="
+              h-full 
+              w-80 sm:w-100 md:w-85  lg:w-80 
+              xl:w-[270px]
+              flex flex-col 
+              bg-white/80 backdrop-blur-md 
+              border border-blue-100 
+              shadow-lg rounded-2xl 
+              p-6 
+              hover:shadow-2xl hover:border-blue-300 
+              transition-all duration-300
+            "
           >
-            {/* Dynamic Icon Image */}
+            {/* Icon */}
             {step.icon && (
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
                 <img
@@ -1800,6 +1824,8 @@ useEffect(() => {
     </div>
   </div>
 </section>
+
+
 
 {/* ==== Why Choose Us Section ==== */}
 <section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
