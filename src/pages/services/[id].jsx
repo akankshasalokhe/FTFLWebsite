@@ -1465,61 +1465,82 @@
 //   );
 // }
 
-
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation"; // get id from URL
-import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import axios from "axios";
-import {FiArrowRight } from "react-icons/fi";
+import { motion } from "framer-motion";
 import FtflProcess from "@/components/Services/OurProcess";
+import { FiArrowRight } from "react-icons/fi";
+import Image from 'next/image';
 
 
 export default function ServiceDetail() {
-  const params = useParams();
-  const serviceId = params?.id;
+  const router = useRouter();
+  const id = router.query?.id;   // safer
 
   const [serviceData, setServiceData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isFaqLoading, setIsFaqLoading] = useState(false);
   const [faqData, setFaqData] = useState([]);
- const [faqOpen, setFaqOpen] = useState(null);
+  const [isFaqLoading, setIsFaqLoading] = useState(false);
+  const [faqOpen, setFaqOpen] = useState(null);
 
-  useEffect(() => {
-    if (!serviceId) return;
+  // Fetch service
+useEffect(() => {
+  if (!router.isReady) return;
+  if (!id) return;
 
-    const fetchService = async () => {
-      try {
-        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/service/${serviceId}`);
-        setServiceData(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+  const fetchService = async () => {
+    try {
+      const res = await axios.get(
+        `https://landing-page-yclw.vercel.app/api/service/${id}`
+      );
+      
+      // Fix: Access the nested data
+      if (res.data.success) {
+        setServiceData(res.data.data); // This is the actual service data
+      } else {
+        console.error("API returned unsuccessful response");
+        setServiceData(null);
       }
-    };
+    } catch (err) {
+      console.error(err);
+      setServiceData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchService();
-  }, [serviceId]);
+  fetchService();
+}, [router.isReady, id]);
 
-   useEffect(() => {
-    const fetchFaq = async () => {
-      try {
-        setIsFaqLoading(true);
-        const res = await axios.get(`https://landing-page-yclw.vercel.app/api/faq`);
-        if (res.data.success) {
-          const filteredFaqs = res.data.data.filter((faq) => faq.module === serviceData?.title);
-          setFaqData(filteredFaqs);
-        }
-      } catch (err) {
-        console.error("Error fetching FAQ data:", err);
-      } finally {
-        setIsFaqLoading(false);
+ // ==== Fetch FAQ only when service title loads ====
+useEffect(() => {
+  if (!serviceData?.title) return;
+
+  const fetchFaq = async () => {
+    try {
+      setIsFaqLoading(true);
+      const res = await axios.get(
+        `https://landing-page-yclw.vercel.app/api/faq`
+      );
+
+      if (res.data.success) {
+        const filteredFaqs = res.data.data.filter(
+          (faq) => faq.module === serviceData.title
+        );
+        setFaqData(filteredFaqs);
       }
-    };
-    if (serviceData?.title) fetchFaq();
-  }, [serviceData]);
+    } catch (err) {
+      console.error("Error fetching FAQ:", err);
+    } finally {
+      setIsFaqLoading(false);
+    }
+  };
+
+  fetchFaq();
+}, [serviceData?.title]); // Add serviceData.title as dependency
 
   if (loading) return <p>Loading...</p>;
   if (!serviceData) return <p>Service not found.</p>;
