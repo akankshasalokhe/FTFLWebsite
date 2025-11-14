@@ -1727,7 +1727,7 @@ useEffect(() => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="mt-4 list-disc list-inside text-gray-700 text-justify space-y-2 list-none"
+        className="mt-4  list-inside text-gray-700 text-justify space-y-2 list-none"
       >
         {question.answer.map((ans, idx) => (
           <li key={idx}>{ans}</li>
