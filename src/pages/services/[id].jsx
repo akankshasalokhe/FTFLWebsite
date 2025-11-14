@@ -1747,7 +1747,7 @@ useEffect(() => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
+      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20 justify-center ms-30"
     >
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
