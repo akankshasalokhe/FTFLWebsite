@@ -2244,7 +2244,7 @@ useEffect(() => {
       transition={{ duration: 0.6 }}
       className="flex flex-col items-center lg:items-start text-center lg:text-left"
     >
-      <h1 className="text-6xl md:text-7xl font-extrabold text-[#1d2c53] leading-tight relative animate-gradient-shimmer bg-clip-text text-transparent bg-gradient-to-r from-[#3d5afe] via-[#00bcd4] to-[#6f8aff]">
+      <h1 className="text-6xl md:text-7xl font-extrabold text-[#1d2c53] leading-tight relative animate-gradient-shimmer bg-clip-text bg-gradient-to-r from-[#3d5afe] via-[#00bcd4] to-[#6f8aff]">
         Innovation <span className="block text-gray-800 mt-2">Meets</span>
         <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00bcd4] to-[#3d5afe]">Technology</span>
 
