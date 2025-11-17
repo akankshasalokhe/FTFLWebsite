@@ -287,17 +287,174 @@
 
 
 
+// "use client";
+// import React, { useEffect, useState } from "react";
+// import Image from "next/image";
+// import axios from "axios";
+// import Link from "next/link";
+// import { motion } from "framer-motion";
+// import styles from "./OurServices.module.css";
+
+// const OurServices = () => {
+//   const [activeCard, setActiveCard] = useState(null);
+//   const [serviceData, setServiceData] = useState([]);
+
+//   const services = [
+//     {
+//       id: 1,
+//       title: "Web Development",
+//       description: "Custom websites and web applications built with modern technologies.",
+//       image: "/s5.jpeg",
+//       icon: "💻",
+//     },
+//     {
+//       id: 2,
+//       title: "Mobile Apps",
+//       description: "Native and cross-platform mobile applications for iOS and Android devices.",
+//       image: "/s4.jpeg",
+//       icon: "📱",
+//     },
+//     {
+//       id: 3,
+//       title: "UI/UX Design",
+//       description: "User-centered designs that enhance engagement & improve user experience.",
+//       image: "/s2.jpeg",
+//       icon: "🎨",
+//     },
+//     {
+//       id: 4,
+//       title: "Digital Marketing",
+//       description: "Strategic online marketing campaigns to boost your brand's visibility and growth.",
+//       image: "/s3.jpeg",
+//       icon: "📈",
+//     },
+//     {
+//       id: 5,
+//       title: "Video Editing",
+//       description: "Professional video editing services that tell your story compellingly.",
+//       image: "/s1.jpeg",
+//       icon: "🎬",
+//     },
+//     {
+//       id: 6,
+//       title: "Graphic Design",
+//       description: "Creative visual solutions for branding, marketing materials, and digital media.",
+//       image: "/s2.jpeg",
+//       icon: "✏️",
+//     },
+//   ];
+
+//   useEffect(() => {
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/service")
+//       .then((res) => {
+//         if (res.data?.data?.length > 0) {
+//           setServiceData(res.data.data);
+//         }
+//       })
+//       .catch((err) => console.error("API fetch error:", err));
+//   }, []);
+
+//   const displayServices = serviceData.length > 0 ? serviceData.slice(0, 6) : services;
+
+//   const getDescriptionText = (service) => {
+//     if (Array.isArray(service.description)) {
+//       return service.description[0]?.substring(0, 120) + "..." || "No description available";
+//     } else if (typeof service.description === "string") {
+//       return service.description.substring(0, 120) + "...";
+//     }
+//     return "No description available";
+//   };
+
+//   const getImageSrc = (service) => {
+//     if (service.mainImage) return service.mainImage;
+//     else if (service.image) return service.image;
+//     return "/default-service.jpg";
+//   };
+
+//   const getServiceId = (service) => service._id || service.id;
+
+//   return (
+//     <section className={styles.services} id="homeservices">
+//       <div className={styles.bgImage}></div>
+
+//       <div className={styles.container}>
+//         <motion.div
+//           initial={{ opacity: 0, y: 40 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.6 }}
+//           viewport={{ once: true }}
+//           className={styles.header}
+//         >
+//           <h2 className={styles.sectionTitle}>Our Services</h2>
+//           <p className={styles.sectionSubtitle}>
+//             Discover our comprehensive range of digital solutions designed to elevate your business
+//           </p>
+//         </motion.div>
+
+//         <div className={styles.cardsContainer}>
+//           {displayServices.map((service, index) => (
+//             <motion.div
+//               key={getServiceId(service)}
+//               className={`${styles.card} ${activeCard === getServiceId(service) ? styles.active : ""}`}
+//               onMouseEnter={() => setActiveCard(getServiceId(service))}
+//               onMouseLeave={() => setActiveCard(null)}
+//               initial={{ opacity: 0, y: 60 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               transition={{ delay: index * 0.1, duration: 0.6 }}
+//               viewport={{ once: true }}
+//             >
+//               <div className={styles.imageContainer}>
+//                 <Image
+//                   src={getImageSrc(service)}
+//                   alt={service.title}
+//                   width={500}
+//                   height={320}
+//                   className={styles.image}
+//                 />
+//                 <div className={styles.overlay}></div>
+//               </div>
+
+//               <div className={styles.content}>
+//                 <h3 className={styles.title}>{service.title}</h3>
+//                 <p className={styles.description}>{getDescriptionText(service)}</p>
+//                 <Link href={`/services/${getServiceId(service)}`} className={styles.learnMoreBtn}>
+//                   Learn More →
+//                 </Link>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+
+//         <motion.div
+//           className={styles.cta}
+//           initial={{ opacity: 0, y: 40 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           transition={{ duration: 0.6 }}
+//         >
+//           <p>Need a custom solution?</p>
+//           <Link href="/contact">
+//             <button className={styles.ctaButton}>Get in Touch</button>
+//           </Link>
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default OurServices;
+
+
+
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import axios from "axios";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./OurServices.module.css";
 
 const OurServices = () => {
   const [activeCard, setActiveCard] = useState(null);
-  const [serviceData, setServiceData] = useState([]);
 
   const services = [
     {
@@ -305,42 +462,36 @@ const OurServices = () => {
       title: "Web Development",
       description: "Custom websites and web applications built with modern technologies.",
       image: "/s5.jpeg",
-      icon: "💻",
     },
     {
       id: 2,
       title: "Mobile Apps",
       description: "Native and cross-platform mobile applications for iOS and Android devices.",
       image: "/s4.jpeg",
-      icon: "📱",
     },
     {
       id: 3,
       title: "UI/UX Design",
       description: "User-centered designs that enhance engagement & improve user experience.",
       image: "/s2.jpeg",
-      icon: "🎨",
     },
     {
       id: 4,
       title: "Digital Marketing",
       description: "Strategic online marketing campaigns to boost your brand's visibility and growth.",
       image: "/s3.jpeg",
-      icon: "📈",
     },
     {
       id: 5,
       title: "Video Editing",
       description: "Professional video editing services that tell your story compellingly.",
       image: "/s1.jpeg",
-      icon: "🎬",
     },
     {
       id: 6,
       title: "Graphic Design",
       description: "Creative visual solutions for branding, marketing materials, and digital media.",
       image: "/s2.jpeg",
-      icon: "✏️",
     },
   ];
 
@@ -393,11 +544,13 @@ const OurServices = () => {
         </motion.div>
 
         <div className={styles.cardsContainer}>
-          {displayServices.map((service, index) => (
+          {services.map((service, index) => (
             <motion.div
-              key={getServiceId(service)}
-              className={`${styles.card} ${activeCard === getServiceId(service) ? styles.active : ""}`}
-              onMouseEnter={() => setActiveCard(getServiceId(service))}
+              key={service.id}
+              className={`${styles.card} ${
+                activeCard === service.id ? styles.active : ""
+              }`}
+              onMouseEnter={() => setActiveCard(service.id)}
               onMouseLeave={() => setActiveCard(null)}
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -406,7 +559,7 @@ const OurServices = () => {
             >
               <div className={styles.imageContainer}>
                 <Image
-                  src={getImageSrc(service)}
+                  src={service.image}
                   alt={service.title}
                   width={500}
                   height={320}
@@ -417,8 +570,10 @@ const OurServices = () => {
 
               <div className={styles.content}>
                 <h3 className={styles.title}>{service.title}</h3>
-                <p className={styles.description}>{getDescriptionText(service)}</p>
-                <Link href={`/services/${getServiceId(service)}`} className={styles.learnMoreBtn}>
+                <p className={styles.description}>
+                  {service.description.substring(0, 120)}...
+                </p>
+                <Link href={`/services/${service.id}`} className={styles.learnMoreBtn}>
                   Learn More →
                 </Link>
               </div>
@@ -426,6 +581,7 @@ const OurServices = () => {
           ))}
         </div>
 
+        {/* CTA SECTION */}
         <motion.div
           className={styles.cta}
           initial={{ opacity: 0, y: 40 }}

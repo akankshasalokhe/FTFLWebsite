@@ -237,7 +237,7 @@ function Careers() {
       </div> */}
 
 
-      <div className="relative mt-20 overflow-hidden bg-blue-500">
+      <div className="relative  overflow-hidden bg-blue-500">
         {/* Animated Background Bubbles */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           {[...Array(25)].map((_, i) => (

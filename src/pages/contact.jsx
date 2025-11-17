@@ -334,7 +334,7 @@
 //   }
 
 //   return (
-//     <div className="w-full min-h-screen mt-[80px] font-sans text-gray-800 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+//     <div className="w-full min-h-screen font-sans text-gray-800 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
 
 //       {/* Minimal Header Banner */}
 //       <motion.header
@@ -643,43 +643,408 @@
 
 
 
+// "use client";
+
+// import { useEffect, useState } from "react";
+// import {
+//   FiPhone,
+//   FiMail,
+//   FiMapPin,
+//   FiClock,
+//   FiUsers,
+//   FiMessageCircle,
+// } from "react-icons/fi";
+// import { motion } from "framer-motion";
+// import Typewriter from "typewriter-effect";
+// import axios from "axios";
+
+// export default function ContactPage() {
+//   const [dept, setDept] = useState("hr");
+//   const [form, setForm] = useState({
+//     firstName: "",
+//     email: "",
+//     phoneNumber: "",
+//     message: "",
+//   });
+//   const [submitting, setSubmitting] = useState(false);
+//   const [success, setSuccess] = useState(null);
+//   const [footerData, setFooterData] = useState(null);
+//   const [contactData, setContactData] = useState({});
+//   const pageTitle = "Contact";
+//   const [banner, setBanner] = useState(null);
+
+//   // Fetch banner
+//   useEffect(() => {
+//     const fetchBanner = async () => {
+//       try {
+//         const res = await fetch("https://landing-page-yclw.vercel.app/api/banner");
+//         const data = await res.json();
+//         if (data.success && Array.isArray(data.data)) {
+//           const matchedBanner = data.data.find(
+//             (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
+//           );
+//           setBanner(matchedBanner || null);
+//         }
+//       } catch (error) {
+//         console.error("Error fetching banner:", error);
+//       }
+//     };
+//     fetchBanner();
+//   }, [pageTitle]);
+
+//   // Fetch contact details
+//   useEffect(() => {
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/displaycontact")
+//       .then((res) => {
+//         const mapped = {};
+//         res.data.data.forEach((c) => {
+//           mapped[c.title.toLowerCase()] = c;
+//         });
+//         setContactData(mapped);
+//       })
+//       .catch((err) => console.error(err));
+//   }, []);
+
+//   // Fetch footer
+//   useEffect(() => {
+//     axios
+//       .get("https://landing-page-yclw.vercel.app/api/footer")
+//       .then((res) => {
+//         if (res.data.data && res.data.data.length > 0)
+//           setFooterData(res.data.data[0]);
+//       })
+//       .catch((err) => console.error(err));
+//   }, []);
+
+//   // Form handlers
+//   function handleChange(e) {
+//     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+//   }
+
+//   async function submitForm(e) {
+//     e.preventDefault();
+//     setSubmitting(true);
+//     setSuccess(null);
+
+//     const endpoint =
+//       dept === "hr"
+//         ? "https://landing-page-yclw.vercel.app/api/contact"
+//         : "https://landing-page-yclw.vercel.app/api/salescontact";
+
+//     try {
+//       const response = await axios.post(endpoint, form);
+//       if (response.status === 201) {
+//         setSuccess(true);
+//         setForm({ firstName: "", email: "", phoneNumber: "", message: "" });
+//       } else {
+//         setSuccess(false);
+//       }
+//     } catch (err) {
+//       console.error(err);
+//       setSuccess(false);
+//     } finally {
+//       setSubmitting(false);
+//     }
+//   }
+
+//   return (
+//     <div className="w-full min-h-screen font-sans text-gray-800 bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
+//       {/* === Banner === */}
+//       <motion.header
+//         initial={{ opacity: 0, y: -50 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 1 }}
+//         className="relative h-64 md:h-96 flex items-center justify-center text-white overflow-hidden rounded-b-3xl shadow-lg"
+//       >
+//         {/* Background */}
+//         <div
+//           className="absolute inset-0 bg-cover bg-center scale-110 hover:scale-125 transition-transform duration-[6000ms]"
+//           style={{
+//             backgroundImage: `url(${banner?.bannerImage || "/images/contact-banner.jpg"})`,
+//           }}
+//         />
+//         {/* Overlay */}
+//         <div className="absolute inset-0 bg-blue-900 opacity-80" />
+
+//         {/* Text Content */}
+//         <div className="relative z-10 text-center px-4">
+//           <motion.h1
+//             initial={{ scale: 0.9, opacity: 0 }}
+//             animate={{ scale: 1, opacity: 1 }}
+//             transition={{ delay: 0.3, duration: 0.7 }}
+//             className="text-3xl md:text-5xl font-extrabold tracking-tight drop-shadow-lg"
+//           >
+//             <Typewriter
+//               options={{
+//                 strings: ["Get in Touch", "Connect with Us", "We'd Love to Hear from You"],
+//                 autoStart: true,
+//                 loop: true,
+//                 delay: 50,
+//               }}
+//             />
+//           </motion.h1>
+
+//           <motion.p
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             transition={{ delay: 0.6, duration: 0.8 }}
+//             className="mt-3 md:mt-5 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed"
+//           >
+//             Choose a department and send us a message — we’ll respond within 24-48 hours.
+//           </motion.p>
+//         </div>
+//       </motion.header>
+
+//       {/* === Contact Section === */}
+//       <main className="max-w-7xl mx-auto px-4 py-10">
+//         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+//           {/* LEFT SIDE */}
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 auto-rows-[1fr]">
+//             {/* Company Info */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 18 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.5 }}
+//               className="bg-white/95 rounded-2xl shadow-lg p-4 border border-white/30 text-gray-800 flex flex-col"
+//             >
+//               <h3 className="text-base font-semibold mb-2 flex items-center gap-2">
+//                 <FiMapPin className="text-blue-600" /> Company Information
+//               </h3>
+//               <p className="text-md text-gray-700 mb-2 leading-snug">
+//                 {footerData?.address}
+//               </p>
+
+//               <div className="space-y-2 mt-auto text-md">
+//                 <div className="flex items-center gap-2">
+//                   <FiPhone className="text-blue-600" />
+//                   <a href={`tel:${footerData?.phone}`} className="font-medium hover:text-blue-600">
+//                     +91 {footerData?.phone}
+//                   </a>
+//                 </div>
+//                 <div className="flex items-center gap-2">
+//                   <FiMail className="text-blue-600" />
+//                   <a
+//                     href={`mailto:${footerData?.email}`}
+//                     className="font-medium hover:text-blue-600 break-all"
+//                   >
+//                     {footerData?.email}
+//                   </a>
+//                 </div>
+//                 <div className="flex items-center gap-2">
+//                   <FiClock className="text-blue-600" />
+//                   <span>{footerData?.workinghours}</span>
+//                 </div>
+//               </div>
+//             </motion.div>
+
+//             {/* Departments */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 18 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.55 }}
+//               className="bg-white/95 rounded-2xl shadow-lg p-4 border border-white/30 text-gray-800 flex flex-col"
+//             >
+//               <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
+//                 <FiUsers className="text-blue-600" /> Departments
+//               </h3>
+
+//               {/* HR */}
+//               <div className="mb-3">
+//                 <h4 className="font-semibold text-white mb-1 bg-blue-500 rounded-md inline-block px-2 py-[2px] text-md">
+//                   HR Department
+//                 </h4>
+//                 <div className="space-y-1 text-md">
+//                   <div className="flex items-center gap-2">
+//                     <FiPhone className="text-blue-600" />
+//                     <span className="font-medium">+91 {contactData.hr?.phoneNumber}</span>
+//                   </div>
+//                   <div className="flex items-center gap-2">
+//                     <FiMail className="text-blue-600" />
+//                     <span className="font-medium break-all">{contactData.hr?.email}</span>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               {/* Sales */}
+//               <div>
+//                 <h4 className="font-semibold text-white mb-1 bg-blue-500 rounded-md inline-block px-2 py-[2px] text-md">
+//                   Sales Department
+//                 </h4>
+//                 <div className="space-y-1 text-md">
+//                   <div className="flex items-center gap-2">
+//                     <FiPhone className="text-blue-600" />
+//                     <span className="font-medium">+91 {contactData.sales?.phoneNumber}</span>
+//                   </div>
+//                   <div className="flex items-center gap-2">
+//                     <FiMail className="text-blue-600" />
+//                     <span className="font-medium break-all">{contactData.sales?.email}</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             </motion.div>
+
+//             {/* Map */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 18 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.6 }}
+//               className="bg-white/95 rounded-2xl shadow-lg overflow-hidden border border-white/30 lg:col-span-2 flex-1 flex flex-col"
+//             >
+//               <div className="bg-blue-600 px-3 py-2 text-white text-sm font-medium">Find Us</div>
+//               <div className="flex-1">
+//                 <iframe
+//                   title="company-location"
+//                   className="w-full h-full min-h-[200px] lg:min-h-[220px]"
+//                   loading="lazy"
+//                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1891.609348702688!2d73.93276583846169!3d18.51901673896563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1b807a73d1d%3A0x31f9db0d6530ee14!2sFTFL%20TECHNOLOGY%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1759215311291!5m2!1sen!2sin"
+//                   referrerPolicy="no-referrer-when-downgrade"
+//                 />
+//               </div>
+//             </motion.div>
+//           </div>
+
+//           {/* RIGHT SIDE FORM */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 18 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.7 }}
+//             className="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 text-gray-800 flex flex-col justify-between"
+//           >
+//             <div>
+//               <div className="flex items-center gap-3 mb-5">
+//                 <div className="p-2.5 bg-blue-50 rounded-xl">
+//                   <FiMessageCircle className="text-blue-600" size={22} />
+//                 </div>
+//                 <div>
+//                   <h2 className="text-2xl font-bold text-gray-800">
+//                     Send us a message
+//                   </h2>
+//                   <p className="text-gray-600 text-sm">
+//                     Fill in the form below — our team will get back to you soon.
+//                   </p>
+//                 </div>
+//               </div>
+
+//               <form onSubmit={submitForm} className="space-y-4">
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+//                   <input
+//                     name="firstName"
+//                     value={form.firstName}
+//                     onChange={handleChange}
+//                     placeholder="Name"
+//                     required
+//                     className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
+//                   />
+//                   <input
+//                     name="email"
+//                     type="email"
+//                     value={form.email}
+//                     onChange={handleChange}
+//                     placeholder="Email"
+//                     required
+//                     className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
+//                   />
+//                 </div>
+
+//                 <input
+//                   name="phoneNumber"
+//                   value={form.phoneNumber}
+//                   onChange={handleChange}
+//                   placeholder="Phone"
+//                   className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
+//                 />
+
+//                 <textarea
+//                   name="message"
+//                   value={form.message}
+//                   onChange={handleChange}
+//                   rows={4}
+//                   placeholder="Message"
+//                   required
+//                   className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100 resize-none"
+//                 />
+
+//                 <button
+//                   type="submit"
+//                   disabled={submitting}
+//                   className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-2.5 rounded-lg shadow-md hover:shadow-lg transition-transform hover:scale-[1.01]"
+//                 >
+//                   {submitting
+//                     ? "Sending..."
+//                     : `Send Message to ${contactData[dept]?.title || "Team"}`}
+//                 </button>
+//               </form>
+
+//               {success !== null && (
+//                 <motion.div
+//                   initial={{ opacity: 0, y: 8 }}
+//                   animate={{ opacity: 1, y: 0 }}
+//                   className={`mt-4 p-2.5 rounded-md text-xs ${
+//                     success
+//                       ? "bg-green-50 text-green-700 border border-green-200"
+//                       : "bg-red-50 text-red-700 border border-red-200"
+//                   }`}
+//                 >
+//                   {success
+//                     ? "✅ Message sent successfully! We'll get back to you soon."
+//                     : "❌ Failed to send message. Please try again."}
+//                 </motion.div>
+//               )}
+//             </div>
+
+//             <div className="mt-4 text-[10px] text-gray-500">
+//               We respect your privacy. Your info will not be shared.
+//             </div>
+//           </motion.div>
+//         </section>
+//       </main>
+//     </div>
+//   );
+// }
+
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
-  FiPhone,
   FiMail,
+  FiPhone,
   FiMapPin,
-  FiClock,
   FiSend,
+  FiClock,
   FiUsers,
-  FiTrendingUp,
   FiMessageCircle,
-  FiFacebook,
-  FiLinkedin,
-  FiInstagram,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
-import axios from "axios";
 
 export default function ContactPage() {
   const [dept, setDept] = useState("hr");
-  const [form, setForm] = useState({ firstName: "", email: "", phoneNumber: "", message: "" });
+  const [form, setForm] = useState({
+    firstName: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
   const [footerData, setFooterData] = useState(null);
   const [contactData, setContactData] = useState({});
-  const pageTitle = "Contact";
   const [banner, setBanner] = useState(null);
+  const pageTitle = "Contact";
 
+  // === Fetch Banner ===
   useEffect(() => {
     const fetchBanner = async () => {
       try {
         const res = await fetch("https://landing-page-yclw.vercel.app/api/banner");
         const data = await res.json();
         if (data.success && Array.isArray(data.data)) {
-          const matchedBanner = data.data.find((b) => b.title?.toLowerCase() === pageTitle.toLowerCase());
+          const matchedBanner = data.data.find(
+            (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
+          );
           setBanner(matchedBanner || null);
         }
       } catch (error) {
@@ -689,6 +1054,7 @@ export default function ContactPage() {
     fetchBanner();
   }, [pageTitle]);
 
+  // === Fetch Contact Info ===
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/displaycontact")
@@ -702,20 +1068,23 @@ export default function ContactPage() {
       .catch((err) => console.error(err));
   }, []);
 
+  // === Fetch Footer Info ===
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/footer")
       .then((res) => {
-        if (res.data.data && res.data.data.length > 0) setFooterData(res.data.data[0]);
+        if (res.data.data && res.data.data.length > 0)
+          setFooterData(res.data.data[0]);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  function handleChange(e) {
+  // === Form Handlers ===
+  const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  };
 
-  async function submitForm(e) {
+  const submitForm = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setSuccess(null);
@@ -739,285 +1108,270 @@ export default function ContactPage() {
     } finally {
       setSubmitting(false);
     }
-  }
+  };
 
   return (
-   <div className="w-full min-h-screen mt-[60px] font-sans text-gray-800">
-  {/* Header Banner */}
-  <motion.header
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-    className="relative py-12 bg-blue-400"
-  >
-    <div className="absolute inset-0" />
-    <div className="relative z-10 max-w-6xl mx-auto text-center px-4">
-      <motion.h1
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.7 }}
-        className="text-3xl md:text-5xl font-bold text-white mb-3"
-      >
-        <Typewriter
-          options={{
-            strings: ["Get in Touch", "Let's Connect", "Contact Our Team"],
-            autoStart: true,
-            loop: true,
-            delay: 70,
-          }}
-        />
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-        className="text-blue-100 text-lg max-w-2xl mx-auto"
-      >
-        Have a project in mind? Let's discuss how we can help bring your vision
-        to life.
-      </motion.p>
-    </div>
-  </motion.header>
+    <div className="w-full bg-gray-50">
+      {/* ==== Hero Banner ==== */}
+      <section className="relative bg-gradient-to-r from-blue-600 to-blue-500 text-white py-28 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
 
-  {/* Contact Section */}
-  <section
-    className="relative py-12 px-4 -mt-6"
-    style={{
-      backgroundImage: "url('/logos/ourmission.jpg')",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-    }}
-  >
-    {/* Overlay */}
-    <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+        <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10"
+        >
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <Typewriter
+              options={{
+                strings: ["Get in Touch", "Let's Talk", "We’d Love to Hear from You"],
+                autoStart: true,
+                loop: true,
+                delay: 50,
+              }}
+            />
+          </h1>
+          <p className="text-xl max-w-2xl leading-relaxed">
+            Ready to start your next project? We're here to help bring your ideas to life.
+          </p>
+        </motion.div>
+      </section>
 
-    <main className="relative max-w-7xl mx-auto text-white">
-      {/* Title */}
-      <div className="text-center mb-6">
-        <h2 className="text-3xl font-semibold mb-1">Get In Touch</h2>
-        <div className="mx-auto w-32 h-[1px] bg-white/30 my-2" />
-      </div>
+      {/* ==== Main Content ==== */}
+      <section className="py-20 -mt-16 relative z-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {/* ==== Contact Info ==== */}
+            <motion.div
+              initial={{ x: -30, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:col-span-1"
+            >
+              <div className="bg-white rounded-2xl shadow-xl p-8 sticky top-8">
+                <h2 className="text-2xl font-bold text-gray-800 mb-8">
+                  Contact Information
+                </h2>
 
-      {/* Grid layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-        {/* LEFT SIDE */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 auto-rows-[1fr]">
-          {/* Company Info */}
+                <div className="space-y-6">
+                  {/* HR Department */}
+                  <div className="flex items-start gap-4">
+                    <div className="bg-blue-100 p-3 rounded-xl">
+                      <FiUsers className="text-blue-600 text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">HR Department</h3>
+                      <p className="text-gray-600">
+                        📞 {contactData.hr?.phoneNumber || "N/A"}
+                      </p>
+                      <p className="text-gray-600">
+                        ✉️ {contactData.hr?.email || "N/A"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Sales Department */}
+                  <div className="flex items-start gap-4">
+                    <div className="bg-green-100 p-3 rounded-xl">
+                      <FiUsers className="text-green-600 text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Sales Department</h3>
+                      <p className="text-gray-600">
+                        📞 {contactData.sales?.phoneNumber || "N/A"}
+                      </p>
+                      <p className="text-gray-600">
+                        ✉️ {contactData.sales?.email || "N/A"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Office */}
+                  <div className="flex items-start gap-4">
+                    <div className="bg-blue-100 p-3 rounded-xl">
+                      <FiMapPin className="text-blue-600 text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Office</h3>
+                      <p className="text-gray-600">{footerData?.address || "Address not available"}</p>
+                    </div>
+                  </div>
+
+                  {/* Working Hours */}
+                  <div className="flex items-start gap-4">
+                    <div className="bg-orange-100 p-3 rounded-xl">
+                      <FiClock className="text-orange-600 text-xl" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-800">Hours</h3>
+                      <p className="text-gray-600">{footerData?.workinghours || "Mon-Fri: 9AM - 6PM"}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ==== Contact Form ==== */}
+            <motion.div
+              initial={{ x: 30, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="lg:col-span-2"
+            >
+              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-bold text-gray-800 mb-3">
+                    Send us a Message
+                  </h2>
+                  <p className="text-gray-600">
+                    Choose a department and send us a message — we’ll respond soon.
+                  </p>
+                </div>
+
+                {/* Department Select */}
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Select Department
+                  </label>
+                  <select
+                    value={dept}
+                    onChange={(e) => setDept(e.target.value)}
+                    className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="hr">HR Department</option>
+                    <option value="sales">Sales Department</option>
+                  </select>
+                </div>
+
+                <form onSubmit={submitForm} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Name
+                      </label>
+                      <input
+                        name="firstName"
+                        value={form.firstName}
+                        onChange={handleChange}
+                        required
+                        className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      name="phoneNumber"
+                      value={form.phoneNumber}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                      placeholder="+91 9876543210"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      rows="6"
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
+                      required
+                      className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 resize-none"
+                      placeholder="Tell us about your project..."
+                    ></textarea>
+                  </div>
+
+                  {success !== null && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className={`text-center font-medium ${
+                        success ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {success
+                        ? "✅ Message sent successfully!"
+                        : "❌ Failed to send message. Please try again."}
+                    </motion.div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  >
+                    {submitting ? (
+                      "Sending..."
+                    ) : (
+                      <>
+                        <FiSend className="text-lg" /> Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==== Map Section ==== */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white/95 rounded-2xl shadow-lg p-4 border border-white/30 text-gray-800 flex flex-col"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mb-12"
           >
-            <h3 className="text-base font-semibold mb-2 flex items-center gap-2">
-              <FiMapPin className="text-blue-600" /> Company Information
-            </h3>
-            <p className="text-md text-gray-700 mb-2 leading-snug">
-              {footerData?.address}
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Visit Our Office</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Come say hello at our headquarters. We're located in the heart of the city with easy access and parking.
             </p>
-
-            <div className="space-y-2 mt-auto text-xmd">
-              <div className="flex items-center gap-2">
-                <FiPhone className="text-blue-600" />
-                <a
-                  href={`tel:${footerData?.phone}`}
-                  className="font-medium hover:text-blue-600"
-                >
-                  +91 {footerData?.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiMail className="text-blue-600" />
-                <a
-                  href={`mailto:${footerData?.email}`}
-                  className="font-medium hover:text-blue-600 break-all"
-                >
-                  {footerData?.email} ftfltechnology@gmail.com
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <FiClock className="text-blue-600" />
-                <span>{footerData?.workinghours}</span>
-              </div>
-            </div>
           </motion.div>
 
-          {/* Departments */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
-            className="bg-white/95 rounded-2xl shadow-lg p-4 border border-white/30 text-gray-800 flex flex-col"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="rounded-2xl overflow-hidden shadow-2xl"
           >
-            <h3 className="text-base font-semibold mb-3 flex items-center gap-2">
-              <FiUsers className="text-blue-600" /> Departments
-            </h3>
-
-            {/* HR */}
-            <div className="mb-3">
-              <h4 className="font-semibold text-white mb-1 bg-blue-500 rounded-md inline-block px-2 py-[2px] text-md">
-                HR Department
-              </h4>
-              <div className="space-y-1 text-md">
-                <div className="flex items-center gap-2">
-                  <FiPhone className="text-blue-600" />
-                  <span className="font-medium">
-                    +91 {contactData.hr?.phoneNumber}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FiMail className="text-blue-600" />
-                  <span className="font-medium break-all">
-                    {contactData.hr?.email}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Sales */}
-            <div>
-              <h4 className="font-semibold text-white mb-1 bg-blue-500 rounded-md inline-block px-2 py-[2px] text-md">
-                Sales Department
-              </h4>
-              <div className="space-y-1 text-md">
-                <div className="flex items-center gap-2">
-                  <FiPhone className="text-blue-600" />
-                  <span className="font-medium">
-                    +91 {contactData.sales?.phoneNumber}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FiMail className="text-blue-600" />
-                  <span className="font-medium break-all">
-                    {contactData.sales?.email}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Map */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white/95 rounded-2xl shadow-lg overflow-hidden border border-white/30 lg:col-span-2 flex-1 flex flex-col"
-          >
-            <div className="bg-white/10 px-3 py-2 text-gray-100 text-sm font-medium">
-              Find Us
-            </div>
-            <div className="flex-1">
-              <iframe
-                title="company-location"
-                className="w-full h-full min-h-[200px] lg:min-h-[220px]"
-                loading="lazy"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1891.609348702688!2d73.93276583846169!3d18.51901673896563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1b807a73d1d%3A0x31f9db0d6530ee14!2sFTFL%20TECHNOLOGY%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1759215311291!5m2!1sen!2sin"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+            <iframe
+              title="Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1891.609348702688!2d73.93276583846169!3d18.51901673896563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1b807a73d1d%3A0x31f9db0d6530ee14!2sFTFL%20TECHNOLOGY%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1759215311291!5m2!1sen!2sin"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
           </motion.div>
         </div>
-
-        {/* RIGHT SIDE FORM */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="bg-white rounded-2xl shadow-2xl p-6 border border-gray-100 text-gray-800 flex flex-col justify-between"
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="p-2.5 bg-blue-50 rounded-xl">
-                <FiMessageCircle className="text-blue-600" size={22} />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">
-                  Send us a message
-                </h2>
-                <p className="text-gray-600 text-sm">
-                  To take control of your investments you need ambition and
-                  possibilities to grow. We assist our clients in achieving
-                  financial freedom.
-                </p>
-              </div>
-            </div>
-
-            <form onSubmit={submitForm} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <input
-                  name="firstName"
-                  value={form.firstName}
-                  onChange={handleChange}
-                  placeholder="Name"
-                  required
-                  className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
-                />
-                <input
-                  name="email"
-                  type="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  required
-                  className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
-                />
-              </div>
-
-              <input
-                name="phoneNumber"
-                value={form.phoneNumber}
-                onChange={handleChange}
-                placeholder="Phone"
-                className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100"
-              />
-
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Message"
-                required
-                className="w-full rounded-lg p-2.5 border border-gray-200 bg-gray-50 text-sm focus:ring-2 focus:ring-blue-100 resize-none"
-              />
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-2.5 rounded-lg shadow-md hover:shadow-lg transition-transform hover:scale-[1.01]"
-              >
-                {submitting
-                  ? "Sending..."
-                  : `Send Message to ${contactData[dept]?.title || "Team"}`}
-              </button>
-            </form>
-
-            {success !== null && (
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`mt-4 p-2.5 rounded-md text-xs ${
-                  success
-                    ? "bg-green-50 text-green-700 border border-green-200"
-                    : "bg-red-50 text-red-700 border border-red-200"
-                }`}
-              >
-                {success
-                  ? "✅ Message sent successfully! We'll get back to you soon."
-                  : "❌ Failed to send message. Please try again."}
-              </motion.div>
-            )}
-          </div>
-
-          <div className="mt-4 text-[10px] text-gray-500">
-            We respect your privacy. Your info will not be shared.
-          </div>
-        </motion.div>
-      </div>
-    </main>
-  </section>
-</div>
-
+      </section>
+    </div>
   );
 }
+
+

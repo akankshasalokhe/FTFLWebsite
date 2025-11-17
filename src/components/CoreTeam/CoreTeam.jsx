@@ -857,10 +857,43 @@ export default function TeamMembers() {
             m.role?.toLowerCase().trim() === activeRole.toLowerCase().trim()
         );
 
-  // ✅ FIXED: Proper grid configuration for 1440px
-  const getContainerClass = () => {
-    return "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-6 justify-items-center mx-auto max-w-[1400px] px-6";
+  // ✅ Handle card touch toggle
+  const handleCardTouch = (index) => {
+    setActiveCard(activeCard === index ? null : index);
   };
+
+  // ✅ Simple grid container class
+  // const getContainerClass = () => {
+  //   const count = filteredMembers.length;
+
+  //   if (count <= 4) {
+  //     // 1-4 cards: flex centered with more gap
+  //     return "flex flex-wrap justify-center gap-x-12 gap-y-8 mx-auto max-w-7xl px-4";
+  //   } else {
+  //     // 5+ cards: grid layout
+  //     return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mx-auto max-w-7xl px-4";
+  //   }
+  // };
+
+
+  // ✅ Check if this card should be centered in the last row
+  const shouldCenterCard = (index) => {
+    const count = filteredMembers.length;
+    if (count <= 4) return false; // Already centered with flex
+
+    const itemsInLastRow = count % 4;
+    if (itemsInLastRow === 0) return false; // Perfect multiple of 4
+
+    const startOfLastRow = count - itemsInLastRow;
+    return index >= startOfLastRow;
+  };
+
+  // ✅ Get the exact grid column class for perfect centering
+// --- helper: container class (grid always; flex only for 1-3 handled below) ---
+const getContainerClass = () => {
+  // always grid; centering controlled per-card for last-row leftovers
+  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-10 justify-items-center mx-auto max-w-[1400px] px-6";
+};
 
   // ✅ FIXED: Centering logic for 4 columns at 1440px
   const getCenteredColumnClass = (index) => {
@@ -893,7 +926,7 @@ export default function TeamMembers() {
       <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Meet Our <span className="text-blue-600">Dream Team</span>
+            Meet Our <span className="text-blue-600">Dream Teams</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Passionate experts dedicated to innovation and collaboration.
