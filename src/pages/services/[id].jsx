@@ -1752,7 +1752,8 @@ useEffect(() => {
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
-    <div className="flex flex-wrap lg:flex-nowrap justify-center md:justify-between items-stretch gap-6 lg:gap-16 relative">
+    {/* Responsive FIX */}
+    <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-between items-stretch gap-6 ">
       {serviceData?.process?.map((step, index) => (
         <motion.div
           key={index}
@@ -1760,14 +1761,18 @@ useEffect(() => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: index * 0.15 }}
           viewport={{ once: true }}
-          className="relative flex flex-col items-center text-center md:text-left w-full sm:w-[48%] md:w-[48%] lg:w-[18%] group"
+          className="
+            relative flex flex-col items-center text-center md:text-left
+            w-full sm:w-[50%] md:w-[48%] 
+            lg:w-[30%] xl:w-[25%] 2xl:w-[30%]
+            group
+          "
         >
           <motion.div
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="h-full  sm:w-[100%] md:w-[100%] lg:w-[270px] flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300 "
+            transition={{ type: 'spring', stiffness: 200 }}
+            className="h-full w-full flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300"
           >
-            {/* Dynamic Icon Image */}
             {step.icon && (
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
                 <img
@@ -1800,6 +1805,7 @@ useEffect(() => {
     </div>
   </div>
 </section>
+
 
 {/* ==== Why Choose Us Section ==== */}
 <section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
