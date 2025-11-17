@@ -447,15 +447,16 @@
 
 
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./OurServices.module.css";
+import axios from "axios";
 
 const OurServices = () => {
   const [activeCard, setActiveCard] = useState(null);
-
+  const [serviceData, setServiceData] = useState([]);
   const services = [
     {
       id: 1,
@@ -495,6 +496,36 @@ const OurServices = () => {
     },
   ];
 
+  useEffect(() => {
+    axios
+      .get("https://landing-page-yclw.vercel.app/api/homeservices")
+      .then((res) => {
+        if (res.data?.data?.length > 0) {
+          setServiceData(res.data.data);
+        }
+      })
+      .catch((err) => console.error("API fetch error:", err));
+  }, []);
+
+  const displayServices = serviceData.length > 0 ? serviceData.slice(0, 6) : services;
+
+  const getDescriptionText = (service) => {
+    if (Array.isArray(service.description)) {
+      return service.description[0]?.substring(0, 120) + "..." || "No description available";
+    } else if (typeof service.description === "string") {
+      return service.description.substring(0, 120) + "...";
+    }
+    return "No description available";
+  };
+
+  const getImageSrc = (service) => {
+    if (service.mainImage) return service.mainImage;
+    else if (service.image) return service.image;
+    return "/default-service.jpg";
+  };
+
+  const getServiceId = (service) => service._id || service.id;
+
   return (
     <section className={styles.services} id="homeservices">
       <div className={styles.bgImage}></div>
@@ -514,7 +545,7 @@ const OurServices = () => {
         </motion.div>
 
         <div className={styles.cardsContainer}>
-          {services.map((service, index) => (
+          {serviceData.map((service, index) => (
             <motion.div
               key={service.id}
               className={`${styles.card} ${
@@ -529,7 +560,7 @@ const OurServices = () => {
             >
               <div className={styles.imageContainer}>
                 <Image
-                  src={service.image}
+                  src={service.mainImage}
                   alt={service.title}
                   width={500}
                   height={320}

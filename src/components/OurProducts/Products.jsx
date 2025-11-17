@@ -7,17 +7,6 @@
 
 // const ProductShowcase = () => {
 //   const [productsData, setProductsData] = useState([]);
-//   const [isMobile, setIsMobile] = useState(false);
-//   //  const [flipped, setFlipped] = useState(false);
-
-
-//   // Detect screen size
-//   useEffect(() => {
-//     const checkScreenSize = () => setIsMobile(window.innerWidth < 768);
-//     checkScreenSize();
-//     window.addEventListener("resize", checkScreenSize);
-//     return () => window.removeEventListener("resize", checkScreenSize);
-//   }, []);
 
 //   // Fetch products
 //   useEffect(() => {
@@ -34,277 +23,48 @@
 //   }, []);
 
 //   return (
-//     <div className="py-8 sm:py-16 px-4 sm:px-6 md:px-16 bg-gray-50">
-//       {/* Heading */}
+//     <div className="py-8 sm:py-16 px-4 sm:px-8 md:px-16 bg-gray-50">
 //       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900">
 //         What We Offer
 //       </h2>
 
-//       {/* Product Grid - Show all products directly */}
-//       {/* <div
-//         className={`grid gap-6 sm:gap-10 ${isMobile
-//             ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-//             : "grid-cols-1 sm:grid-cols-2"
-//           }`}
-//       >
+//       {/* Responsive flex layout - centered on all screens except mobile */}
+//       <div className="flex flex-col items-center md:flex-row md:flex-wrap md:justify-center gap-8 px-4 md:px-10 py-5">
 //         {productsData.map((product, index) => (
 //           <motion.div
 //             key={product._id}
-//             initial={{
-//               opacity: 0,
-//               y: isMobile ? 40 : 0,
-//               x: !isMobile && index % 2 === 0 ? -60 : !isMobile ? 60 : 0,
-//             }}
-//             whileInView={{ opacity: 1, y: 0, x: 0 }}
+//             className="w-full max-w-[300px] sm:max-w-[320px] rounded-2xl shadow-lg overflow-hidden flex flex-col bg-white"
+//             initial={{ opacity: 0, y: 40 }}
+//             whileInView={{ opacity: 1, y: 0 }}
 //             transition={{ duration: 0.6, delay: index * 0.1 }}
 //             viewport={{ once: true }}
-//             className={`bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow ${isMobile ? "flex flex-col" : "flex flex-col md:flex-row"
-//               }`}
+//             whileHover={{ y: -5, transition: { duration: 0.3 } }}
 //           >
+//             {/* Title positioned close to the top */}
+//             <h3 className="text-xl font-bold text-gray-900 mt-4 ml-4 mb-2">
+//               {product.title}
+//             </h3>
 
-//             <div
-//               className={`relative flex items-center justify-center  ${isMobile ? "p-4 sm:p-6" : "p-6 md:w-1/2"
-//                 }`}
-//             >
-//               {product.category.toLowerCase() === "mobile" ? (
-//                 <div
-//                   className={`relative ${isMobile
-//                       ? "w-32 sm:w-44 md:w-52 aspect-[9/16]"
-//                       : "w-[220px] h-[550px]"
-//                     }   overflow-hidden`}
-//                 >
-
-//                   {!isMobile && (
-//                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-34 h-5  z-20"></div>
-//                   )}
-//                   <img
-//                     src={product.mainImage}
-//                     alt={product.title}
-//                     className="w-full h-full object-cover rounded-xl"
-//                   />
-//                 </div>
-//               ) : (
-//                 <div
-//                   className={`relative ${isMobile
-//                       ? "w-full max-w-md"
-//                       : "w-full max-w-3xl"
-//                     } bg-black rounded-t-lg shadow-xl overflow-hidden`}
-//                 >
-
-//                   <div
-//                     className={`${isMobile ? "h-4 sm:h-5" : "h-6"
-//                       } bg-gray-800 flex items-center justify-center rounded-t-lg`}
-//                   >
-//                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
-//                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
-//                     <span className="w-2 h-2 sm:w-3 sm:h-3 bg-gray-600 rounded-full mx-1"></span>
-//                   </div>
-//                   <div
-//                     className={`${isMobile ? "h-40 sm:h-56 md:h-72" : "h-[280px] md:h-[360px]"
-//                       } bg-black`}
-//                   >
-//                     <img
-//                       src={product.mainImage}
-//                       alt={product.title}
-//                       className="w-full h-full object-cover"
-//                     />
-//                   </div>
-//                   <div className="h-2 bg-gray-700 w-full"></div>
-//                   <div className="h-1 sm:h-2 w-12 sm:w-20 md:w-24 bg-gray-800 mx-auto rounded-b-md"></div>
-//                 </div>
-//               )}
-
-
-//               {!isMobile && (
-//                 <div className="absolute top-4 left-4">
-//                   <span
-//                     className={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${product.category.toLowerCase() === "mobile"
-//                         ? "bg-blue-100 text-blue-800"
-//                         : "bg-green-100 text-green-800"
-//                       }`}
-//                   >
-//                     {product.category.toLowerCase() === "mobile"
-//                       ? "Mobile App"
-//                       : "Web App"}
-//                   </span>
-//                 </div>
-//               )}
-//             </div>
-
-
-//             <div
-//               className={`p-4 sm:p-6 flex flex-col flex-grow ${!isMobile ? "md:w-1/2" : ""
-//                 }`}
-//             >
-//               <h3
-//                 className={`text-lg sm:text-xl font-bold mb-2 text-gray-900 line-clamp-2 ${!isMobile ? "lg:text-2xl lg:mb-3" : ""
-//                   }`}
-//               >
-//                 {product.title}
-//               </h3>
-//               <p
-//                 className={`text-xs sm:text-sm text-gray-500 mb-3 line-clamp-2 ${!isMobile ? "lg:text-base lg:mb-4" : ""
-//                   }`}
-//               >
-//                 {product.subTitle}
-//               </p>
-
-//               <p
-//                 className={`text-gray-600 mb-4 leading-relaxed text-sm sm:text-base ${!isMobile ? "lg:text-lg lg:mb-6" : ""
-//                   }`}
-//               >
-//                 {isMobile
-//                   ? `${product.description.substring(
-//                     0,
-//                     80
-//                   )}...`
-//                   : `${product.description.substring(0, 180)}${product.description.length > 80
-//                   }`}
-//               </p>
-
-//               <div
-//                 className={`mb-4 sm:mb-6 ${!isMobile ? "lg:mb-8" : ""
-//                   }`}
-//               >
-//                 <h4
-//                   className={`font-semibold text-gray-800 mb-2 text-sm sm:text-base ${!isMobile ? "lg:text-lg lg:mb-3" : ""
-//                     }`}
-//                 >
-//                   Key Features:
-//                 </h4>
-//                 <div
-//                   className={`flex flex-wrap gap-2 ${!isMobile ? "lg:gap-3" : ""
-//                     }`}
-//                 >
-//                   {product.homeFeatureTags
-//                     ?.slice(0, isMobile ? 3 : product.homeFeatureTags.length)
-//                     .map((feature, i) => (
-//                       <span
-//                         key={i}
-//                         className={`bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs sm:text-sm whitespace-nowrap ${!isMobile ? "lg:px-3 lg:py-2 lg:text-base" : ""
-//                           }`}
-//                       >
-//                         {feature}
-//                       </span>
-//                     ))}
-//                 </div>
-//               </div>
-
-//               <div className="mt-auto flex flex-col sm:flex-row gap-2">
-
-//                 <Link href={`/products/${product._id}`} className="flex-1">
-//                   <button className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 cursor-pointer hover:from-blue-600 hover:to-blue-700 text-white py-2 px-4 rounded-lg transition text-sm sm:text-base">
-//                     Learn More
-//                   </button>
-//                 </Link>
-//               </div>
-//             </div>
-//           </motion.div>
-//         ))}
-//       </div> */}
-
-// <div className="flex flex-wrap justify-around gap-x-20 gap-y-12 px-6 sm:px-10 md:px-16 lg:px-20 py-10">
-//   {productsData.map((product, index) => {
-//     const [flipped, setFlipped] = useState(false); // 👈 individual flip state per card
-
-//     return (
-//       <motion.div
-//         key={product._id}
-//         className="relative w-[360px] sm:w-[400px] md:w-[420px] lg:w-[440px] h-[70vh] perspective"
-//         onHoverStart={() => setFlipped(true)}
-//         onHoverEnd={() => setFlipped(false)}
-//         initial={{ opacity: 0, y: 40 }}
-//         whileInView={{ opacity: 1, y: 0 }}
-//         transition={{ duration: 0.6, delay: index * 0.1 }}
-//         viewport={{ once: true }}
-//         style={{ perspective: 1200 }}
-//       >
-//         {/* Inner Flip Container */}
-//         <motion.div
-//           className="relative w-full h-full transition-transform duration-700 preserve-3d"
-//           animate={{ rotateY: flipped ? 180 : 0 }}
-//           style={{ transformStyle: "preserve-3d" }}
-//         >
-//           {/* FRONT SIDE */}
-//           <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl backface-hidden bg-white flex justify-center items-center">
-//             <img
-//               src={product.mainImage}
-//               alt={product.title}
-//               className="object-contain w-full h-full"
-//             />
-//             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-center">
-//               <h3 className="text-white text-lg font-semibold truncate">
-//                 {product.title}
-//               </h3>
-//             </div>
-//           </div>
-
-//           {/* BACK SIDE */}
-//           <div
-//             className="absolute inset-0 bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row justify-center items-center backface-hidden"
-//             style={{ transform: "rotateY(180deg)" }}
-//           >
-//             {/* Text Section */}
-//             <motion.div
-//               initial={{ opacity: 0, x: -20 }}
-//               animate={{ opacity: flipped ? 1 : 0, x: flipped ? 0 : -20 }}
-//               transition={{ duration: 0.5 }}
-//               className="w-full md:w-[55%] p-6 flex flex-col justify-center text-center md:text-left"
-//             >
-//               <h3 className="text-2xl font-bold text-gray-900 mb-2">
-//                 {product.title}
-//               </h3>
-//               <p className="text-gray-700 text-base mb-3 font-medium">
-//                 {product.subTitle}
-//               </p>
-
-//               <p className="text-gray-500 text-sm leading-relaxed mb-4">
-//                 {product.description.length > 150
-//                   ? product.description.slice(0, 150) + "..."
-//                   : product.description}
-//               </p>
-
-//               <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
-//                 {product.homeFeatureTags?.slice(0, 3).map((tag, i) => (
-//                   <span
-//                     key={i}
-//                     className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-medium"
-//                   >
-//                     {tag}
-//                   </span>
-//                 ))}
-//               </div>
-
-//               <Link href={`/products/${product._id}`}>
-//                 <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-5 rounded-lg transition font-semibold text-sm shadow-md">
-//                   Learn More →
-//                 </button>
-//               </Link>
-//             </motion.div>
-
-//             {/* Image Section (Right side on back) */}
-//             <motion.div
-//               initial={{ opacity: 0, x: 20 }}
-//               animate={{ opacity: flipped ? 1 : 0, x: flipped ? 0 : 20 }}
-//               transition={{ duration: 0.5 }}
-//               className="hidden md:flex md:w-[75%] h-full items-center justify-center relative"
-//             >
+//             {/* Product Image - Full display */}
+//             <div className="w-full h-110 overflow-hidden flex items-center justify-center px-4 pb-4">
 //               <img
 //                 src={product.mainImage}
 //                 alt={product.title}
-//                 className="w-[100%] h-[100%] object-contain"
+//                 className="w-full h-full object-contain"
 //               />
-//               <div className="absolute inset-0 bg-gradient-to-l from-white/60 to-transparent"></div>
-//             </motion.div>
-//           </div>
-//         </motion.div>
-//       </motion.div>
-//     );
-//   })}
-// </div>
+//             </div>
 
-
-
+//             {/* Learn More Button */}
+//             <div className="p-4 text-center flex flex-col items-center">
+//               <Link href={`/products/${product._id}`}>
+//                 <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 cursor-pointer hover:from-blue-600 hover:to-blue-700 text-white py-3 px-8 rounded-lg transition font-semibold text-sm shadow-md hover:shadow-lg">
+//                   Learn More →
+//                 </button>
+//               </Link>
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
 //     </div>
 //   );
 // };
@@ -314,18 +74,15 @@
 
 
 
-
 "use client";
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import Image from "next/image";
 import axios from "axios";
 
-const ProductShowcase = () => {
+export default function ProductDetails() {
   const [productsData, setProductsData] = useState([]);
 
-  // Fetch products
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/product")
@@ -334,56 +91,147 @@ const ProductShowcase = () => {
           setProductsData(res.data.data);
         }
       })
-      .catch((err) => {
-        console.error("API fetch error:", err);
-      });
+      .catch((err) => console.error("API fetch error:", err));
   }, []);
 
   return (
-    <div className="py-8 sm:py-16 px-4 sm:px-8 md:px-16 bg-gray-50">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 text-gray-900">
+    <section className="relative py-20 px-6 bg-gradient-to-br from-blue-50 via-white to-indigo-100">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-3xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 text-transparent bg-clip-text"
+      >
         What We Offer
-      </h2>
+      </motion.h1>
 
-      {/* Responsive flex layout - centered on all screens except mobile */}
-      <div className="flex flex-col items-center md:flex-row md:flex-wrap md:justify-center gap-8 px-4 md:px-10 py-5">
-        {productsData.map((product, index) => (
-          <motion.div
-            key={product._id}
-            className="w-full max-w-[300px] sm:max-w-[320px] rounded-2xl shadow-lg overflow-hidden flex flex-col bg-white"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5, transition: { duration: 0.3 } }}
-          >
-            {/* Title positioned close to the top */}
-            <h3 className="text-xl font-bold text-gray-900 mt-4 ml-4 mb-2">
-              {product.title}
-            </h3>
-            
-            {/* Product Image - Full display */}
-            <div className="w-full h-110 overflow-hidden flex items-center justify-center px-4 pb-4">
-              <img
-                src={product.mainImage}
-                alt={product.title}
-                className="w-full h-full object-contain"
-              />
-            </div>
+      <div className="space-y-20 max-w-6xl mx-auto">
+        {productsData.map((product, index) => {
+          const isReversed = index % 2 !== 0; // alternate layout
 
-            {/* Learn More Button */}
-            <div className="p-4 text-center flex flex-col items-center">
-              <Link href={`/products/${product._id}`}>
-                <button className="bg-gradient-to-r from-[#298cf3] to-blue-600 cursor-pointer hover:from-blue-600 hover:to-blue-700 text-white py-3 px-8 rounded-lg transition font-semibold text-sm shadow-md hover:shadow-lg">
-                  Learn More →
-                </button>
-              </Link>
-            </div>
-          </motion.div>
-        ))}
+          return (
+            <motion.div
+              key={product._id}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col-reverse lg:flex-row ${isReversed ? "lg:flex-row-reverse" : ""}`}
+
+            >
+              {/* Description Side */}
+              <div className="flex-1 bg-gray-100 p-10 flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                  {product.title}
+                </h2>
+                <p className="text-lg text-blue-600 font-semibold mb-3">
+                  {product.subTitle}
+                </p>
+                <p className="text-gray-700 mb-6 leading-relaxed">
+                  <span className="block md:hidden">
+                    {product.description.substring(0, 200)}...
+                  </span>
+                  <span className="hidden md:block">
+                    {product.description.substring(0, 500)}...
+                  </span>
+                </p>
+
+
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 mb-6">
+                  {product.homeFeatureTags?.slice(0, 4).map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-gray-700 break-words">
+                      <svg
+                        className="w-5 h-5 text-green-500 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="text-sm sm:text-base">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+
+
+                {/* <a
+                  href={`/products/${product._id}`}
+                  className="px-6 py-2.5 bg-gradient-to-r from-[#298cf3] to-blue-600 text-white rounded-lg shadow-md font-semibold text-sm w-fit"
+                >
+                  Learn More
+                </a> */}
+
+                <div className="flex flex-wrap gap-4 justify-start lg:justify-start">
+
+                  {/* App Store Buttons - Compact Version */}
+                  <div className="flex justify-start gap-3">
+                    {/* Google Play Store Button */}
+                    {/* {product.googleStoreLink && (
+                      <a
+
+                        href={product.googleStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-start"
+                        title="Download on Google Play"
+                      >
+
+                        <svg
+                          className="w-6 h-6"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                        </svg>
+
+                      </a>
+                    )} */}
+
+
+                    <a
+                      href={product.livedemoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-start"
+                    >
+                      Go to Website
+                    </a>
+
+
+                  </div>
+
+
+                </div>
+              </div>
+
+              {/* Divider Line */}
+              <div className="hidden lg:block w-[2px] bg-gray-300"></div>
+
+              {/* Image Side */}
+
+
+              <div className="flex-1 bg-white flex items-center justify-center">
+                <div className="relative w-60 h-[500px] overflow-hidden bg-transparent">
+                  <Image
+                    src={product.mainImage}
+                    alt={product.title}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-500 bg-transparent"
+                  />
+                </div>
+              </div>
+
+
+            </motion.div>
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
-};
-
-export default ProductShowcase;
+}
