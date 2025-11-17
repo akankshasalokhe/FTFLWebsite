@@ -1474,6 +1474,11 @@ import { motion } from "framer-motion";
 import FtflProcess from "@/components/Services/OurProcess";
 import { FiArrowRight } from "react-icons/fi";
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination,Autoplay  } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
 
 
 export default function ServiceDetail() {
@@ -1742,7 +1747,9 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto ms-20 xl:ms-20 md:ms-0 me-15 lg:me-0 xl:me-0 relative z-10 justify-between">
+  <div className="max-w-7xl mx-auto ms-20 xl:ms-20 sm:ms-0 md:ms-0 me-15 lg:me-0 xl:me-0 relative z-10 justify-between">
+
+    {/* Heading */}
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -1752,59 +1759,101 @@ useEffect(() => {
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
-    {/* Responsive FIX */}
-    <div className="flex flex-wrap lg:flex-nowrap justify-center lg:justify-between items-stretch gap-6 ">
+    {/* ============================ */}
+    {/*     UNIVERSAL SWIPER         */}
+    {/* ============================ */}
+    <Swiper
+      modules={[Pagination, Autoplay]}
+      pagination={{ clickable: true }}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      loop={true}
+      centeredSlides={true}
+      centeredSlidesBounds={true}
+      spaceBetween={40}
+      slidesPerView={1}
+      breakpoints={{
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1280: { slidesPerView: 4 },
+      }}
+      style={{ paddingBottom: "60px" }}
+    >
       {serviceData?.process?.map((step, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: index * 0.15 }}
-          viewport={{ once: true }}
-          className="
-            relative flex flex-col items-center text-center md:text-left
-            w-full sm:w-[50%] md:w-[48%] 
-            lg:w-[30%] xl:w-[25%] 2xl:w-[30%]
-            group
-          "
-        >
+        <SwiperSlide key={index}>
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 200 }}
-            className="h-full w-full flex flex-col bg-white/80 backdrop-blur-md border border-blue-100 shadow-lg rounded-2xl p-6 hover:shadow-2xl hover:border-blue-300 transition-all duration-300"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: index * 0.15 }}
+            viewport={{ once: true }}
+            className="relative flex flex-col items-center text-center md:text-left w-full group transition-all duration-300"
           >
-            {step.icon && (
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
-                <img
-                  src={step.icon}
-                  alt={step.title}
-                  className="w-8 h-8 object-contain"
-                />
-              </div>
-            )}
+            {/* ACTIVE SLIDE ZOOM WRAPPER */}
+            <div
+              className="
+                transition-all duration-500 
+                swiper-slide-active:scale-110 
+                swiper-slide:not(.swiper-slide-active):scale-95
+              "
+            >
+              {/* FIXED HEIGHT CARD */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+                className="
+                  h-[580px] sm:h-[550px] md:h-[550px] lg:h-[630px]
+                  flex flex-col 
+                  bg-white/80 backdrop-blur-md 
+                  border border-blue-100 
+                  shadow-lg rounded-2xl p-6
+                  hover:shadow-2xl hover:border-blue-300 
+                  transition-all duration-300 
+                "
+              >
+                {/* Icon */}
+                {step.icon && (
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
+                    <img
+                      src={step.icon}
+                      alt={step.title}
+                      className="w-8 h-8 object-contain"
+                    />
+                  </div>
+                )}
 
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center md:text-left">
-              {step.title}
-            </h3>
+                {/* Title */}
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center md:text-left">
+                  {step.title}
+                </h3>
 
-            <ul className="list-disc list-inside text-gray-600 text-sm sm:text-sm space-y-2 text-left flex-1">
-              {step.description?.map((point, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                >
-                  {point}
-                </motion.li>
-              ))}
-            </ul>
+                {/* Description */}
+                <ul className="list-disc list-inside text-gray-600 text-sm space-y-2 text-left flex-1">
+                  {step.description?.map((point, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: i * 0.1 }}
+                    >
+                      {point}
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
           </motion.div>
-        </motion.div>
+        </SwiperSlide>
       ))}
-    </div>
+    </Swiper>
+
   </div>
 </section>
+
+
+
 
 
 {/* ==== Why Choose Us Section ==== */}
