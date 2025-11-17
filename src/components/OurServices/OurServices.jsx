@@ -447,15 +447,16 @@
 
 
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import styles from "./OurServices.module.css";
+import axios from "axios";
 
 const OurServices = () => {
   const [activeCard, setActiveCard] = useState(null);
-
+  const [serviceData, setServiceData] = useState([]);
   const services = [
     {
       id: 1,
@@ -544,7 +545,7 @@ const OurServices = () => {
         </motion.div>
 
         <div className={styles.cardsContainer}>
-          {services.map((service, index) => (
+          {serviceData.map((service, index) => (
             <motion.div
               key={service.id}
               className={`${styles.card} ${
@@ -559,7 +560,7 @@ const OurServices = () => {
             >
               <div className={styles.imageContainer}>
                 <Image
-                  src={service.image}
+                  src={service.mainImage}
                   alt={service.title}
                   width={500}
                   height={320}
