@@ -1747,20 +1747,20 @@ useEffect(() => {
 <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto ms-20 xl:ms-20 sm:ms-0 md:ms-0 me-15 lg:me-0 xl:me-0 relative z-10 justify-between">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
     {/* Heading */}
     <motion.h2
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
+      className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
     >
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
     {/* ============================ */}
-    {/*     UNIVERSAL SWIPER         */}
+    {/*     RESPONSIVE UNIVERSAL SWIPER  */}
     {/* ============================ */}
     <Swiper
       modules={[Pagination, Autoplay]}
@@ -1771,11 +1771,11 @@ useEffect(() => {
       }}
       loop={true}
       centeredSlides={true}
-      centeredSlidesBounds={true}
-      spaceBetween={40}
+      spaceBetween={30}
       slidesPerView={1}
       breakpoints={{
-        640: { slidesPerView: 1 },
+        480: { slidesPerView: 1 },
+        640: { slidesPerView: 1.2 },
         768: { slidesPerView: 2 },
         1024: { slidesPerView: 3 },
         1280: { slidesPerView: 4 },
@@ -1789,33 +1789,28 @@ useEffect(() => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: index * 0.15 }}
             viewport={{ once: true }}
-            className="relative flex flex-col items-center text-center md:text-left w-full group transition-all duration-300"
+            className="flex flex-col items-center w-full group transition-all duration-300"
           >
-            {/* ACTIVE SLIDE ZOOM WRAPPER */}
-            <div
-              className="
-                transition-all duration-500 
-                swiper-slide-active:scale-110 
-                swiper-slide:not(.swiper-slide-active):scale-95
-              "
-            >
-              {/* FIXED HEIGHT CARD */}
+            {/* ACTIVE SLIDE SCALE FIXED */}
+            <div className="transition-all duration-500 group-[.swiper-slide-active]:scale-110">
+
+              {/* CARD */}
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 200 }}
+                transition={{ type: "spring", stiffness: 200 }}
                 className="
-                  h-[580px] sm:h-[550px] md:h-[550px] lg:h-[630px]
-                  flex flex-col 
-                  bg-white/80 backdrop-blur-md 
+                  h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
+                  flex flex-col
+                  bg-white/80 backdrop-blur-md
                   border border-blue-100 
                   shadow-lg rounded-2xl p-6
                   hover:shadow-2xl hover:border-blue-300 
-                  transition-all duration-300 
+                  transition-all duration-300
                 "
               >
                 {/* Icon */}
                 {step.icon && (
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto md:mx-0 mb-5 shadow-md overflow-hidden">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md">
                     <img
                       src={step.icon}
                       alt={step.title}
@@ -1825,12 +1820,12 @@ useEffect(() => {
                 )}
 
                 {/* Title */}
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center md:text-left">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
                   {step.title}
                 </h3>
 
                 {/* Description */}
-                <ul className="list-disc list-inside text-gray-600 text-sm space-y-2 text-left flex-1">
+                <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
                   {step.description?.map((point, i) => (
                     <motion.li
                       key={i}
@@ -1843,14 +1838,15 @@ useEffect(() => {
                   ))}
                 </ul>
               </motion.div>
+
             </div>
           </motion.div>
         </SwiperSlide>
       ))}
     </Swiper>
-
   </div>
 </section>
+
 
 
 
