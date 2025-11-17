@@ -1838,7 +1838,7 @@ useEffect(() => {
                       </h3>
 
                       {/* Description */}
-                      <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
+                      <ul className="text-gray-600 text-sm  space-y-2 text-left flex-1 list-disc list-inside">
                         {step.description?.map((point, i) => (
                           <motion.li
                             key={i}
