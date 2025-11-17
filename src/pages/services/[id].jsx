@@ -1557,115 +1557,122 @@ useEffect(() => {
   return (
     <>
     {/* ==== Hero Banner Section ==== */}
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
-          {/* ==== Animated Background Waves ==== */}
-          <div className="absolute inset-0 overflow-hidden">
-            {/* Wave Layer 1 */}
-            <motion.div
-              animate={{ y: [0, -30, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-0 left-0 w-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
-                className="w-full opacity-20"
-              >
-                <path
-                  fill="url(#waveGradient)"
-                  fillOpacity="1"
-                  d="M0,128L60,160C120,192,240,256,360,261.3C480,267,600,213,720,186.7C840,160,960,160,1080,154.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
-                />
-                <defs>
-                  <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d8ff" />
-                    <stop offset="100%" stopColor="#7c4dff" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-    
-            {/* Wave Layer 2 (slower, different phase) */}
-            <motion.div
-              animate={{ y: [0, 40, 0] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-0 left-0 w-full"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320"
-                className="w-full opacity-15"
-              >
-                <path
-                  fill="url(#waveGradient2)"
-                  fillOpacity="1"
-                  d="M0,256L80,213.3C160,171,320,85,480,64C640,43,800,85,960,128C1120,171,1280,213,1360,234.7L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-                />
-                <defs>
-                  <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d8ff" />
-                    <stop offset="100%" stopColor="#7c4dff" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </motion.div>
-    
-            {/* Floating Glows */}
-            <motion.div
-              animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-20 left-10 w-80 h-80 bg-cyan-400/30 rounded-full blur-3xl"
-            ></motion.div>
-    
-            <motion.div
-              animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
-              transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
-            ></motion.div>
-          </div>
-    
-          {/* ==== Foreground Content ==== */}
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-14 relative z-10">
-            {/* ==== Left Text Section ==== */}
-            <motion.div
-              initial={{ opacity: 0, x: -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-6"
-            >
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white drop-shadow-lg">
-                Transform Your Ideas <br />
-                <span className="text-[#00eaff]">Into Digital Reality</span>
-              </h1>
-              <p className="text-blue-100/90 max-w-md">
-                We build futuristic digital experiences using cutting-edge
-                technology and creative innovation that set you apart.
-              </p>
-              <div className="pt-4">
-                <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#00eaff] text-[#021030] font-semibold shadow-lg shadow-cyan-500/30 hover:scale-105 hover:bg-white transition-all">
-                  Get Started <FiArrowRight />
-                </button>
-              </div>
-            </motion.div>
-    
-            {/* ==== Right Image Section ==== */}
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
-              <div className="relative ">
-                <img
-                  src="tappay-front-img.png"
-                  alt="Digital Innovation"
-                  className="  h-[450px]"
-                />
-                <div className="absolute -bottom-6 -left-6  h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        {/* ==== Hero Banner Section ==== */}
+<section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
+  {/* ==== Animated Background Waves ==== */}
+  <div className="absolute inset-0 overflow-hidden">
+    {/* Wave Layer 1 */}
+    <motion.div
+      animate={{ y: [0, -30, 0] }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute bottom-0 left-0 w-full"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full opacity-20">
+        <path
+          fill="url(#waveGradient)"
+          fillOpacity="1"
+          d="M0,128L60,160C120,192,240,256,360,261.3C480,267,600,213,720,186.7C840,160,960,160,1080,154.7C1200,149,1320,139,1380,133.3L1440,128V320H0Z"
+        />
+        <defs>
+          <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#00d8ff" />
+            <stop offset="100%" stopColor="#7c4dff" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </motion.div>
+
+    {/* Wave Layer 2 */}
+    <motion.div
+      animate={{ y: [0, 40, 0] }}
+      transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute bottom-0 left-0 w-full"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full opacity-15">
+        <path
+          fill="url(#waveGradient2)"
+          fillOpacity="1"
+          d="M0,256L80,213.3C160,171,320,85,480,64C640,43,800,85,960,128C1120,171,1280,213,1360,234.7L1440,256V320H0Z"
+        />
+        <defs>
+          <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#00d8ff" />
+            <stop offset="100%" stopColor="#7c4dff" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </motion.div>
+
+    {/* Floating Glows */}
+    <motion.div
+      animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-20 left-10 w-80 h-80 bg-cyan-400/30 rounded-full blur-3xl"
+    ></motion.div>
+
+    <motion.div
+      animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
+      transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+    ></motion.div>
+  </div>
+
+  {/* ==== Foreground Content ==== */}
+  <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-14 relative z-10">
+
+    {/* ==== Left Text Section ==== */}
+    <motion.div
+      initial={{ opacity: 0, x: -60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      className="space-y-6"
+    >
+      <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white drop-shadow-lg justify-center">
+        <span className="text-[#00eaff]">{serviceData?.descriptionTitle}</span> <br />
+        {/* <span className="text-[#00eaff]">Into Digital Reality</span> */}
+      </h1>
+
+      {/* ===== Content from DB ===== */}
+      <p className="text-blue-100/90 max-w-md">
+        {serviceData?.description?.content ||
+          "We build futuristic digital experiences using cutting-edge technology and creative innovation that set you apart."}
+      </p>
+
+      {/* ===== Optional Points (only show if present) ===== */}
+      {serviceData?.description?.points?.length > 0 && (
+        <ul className="text-blue-100/80 space-y-1 mt-3">
+          {serviceData.description.points.map((point, idx) => (
+            <li key={idx}>• {point}</li>
+          ))}
+        </ul>
+      )}
+
+      <div className="pt-4">
+        <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#00eaff] text-[#021030] font-semibold shadow-lg shadow-cyan-500/30 hover:scale-105 hover:bg-white transition-all">
+          Get Started <FiArrowRight />
+        </button>
+      </div>
+    </motion.div>
+
+    {/* ==== Right Image Section ==== */}
+    <motion.div
+      initial={{ opacity: 0, x: 60 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative"
+    >
+      <div className="relative ">
+        <img
+          src={serviceData?.mainImage || "tappay-front-img.png"}
+          alt={serviceData?.descriptionTitle || "Digital Innovation"}
+          className="h-[450px]"
+        />
+        <div className="absolute -bottom-6 -left-6 h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
 
        {/* ==== Overview Section ==== */}
