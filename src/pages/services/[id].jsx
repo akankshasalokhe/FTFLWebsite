@@ -1759,9 +1759,7 @@ useEffect(() => {
       Our <span className="text-blue-600">{serviceData?.title} </span>Process
     </motion.h2>
 
-    {/* ============================ */}
-    {/*     RESPONSIVE UNIVERSAL SWIPER  */}
-    {/* ============================ */}
+    {/* Swiper */}
     <Swiper
       modules={[Pagination, Autoplay]}
       pagination={{ clickable: true }}
@@ -1771,7 +1769,8 @@ useEffect(() => {
       }}
       loop={true}
       centeredSlides={true}
-      spaceBetween={30}
+      centeredSlidesBounds={true}
+      spaceBetween={35}
       slidesPerView={1}
       breakpoints={{
         480: { slidesPerView: 1 },
@@ -1783,69 +1782,70 @@ useEffect(() => {
       style={{ paddingBottom: "60px" }}
     >
       {serviceData?.process?.map((step, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} className="flex justify-center">
+          
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: index * 0.15 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center w-full group transition-all duration-300"
+            className="w-full flex flex-col items-center transition-all duration-300"
           >
-            {/* ACTIVE SLIDE SCALE FIXED */}
-            <div className="transition-all duration-500 group-[.swiper-slide-active]:scale-110">
 
-              {/* CARD */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 200 }}
-                className="
-                  h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
-                  flex flex-col
-                  bg-white/80 backdrop-blur-md
-                  border border-blue-100 
-                  shadow-lg rounded-2xl p-6
-                  hover:shadow-2xl hover:border-blue-300 
-                  transition-all duration-300
-                "
-              >
-                {/* Icon */}
-                {step.icon && (
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md">
-                    <img
-                      src={step.icon}
-                      alt={step.title}
-                      className="w-8 h-8 object-contain"
-                    />
-                  </div>
-                )}
+            {/* Card */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="
+                h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
+                bg-white/80 backdrop-blur-md
+                border border-blue-100 
+                shadow-lg rounded-2xl p-6
+                hover:shadow-2xl hover:border-blue-300 
+                flex flex-col w-full max-w-[280px] md:max-w-[300px] lg:max-w-[310px]
+                transition-all duration-300
+              "
+            >
 
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
-                  {step.title}
-                </h3>
+              {/* Icon */}
+              {step.icon && (
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md">
+                  <img
+                    src={step.icon}
+                    alt={step.title}
+                    className="w-8 h-8 object-contain"
+                  />
+                </div>
+              )}
 
-                {/* Description */}
-                <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
-                  {step.description?.map((point, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: i * 0.1 }}
-                    >
-                      {point}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
+              {/* Title */}
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
+                {step.title}
+              </h3>
 
-            </div>
+              {/* Description */}
+              <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
+                {step.description?.map((point, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: i * 0.1 }}
+                  >
+                    {point}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
           </motion.div>
+
         </SwiperSlide>
       ))}
     </Swiper>
   </div>
 </section>
+
 
 
 
