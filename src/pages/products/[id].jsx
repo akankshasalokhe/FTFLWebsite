@@ -1267,8 +1267,10 @@ export default function ProductDetail() {
           </motion.div>
 
           {/* Content Grid */}
+
+{/*          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Overview Text */}
+            // Overview Text 
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1281,7 +1283,7 @@ export default function ProductDetail() {
               </p>
             </motion.div>
 
-            {/* Overview Image */}
+            // Overview Image 
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1304,53 +1306,56 @@ export default function ProductDetail() {
               </div>
             </motion.div>
 
-          </div>
+          </div> */}
+<div className="flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl border border-gray-200">
+  {/* Left Side - Description */}
+  <motion.div
+    initial={{ opacity: 0, x: -50 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+    className="flex-1 bg-gray-300 p-10 flex items-center justify-center"
+  >
+    <p className="text-gray-800 text-lg leading-relaxed  transition-colors duration-300">
+      {productsData?.description ||
+        "This project represents a cutting-edge innovation designed to enhance efficiency and performance across platforms."}
+    </p>
+  </motion.div>
+
+  {/* Middle Divider */}
+  <div className="hidden lg:block w-[2px] bg-gradient-to-b from-gray-300 to-blue-400"></div>
+
+  {/* Right Side - Image */}
+  <motion.div
+    initial={{ opacity: 0, x: 50 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+    className="flex-1 bg-blue-100 flex items-center justify-center p-4 relative"
+  >
+    <img
+      src={productsData?.overviewImage || "/placeholder.jpg"}
+      alt={productsData?.title || "Overview"}
+      className="rounded-2xl object-cover w-full h-[300px] md:h-[350px] hover:scale-105 transition-transform duration-700"
+      onError={(e) => {
+        e.currentTarget.src =
+          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTkiPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==";
+      }}
+    />
+    <div className="absolute bottom-4 right-4 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-md font-semibold text-blue-900">
+      {productsData?.title || "Project Highlight"}
+    </div>
+  </motion.div>
+</div>
+
+         
+
         </div>
       </section>
 
 
       {/* Key Features Section */}
-      {/* <section id="features" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold mb-4">Key Features</h2>
-            <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
-            <p className="text-gray-600 mt-4 max-w-3xl mx-auto">Discover the powerful features that make {productsData.title} stand out</p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          >
-            {getKeyFeatures().map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={fadeIn}
-                className="flex items-start p-6 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-              >
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-full p-3 mr-4 flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section> */}
+  
 
       <section id="features" className="relative py-20 bg-gradient-to-br from-white via-blue-50 to-blue-100 overflow-hidden">
         {/* Decorative glow elements */}
@@ -1377,13 +1382,14 @@ export default function ProductDetail() {
           </motion.div>
 
           {/* Features Grid */}
+          {/*
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerChildren}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
-          >
+             >
             {getKeyFeatures().map((feature, index) => (
               <motion.div
                 key={index}
@@ -1391,40 +1397,67 @@ export default function ProductDetail() {
                 transition={{ delay: index * 0.1 }}
                 className="group relative p-2 bg-white/80 backdrop-blur-lg rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 border border-blue-100 hover:-translate-y-2"
               >
-                {/* Icon */}
+                // Icon 
                 <div className="flex items-center justify-center w-10 h-10 mb-5 rounded-full text-white  group-hover:scale-110 transition-transform duration-300">
-                  {/* <svg
-              className="w-7 h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg> */}
+                 
                   <img src={feature.image} alt={feature.title} className="w-10 h-10 rounded-full" />
                 </div>
 
-                {/* Title */}
+                // Title 
                 <h3 className="text-xl font-bold text-blue-800 mb-3 group-hover:text-blue-700 transition-colors">
                   {feature.title}
                 </h3>
 
-                {/* Description */}
+                // Description 
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
 
-                {/* Subtle glow effect on hover */}
+                // Subtle glow effect on hover 
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </motion.div>
             ))}
           </motion.div>
+*/}
+
+
+<motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={staggerChildren}
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+>
+  {getKeyFeatures().map((feature, index) => (
+    <motion.div
+      key={index}
+      variants={fadeIn}
+      transition={{ delay: index * 0.1 }}
+      className="group relative p-5 bg-white/90 backdrop-blur-lg rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 border border-blue-100 hover:-translate-y-2"
+    >
+      {/* Top section: Image + Title */}
+      <div className="flex items-center gap-4 mb-4">
+        <img
+          src={feature.image}
+          alt={feature.title}
+          className="w-12 h-12 rounded-full object-cover border border-blue-200 group-hover:scale-105 transition-transform duration-300"
+        />
+        <h3 className="text-lg sm:text-xl font-semibold text-blue-800 group-hover:text-blue-700 transition-colors">
+          {feature.title}
+        </h3>
+      </div>
+
+      {/* Description */}
+      <p className="text-gray-600 text-sm leading-relaxed">
+        {feature.description}
+      </p>
+
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    </motion.div>
+  ))}
+</motion.div>
+
         </div>
       </section>
 

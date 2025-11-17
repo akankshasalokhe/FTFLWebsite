@@ -346,7 +346,7 @@ const OurServices = () => {
 
   useEffect(() => {
     axios
-      .get("https://landing-page-yclw.vercel.app/api/service")
+      .get("https://landing-page-yclw.vercel.app/api/homeservices")
       .then((res) => {
         if (res.data?.data?.length > 0) {
           setServiceData(res.data.data);
