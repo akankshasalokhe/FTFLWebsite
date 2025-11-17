@@ -1470,7 +1470,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import FtflProcess from "@/components/Services/OurProcess";
 import { FiArrowRight } from "react-icons/fi";
 import Image from 'next/image';
@@ -1557,7 +1557,7 @@ useEffect(() => {
   return (
     <>
     {/* ==== Hero Banner Section ==== */}
-               <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
           {/* ==== Animated Background Waves ==== */}
           <div className="absolute inset-0 overflow-hidden">
             {/* Wave Layer 1 */}
@@ -1666,8 +1666,11 @@ useEffect(() => {
             </motion.div>
           </div>
         </section>
+
+
        {/* ==== Overview Section ==== */}
-<section className="pt-15 pb-10 lg:ps-10 px-4 sm:px-10 bg-white">
+        {serviceData?.overview?.length > 0 && (
+        <section className="pt-15 pb-10 lg:ps-10 px-4 sm:px-10 bg-white">
   <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
     {/* === Left Text === */}
@@ -1708,10 +1711,12 @@ useEffect(() => {
       </motion.div>
     )}
   </div>
-</section>
+        </section>
+        )}
 
 {/* ==== What is "{Service Name}" Section ==== */}
-<section className="pb-10 bg-gray-50 border-t border-gray-100">
+      
+        <section className="pb-10 bg-gray-50 border-t border-gray-100">
   <div className="max-w-7xl mx-auto lg:ps-0 px-6 sm:px-20 text-center">
     
     {/* Title */}
@@ -1740,236 +1745,319 @@ useEffect(() => {
       </motion.ul>
     )}
   </div>
-</section>
+        </section>
+      
 
 
 {/* ==== Process Section ==== */}
-<section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
+        {serviceData?.process?.length > 0 && (
+        <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-    {/* Heading */}
-    <motion.h2
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
-    >
-      Our <span className="text-blue-600">{serviceData?.title} </span>Process
-    </motion.h2>
-
-    {/* Swiper */}
-    <Swiper
-      modules={[Pagination, Autoplay]}
-      pagination={{ clickable: true }}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-      loop={true}
-      centeredSlides={true}
-      centeredSlidesBounds={true}
-      spaceBetween={35}
-      slidesPerView={1}
-      breakpoints={{
-        480: { slidesPerView: 1 },
-        640: { slidesPerView: 1.2 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-        1280: { slidesPerView: 4 },
-      }}
-      style={{ paddingBottom: "60px" }}
-    >
-      {serviceData?.process?.map((step, index) => (
-        <SwiperSlide key={index} className="flex justify-center">
-          
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.15 }}
-            viewport={{ once: true }}
-            className="w-full flex flex-col items-center transition-all duration-300"
-          >
-
-            {/* Card */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="
-                h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
-                bg-white/80 backdrop-blur-md
-                border border-blue-100 
-                shadow-lg rounded-2xl p-6
-                hover:shadow-2xl hover:border-blue-300 
-                flex flex-col w-full max-w-[280px] md:max-w-[300px] lg:max-w-[310px]
-                transition-all duration-300
-              "
+            {/* Heading */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
             >
+              Our <span className="text-blue-600">{serviceData?.title} </span>Process
+            </motion.h2>
 
-              {/* Icon */}
-              {step.icon && (
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md">
+            {/* Swiper */}
+            <Swiper
+              modules={[Pagination, Autoplay]}
+              pagination={{ clickable: true }}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              centeredSlides={true}
+              centeredSlidesBounds={true}
+              spaceBetween={35}
+              slidesPerView={1}
+              breakpoints={{
+                480: { slidesPerView: 1 },
+                640: { slidesPerView: 1.2 },
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+              style={{ paddingBottom: "60px" }}
+            >
+              {serviceData?.process?.map((step, index) => (
+                <SwiperSlide key={index} className="flex justify-center">
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: index * 0.15 }}
+                    viewport={{ once: true }}
+                    className="w-full flex flex-col items-center transition-all duration-300"
+                  >
+
+                    {/* Card */}
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                      className="
+                        h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
+                        bg-white/80 backdrop-blur-md
+                        border border-blue-100 
+                        shadow-lg rounded-2xl p-6
+                        hover:shadow-2xl hover:border-blue-300 
+                        flex flex-col w-full max-w-[280px] md:max-w-[300px] lg:max-w-[310px]
+                        transition-all duration-300
+                      "
+                    >
+
+                      {/* Icon */}
+                      {step.icon && (
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md">
+                          <img
+                            src={step.icon}
+                            alt={step.title}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                      )}
+
+                      {/* Title */}
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
+                        {step.title}
+                      </h3>
+
+                      {/* Description */}
+                      <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
+                        {step.description?.map((point, i) => (
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: 20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: i * 0.1 }}
+                          >
+                            {point}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </motion.div>
+
+                  </motion.div>
+
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+        )}
+
+        {/* ==== Why Choose Us Section ==== */}
+        {serviceData?.whyChooseUs?.description?.length > 0 && (
+        <section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
+          {/* Decorative background shapes */}
+          <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-300/20 rounded-full blur-2xl"></div>
+
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-14 relative z-10">
+            {/* === Left Image === */}
+            {serviceData?.whyChooseUs?.icon && (
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="w-full md:w-1/2 relative"
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
                   <img
-                    src={step.icon}
-                    alt={step.title}
-                    className="w-8 h-8 object-contain"
+                    src={serviceData.whyChooseUs.icon}
+                    alt="Why Choose Us"
+                    className="w-full h-[420px] object-cover rounded-3xl hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-              )}
+                {/* Subtle glowing ring accent */}
+                <div className="absolute -bottom-10 -left-8 w-40 h-40 bg-blue-300/40 rounded-full blur-2xl"></div>
+              </motion.div>
+            )}
 
-              {/* Title */}
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
-                {step.title}
-              </h3>
+            {/* === Right Text Content === */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="w-full md:w-1/2 space-y-8"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
+                Why Choose Us
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                We don’t just build digital products — we create lasting experiences.
+                Here’s what sets us apart from the rest:
+              </p>
 
-              {/* Description */}
-              <ul className="text-gray-600 text-sm sm:text-base space-y-2 text-left flex-1 list-disc list-inside">
-                {step.description?.map((point, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
+              <div className="flex flex-col gap-5">
+                {serviceData?.whyChooseUs?.description?.map((point, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                    viewport={{ once: true }}
+                    className="flex items-start gap-3"
                   >
-                    {point}
-                  </motion.li>
+                    {/* Optional: use icon image or a default icon */}
+                    <img
+                      src={serviceData.whyChooseUs.icon}
+                      alt="icon"
+                      className="w-7 h-7 flex-shrink-0 mt-1"
+                    />
+                    <span className="text-lg font-medium text-gray-800">{point}</span>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </motion.div>
-
-          </motion.div>
-
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  </div>
-</section>
-
-
-
-
-
-
-
-{/* ==== Why Choose Us Section ==== */}
-<section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
-  {/* Decorative background shapes */}
-  <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl"></div>
-  <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-300/20 rounded-full blur-2xl"></div>
-
-  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-14 relative z-10">
-    {/* === Left Image === */}
-    {serviceData?.whyChooseUs?.icon && (
-      <motion.div
-        initial={{ opacity: 0, x: -60 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="w-full md:w-1/2 relative"
-      >
-        <div className="relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-          <img
-            src={serviceData.whyChooseUs.icon}
-            alt="Why Choose Us"
-            className="w-full h-[420px] object-cover rounded-3xl hover:scale-105 transition-transform duration-700"
-          />
-        </div>
-        {/* Subtle glowing ring accent */}
-        <div className="absolute -bottom-10 -left-8 w-40 h-40 bg-blue-300/40 rounded-full blur-2xl"></div>
-      </motion.div>
-    )}
-
-    {/* === Right Text Content === */}
-    <motion.div
-      initial={{ opacity: 0, x: 60 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="w-full md:w-1/2 space-y-8"
-    >
-      <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
-        Why Choose Us
-      </h2>
-      <p className="text-lg text-gray-700 leading-relaxed mb-6">
-        We don’t just build digital products — we create lasting experiences.
-        Here’s what sets us apart from the rest:
-      </p>
-
-      <div className="flex flex-col gap-5">
-        {serviceData?.whyChooseUs?.description?.map((point, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex items-start gap-3"
-          >
-            {/* Optional: use icon image or a default icon */}
-            <img
-              src={serviceData.whyChooseUs.icon}
-              alt="icon"
-              className="w-7 h-7 flex-shrink-0 mt-1"
-            />
-            <span className="text-lg font-medium text-gray-800">{point}</span>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  </div>
-</section>
+          </div>
+        </section>
+        )}
 
 {/* ==== Benefits Section ==== */}
-<section className="relative bg-gradient-to-b from-white to-blue-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-16 overflow-hidden">
-  <div className="max-w-7xl mx-auto">
-    {/* === Section Title === */}
-    <motion.h2
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="text-3xl sm:text-4xl lg:text-6xl font-bold text-center text-gray-800 mb-12 sm:mb-16"
-    >
-      Benefits of <span className="text-blue-600">{serviceData?.title}</span>
-    </motion.h2>
-
-    <div className="flex flex-col relative space-y-10 sm:space-y-12 lg:space-y-0">
-      {serviceData?.benefits?.map((item, index) => {
-        const isEven = index % 2 === 0;
-
-        return (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className={`flex flex-col lg:flex-row items-center ${
-              isEven ? "lg:justify-start" : "lg:justify-end"
-            }`}
-          >
-            <div
-              className={`relative flex flex-col items-center w-full lg:w-1/2 ${
-                isEven ? "lg:items-start lg:text-left" : "lg:items-start lg:text-left"
-              }`}
+        {serviceData?.benefits?.length > 0 && (
+        <section className="relative bg-gradient-to-b from-white to-blue-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-16 overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            {/* === Section Title === */}
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-center text-gray-800 mb-12 sm:mb-16"
             >
-              {/* === Capsule Container === */}
+              Benefits of <span className="text-blue-600">{serviceData?.title}</span>
+            </motion.h2>
+
+            <div className="flex flex-col relative space-y-10 sm:space-y-12 lg:space-y-0">
+              {serviceData?.benefits?.map((item, index) => {
+                const isEven = index % 2 === 0;
+
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 60 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`flex flex-col lg:flex-row items-center ${
+                      isEven ? "lg:justify-start" : "lg:justify-end"
+                    }`}
+                  >
+                    <div
+                      className={`relative flex flex-col items-center w-full lg:w-1/2 ${
+                        isEven ? "lg:items-start lg:text-left" : "lg:items-start lg:text-left"
+                      }`}
+                    >
+                      {/* === Capsule Container === */}
+                      <motion.div
+                        whileHover={{
+                          rotateX: 5,
+                          rotateY: isEven ? -5 : 5,
+                          translateY: -6,
+                          scale: 1.03,
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ type: "spring", stiffness: 120, damping: 10 }}
+                        className={`relative bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-full border border-blue-200 px-4 sm:px-6 lg:px-10 py-5 flex items-center gap-4 sm:gap-6 lg:gap-8 overflow-hidden transition-all duration-500
+                          ${isEven ? "ml-0 lg:ml-20 lg:flex-row" : "mr-0 lg:mr-10 lg:flex-row-reverse"}`}
+                      >
+                        {/* Icon Section */}
+                        {item.icon && (
+                          <div className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full shrink-0 overflow-hidden">
+                            <img
+                              src={item.icon}
+                              alt={item.title}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        )}
+
+                        {/* Text Section */}
+                        <motion.div
+                          initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.2 }}
+                          viewport={{ once: true }}
+                          className="max-w-sm text-left"
+                        >
+                          <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 mb-1">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            {item.description}
+                          </p>
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        )}
+
+{/* ==== Integration Tools Section ==== */}
+        {serviceData?.integration?.length > 0 && (
+        <section className="relative bg-gradient-to-b from-[#aedef4bd] via-[#f3f6ff] to-[#70b1eddd] py-24 overflow-hidden">
+          {/* ==== Header ==== */}
+          <div className="text-center mb-16 px-6">
+            <motion.h1
+              initial={{ opacity: 0, y: -40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-6"
+            >
+              Integration Tools that Power <br />
+              <span className="text-[#4568dc]">{serviceData?.title}</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed mb-10"
+            >
+              Build a connected ecosystem that streamlines your business operations —  
+              from payments and analytics to delivery and communication tools.
+            </motion.p>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              className="bg-[#4568dc] text-white font-semibold px-8 py-3 rounded-full shadow-md hover:bg-[#3855c9] transition-all"
+            >
+              Explore Integrations
+            </motion.button>
+          </div>
+
+          {/* ==== Animated Cards Grid ==== */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6"
+          >
+            {serviceData?.integration?.map((item, index) => (
               <motion.div
-                whileHover={{
-                  rotateX: 5,
-                  rotateY: isEven ? -5 : 5,
-                  translateY: -6,
-                  scale: 1.03,
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 120, damping: 10 }}
-                className={`relative bg-gradient-to-br from-white via-blue-50 to-blue-100 rounded-full border border-blue-200 px-4 sm:px-6 lg:px-10 py-5 flex items-center gap-4 sm:gap-6 lg:gap-8 overflow-hidden transition-all duration-500
-                  ${isEven ? "ml-0 lg:ml-20 lg:flex-row" : "mr-0 lg:mr-10 lg:flex-row-reverse"}`}
+                key={index}
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="relative flex flex-col items-center justify-center bg-white rounded-2xl p-8 text-[#1d2c53] shadow-[0_8px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_35px_rgba(69,104,220,0.15)] transition-all duration-500 min-h-[220px]"
               >
-                {/* Icon Section */}
+                {/* Icon */}
                 {item.icon && (
-                  <div className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full shrink-0 overflow-hidden">
+                  <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-[#e3e8ff] to-[#f7f8ff] border border-[#d4d9ff] mb-4 overflow-hidden">
                     <img
                       src={item.icon}
                       alt={item.title}
@@ -1978,400 +2066,333 @@ useEffect(() => {
                   </div>
                 )}
 
-                {/* Text Section */}
-                <motion.div
-                  initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className="max-w-sm text-left"
-                >
-                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                    {item.description}
-                  </p>
-                </motion.div>
+                {/* Title + Description */}
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm leading-snug text-center">
+                  {item.description}
+                </p>
               </motion.div>
-            </div>
+            ))}
           </motion.div>
-        );
-      })}
-    </div>
-  </div>
-</section>
 
-{/* ==== Integration Tools Section ==== */}
-<section className="relative bg-gradient-to-b from-[#aedef4bd] via-[#f3f6ff] to-[#70b1eddd] py-24 overflow-hidden">
-  {/* ==== Header ==== */}
-  <div className="text-center mb-16 px-6">
-    <motion.h1
-      initial={{ opacity: 0, y: -40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-6"
-    >
-      Integration Tools that Power <br />
-      <span className="text-[#4568dc]">{serviceData?.title}</span>
-    </motion.h1>
-
-    <motion.p
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.2 }}
-      className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed mb-10"
-    >
-      Build a connected ecosystem that streamlines your business operations —  
-      from payments and analytics to delivery and communication tools.
-    </motion.p>
-
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      className="bg-[#4568dc] text-white font-semibold px-8 py-3 rounded-full shadow-md hover:bg-[#3855c9] transition-all"
-    >
-      Explore Integrations
-    </motion.button>
-  </div>
-
-  {/* ==== Animated Cards Grid ==== */}
-  <motion.div
-    initial="hidden"
-    whileInView="show"
-    viewport={{ once: true }}
-    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6"
-  >
-    {serviceData?.integration?.map((item, index) => (
-      <motion.div
-        key={index}
-        whileHover={{ y: -6, scale: 1.02 }}
-        transition={{ duration: 0.3 }}
-        className="relative flex flex-col items-center justify-center bg-white rounded-2xl p-8 text-[#1d2c53] shadow-[0_8px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_35px_rgba(69,104,220,0.15)] transition-all duration-500 min-h-[220px]"
-      >
-        {/* Icon */}
-        {item.icon && (
-          <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-[#e3e8ff] to-[#f7f8ff] border border-[#d4d9ff] mb-4 overflow-hidden">
-            <img
-              src={item.icon}
-              alt={item.title}
-              className="w-full h-full object-contain"
-            />
-          </div>
+          {/* ==== Subtle Background Glow ==== */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,rgba(69,104,220,0.08),transparent_70%)] pointer-events-none"></div>
+        </section>
         )}
 
-        {/* Title + Description */}
-        <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-        <p className="text-gray-600 text-sm leading-snug text-center">
-          {item.description}
-        </p>
-      </motion.div>
-    ))}
-  </motion.div>
-
-  {/* ==== Subtle Background Glow ==== */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_70%,rgba(69,104,220,0.08),transparent_70%)] pointer-events-none"></div>
-</section>
-
 {/* ==== Key Features Section ==== */}
-<section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
-  {/* ==== Animated Background ==== */}
-  <div className="absolute inset-0 overflow-hidden">
-    <motion.div
-      animate={{
-        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-      }}
-      transition={{
-        duration: 15,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-      className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,232,255,0.08),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(124,77,255,0.08),transparent_60%)]"
-    ></motion.div>
-  </div>
+         {serviceData?.keyFeatures?.length > 0 && (
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
+          {/* ==== Animated Background ==== */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,232,255,0.08),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(124,77,255,0.08),transparent_60%)]"
+            ></motion.div>
+          </div>
 
-  {/* ==== Header ==== */}
-  <div className="relative z-10 text-center mb-16 px-6">
-    <motion.h2
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="text-4xl md:text-5xl font-bold text-white mb-4"
-    >
-      Key Features
-    </motion.h2>
-    <motion.p
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className="text-blue-100/80 max-w-2xl mx-auto"
-    >
-      Empower your platform with next-generation capabilities designed for scalability,
-      performance, and personalization.
-    </motion.p>
-  </div>
+          {/* ==== Header ==== */}
+          <div className="relative z-10 text-center mb-16 px-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl font-bold text-white mb-4"
+            >
+              Key Features
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-blue-100/80 max-w-2xl mx-auto"
+            >
+              Empower your platform with next-generation capabilities designed for scalability,
+              performance, and personalization.
+            </motion.p>
+          </div>
 
-  {/* ==== Feature Cards ==== */}
-  <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
-    {serviceData?.keyFeatures?.map((item, index) => (
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-        whileHover={{ scale: 1.05 }}
-        className="relative bg-white/5 border border-white/10 hover:border-cyan-400/40 text-white rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_25px_rgba(0,0,0,0.3)] transition-all duration-500"
-      >
-        <div className="flex items-center gap-4 mb-4">
-          {/* Icon */}
-          {item.icon && (
-            <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center shadow-inner shadow-cyan-500/30 overflow-hidden">
-              <img
-                src={item.icon}
-                alt={item.title}
-                className="w-8 h-8 object-contain"
-              />
-            </div>
-          )}
+          {/* ==== Feature Cards ==== */}
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
+            {serviceData?.keyFeatures?.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="relative bg-white/5 border border-white/10 hover:border-cyan-400/40 text-white rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_25px_rgba(0,0,0,0.3)] transition-all duration-500"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  {/* Icon */}
+                  {item.icon && (
+                    <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center shadow-inner shadow-cyan-500/30 overflow-hidden">
+                      <img
+                        src={item.icon}
+                        alt={item.title}
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                  )}
 
-          <h3 className="text-xl font-semibold">{item.title}</h3>
-        </div>
-        <p className="text-blue-100/80 leading-relaxed">{item.description}</p>
-      </motion.div>
-    ))}
-  </div>
-</section>
-
+                  <h3 className="text-xl font-semibold">{item.title}</h3>
+                </div>
+                <p className="text-blue-100/80 leading-relaxed">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+        )}
 
 {/* ==== AI Technologies Section ==== */}
-<section className="relative bg-gradient-to-b from-[#f8faff] via-[#f3f6ff] to-[#eef2ff] py-24 px-6 overflow-hidden">
-  <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-10 relative">
-    {/* ==== Left Image ==== */}
-    <motion.div
-      initial={{ opacity: 0, x: -60 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7 }}
-      className="flex-1 relative rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
-    >
-      {serviceData?.aiTechnologyImage && (
-        <img
-          src={serviceData.aiTechnologyImage}
-          alt="AI Technology"
-          className="w-full h-full object-cover min-h-[550px] rounded-3xl"
-        />
-      )}
-
-      {/* Floating Circuit Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(77,116,255,0.25),transparent_60%)] animate-pulse"></div>
-    </motion.div>
-
-    {/* ==== Vertical Divider ==== */}
-    <div className="hidden lg:block w-[2px] bg-gradient-to-b from-transparent via-[#4f63ff] to-transparent rounded-full"></div>
-
-    {/* ==== Right Text Section ==== */}
-    <motion.div
-      initial={{ opacity: 0, x: 60 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.7 }}
-      className="flex-1 bg-white/70 backdrop-blur-md rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.05)] p-10 flex flex-col justify-between"
-    >
-      <div>
-        <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
-          AI Technologies We Use
-        </h2>
-        <p className="text-gray-600 mb-10">
-          We use AI to create intelligent, predictive, and personalized digital experiences for every customer journey.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8">
-        {serviceData?.aiTechnologies?.map((tech, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="flex items-start gap-5"
-          >
-            {/* === AI Icon Design === */}
-            <div className="relative w-14 h-14 flex items-center justify-center">
-              {/* Hexagon Glow Shape */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#dee4ff] to-[#eff2ff] rounded-2xl rotate-45 blur-[1px]"></div>
-              {/* Icon Container */}
-              {tech.icon && (
-                <div className="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#e7ebff] to-[#f3f5ff] flex items-center justify-center border border-[#c9d1ff]/60 shadow-[inset_0_0_10px_rgba(61,90,254,0.15)] overflow-hidden">
-                  <img
-                    src={tech.icon}
-                    alt={`AI Tech ${index}`}
-                    className="w-8 h-8 object-contain"
-                  />
-                </div>
+        {serviceData?.aiTechnologies?.length > 0 && (
+        <section className="relative bg-gradient-to-b from-[#f8faff] via-[#f3f6ff] to-[#eef2ff] py-24 px-6 overflow-hidden">
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-10 relative">
+            {/* ==== Left Image ==== */}
+            <motion.div
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              className="flex-1 relative rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
+            >
+              {serviceData?.aiTechnologyImage && (
+                <img
+                  src={serviceData.aiTechnologyImage}
+                  alt="AI Technology"
+                  className="w-full h-full object-cover min-h-[550px] rounded-3xl"
+                />
               )}
-              {/* Outer Glow */}
-              <div className="absolute inset-0 rounded-2xl bg-[#3d5afe]/20 blur-lg opacity-0 hover:opacity-70 transition duration-500"></div>
-            </div>
 
-            {/* === Text === */}
-            <div>
-              <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
-                {tech.title || `AI Technology ${index + 1}`}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {tech.description}
-              </p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  </div>
-</section>
+              {/* Floating Circuit Glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(77,116,255,0.25),transparent_60%)] animate-pulse"></div>
+            </motion.div>
 
+            {/* ==== Vertical Divider ==== */}
+            <div className="hidden lg:block w-[2px] bg-gradient-to-b from-transparent via-[#4f63ff] to-transparent rounded-full"></div>
+
+            {/* ==== Right Text Section ==== */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              className="flex-1 bg-white/70 backdrop-blur-md rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.05)] p-10 flex flex-col justify-between"
+            >
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
+                  AI Technologies We Use
+                </h2>
+                <p className="text-gray-600 mb-10">
+                  We use AI to create intelligent, predictive, and personalized digital experiences for every customer journey.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {serviceData?.aiTechnologies?.map((tech, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="flex items-start gap-5"
+                  >
+                    {/* === AI Icon Design === */}
+                    <div className="relative w-14 h-14 flex items-center justify-center">
+                      {/* Hexagon Glow Shape */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-[#dee4ff] to-[#eff2ff] rounded-2xl rotate-45 blur-[1px]"></div>
+                      {/* Icon Container */}
+                      {tech.icon && (
+                        <div className="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#e7ebff] to-[#f3f5ff] flex items-center justify-center border border-[#c9d1ff]/60 shadow-[inset_0_0_10px_rgba(61,90,254,0.15)] overflow-hidden">
+                          <img
+                            src={tech.icon}
+                            alt={`AI Tech ${index}`}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
+                      )}
+                      {/* Outer Glow */}
+                      <div className="absolute inset-0 rounded-2xl bg-[#3d5afe]/20 blur-lg opacity-0 hover:opacity-70 transition duration-500"></div>
+                    </div>
+
+                    {/* === Text === */}
+                    <div>
+                      <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
+                        {tech.title || `AI Technology ${index + 1}`}
+                      </h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {tech.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+        )}
 <FtflProcess />
 
 
 {/* ==== Tools We Use Section ==== */}
-<section className="relative bg-white py-24 overflow-hidden">
-  <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+        {serviceData?.technology?.length > 0 && (
+          <section className="relative bg-white py-24 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
 
-    {/* === Left Side (Stylish Title Design) === */}
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-      className="flex flex-col items-center lg:items-start text-center lg:text-left"
-    >
-      <h1 className="text-6xl md:text-7xl font-extrabold text-[#1d2c53] leading-tight relative animate-gradient-shimmer bg-clip-text bg-gradient-to-r from-[#3d5afe] via-[#00bcd4] to-[#6f8aff]">
-        Innovation <span className="block text-gray-800 mt-2">Meets</span>
-        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00bcd4] to-[#3d5afe]">Technology</span>
+              {/* === Left Side (Stylish Title Design) === */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex flex-col items-center lg:items-start text-center lg:text-left"
+              >
+                <h1 className="text-6xl md:text-7xl font-extrabold text-[#1d2c53] leading-tight relative animate-gradient-shimmer bg-clip-text bg-gradient-to-r from-[#3d5afe] via-[#00bcd4] to-[#6f8aff]">
+                  Innovation <span className="block text-gray-800 mt-2">Meets</span>
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#00bcd4] to-[#3d5afe]">
+                    Technology
+                  </span>
 
-        {/* Subtle Glow Line */}
-        <span className="absolute -bottom-4 left-0 w-32 h-[3px] bg-gradient-to-r from-[#3d5afe] to-[#00bcd4] rounded-full"></span>
-      </h1>
+                  {/* Subtle Glow Line */}
+                  <span className="absolute -bottom-4 left-0 w-32 h-[3px] bg-gradient-to-r from-[#3d5afe] to-[#00bcd4] rounded-full"></span>
+                </h1>
 
-      <p className="text-gray-500 mt-10 max-w-sm leading-relaxed text-base">
-        Blending creativity with cutting-edge frameworks to deliver seamless digital experiences.
-      </p>
-    </motion.div>
+                <p className="text-gray-500 mt-10 max-w-sm leading-relaxed text-base">
+                  Blending creativity with cutting-edge frameworks to deliver seamless digital experiences.
+                </p>
+              </motion.div>
 
-    {/* === Right Side (Tools Grid) === */}
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-        {serviceData?.technology?.map((tool, index) => (
-          <motion.div
-            key={index}
-            whileHover={{ scale: 1.05, y: -3 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col items-center justify-center bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border border-gray-100 transition-shadow duration-300"
-          >
-            {tool.icon && (
-              <div className="text-[#3d5afe] text-4xl mb-2">
-                <img src={tool.icon} alt={tool.title} className="w-10 h-10 object-contain" />
-              </div>
-            )}
-            <p className="text-sm font-medium text-[#1d2c53]">{tool.title}</p>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  </div>
+              {/* === Right Side (Tools Grid) === */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                  {serviceData?.technology?.map((tool, index) => (
+                    <motion.div
+                      key={index}
+                      whileHover={{ scale: 1.05, y: -3 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex flex-col items-center justify-center bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border border-gray-100 transition-shadow duration-300"
+                    >
+                      {tool.icon && (
+                        <div className="text-[#3d5afe] text-4xl mb-2">
+                          <img
+                            src={tool.icon}
+                            alt={tool.title}
+                            className="w-10 h-10 object-contain"
+                          />
+                        </div>
+                      )}
+                      <p className="text-sm font-medium text-[#1d2c53]">{tool.title}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
 
-  {/* === Gradient Text Animation === */}
-  <style jsx>{`
-    @keyframes gradientShimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .animate-gradient-shimmer {
-      background-size: 200% 200%;
-      animation: gradientShimmer 3s ease infinite;
-    }
-  `}</style>
-</section>
+            {/* === Gradient Text Animation === */}
+            <style jsx>{`
+              @keyframes gradientShimmer {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+              }
+              .animate-gradient-shimmer {
+                background-size: 200% 200%;
+                animation: gradientShimmer 3s ease infinite;
+              }
+            `}</style>
+          </section>
+        )}
+
 
 {/* ✅ FAQ */}
-      <section className="py-16 lg:py-20 bg-gray-100 px-4 sm:px-6 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base">
-              Find answers to common questions about our{" "}
-              {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} process
-            </p>
-          </motion.div>
+        {serviceData.faqs && serviceData.faqs.length > 0 &&(
+        <section className="py-16 lg:py-20 bg-gray-100 px-4 sm:px-6 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              className="text-center mb-12 sm:mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-2xl text-blue-500 sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-gray-600 text-sm sm:text-base">
+                Find answers to common questions about our{" "}
+                {serviceData.title?.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())} process
+              </p>
+            </motion.div>
 
-          {isFaqLoading ? (
-            <div className="flex justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {faqData.length > 0 ? (
-                faqData.map((faqObj, idx1) =>
-                  faqObj.question.map((faq, idx2) => (
-                    <motion.div
-                      key={`${idx1}-${idx2}`}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      viewport={{ once: true }}
-                      className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
-                    >
-                      <button
-                        className="w-full cursor-pointer p-4 sm:p-6 text-left flex justify-between items-start sm:items-center font-medium text-sm sm:text-base lg:text-lg leading-snug"
-                        onClick={() =>
-                          setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
-                        }
+            {isFaqLoading ? (
+              <div className="flex justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {faqData.length > 0 ? (
+                  faqData.map((faqObj, idx1) =>
+                    faqObj.question.map((faq, idx2) => (
+                      <motion.div
+                        key={`${idx1}-${idx2}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        viewport={{ once: true }}
+                        className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden"
                       >
-                        <span className="text-gray-800 pr-4">{faq.question}</span>
-                        <motion.span
-                          animate={{ rotate: faqOpen === `${idx1}-${idx2}` ? 180 : 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="ml-2 text-blue-600 text-lg flex-shrink-0"
+                        <button
+                          className="w-full cursor-pointer p-4 sm:p-6 text-left flex justify-between items-start sm:items-center font-medium text-sm sm:text-base lg:text-lg leading-snug"
+                          onClick={() =>
+                            setFaqOpen(faqOpen === `${idx1}-${idx2}` ? null : `${idx1}-${idx2}`)
+                          }
                         >
-                          ▼
-                        </motion.span>
-                      </button>
-
-                      <AnimatePresence>
-                        {faqOpen === `${idx1}-${idx2}` && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
+                          <span className="text-gray-800 pr-4">{faq.question}</span>
+                          <motion.span
+                            animate={{ rotate: faqOpen === `${idx1}-${idx2}` ? 180 : 0 }}
                             transition={{ duration: 0.3 }}
-                            className="overflow-hidden"
+                            className="ml-2 text-blue-600 text-lg flex-shrink-0"
                           >
-                            <div className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-600 text-sm sm:text-base leading-relaxed">
-                              {faq.answer}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  ))
-                )
-              ) : (
-                <p className="text-center text-gray-500 text-sm sm:text-base">
-                  No FAQs found for this service.
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      </section>
+                            ▼
+                          </motion.span>
+                        </button>
+
+                        <AnimatePresence>
+                          {faqOpen === `${idx1}-${idx2}` && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-600 text-sm sm:text-base leading-relaxed">
+                                {faq.answer}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    ))
+                  )
+                ) : (
+                  <p className="text-center text-gray-500 text-sm sm:text-base">
+                    No FAQs found for this service.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+        )}
 
     </>
   );
