@@ -949,7 +949,7 @@ const BlogPage = () => {
       </div>
 
       {/* Sticky Header */}
-      <motion.header
+      {/* <motion.header
         className={` top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'}`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -1003,7 +1003,7 @@ const BlogPage = () => {
             </motion.div>
           </div>
         </div>
-      </motion.header>
+      </motion.header> */}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         {/* Hero Section with SEO-rich content */}
