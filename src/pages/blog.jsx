@@ -131,60 +131,61 @@ const Blog = () => {
       {/* ✅ Banner Section */}
       <div className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
 
-      {/* Animated Canvas */}
-      <canvas
-        id="blogCanvas"
-        className="absolute inset-0 w-full h-full pointer-events-none z-5"
-      ></canvas>
+  {/* Animated Canvas */}
+  <canvas
+    id="blogCanvas"
+    className="absolute inset-0 w-full h-full pointer-events-none z-5"
+  />
 
-      {/* Background Effects */}
-      <div className="absolute inset-0 z-5">
-        <div className="circuit-lines"></div>
-      </div>
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <div className="neon-dots"></div>
-      </div>
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <div className="floating-polygons"></div>
-      </div>
+  {/* Background Effects */}
+  <div className="absolute inset-0 z-5">
+    <div className="circuit-lines"></div>
+  </div>
+  <div className="absolute inset-0 z-5 pointer-events-none">
+    <div className="neon-dots"></div>
+  </div>
+  <div className="absolute inset-0 z-5 pointer-events-none">
+    <div className="floating-polygons"></div>
+  </div>
 
-      {/* Neon Bottom Glow */}
-      <div className="absolute bottom-0 left-0 w-full h-20 opacity-70 z-5">
-        <div className="neon-wave"></div>
-      </div>
+  {/* Neon Bottom Glow */}
+  <div className="absolute bottom-0 left-0 w-full h-20 opacity-70 z-5">
+    <div className="neon-wave"></div>
+  </div>
 
-      {/* CONTENT (Left Only) */}
-      <div className="relative z-20 w-full max-w-5xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
-        <motion.div
-          className="text-center lg:text-center max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-            Our Blog
-          </h1>
+  {/* ---- CENTER CONTENT ---- */}
+  <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+    <motion.div
+      className="text-center max-w-3xl mx-auto"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+        Our Blog
+      </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-6 md:mb-8">
-            Insights, ideas and stories from our team
-          </p>
+      <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-6 md:mb-8">
+        Insights, ideas and stories from our team
+      </p>
 
-          <button
-            onClick={() => {
-              document.getElementById("blog")?.scrollIntoView({
-                behavior: "smooth",
-              });
-            }}
-            className="mt-8 px-8 py-3 cursor-pointer rounded-lg 
-            bg-gradient-to-r from-[#298cf3] to-blue-600 
-            text-white font-semibold hover:shadow-lg hover:scale-105 
-            transition-transform duration-300"
-          >
-            Read Latest Post
-          </button>
-        </motion.div>
-      </div>
-    </div>
+      <button
+        onClick={() => {
+          document.getElementById("blog")?.scrollIntoView({
+            behavior: "smooth",
+          });
+        }}
+        className="mt-8 px-8 py-3 cursor-pointer rounded-lg 
+        bg-gradient-to-r from-[#298cf3] to-blue-600 
+        text-white font-semibold hover:shadow-lg hover:scale-105 
+        transition-transform duration-300"
+      >
+        Read Latest Post
+      </button>
+    </motion.div>
+  </div>
+</div>
+
 
       <BlogPage />
     </>
