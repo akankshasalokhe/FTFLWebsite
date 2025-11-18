@@ -166,12 +166,12 @@ export default function ProductDetails() {
                   Learn More
                 </a> */}
 
-                <div className="flex flex-wrap gap-4 justify-start lg:justify-start">
+                {/* <div className="flex flex-nowrap gap-4 justify-start lg:justify-start">
 
-                  {/* App Store Buttons - Compact Version */}
+              
                   <div className="flex justify-start gap-3">
-                    {/* Google Play Store Button */}
-                    {/* {product.googleStoreLink && (
+                   
+                    {product.googleStoreLink && (
                       <a
 
                         href={product.googleStoreLink}
@@ -191,7 +191,29 @@ export default function ProductDetails() {
                         </svg>
 
                       </a>
-                    )} */}
+                    )}
+
+                    {product.appleStoreLink && (
+                      <a
+                        href={product.appleStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-black hover:bg-gray-900 text-white p-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 shadow-lg flex items-center gap-2"
+                        title="Download on the App Store"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M16.365 1.43c0 1.14-.418 2.088-1.254 2.842-.837.754-1.754 1.19-2.75 1.304-.028-.125-.042-.272-.042-.44 0-1.094.394-2.02 1.18-2.78.787-.76 1.71-1.15 2.766-1.15.032 0 .064.004.1.01v.214zM20.745 17.71c-.3.695-.66 1.332-1.085 1.91-.56.77-1.015 1.305-1.36 1.605-.54.495-1.12.75-1.75.764-.445.015-.983-.127-1.62-.426-.637-.3-1.223-.448-1.75-.448-.556 0-1.158.148-1.807.448-.65.3-1.178.45-1.585.45-.61-.027-1.2-.298-1.77-.81-.38-.334-.86-.895-1.445-1.685-.62-.843-1.127-1.82-1.52-2.93-.424-1.2-.635-2.36-.635-3.48 0-1.286.278-2.395.835-3.33.436-.75 1.02-1.34 1.75-1.77.73-.43 1.523-.653 2.38-.67.467-.013 1.08.15 1.84.49.758.337 1.245.506 1.46.506.162 0 .71-.205 1.64-.615.88-.38 1.62-.54 2.22-.48 1.64.133 2.878.78 3.71 1.94-1.47.9-2.208 2.152-2.21 3.75.002 1.25.465 2.29 1.39 3.12.412.39.87.69 1.37.9-.11.32-.245.65-.405.99z" />
+                        </svg>
+                      </a>
+                    )}
+
+
 
 
                     <a
@@ -207,7 +229,57 @@ export default function ProductDetails() {
                   </div>
 
 
+                </div> */}
+
+                <div className="flex flex-col lg:flex-row gap-4">
+
+                  {/* Row 1 → Store icons */}
+                  <div className="flex gap-3">
+                    {product.googleStoreLink && (
+                      <a
+                        href={product.googleStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg shadow-lg flex items-center justify-center min-w-[50px]"
+                      >
+                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                        </svg>
+                      </a>
+                    )}
+
+                    {product.appleStoreLink && (
+                      <a
+                        href={product.appleStoreLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-black hover:bg-gray-900 text-white p-3 rounded-lg shadow-lg flex items-center justify-center min-w-[50px]"
+                      >
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M16.365 1.43c0 1.14-.418 2.088-1.254 2.842-.837.754-1.754 1.19-2.75 1.304-.028-.125-.042-.272-.042-.44 0-1.094.394-2.02 1.18-2.78.787-.76 1.71-1.15 2.766-1.15.032 0 .064.004.1.01v.214zM20.745 17.71c-.3.695-.66 1.332-1.085 1.91-.56.77-1.015 1.305-1.36 1.605-.54.495-1.12.75-1.75.764-.445.015-.983-.127-1.62-.426-.637-.3-1.223-.448-1.75-.448-.556 0-1.158.148-1.807.448-.65.3-1.178.45-1.585.45-.61-.027-1.2-.298-1.77-.81-.38-.334-.86-.895-1.445-1.685-.62-.843-1.127-1.82-1.52-2.93-.424-1.2-.635-2.36-.635-3.48 0-1.286.278-2.395.835-3.33.436-.75 1.02-1.34 1.75-1.77.73-.43 1.523-.653 2.38-.67.467-.013 1.08.15 1.84.49.758.337 1.245.506 1.46.506.162 0 .71-.205 1.64-.615.88-.38 1.62-.54 2.22-.48 1.64.133 2.878.78 3.71 1.94-1.47.9-2.208 2.152-2.21 3.75.002 1.25.465 2.29 1.39 3.12.412.39.87.69 1.37.9-.11.32-.245.65-.405.99z" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Row 2 → Website button */}
+                  <a
+                    href={product.livedemoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+      bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg shadow-lg 
+      inline-flex items-center justify-center 
+      min-w-[50px]         
+      lg:min-w-fit        
+    "
+                  >
+                    Go to Website
+                  </a>
+
                 </div>
+
+
               </div>
 
               {/* Divider Line */}

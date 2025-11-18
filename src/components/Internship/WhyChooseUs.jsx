@@ -520,7 +520,7 @@
 //   // Get the testimonials to display
 //   const getVisibleTestimonials = () => {
 //     if (testimonialsData.length === 0) return [];
-    
+
 //     const visible = [];
 //     for (let i = 0; i < itemsToShow; i++) {
 //       const index = (currentTestimonial + i) % testimonialsData.length;
@@ -660,7 +660,7 @@
 //               >
 //                 <FaChevronLeft className="text-blue-600 w-4 h-4 md:w-5 md:h-5" />
 //               </button>
-              
+
 //               <button 
 //                 onClick={nextSlide}
 //                 className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 bg-white rounded-full p-2 shadow-md hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -691,13 +691,13 @@
 //                           {testimonial.fullName ? testimonial.fullName.charAt(0) : 'U'}
 //                         </div> */}
 //                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold mr-3 md:mr-4 flex-shrink-0">
-                         
+
 //                             <img 
 //                               src="/logos/testimonialskeleton.png"
 //                               alt={testimonial.fullName}
 //                               className="w-full h-full rounded-full object-cover"
 //                             />
-                          
+
 //                         </div>
 
 //                         <div className="min-w-0">
@@ -739,11 +739,11 @@
 //             </div>
 //           </motion.div>
 //         )}
- 
-       
-       
+
+
+
 //       </div>
-     
+
 //  <ContactForm />
 
 //     </section>
@@ -855,25 +855,27 @@ const InternshipHighlights = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="mt-16"
         >
-          <motion.a
-            href="#contactform"
+          <motion.button
+            onClick={() => {
+              document.getElementById("contactform")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            // className="inline-flex items-center bg-gradient-to-r from-blue-400 to-blue-600 text-white font-semibold px-8 py-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group"
             className="
-  flex items-center justify-center gap-2
-  px-6 py-3 rounded-lg cursor-pointer
-  bg-gradient-to-r from-[#298cf3] to-blue-600
-  text-white font-semibold text-sm sm:text-base
-  hover:shadow-lg transition-transform duration-300
-  w-full md:w-1/2 mx-auto
-"
-
-
+    flex items-center justify-center gap-2
+    px-6 py-3 rounded-lg cursor-pointer
+    bg-gradient-to-r from-[#298cf3] to-blue-600
+    text-white font-semibold text-sm sm:text-base
+    hover:shadow-lg transition-transform duration-300
+    w-full md:w-1/2 mx-auto
+  "
           >
             Start Your Internship Journey
             <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+          </motion.button>
+
         </motion.div>
       </div>
 

@@ -1470,7 +1470,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import FtflProcess from "@/components/Services/OurProcess";
 import { FiArrowRight } from "react-icons/fi";
 import Image from 'next/image';
@@ -1534,6 +1534,7 @@ useEffect(() => {
         const filteredFaqs = res.data.data.filter(
           (faq) => faq.module === serviceData.title
         );
+        console.log("Filtered FAQs:", filteredFaqs); // Debug log
         setFaqData(filteredFaqs);
       }
     } catch (err) {
