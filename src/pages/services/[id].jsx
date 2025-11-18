@@ -1478,6 +1478,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination,Autoplay  } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { CheckCircle } from "lucide-react";
 
 
 
@@ -1891,40 +1892,44 @@ useEffect(() => {
             )}
 
             {/* === Right Text Content === */}
-            <motion.div
+           <motion.div
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2 space-y-8"
+              className="w-full md:w-1/2 h-full flex flex-col justify-between"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
-                Why Choose Us
-              </h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                We don’t just build digital products — we create lasting experiences.
-                Here’s what sets us apart from the rest:
-              </p>
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
+                  Why Choose Us
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  We don’t just build digital products — we create lasting experiences.
+                  Here’s what sets us apart from the rest:
+                </p>
 
-              <div className="flex flex-col gap-5">
-                {serviceData?.whyChooseUs?.description?.map((point, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="flex items-start gap-3"
-                  >
-                    {/* Optional: use icon image or a default icon */}
-                    <img
-                      src={serviceData.whyChooseUs.icon}
-                      alt="icon"
-                      className="w-7 h-7 flex-shrink-0 mt-1"
-                    />
-                    <span className="text-lg font-medium text-gray-800">{point}</span>
-                  </motion.div>
-                ))}
+                {/* Two Column Points */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {serviceData?.whyChooseUs?.description?.map((point, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.6 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="flex-shrink-0 mt-1">
+                        <CheckCircle className="text-[#4379f7] w-7 h-7" />
+                      </div>
+                      <div className="flex-1">
+                        <span className="text-lg font-medium text-gray-800 leading-relaxed">
+                          {point}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -2229,23 +2234,23 @@ useEffect(() => {
 
                     {/* === Text === */}
                    <div>
-  {(() => {
-    const parts = tech.description.split(":");
-    const title = parts[0];
-    const content = parts.slice(1).join(":").trim();
+                    {(() => {
+                      const parts = tech.description.split(":");
+                      const title = parts[0];
+                      const content = parts.slice(1).join(":").trim();
 
-    return (
-      <>
-        <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
-          {title}
-        </h3>
-        <p className="text-gray-600 text-sm leading-relaxed">
-          {content}
-        </p>
-      </>
-    );
-  })()}
-</div>
+                      return (
+                        <>
+                          <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
+                            {title}
+                          </h3>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {content}
+                          </p>
+                        </>
+                      );
+                    })()}
+                  </div>
 
                   </motion.div>
                 ))}
@@ -2254,6 +2259,8 @@ useEffect(() => {
           </div>
         </section>
         )}
+
+
 <FtflProcess />
 
 
@@ -2331,7 +2338,7 @@ useEffect(() => {
 
 
 {/* ✅ FAQ */}
-        {serviceData.faqs && serviceData.faqs.length > 0 &&(
+        {/* {serviceData.faqs && serviceData.faqs.length > 0 &&( */}
         <section className="py-16 lg:py-20 bg-gray-100 px-4 sm:px-6 relative overflow-hidden">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -2410,7 +2417,7 @@ useEffect(() => {
             )}
           </div>
         </section>
-        )}
+        {/* )} */}
 
     </>
   );
