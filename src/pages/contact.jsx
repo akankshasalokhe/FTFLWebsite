@@ -1034,25 +1034,96 @@ export default function ContactPage() {
   const [contactData, setContactData] = useState({});
   const [banner, setBanner] = useState(null);
   const pageTitle = "Contact";
+    const ref = useRef(null);
+  
 
   // === Fetch Banner ===
-  useEffect(() => {
-    const fetchBanner = async () => {
-      try {
-        const res = await fetch("https://landing-page-yclw.vercel.app/api/banner");
-        const data = await res.json();
-        if (data.success && Array.isArray(data.data)) {
-          const matchedBanner = data.data.find(
-            (b) => b.title?.toLowerCase() === pageTitle.toLowerCase()
-          );
-          setBanner(matchedBanner || null);
+useEffect(() => {
+    const canvas = document.getElementById("networkCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
+
+    const points = [];
+    const POINT_COUNT = 35;
+
+    for (let i = 0; i < POINT_COUNT; i++) {
+      points.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        z: Math.random() * 2 + 1,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 0.5 - 0.25,
+      });
+    }
+
+    function drawLine(p1, p2, opacity) {
+      ctx.strokeStyle = `rgba(110,190,255,${opacity})`;
+      ctx.lineWidth = 1.2;
+
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+
+      ctx.quadraticCurveTo(
+        (p1.x + p2.x) / 2,
+        (p1.y + p2.y) / 2 + Math.sin(Date.now() * 0.001) * 20,
+        p2.x,
+        p2.y
+      );
+
+      ctx.stroke();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      const gradient = ctx.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0, "rgba(0,150,255,0.06)");
+      gradient.addColorStop(1, "rgba(0,255,255,0.05)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < POINT_COUNT; i++) {
+        const p = points[i];
+
+        p.x += p.vx * p.z;
+        p.y += p.vy * p.z;
+
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3 * p.z, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(140,220,255,${0.35 * p.z})`;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "#3ab4ff";
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        for (let j = i + 1; j < POINT_COUNT; j++) {
+          const p2 = points[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+
+          if (dist < 240) drawLine(p, p2, 1 - dist / 240);
         }
-      } catch (error) {
-        console.error("Error fetching banner:", error);
       }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
     };
-    fetchBanner();
-  }, [pageTitle]);
+    window.addEventListener("resize", resize);
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   // === Fetch Contact Info ===
   useEffect(() => {
@@ -1113,30 +1184,103 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-gray-50">
       {/* ==== Hero Banner ==== */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-500 text-white py-28 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
+      <div
+      ref={ref}
+      className="relative h-[35vh] min-h-[420px] max-h-[480px] overflow-hidden 
+      bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"
+    >
+      {/* Bottom Blue Glow */}
+      <div className="absolute bottom-0 left-0 w-full h-40 opacity-70 z-5">
+        <div className="neon-wave"></div>
+      </div>
 
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="relative z-10"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
+      {/* Network Canvas */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <canvas id="networkCanvas" className="w-full h-full"></canvas>
+      </div>
+
+      {/* Other Background Effects */}
+      <div className="absolute inset-0 z-5">
+        <div className="circuit-lines"></div>
+      </div>
+
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <div className="neon-dots"></div>
+      </div>
+
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <div className="floating-polygons"></div>
+      </div>
+
+      {/* CONTENT */}
+      <motion.div
+        className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 py-6 relative z-20 text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate={controls}
+      >
+        <div className="max-w-4xl mx-auto w-full px-4">
+
+          {/* TITLE */}
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
+          >
             <Typewriter
               options={{
-                strings: ["Get in Touch", "Let's Talk", "We’d Love to Hear from You"],
+                strings: ["Get in Touch", "Let's Talk", "We'd Love to Hear From You"],
                 autoStart: true,
                 loop: true,
                 delay: 50,
               }}
             />
-          </h1>
-          <p className="text-xl max-w-2xl leading-relaxed">
-            Ready to start your next project? We're here to help bring your ideas to life.
-          </p>
-        </motion.div>
-      </section>
+          </motion.h1>
+
+          {/* SUBTEXT */}
+          <motion.p
+            className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed"
+            variants={itemVariants}
+          >
+            Have a project in mind? We’re here to help bring your ideas to life.
+          </motion.p>
+
+          {/* BUTTONS */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <button
+              onClick={() =>
+                document.getElementById("contact-form")?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+              className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 
+              text-white font-semibold cursor-pointer hover:shadow-lg hover:scale-[1.05]
+              transition-transform duration-300"
+            >
+              Contact Now
+            </button>
+
+            <button
+              onClick={() =>
+                document.getElementById("office-section")?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+              className="px-8 py-3 rounded-lg bg-white/10 border border-white/20 
+              text-white backdrop-blur-md cursor-pointer hover:bg-white/20 
+              transition-all duration-300"
+            >
+              Our Office Locations
+            </button>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Bottom White Curve */}
+      <div className="absolute bottom-0 left-0 w-full h-6 bg-white clip-path-angle z-30"></div>
+    </div>
+
 
       {/* ==== Main Content ==== */}
       <section className="py-20 -mt-16 relative z-20">
