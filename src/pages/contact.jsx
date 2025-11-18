@@ -1034,7 +1034,7 @@ export default function ContactPage() {
   const [contactData, setContactData] = useState({});
   const [banner, setBanner] = useState(null);
   const pageTitle = "Contact";
-    const ref = useRef(null);
+    // const ref = useRef(null);
   
 
   // === Fetch Banner ===
@@ -1184,102 +1184,7 @@ useEffect(() => {
   return (
     <div className="w-full bg-gray-50">
       {/* ==== Hero Banner ==== */}
-      <div
-      ref={ref}
-      className="relative h-[35vh] min-h-[420px] max-h-[480px] overflow-hidden 
-      bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"
-    >
-      {/* Bottom Blue Glow */}
-      <div className="absolute bottom-0 left-0 w-full h-40 opacity-70 z-5">
-        <div className="neon-wave"></div>
-      </div>
-
-      {/* Network Canvas */}
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <canvas id="networkCanvas" className="w-full h-full"></canvas>
-      </div>
-
-      {/* Other Background Effects */}
-      <div className="absolute inset-0 z-5">
-        <div className="circuit-lines"></div>
-      </div>
-
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <div className="neon-dots"></div>
-      </div>
-
-      <div className="absolute inset-0 z-5 pointer-events-none">
-        <div className="floating-polygons"></div>
-      </div>
-
-      {/* CONTENT */}
-      <motion.div
-        className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 py-6 relative z-20 text-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate={controls}
-      >
-        <div className="max-w-4xl mx-auto w-full px-4">
-
-          {/* TITLE */}
-          <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
-          >
-            <Typewriter
-              options={{
-                strings: ["Get in Touch", "Let's Talk", "We'd Love to Hear From You"],
-                autoStart: true,
-                loop: true,
-                delay: 50,
-              }}
-            />
-          </motion.h1>
-
-          {/* SUBTEXT */}
-          <motion.p
-            className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed"
-            variants={itemVariants}
-          >
-            Have a project in mind? We’re here to help bring your ideas to life.
-          </motion.p>
-
-          {/* BUTTONS */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <button
-              onClick={() =>
-                document.getElementById("contact-form")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-              className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 
-              text-white font-semibold cursor-pointer hover:shadow-lg hover:scale-[1.05]
-              transition-transform duration-300"
-            >
-              Contact Now
-            </button>
-
-            <button
-              onClick={() =>
-                document.getElementById("office-section")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-              className="px-8 py-3 rounded-lg bg-white/10 border border-white/20 
-              text-white backdrop-blur-md cursor-pointer hover:bg-white/20 
-              transition-all duration-300"
-            >
-              Our Office Locations
-            </button>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Bottom White Curve */}
-      <div className="absolute bottom-0 left-0 w-full h-6 bg-white clip-path-angle z-30"></div>
-    </div>
+      
 
 
       {/* ==== Main Content ==== */}
