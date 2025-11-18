@@ -1034,12 +1034,10 @@ export default function ContactPage() {
   const [contactData, setContactData] = useState({});
   const [banner, setBanner] = useState(null);
   const pageTitle = "Contact";
-    // const ref = useRef(null);
-  
 
   // === Fetch Banner ===
-useEffect(() => {
-    const canvas = document.getElementById("networkCanvas");
+ useEffect(() => {
+    const canvas = document.getElementById("careerCanvas");
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
@@ -1184,7 +1182,56 @@ useEffect(() => {
   return (
     <div className="w-full bg-gray-50">
       {/* ==== Hero Banner ==== */}
-      
+      <section className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center 
+bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
+
+  {/* Animated Canvas */}
+  <canvas
+    id="contactCanvas"
+    className="absolute inset-0 w-full h-full pointer-events-none z-5"
+  ></canvas>
+
+  {/* Background Effects */}
+  <div className="absolute inset-0 z-5">
+    <div className="circuit-lines"></div>
+  </div>
+  <div className="absolute inset-0 z-5 pointer-events-none">
+    <div className="neon-dots"></div>
+  </div>
+  <div className="absolute inset-0 z-5 pointer-events-none">
+    <div className="floating-polygons"></div>
+  </div>
+
+  {/* Neon Bottom Glow */}
+  <div className="absolute bottom-0 left-0 w-full h-20 opacity-70 z-5">
+    <div className="neon-wave"></div>
+  </div>
+
+  {/* CONTENT */}
+  <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+    <motion.div
+      className="text-center max-w-3xl mx-auto"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+        <Typewriter
+          options={{
+            strings: ["Get in Touch", "Let's Talk", "We’d Love to Hear from You"],
+            autoStart: true,
+            loop: true,
+            delay: 50,
+          }}
+        />
+      </h1>
+
+      <p className="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        Ready to start your next project? We're here to help bring your ideas to life.
+      </p>
+    </motion.div>
+  </div>
+</section>
 
 
       {/* ==== Main Content ==== */}
