@@ -2228,14 +2228,25 @@ useEffect(() => {
                     </div>
 
                     {/* === Text === */}
-                    <div>
-                      <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
-                        {tech.title || `AI Technology ${index + 1}`}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {tech.description}
-                      </p>
-                    </div>
+                   <div>
+  {(() => {
+    const parts = tech.description.split(":");
+    const title = parts[0];
+    const content = parts.slice(1).join(":").trim();
+
+    return (
+      <>
+        <h3 className="font-semibold text-[#1d2c53] text-base mb-1">
+          {title}
+        </h3>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          {content}
+        </p>
+      </>
+    );
+  })()}
+</div>
+
                   </motion.div>
                 ))}
               </div>
