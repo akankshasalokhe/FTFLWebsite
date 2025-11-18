@@ -155,3 +155,73 @@ video::-webkit-media-controls-overflow-button {
 video::-moz-media-controls {
   display: none !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------- */
+/* Animated Network Waves          */
+/* ------------------------------- */
+
+.network-waves {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  opacity: 0.45;
+}
+
+.network-waves::before,
+.network-waves::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 2px, transparent 3px);
+  background-size: 40px 40px;
+  animation: networkMove 18s linear infinite;
+  filter: blur(1px);
+}
+
+.network-waves::after {
+  background-size: 60px 60px;
+  opacity: 0.6;
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+/* Line connections (soft mesh) */
+.network-waves {
+  background-image: 
+    linear-gradient(120deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(240deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 50px 50px;
+  animation: meshMove 30s linear infinite;
+}
+
+/* Animations */
+@keyframes networkMove {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-120px) translateX(-120px); }
+}
+
+@keyframes meshMove {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 200px 300px, -200px 150px, 150px -200px; }
+}
+
+
+#networkCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
