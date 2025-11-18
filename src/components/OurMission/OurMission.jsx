@@ -261,159 +261,114 @@ const MissionSection = () => {
     {
       title: "Our Vision",
       description:
-        "To be a world leader in next-generation technology, utilizing cloud computing, IoT, AI, and other cutting-edge digital advancements to completely transform how people and organizations interact, function, and expand. In our ideal society, technology will foresee requirements, and facilitate smooth, long-lasting, and revolutionary advancement. We want to build a future where digital possibilities are boundless, enabling every company and people to prosper in a constantly changing, linked world by pushing the limits of innovation and excellence.",
-      image: "logos/ourvision.jpg",
-      typeData: "vision",
+       "At FTFL Technology Pvt. Ltd., our vision is to redefine the digital landscape by creating innovative, intelligent, and impactful technology solutions that empower businesses to achieve sustainable growth. We aspire to become a globally recognized leader in digital transformation — where creativity meets technology and ideas turn into real-world success. By continuously embracing innovation, emerging technologies, and customer-centric approaches, we aim to bridge the gap between possibilities and performance. Our vision is to shape a smarter, connected, and future-ready world driven by excellence, integrity, and the transformative power of technology.",
+      image: "Our Vission.jpg",
     },
     {
       title: "Our Mission",
       description:
-        "Our mission is to provide our clients with scalable, dependable, and creative technological solutions that promote quantifiable efficiency and growth. To help people and organizations accomplish their objectives and create a smarter, more connected digital world, we work to harness cutting-edge technology, encourage innovation, and uphold the highest standards of quality and integrity.",
+         "At FTFL Technology Pvt. Ltd., our mission to provide outstanding technological solutions that enable companies to thrive in the digital age. We are committed to provide dependable, effective, and scalable services in the areas of web development, mobile apps, digital marketing, and creative design—all of which are customized to satisfy particular corporate objectives. Our dedication to excellence, openness, and ongoing development serves as the foundation for our purpose. By combining strategic thinking, advanced technology, and customer-focused execution, we strive to create meaningful digital experiences that add value, inspire trust, and drive long-term success for our clients and partners worldwide",
       image: "logos/ourmission.jpg",
-      typeData: "mission",
     },
     {
       title: "Core Values",
       description:
-        "We are committed to developing technology that truly changes the world. Our work at FTFL Technology Private Limited is motivated by responsibility, curiosity, and a desire to advance. In today's interconnected world, we work to empower individuals, encourage teamwork, and provide solutions that are not just creative but also significant and long-lasting.",
+        "Our core values define who we are and guide every decision we make. “Integrity” is at the heart of our operations, ensuring honesty and transparency in all our relationships. We believe in innovation, constantly exploring new technologies to deliver creative and impactful solutions. “Excellence” drives us to maintain the highest standards in every project we undertake. We prioritize customer satisfaction, building lasting partnerships through trust and commitment. With “Teamwork”, accountability, and a passion for progress, FTFL Technology stands firm on values that inspire growth, empower success, and shape a better digital future for all.",
       image: "logos/corevalues.png",
-      typeData: "corevalues",
     },
   ]);
 
   return (
-<section
-  id="values-section"
-  className="pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-10 lg:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 via-white to-blue-50"
->
-  <div className="max-w-7xl mx-auto">
-    {/* Header */}
-    <div className="text-center mb-12 lg:mb-14">
-      <h2 className="text-4xl sm:text-5xl md:text-5xl font-bold text-gray-900 mb-4">
-        Our{" "}
-        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-          Guiding Principles
-        </span>
-      </h2>
-      <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-        The foundation of everything we do at our company
-      </p>
-    </div>
-
-    {/* Cards */}
-    {/* Mobile: 1 column, Tablet: 1 column, Desktop: 3 columns */}
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-25">
-      {content.map((item, index) => (
-        <div
-          key={index}
-          className="group relative rounded-xl overflow-hidden transition-all duration-500 w-full lg:w-[430px] lg:h-[460px] lg:-ms-8"
-        >
-          {/* Image (mobile & tablet: natural height; desktop: fill card) */}
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-auto lg:h-full object-cover transition-transform duration-700 ease-out"
-            loading="lazy"
-            onError={(e) => {
-              e.target.src = "https://via.placeholder.com/800x450?text=Image+Not+Found";
-            }}
-          />
-
-          {/* ---------- MOBILE & TABLET: show title + description below image ---------- */}
-          <div className="block lg:hidden mt-4">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3 text-justify">
-              {item.title}
-            </h3>
-            <p className="text-gray-700 leading-relaxed text-base text-justify">
-              {item.description}
-            </p>
-
-            {/* {item.typeData === "corevalues" && (
-              <ul className="mt-4 grid grid-cols-2 gap-3">
-                {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
-                  (value, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center gap-2 text-gray-800 text-sm text-left"
-                    >
-                      <svg
-                        className="w-4 h-4 text-emerald-500"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {value}
-                    </li>
-                  )
-                )}
-              </ul>
-            )} */}
-          </div>
-
-          {/* ---------- DESKTOP: exact original hover behavior (unchanged) ---------- */}
-          <div className="hidden lg:block">
-            {/* Black background only on hover */}
-            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
-
-            {/* Title */}
-            <div className="absolute inset-x-0 top-6 flex justify-center text-black group-hover:text-white z-20">
-              <h3 className="text-4xl font-bold drop-shadow-lg">
-                {item.title}
-              </h3>
-            </div>
-
-            {/* Text reveal on hover (comes from right) */}
-            <div
-              className="absolute inset-x-0 top-14 flex flex-col items-start justify-between text-left text-white font-sm
-                opacity-0 translate-x-8 group-hover:opacity-100 group-hover:translate-x-0
-                transition-all duration-700 ease-out p-6 z-20"
-            >
-              <p className="text-md leading-relaxed">
-                {item.description}
-              </p>
-
-              {/* {item.typeData === "corevalues" && (
-                <ul className="mt-4 grid grid-cols-2 gap-2">
-                  {["Integrity", "Innovation", "Collaboration", "Excellence"].map(
-                    (value, i) => (
-                      <li
-                        key={i}
-                        className="flex items-center justify-center gap-2 text-white text-sm"
-                      >
-                        <svg
-                          className="w-4 h-4 text-emerald-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                        {value}
-                      </li>
-                    )
-                  )}
-                </ul>
-              )} */}
-            </div>
-          </div>
+    <section
+      id="values-section"
+      className="pt-12 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-50 via-white to-blue-50"
+    >
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            Our{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+              Guiding Principles
+            </span>
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            The foundation of everything we do at our company
+          </p>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+
+        {/* Zig-Zag Layout */}
+        <div className="flex flex-col space-y-20">
+          {content.map((item, index) => (
+            <div
+              key={index}
+              className={`
+                flex flex-col lg:flex-row items-center gap-10 
+                ${index % 2 !== 0 ? "lg:flex-row-reverse" : ""}
+              `}
+            >
+              {/* Image Side */}
+              <div className="w-full lg:w-1/2">
+                <div className="group relative rounded-xl overflow-hidden shadow-lg">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-[260px] sm:h-[320px] lg:h-[420px] object-cover transition-transform duration-700"
+                    loading="lazy"
+                    onError={(e) =>
+                      (e.target.src =
+                        "https://via.placeholder.com/800x450?text=Image+Not+Found")
+                    }
+                  />
+
+                  {/* Desktop Hover Overlay */}
+                  {/* <div className="hidden lg:block">
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-90 transition-all duration-500"></div>
+
+                    <div className="absolute inset-x-0 top-6 flex justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-500 z-20">
+                      <h3 className="text-4xl font-bold drop-shadow-lg">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <div
+                      className="absolute inset-x-0 bottom-0 p-6 text-white 
+                      opacity-0 translate-y-8 group-hover:opacity-100 group-hover:translate-y-0 
+                      transition-all duration-700 ease-out z-20"
+                    >
+                      <p className="text-md leading-relaxed">{item.description}</p>
+                    </div>
+                  </div> */}
+                </div>
+              </div>
+
+              {/* Text Side (Mobile/Tablet always visible) */}
+              <div className="w-full lg:w-1/2 px-1 block lg:hidden">
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700 text-justify leading-relaxed text-base">
+                  {item.description}
+                </p>
+              </div>
+
+              {/* Desktop text (only when NOT hovering) */}
+              <div className="hidden lg:block w-full lg:w-1/2 px-2">
+                <h3 className="text-4xl font-bold text-gray-900 mb-4">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700 text-lg leading-relaxed text-justify">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
 export default MissionSection;
+
+
