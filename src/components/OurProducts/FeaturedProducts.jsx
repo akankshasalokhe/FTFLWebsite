@@ -407,7 +407,7 @@
 //                     Learn More
 //                   </button>
 //                 </Link>
-                
+
 //                 {/* {selectedProduct.livedemoLink && (
 //                   <a
 //                     href={selectedProduct.livedemoLink}
@@ -477,37 +477,37 @@ export default function ProductDetails() {
   );
 
   // Motion values (must be declared at component top level)
-const x = useMotionValue(0);
-const y = useMotionValue(0);
-const rotateX = useTransform(y, [-100, 100], [15, -15]);
-const rotateY = useTransform(x, [-100, 100], [-15, 15]);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [-100, 100], [15, -15]);
+  const rotateY = useTransform(x, [-100, 100], [-15, 15]);
 
-// 3D tilt mockup JSX
-const renderMobileMockup = (product) => (
-  <motion.div
-    // style={{ rotateX, rotateY }}
-    // onMouseMove={(e) => {
-    //   const rect = e.currentTarget.getBoundingClientRect();
-    //   x.set(e.clientX - rect.left - rect.width / 2);
-    //   y.set(e.clientY - rect.top - rect.height / 2);
-    // }}
-    // onMouseLeave={() => {
-    //   x.set(0);
-    //   y.set(0);
-    // }}
-    // transition={{ type: "spring", stiffness: 100, damping: 10 }}
-    className="relative w-60 h-[500px] mx-auto  overflow-hidden"
-  >
-    <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-1.5"></div>
-    <Image
-      src={product.mainImage}
-      alt={product.title}
-      fill
-      className="object-cover"
-      quality={90}
-    />
-  </motion.div>
-);
+  // 3D tilt mockup JSX
+  const renderMobileMockup = (product) => (
+    <motion.div
+      // style={{ rotateX, rotateY }}
+      // onMouseMove={(e) => {
+      //   const rect = e.currentTarget.getBoundingClientRect();
+      //   x.set(e.clientX - rect.left - rect.width / 2);
+      //   y.set(e.clientY - rect.top - rect.height / 2);
+      // }}
+      // onMouseLeave={() => {
+      //   x.set(0);
+      //   y.set(0);
+      // }}
+      // transition={{ type: "spring", stiffness: 100, damping: 10 }}
+      className="relative w-60 h-[500px] mx-auto  overflow-hidden"
+    >
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-1.5"></div>
+      <Image
+        src={product.mainImage}
+        alt={product.title}
+        fill
+        className="object-cover"
+        quality={90}
+      />
+    </motion.div>
+  );
 
 
   return (
@@ -550,11 +550,10 @@ const renderMobileMockup = (product) => (
               whileTap={{ scale: 0.9 }}
               key={p._id}
               onClick={() => setSelectedProduct(p)}
-              className={`px-6 py-2 rounded-lg text-sm font-semibold shadow-lg transition-all duration-300 ${
-                selectedProduct?._id === p._id
+              className={`px-6 py-2 rounded-lg text-sm font-semibold shadow-lg transition-all duration-300 ${selectedProduct?._id === p._id
                   ? "bg-gradient-to-r from-[#298cf3] to-blue-600 text-white"
                   : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-100"
-              }`}
+                }`}
             >
               {p.title}
             </motion.button>
@@ -597,7 +596,7 @@ const renderMobileMockup = (product) => (
                 {selectedProduct.description.substring(0, 150)}...
               </p>
 
-              <motion.ul
+              {/* <motion.ul
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6"
                 initial="hidden"
                 animate="visible"
@@ -634,9 +633,58 @@ const renderMobileMockup = (product) => (
                     {feature}
                   </motion.li>
                 ))}
+              </motion.ul> */}
+
+
+
+              <motion.ul
+                className="grid grid-cols-2 sm:grid-cols-2 gap-3 mb-6"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.15 },
+                  },
+                }}
+              >
+                {selectedProduct.homeFeatureTags?.slice(0, 4).map((feature, i) => (
+                  <motion.li
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, x: -10 },
+                      visible: { opacity: 1, x: 0 },
+                    }}
+                    className="flex items-start gap-2 text-gray-700 text-sm sm:text-base"
+                  >
+                    {/* SVG ICON */}
+                    <svg
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-1 flex-shrink-0"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+
+                    {/* TEXT (Always stacked, no overlap) */}
+                    <span className="block leading-tight break-words w-full">
+                      {feature}
+                    </span>
+                  </motion.li>
+                ))}
               </motion.ul>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+
+
+
+              {/* <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link href={`/products/${selectedProduct._id}`}>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -646,7 +694,7 @@ const renderMobileMockup = (product) => (
                     Learn More
                   </motion.button>
                 </Link>
-              </div>
+              </div> */}
             </motion.div>
           </motion.div>
         )}

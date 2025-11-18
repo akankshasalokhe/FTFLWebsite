@@ -262,17 +262,17 @@ export default function ProductDetails() {
                     )}
                   </div>
 
-                  {/* Row 2 → Website button */}
+                 
                   <a
                     href={product.livedemoLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-      bg-[#4285F4] hover:bg-[#3367D6] text-white p-3 rounded-lg shadow-lg 
-      inline-flex items-center justify-center 
-      min-w-[50px]         
-      lg:min-w-fit        
-    "
+                        bg-gradient-to-r from-[#298cf3] to-blue-600 hover:translate-y-[-2px] text-white p-3 rounded-lg shadow-lg 
+                        inline-flex items-center justify-center 
+                        min-w-[50px]         
+                        lg:min-w-fit        
+                      "
                   >
                     Go to Website
                   </a>
