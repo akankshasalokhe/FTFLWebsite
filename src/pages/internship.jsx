@@ -112,32 +112,32 @@ const HeroSection = () => {
     };
   }, []);
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    fade: true,
-    arrows: false,
-  };
+  // const sliderSettings = {
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 1000,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   autoplay: true,
+  //   autoplaySpeed: 5000,
+  //   fade: true,
+  //   arrows: false,
+  // };
 
-  const carouselImages = [
-    { 
-      src: "/Team.jpeg", 
-      alt: "Students collaborating in a professional environment" 
-    },
-    { 
-      src: "/Hero.jpeg", 
-      alt: "Our team of experienced mentors and professionals" 
-    },
-    { 
-      src: "/Team.jpeg", 
-      alt: "Mobile web development project showcase" 
-    },
-  ];
+  // const carouselImages = [
+  //   { 
+  //     src: "/Team.jpeg", 
+  //     alt: "Students collaborating in a professional environment" 
+  //   },
+  //   { 
+  //     src: "/Hero.jpeg", 
+  //     alt: "Our team of experienced mentors and professionals" 
+  //   },
+  //   { 
+  //     src: "/Team.jpeg", 
+  //     alt: "Mobile web development project showcase" 
+  //   },
+  // ];
 
   return (
     <>

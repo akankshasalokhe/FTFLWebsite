@@ -524,7 +524,7 @@ const InternshipProcess = () => {
         </div>
 
         {/* Stats Section */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -543,7 +543,7 @@ const InternshipProcess = () => {
               <div className="text-gray-400 text-xs md:text-base">{stat.label}</div>
             </motion.div>
           ))}
-        </motion.div>
+        </motion.div> */}
 
         {/* CTA Section */}
         <motion.div
