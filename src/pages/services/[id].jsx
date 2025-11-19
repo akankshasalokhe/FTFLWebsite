@@ -2178,7 +2178,7 @@ export default function ServiceDetail() {
                 <img
                   src={serviceData.aiTechnologyImage}
                   alt="AI Technology"
-                  className="w-full h-full object-cover min-h-[550px] rounded-3xl"
+                  className="w-[560px] h-[710px] object-cover min-h-[550px] rounded-3xl"
                 />
               )}
 
