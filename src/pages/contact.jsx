@@ -1037,91 +1037,89 @@ export default function ContactPage() {
 
   // === Fetch Banner ===
  useEffect(() => {
-    const canvas = document.getElementById("careerCanvas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    let w = (canvas.width = window.innerWidth);
-    let h = (canvas.height = window.innerHeight);
-
-    const points = [];
-    const POINT_COUNT = 35;
-
-    for (let i = 0; i < POINT_COUNT; i++) {
-      points.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        z: Math.random() * 2 + 1,
-        vx: Math.random() * 0.5 - 0.25,
-        vy: Math.random() * 0.5 - 0.25,
-      });
-    }
-
-    function drawLine(p1, p2, opacity) {
-      ctx.strokeStyle = `rgba(110,190,255,${opacity})`;
-      ctx.lineWidth = 1.2;
-
-      ctx.beginPath();
-      ctx.moveTo(p1.x, p1.y);
-
-      ctx.quadraticCurveTo(
-        (p1.x + p2.x) / 2,
-        (p1.y + p2.y) / 2 + Math.sin(Date.now() * 0.001) * 20,
-        p2.x,
-        p2.y
-      );
-
-      ctx.stroke();
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, w, h);
-
-      const gradient = ctx.createLinearGradient(0, 0, w, h);
-      gradient.addColorStop(0, "rgba(0,150,255,0.06)");
-      gradient.addColorStop(1, "rgba(0,255,255,0.05)");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, w, h);
-
-      for (let i = 0; i < POINT_COUNT; i++) {
-        const p = points[i];
-
-        p.x += p.vx * p.z;
-        p.y += p.vy * p.z;
-
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3 * p.z, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(140,220,255,${0.35 * p.z})`;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "#3ab4ff";
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        for (let j = i + 1; j < POINT_COUNT; j++) {
-          const p2 = points[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-
-          if (dist < 240) drawLine(p, p2, 1 - dist / 240);
-        }
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    const resize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    };
-    window.addEventListener("resize", resize);
-
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+     const canvas = document.getElementById("smallCanvas");
+     if (!canvas) return;
+ 
+     const ctx = canvas.getContext("2d");
+ 
+     let w = (canvas.width = window.innerWidth);
+     let h = (canvas.height = 350);
+ 
+     const points = [];
+     const POINT_COUNT = 30;
+ 
+     for (let i = 0; i < POINT_COUNT; i++) {
+       points.push({
+         x: Math.random() * w,
+         y: Math.random() * h,
+         z: Math.random() * 1.8 + 1,
+         vx: Math.random() * 0.5 - 0.25,
+         vy: Math.random() * 0.5 - 0.25,
+       });
+     }
+ 
+     function drawLine(p1, p2, opacity) {
+       ctx.strokeStyle = `rgba(110,190,255,${opacity})`;
+       ctx.lineWidth = 1.1;
+ 
+       ctx.beginPath();
+       ctx.moveTo(p1.x, p1.y);
+       ctx.quadraticCurveTo(
+         (p1.x + p2.x) / 2,
+         (p1.y + p2.y) / 2 + Math.sin(Date.now() * 0.001) * 15,
+         p2.x,
+         p2.y
+       );
+       ctx.stroke();
+     }
+ 
+     function animate() {
+       ctx.clearRect(0, 0, w, h);
+ 
+       const gradient = ctx.createLinearGradient(0, 0, w, h);
+       gradient.addColorStop(0, "rgba(0,150,255,0.07)");
+       gradient.addColorStop(1, "rgba(0,255,255,0.05)");
+       ctx.fillStyle = gradient;
+       ctx.fillRect(0, 0, w, h);
+ 
+       for (let i = 0; i < POINT_COUNT; i++) {
+         const p = points[i];
+ 
+         p.x += p.vx * p.z;
+         p.y += p.vy * p.z;
+ 
+         if (p.x < 0 || p.x > w) p.vx *= -1;
+         if (p.y < 0 || p.y > h) p.vy *= -1;
+ 
+         ctx.beginPath();
+         ctx.arc(p.x, p.y, 2.5 * p.z, 0, Math.PI * 2);
+         ctx.fillStyle = `rgba(140,220,255,${0.35 * p.z})`;
+         ctx.shadowBlur = 12;
+         ctx.shadowColor = "#3ab4ff";
+         ctx.fill();
+         ctx.shadowBlur = 0;
+ 
+         for (let j = i + 1; j < POINT_COUNT; j++) {
+           const p2 = points[j];
+           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+ 
+           if (dist < 180) drawLine(p, p2, 1 - dist / 180);
+         }
+       }
+ 
+       requestAnimationFrame(animate);
+     }
+ 
+     animate();
+ 
+     const resize = () => {
+       w = canvas.width = window.innerWidth;
+     };
+     window.addEventListener("resize", resize);
+ 
+     return () => window.removeEventListener("resize", resize);
+   }, []);
+   
 
   // === Fetch Contact Info ===
   useEffect(() => {

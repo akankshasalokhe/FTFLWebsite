@@ -160,116 +160,107 @@ import {
 export default function WhatIsInternship() {
   const benefits = [
     {
-      icon: <FaBuilding className="text-blue-600 text-3xl" />,
-      title: "Real-World Experience",
-      text: "Gain hands-on exposure in corporate environments and understand how real businesses operate.",
+      icon: <FaBuilding />,
+      title: "Real Industry Exposure",
+      text: "Work on real company projects and learn industry workflows.",
     },
     {
-      icon: <FaChartLine className="text-blue-600 text-3xl" />,
-      title: "Skill Advancement",
-      text: "Develop both technical and interpersonal skills that prepare you for your professional journey.",
+      icon: <FaChartLine />,
+      title: "Skill Growth",
+      text: "Develop both technical and soft skills for professional growth.",
     },
     {
-      icon: <FaHandshake className="text-blue-600 text-3xl" />,
-      title: "Networking & Mentorship",
-      text: "Connect with industry professionals and build valuable mentorship relationships.",
+      icon: <FaHandshake />,
+      title: "Professional Network",
+      text: "Connect with mentors and industry professionals.",
     },
     {
-      icon: <FaUserGraduate className="text-blue-600 text-3xl" />,
-      title: "Career Exploration",
-      text: "Discover your strengths, interests, and preferred industries through immersive learning.",
+      icon: <FaUserGraduate />,
+      title: "Career Direction",
+      text: "Discover your strengths and career preferences through experience.",
     },
     {
-      icon: <FaClipboardCheck className="text-blue-600 text-3xl" />,
-      title: "Resume Value",
-      text: "Enhance your resume with credible work experience that demonstrates initiative and capability.",
+      icon: <FaClipboardCheck />,
+      title: "Resume Advantage",
+      text: "Boost your resume with practical work experience.",
     },
   ];
 
   return (
-    <section className="relative py-28 bg-gradient-to-b from-white via-blue-50 to-white overflow-hidden">
-      {/* Subtle floating gradient orbs */}
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+    <section className="relative py-28 px-6 bg-gradient-to-br from-blue-50 via-white to-blue-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
-        {/* Section Header */}
+        {/* ========== LEFT: IMAGE ========== */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="w-full h-full"
         >
-          <h2 className="text-5xl font-extrabold text-gray-900 mb-5">
-            Internship in{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500">
-              FTFL
-            </span>
-          </h2>
-          <div className="w-28 h-1 bg-blue-600 mx-auto rounded-full mb-8"></div>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Our internship program at FTFL Technology Pvt. Ltd. aims to close the knowledge gap between academic study and practical work experience. In fields including web development, mobile app development, digital marketing, AI/ML, and creative design, we provide students and recent graduates practical exposure to cutting-edge technology, actual projects, and industry practices.
-          </p>
+          <div className="w-full h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-blue-100">
+            <img
+              src="Digital marketing works 24_7 even when you don’t….jpeg"
+              alt="Corporate Internship"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </motion.div>
 
-        {/* Main Content Layout */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-blue-100">
-              <img
-                src="https://images.unsplash.com/photo-1581092334472-7b1c92a7bfa7?auto=format&fit=crop&w=900&q=80"
-                alt="Corporate Internship"
-                className="w-full h-[500px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
-            </div>
-          </motion.div>
+        {/* ========== RIGHT: CONTENT ========== */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="space-y-8"
+        >
+          <div>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+              Internship at{" "}
+              <span className="bg-gradient-to-r from-blue-700 to-blue-500 text-transparent bg-clip-text">
+                FTFL
+              </span>
+            </h2>
+            <div className="w-24 h-1 bg-blue-600 rounded-full mb-6"></div>
+            <p className="text-gray-700 text-base lg:text-lg leading-relaxed max-w-lg">
+              FTFL Technology Pvt. Ltd. provides hands-on internship experience
+              where students and fresh graduates work on live projects in Web
+              Development, App Development, Digital Marketing, AI/ML, and
+              Creative Design under expert mentorship.
+            </p>
+          </div>
 
-          {/* Right — Benefits */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-3xl font-bold text-gray-900 mb-10 text-center lg:text-left">
-              Why Internships Matter
-            </h3>
+          {/* Benefits Grid */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {benefits.map((b, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="flex items-start gap-4 bg-white rounded-2xl p-5 shadow-md border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-600 text-white text-xl">
+                  {b.icon}
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">{b.title}</h4>
+                  <p className="text-gray-600 text-sm">{b.text}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              {benefits.map((b, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="mb-3">{b.icon}</div>
-                  <h4 className="font-semibold text-gray-900 mb-2">
-                    {b.title}
-                  </h4>
-                  <p className="text-sm text-gray-700 leading-relaxed">
-                    {b.text}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
       </div>
     </section>
   );
 }
+
+
+
 
 
 

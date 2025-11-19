@@ -1241,6 +1241,8 @@ import {
   FaQuestionCircle,
   FaRupeeSign,
   FaUniversity,
+  FaUserGraduate ,
+  FaCalendarAlt
 } from "react-icons/fa";
 import axios from "axios";
 
@@ -1474,20 +1476,49 @@ const CurriculumAccordion = ({ curriculum }) => {
             className={openIndex === index ? "block" : "hidden"}
           >
             <div className="px-6 pb-5">
-              <ul className="space-y-2">
-                {item.topics.map((topic, j) => (
-                  <motion.li
-                    key={j}
-                    className="flex items-start text-gray-700"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: j * 0.1 }}
-                  >
-                    <FaCheckCircle className="mt-1 mr-2 text-green-500 flex-shrink-0" aria-hidden="true" />
-                    <span>{topic}</span>
-                  </motion.li>
-                ))}
-              </ul>
+              <ul className="space-y-3">
+  {item.topics.map((topic, j) => (
+    <div key={j}>
+      {topic.isWeek ? (
+        // WEEK TITLE BLOCK
+        <div className="mb-2">
+          <h4 className="font-semibold text-blue-700 text-lg flex items-center gap-2">
+            <FaLaptopCode className="text-blue-600" />
+            {topic.weekTitle}
+          </h4>
+
+          {/* Nested topics inside week */}
+          <ul className="ml-6 mt-2 space-y-2">
+            {topic.topics.map((subTopic, k) => (
+              <motion.li
+                key={k}
+                className="flex items-start text-gray-700"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: k * 0.1 }}
+              >
+                <FaCheckCircle className="mt-1 mr-2 text-green-500" />
+                <span>{subTopic}</span>
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        // NORMAL TOPIC
+        <motion.li
+          className="flex items-start text-gray-700"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: j * 0.1 }}
+        >
+          <FaCheckCircle className="mt-1 mr-2 text-green-500" />
+          <span>{topic}</span>
+        </motion.li>
+      )}
+    </div>
+  ))}
+</ul>
+
             </div>
           </div>
         </motion.div>
@@ -1816,74 +1847,8 @@ const RatingStars = ({ rating }) => {
   );
 };
 
-// Share Course Component
-// const ShareCourse = ({ course }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const courseUrl = typeof window !== 'undefined' ? `${window.location.origin}/courses/${course.id}` : '';
 
-//   const shareOnSocialMedia = (platform) => {
-//     const text = `Check out this ${course.title} course on CareerBoost!`;
-//     let url = '';
 
-//     switch(platform) {
-//       case 'twitter':
-//         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(courseUrl)}`;
-//         break;
-//       case 'facebook':
-//         url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(courseUrl)}`;
-//         break;
-//       case 'linkedin':
-//         url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(courseUrl)}`;
-//         break;
-//       default:
-//         return;
-//     }
-
-//     window.open(url, '_blank', 'width=600,height=400');
-//   };
-
-//   const copyToClipboard = () => {
-//     navigator.clipboard.writeText(courseUrl);
-//     alert('Link copied to clipboard!');
-//   };
-
-//   return (
-//     <div className="relative">
-//       <button 
-//         onClick={() => setIsOpen(!isOpen)}
-//         className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
-//       >
-//         <FaShare className="text-sm" />
-//         Share this course
-//       </button>
-
-//       {isOpen && (
-//         <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-48">
-//           <p className="text-sm font-medium text-gray-700 mb-2">Share via</p>
-//           <div className="flex justify-between mb-3">
-//             <button onClick={() => shareOnSocialMedia('twitter')} className="text-blue-400 hover:text-blue-600">
-//               <FaTwitter className="text-xl" />
-//             </button>
-//             <button onClick={() => shareOnSocialMedia('facebook')} className="text-blue-600 hover:text-blue-800">
-//               <FaFacebook className="text-xl" />
-//             </button>
-//             <button onClick={() => shareOnSocialMedia('linkedin')} className="text-blue-700 hover:text-blue-900">
-//               <FaLinkedin className="text-xl" />
-//             </button>
-//           </div>
-//           <button 
-//             onClick={copyToClipboard}
-//             className="w-full text-left text-sm text-gray-600 hover:text-gray-800 py-1"
-//           >
-//             Copy link
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// Transform curriculum data from API into accordion-friendly format
 
 export default function CourseDetails() {
   const { query, back } = useRouter();
@@ -1966,26 +1931,6 @@ export default function CourseDetails() {
 
 
 
-  //   if (isLoading) {
-  //     return <LoadingSkeleton />;
-  //   }
-
-  // if (!isLoading && (!internshipData || internshipData.length === 0)) {
-  //     return (
-  //       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
-  //         <div className="max-w-md text-center">
-  //           <h1 className="text-2xl font-bold text-gray-800 mb-4">Course Not Found</h1>
-  //           <p className="text-gray-600 mb-6">The course you're looking for doesn't exist or has been moved.</p>
-  //           <Link href="/" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition">
-  //             Browse All Courses
-  //           </Link>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
-
-
-
   if (isLoading || !internshipData) {
     return <LoadingSkeleton />;
   }
@@ -2011,7 +1956,22 @@ export default function CourseDetails() {
 
 
   const transformedCurriculum =
-    internshipData?.curriculum?.map((item, index) => ({
+  internshipData?.curriculum?.map((item, index) => {
+    let finalTopics = [];
+
+    // Case 1: If weeklyPlan exists → push weekTitle + nested topics
+    if (item.weeklyPlan && Array.isArray(item.weeklyPlan)) {
+      finalTopics = item.weeklyPlan.map((week) => ({
+        isWeek: true,
+        weekTitle: week.weekTitle,
+        topics: week.topics || [],
+      }));
+    } else {
+      // Case 2: Fallback to simple description array
+      finalTopics = item.currDescription || [];
+    }
+
+    return {
       step: index + 1,
       title: item.currTitle,
       icon: (
@@ -2021,8 +1981,10 @@ export default function CourseDetails() {
           className="w-full h-full object-fit rounded-full"
         />
       ),
-      topics: item.currDescription || [],
-    })) || [];
+      topics: finalTopics,
+    };
+  }) || [];
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -2036,7 +1998,7 @@ export default function CourseDetails() {
 
 
       {/* Navigation - Fixed for mobile */}
-      <nav className="bg-white shadow-sm mt-18">
+      {/* <nav className="bg-white shadow-sm mt-18">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center  gap-2">
             <div className="flex items-center ">
@@ -2053,7 +2015,7 @@ export default function CourseDetails() {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
       <section className="relative h-80 sm:h-72 md:h-80 lg:h-96">
@@ -2100,18 +2062,7 @@ export default function CourseDetails() {
               {internshipData.description}
             </motion.p>
 
-            {/* Download Button - Fixed visibility */}
-            {/* <motion.div
-              className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-
-              <button className="border border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]">
-                Download Syllabus {internshipData.syllabusLink}
-              </button>
-            </motion.div> */}
+          
 
 
             {/* Download Button - Opens in new tab */}
@@ -2201,25 +2152,24 @@ export default function CourseDetails() {
       <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
           {/* Tab Navigation */}
-          <div className="border-b border-gray-200 mb-8">
-            <nav className="flex space-x-8">
-              {['curriculum', 'reviews', 'faqs'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-4 px-1 font-medium text-sm border-b-2 ${activeTab === tab
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                    }`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+          <div className="border-b border-gray-200 mb-8 sticky top-15 lg:top-[75px] bg-white z-40">
+  <nav className="flex space-x-8 overflow-x-auto scrollbar-hide">
+    {['curriculum', 'reviews', 'faqs'].map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={`py-4 px-1 font-medium whitespace-nowrap text-sm border-b-2 ${
+          activeTab === tab
+            ? 'border-blue-500 text-blue-600'
+            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+        }`}
+      >
+        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+      </button>
+    ))}
+  </nav>
+</div>
 
-
-
-            </nav>
-          </div>
 
           {/* Tab Content */}
           {activeTab === 'curriculum' && (
@@ -2305,34 +2255,58 @@ export default function CourseDetails() {
               </motion.section>
 
               {/* Outcomes */}
-              <motion.section
-                className="mb-12"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-              >
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full" aria-hidden="true"></span>
-                  Program Benefits
-                </h2>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {internshipData.benefits.map((outcome, index) => (
-                    <motion.div
-                      key={index}
-                      className="bg-white rounded-xl shadow p-6 flex items-start gap-3 hover:shadow-md transition group"
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeIn}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <FaCheckCircle className="text-green-500 text-xl mt-0.5 flex-shrink-0" aria-hidden="true" />
-                      <span className="text-gray-700">{outcome}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.section>
+             <motion.section
+  className="mb-12"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  variants={fadeIn}
+>
+  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+    <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full"></span>
+    Program Benefits
+  </h2>
+
+  <div className="grid sm:grid-cols-2 gap-6">
+    {internshipData.benefits.map((item, index) => {
+      const [mainTitle, description] = item.title.split(":");
+
+      return (
+        <motion.div
+          key={index}
+          className="bg-white rounded-xl shadow p-6 hover:shadow-md transition"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeIn}
+          transition={{ delay: index * 0.1 }}
+        >
+          <div className="flex items-start gap-3">
+            <img
+              src={item.icon}
+              alt={mainTitle}
+              className="w-10 h-10 object-contain mt-1"
+            />
+
+            <div>
+              {/* Title */}
+              <h3 className="text-gray-800 font-bold text-lg">{mainTitle}</h3>
+
+              {/* Description */}
+              {description && (
+                <p className="text-gray-600 text-sm mt-1">
+                  {description.trim()}
+                </p>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      );
+    })}
+  </div>
+</motion.section>
+
+
             </>
           )}
 
@@ -2399,59 +2373,36 @@ export default function CourseDetails() {
             >
               <h3 className="text-xl font-bold text-gray-800 mb-4">Program Summary</h3>
               <div className="space-y-4">
-                <div className="">
+                <div className="flex items-center gap-2">
+                  <FaCalendarAlt className="text-blue-500"/>
+                  <div>
                   <p className="text-gray-600">Duration:</p>
                   <p className="font-semibold">{internshipData.durationDetails}</p>
+                  </div>
                 </div>
 
                 <div className="flex justify-start items-center w-full gap-2">
+                  <FaMoneyBillWave className="text-blue-500"/>
+                  <div className="flex items-center gap-2">
                   <span className="text-gray-600">Program Fee:</span>
                   <span className="font-semibold text-blue-600 flex items-center gap-1">
                     <FaRupeeSign size={12} /> {internshipData.fee}
                   </span>
+                  </div>
                 </div>
-                {/* <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Stipend:</span>
-                  <span className="font-semibold text-green-600">{internshipData.stipend}</span>
-                </div> */}
-                <div className="">
+                
+                <div className="flex items-center gap-2">
+                  <FaUserGraduate  className="text-blue-500"/>
+                  <div>
                   <p className="text-gray-600">Education:</p>
                   <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
                     <span key={index} className="block">{item}</span>
                   ))}</p>
-                </div>
-                <div className="">
-                  <p className="text-gray-600">Mode:</p>
-                  <p className="font-semibold">{internshipData.mode}</p>
-                </div>
-                <div className="pt-4 border-t border-gray-200">
-                  {/* <button 
-                    onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold shadow hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  >
-                    Enroll Now
-                  </button> */}
-                  <p className="text-center text-sm text-gray-500 mt-3">Limited seats available</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="bg-white rounded-2xl shadow-lg p-6"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={scaleIn}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="space-y-4">
-                {/* <div className="flex items-center gap-3">
-                  <FaRegCalendarAlt className="text-blue-500" />
-                  <div>
-                    <p className="text-sm text-gray-600">Next Batch</p>
-                    <p className="font-semibold text-gray-800">{course.nextBatch}</p>
                   </div>
-                </div> */}
+                </div>
+           
+                <div className="space-y-4">
+               
                 <div className="flex items-center gap-3">
                   <FaClock className="text-blue-500" />
                   <div>
@@ -2467,7 +2418,40 @@ export default function CourseDetails() {
                   </div>
                 </div>
               </div>
+                <div className="pt-4 border-t border-gray-200">
+                  
+                  <p className="text-center text-sm text-gray-500 mt-3">Limited seats available</p>
+                </div>
+              </div>
+
             </motion.div>
+
+            {/* <motion.div
+              className="bg-white rounded-2xl shadow-lg p-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={scaleIn}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="space-y-4">
+               
+                <div className="flex items-center gap-3">
+                  <FaClock className="text-blue-500" />
+                  <div>
+                    <p className="text-sm text-gray-600">Schedule</p>
+                    <p className="font-semibold text-gray-800">{internshipData.schedule}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaMapMarkerAlt className="text-blue-500" />
+                  <div>
+                    <p className="text-sm text-gray-600">Mode</p>
+                    <p className="font-semibold text-gray-800">{internshipData.mode}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div> */}
 
             <motion.div
               className="bg-blue-50 rounded-2xl p-6 text-center"
@@ -2487,43 +2471,7 @@ export default function CourseDetails() {
         </div>
       </div>
 
-      {/* Enroll CTA */}
-      {/* <section className="bg-gray-600">
-        <div className="max-w-6xl mx-auto px-6 py-16 text-center text-white">
-          <motion.h3
-            className="text-3xl font-bold mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Ready to Start Your Career?
-          </motion.h3>
-          <motion.p
-            className="opacity-90 mb-6 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            Enroll today, complete the training, receive guaranteed internship with stipend,
-            and unlock placement opportunities with our partner companies.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <Link href='/contact'>
-            <button className="border border-white text-white font-semibold px-8 py-3 rounded-xl shadow hover:bg-white hover:text-blue-700 transition">
-              Schedule a Mentor Call
-            </button>
-            </Link>
-          </motion.div>
-          <p className="mt-4 text-blue-100 text-sm">Limited seats available</p>
-        </div>
-      </section> */}
+  
 
 
       <section
@@ -2576,14 +2524,7 @@ export default function CourseDetails() {
       </section>
 
 
-      {/* Enrollment Modal */}
-      {/* <AnimatePresence>
-        <EnrollmentModal 
-          course={course} 
-          isOpen={isModalOpen} 
-          onClose={() => setIsModalOpen(false)} 
-        />
-      </AnimatePresence> */}
+  
     </div>
   );
 }

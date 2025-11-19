@@ -718,18 +718,18 @@ const InternshipCourses = () => {
       </Head>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-16 px-6 text-center"
+      {/* <section className="pt-20 pb-16 px-6 text-center"
         style={{
           background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
         }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
+      > */}
+        {/* <div className="max-w-7xl mx-auto"> */}
+          {/* <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4"> Level Up Your Skills with Real Industry Experience</h1>
             <p className="text-lg text-gray-200 max-w-3xl mx-auto">
               Engage in practical internships that combine skill-building, certification, and placement support.
             </p>
-          </div>
+          </div> */}
 
           {/* Internship Type Toggle Buttons */}
           {/* <div className="flex justify-center mb-8">
@@ -762,8 +762,8 @@ const InternshipCourses = () => {
               </button>
             </div>
           </div> */}
-        </div>
-      </section>
+        {/* </div> */}
+      {/* </section> */}
 
       {/* Main Content Section */}
       <section className="py-16 px-6 bg-white">
