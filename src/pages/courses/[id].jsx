@@ -1241,6 +1241,8 @@ import {
   FaQuestionCircle,
   FaRupeeSign,
   FaUniversity,
+  FaUserGraduate ,
+  FaCalendarAlt
 } from "react-icons/fa";
 import axios from "axios";
 
@@ -1995,7 +1997,7 @@ export default function CourseDetails() {
 
 
       {/* Navigation - Fixed for mobile */}
-      <nav className="bg-white shadow-sm mt-18">
+      {/* <nav className="bg-white shadow-sm mt-18">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row sm:items-center  gap-2">
             <div className="flex items-center ">
@@ -2012,7 +2014,7 @@ export default function CourseDetails() {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
       <section className="relative h-80 sm:h-72 md:h-80 lg:h-96">
@@ -2149,25 +2151,24 @@ export default function CourseDetails() {
       <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
           {/* Tab Navigation */}
-          <div className="border-b border-gray-200 mb-8">
-            <nav className="flex space-x-8">
-              {['curriculum', 'reviews', 'faqs'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-4 px-1 font-medium text-sm border-b-2 ${activeTab === tab
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                    }`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+          <div className="border-b border-gray-200 mb-8 sticky top-15 lg:top-[75px] bg-white z-40">
+  <nav className="flex space-x-8 overflow-x-auto scrollbar-hide">
+    {['curriculum', 'reviews', 'faqs'].map((tab) => (
+      <button
+        key={tab}
+        onClick={() => setActiveTab(tab)}
+        className={`py-4 px-1 font-medium whitespace-nowrap text-sm border-b-2 ${
+          activeTab === tab
+            ? 'border-blue-500 text-blue-600'
+            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+        }`}
+      >
+        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+      </button>
+    ))}
+  </nav>
+</div>
 
-
-
-            </nav>
-          </div>
 
           {/* Tab Content */}
           {activeTab === 'curriculum' && (
@@ -2371,36 +2372,60 @@ export default function CourseDetails() {
             >
               <h3 className="text-xl font-bold text-gray-800 mb-4">Program Summary</h3>
               <div className="space-y-4">
-                <div className="">
+                <div className="flex items-center gap-2">
+                  <FaCalendarAlt className="text-blue-500"/>
+                  <div>
                   <p className="text-gray-600">Duration:</p>
                   <p className="font-semibold">{internshipData.durationDetails}</p>
+                  </div>
                 </div>
 
                 <div className="flex justify-start items-center w-full gap-2">
+                  <FaMoneyBillWave className="text-blue-500"/>
+                  <div className="flex items-center gap-2">
                   <span className="text-gray-600">Program Fee:</span>
                   <span className="font-semibold text-blue-600 flex items-center gap-1">
                     <FaRupeeSign size={12} /> {internshipData.fee}
                   </span>
+                  </div>
                 </div>
                 
-                <div className="">
+                <div className="flex items-center gap-2">
+                  <FaUserGraduate  className="text-blue-500"/>
+                  <div>
                   <p className="text-gray-600">Education:</p>
                   <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
                     <span key={index} className="block">{item}</span>
                   ))}</p>
+                  </div>
                 </div>
-                <div className="">
-                  <p className="text-gray-600">Mode:</p>
-                  <p className="font-semibold">{internshipData.mode}</p>
+           
+                <div className="space-y-4">
+               
+                <div className="flex items-center gap-3">
+                  <FaClock className="text-blue-500" />
+                  <div>
+                    <p className="text-sm text-gray-600">Schedule</p>
+                    <p className="font-semibold text-gray-800">{internshipData.schedule}</p>
+                  </div>
                 </div>
+                <div className="flex items-center gap-3">
+                  <FaMapMarkerAlt className="text-blue-500" />
+                  <div>
+                    <p className="text-sm text-gray-600">Mode</p>
+                    <p className="font-semibold text-gray-800">{internshipData.mode}</p>
+                  </div>
+                </div>
+              </div>
                 <div className="pt-4 border-t border-gray-200">
                   
                   <p className="text-center text-sm text-gray-500 mt-3">Limited seats available</p>
                 </div>
               </div>
+
             </motion.div>
 
-            <motion.div
+            {/* <motion.div
               className="bg-white rounded-2xl shadow-lg p-6"
               initial="hidden"
               whileInView="visible"
@@ -2425,7 +2450,7 @@ export default function CourseDetails() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             <motion.div
               className="bg-blue-50 rounded-2xl p-6 text-center"
