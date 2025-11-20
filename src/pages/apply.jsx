@@ -572,7 +572,8 @@ useEffect(() => {
 
               {/* Notice Period */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Notice Period *</label>
+                <label className="block text-sm font-medium text-gray-700">Notice Period *</label>
+                <p className='text-xs mb-2'>Enter Immediate Joiner if you're a fresher</p>
                 <input
                   type="string"
                   name="noticePeriod"
@@ -603,7 +604,8 @@ useEffect(() => {
 
               {/* Current CTC */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Current CTC (in INR) *</label>
+                <label className="block text-sm font-medium text-gray-700">Current CTC (in INR) *</label>
+                <p className='text-xs mb-2'>Enter NA if you're a fresher</p>
                 <input
                   type="string"
                   name="currentCTC"
