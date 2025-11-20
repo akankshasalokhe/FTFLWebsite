@@ -179,7 +179,11 @@ export default function ApplyPage() {
     workplaceType: '',
     employmentType: '',
     background: '',
-    resume: null
+    resume: null,
+    experience: '',
+    currentCTC: '',
+    expectedCTC: '',
+    noticePeriod: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -278,6 +282,10 @@ useEffect(() => {
     formPayload.append('workplacetype', formData.workplaceType);
     formPayload.append('employmenttype', formData.employmentType);
     formPayload.append('background', formData.background);
+    formPayload.append('experience', formData.experience);
+    formPayload.append('currentCTC', formData.currentCTC);
+    formPayload.append('expectedCTC', formData.expectedCTC);
+    formPayload.append('noticePeriod', formData.noticePeriod);
 
     if (formData.resume) {
       formPayload.append('resume', formData.resume);
@@ -384,6 +392,7 @@ useEffect(() => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="John Doe"
@@ -405,6 +414,7 @@ useEffect(() => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="john@example.com"
@@ -422,10 +432,11 @@ useEffect(() => {
                 <label className="block text-sm font-semibold text-gray-700">Phone Number *</label>
                 <div className="relative">
                   <input
-                    type="tel"
+                    type="number"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="(eg): 9879023451"
@@ -447,6 +458,7 @@ useEffect(() => {
                     name="location"
                     value={formData.location}
                     onChange={handleChange}
+                    autoComplete="off"
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                     placeholder="City, Country"
@@ -470,6 +482,7 @@ useEffect(() => {
                       name="position"
                       value={formData.position}
                       onChange={handleChange}
+                      autoComplete="off"
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                       placeholder="e.g. Frontend Developer"
@@ -490,6 +503,7 @@ useEffect(() => {
                       name="department"
                       value={formData.department}
                       onChange={handleChange}
+                      autoComplete="off"
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none transition-all duration-200"
                     >
@@ -555,6 +569,69 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
+
+              {/* Notice Period */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Notice Period *</label>
+                <input
+                  type="string"
+                  name="noticePeriod"
+                  value={formData.noticePeriod}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 30 days"
+                />
+              </div>
+
+              {/* Experience */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 ">Total Experience (in years) *</label>
+                <p className="text-xs mb-2">Enter NA if you are Fresher</p>
+                <input
+                  type="string"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 3 years"
+                />
+              </div>
+
+              {/* Current CTC */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Current CTC (in INR) *</label>
+                <input
+                  type="string"
+                  name="currentCTC"
+                  value={formData.currentCTC}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 60000"
+                />
+              </div>
+
+              {/* Expected CTC */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Expected CTC (in INR) *</label>
+
+                <input  
+                  type="string"
+                  name="expectedCTC"
+                  value={formData.expectedCTC}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 80000"
+                />  
+
+                </div>
             </div>
 
             {/* Background */}
@@ -564,6 +641,7 @@ useEffect(() => {
                 name="background"
                 value={formData.background}
                 onChange={handleChange}
+                autoComplete="off"
                 required
                 rows={6}
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"

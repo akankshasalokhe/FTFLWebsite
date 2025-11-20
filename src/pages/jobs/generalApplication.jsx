@@ -16,7 +16,12 @@ export default function GeneralApplication() {
     workplaceType: '',
     employmentType: '',
     background: '',
-    resume: null
+    resume: null,
+    experience: '',
+    currentCTC: '',
+    expectedCTC: '',
+    noticePeriod: ''
+
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -91,6 +96,10 @@ export default function GeneralApplication() {
     formPayload.append('workplacetype', formData.workplaceType);
     formPayload.append('employmenttype', formData.employmentType);
     formPayload.append('background', formData.background);
+    formPayload.append('experience', formData.experience);
+    formPayload.append('currentCTC', formData.currentCTC);
+    formPayload.append('expectedCTC', formData.expectedCTC);
+    formPayload.append('noticePeriod', formData.noticePeriod);
 
     if (formData.resume) {
       formPayload.append('resume', formData.resume);
@@ -169,6 +178,7 @@ export default function GeneralApplication() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="John Doe"
@@ -183,9 +193,26 @@ export default function GeneralApplication() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="john@example.com"
+                />
+              </div>
+
+              {/* Experience */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 ">Total Experience (in years) *</label>
+                <p className="text-xs mb-2">Enter NA if you are Fresher</p>
+                <input
+                  type="string"
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 5"
                 />
               </div>
 
@@ -193,13 +220,20 @@ export default function GeneralApplication() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
                 <input
-                  type="tel"
+                  type="number"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="+1 (555) 123-4567"
+                  // className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                   className="w-full px-4 py-3 border border-gray-300 rounded-xl 
+             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+             transition-all duration-200 
+             appearance-none 
+             [&::-webkit-inner-spin-button]:appearance-none 
+             [&::-webkit-outer-spin-button]:appearance-none"
+                  placeholder="9087772567"
                 />
               </div>
 
@@ -211,6 +245,7 @@ export default function GeneralApplication() {
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="City, Country"
@@ -225,11 +260,13 @@ export default function GeneralApplication() {
                   name="title"
                   value={formData.title}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g. Frontend Developer"
                 />
               </div>
+           
 
               {/* Department */}
               <div>
@@ -251,6 +288,7 @@ export default function GeneralApplication() {
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
@@ -269,6 +307,7 @@ export default function GeneralApplication() {
                   name="workplaceType"
                   value={formData.workplaceType}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
@@ -286,6 +325,7 @@ export default function GeneralApplication() {
                   name="employmentType"
                   value={formData.employmentType}
                   onChange={handleChange}
+                  autoComplete="off"
                   required
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
@@ -295,8 +335,59 @@ export default function GeneralApplication() {
                   <option value="Contract">Contract</option>
                   <option value="Internship">Internship</option>
                 </select>
+               </div>
+
+                            {/* Notice Period */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Notice Period *</label>
+                  <input
+                    type="string"
+                    name="noticePeriod"
+                    value={formData.noticePeriod}
+                    onChange={handleChange}
+                    autoComplete="off"
+                    required
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="e.g. 30 days"
+                  />
+                </div>
+
+                 {/* Current CTC */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Current CTC *</label>
+                <input
+                  type="string"
+                  name="currentCTC"
+                  value={formData.currentCTC}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 50000"
+                />
+              </div>
+
+              {/* Expected CTC */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Expected CTC *</label>  
+                <input
+                  type="string"
+                  name="expectedCTC"
+                  value={formData.expectedCTC}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g. 70000"
+                />
               </div>
             </div>
+
+           
+
+
+
+
 
             {/* Background */}
             <div>
@@ -305,6 +396,7 @@ export default function GeneralApplication() {
                 name="background"
                 value={formData.background}
                 onChange={handleChange}
+                autoComplete="off"
                 required
                 rows={5}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
