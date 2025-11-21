@@ -2017,77 +2017,30 @@ export default function CourseDetails() {
       </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
-      <section className="relative h-80 sm:h-72 md:h-80 lg:h-96">
-        <Image
-          src={internshipData.bannerImage}
-          alt={internshipData.title}
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0 z-0"
-        />
-        <div className="absolute inset-0 bg-blue-600 opacity-70 z-0"></div>
-        <div className="w-full h-full flex items-center z-10 relative">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-white w-full pt-8 pb-8">
-            {/* Icon and Title - Fixed overlapping */}
-            <motion.div
-              className="flex items-start gap-3 sm:gap-4 mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 mt-1">
-                <Image
-                  src={internshipData.mainImage}
-                  alt={internshipData.title}
-                  width={40}
-                  height={40}
-                  className="object-contain w-8 h-8 sm:w-10 sm:h-10"
-                />
-              </span>
-              <div className="flex-1 min-w-0">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
-                  {internshipData.title}
-                </h1>
-              </div>
-            </motion.div>
+   <section
+  className="relative h-80 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
+  style={{
+    background: "linear-gradient(135deg, #021030, #032781, #01154b)",
+  }}
+>
+  {/* Circuit Animation Layer */}
+  <div className="absolute inset-0 z-0 circuit-lines"></div>
 
-            {/* Description */}
-            <motion.p
-              className="max-w-2xl mb-6 opacity-90 text-sm sm:text-base leading-relaxed line-clamp-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              {internshipData.description}
-            </motion.p>
-
-          
+  {/* Your content here */}
+  <div className="relative z-10 text-white p-10">
+    <h1 className="text-3xl font-bold">Software Engineering Internship</h1>
+    <p className="mt-2 text-lg">Gain hands-on experience…</p>
+  </div>
+</section>
 
 
-            {/* Download Button - Opens in new tab */}
-            <motion.div
-              className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <button
-                onClick={() => {
-                  if (internshipData.syllabusLink) {
-                    window.open(internshipData.syllabusLink, '_blank', 'noopener,noreferrer');
-                  } else {
-                    console.error('No syllabus link available');
-                    alert('Syllabus link not available');
-                  }
-                }}
-                className="border cursor-pointer border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]"
-              >
-                Download Syllabus
-              </button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+
+
+
+
+
+
+
 
       {/* Stats - Responsive grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 justify-center -mt-8 sm:-mt-10 relative z-10">
