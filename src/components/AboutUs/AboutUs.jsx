@@ -895,7 +895,7 @@ export default function AboutUsSection() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/aoc.png"
+                  src="/About Image.jpg"
                   alt={item.title}
                   className="w-[650px] h-[400px] object-cover rounded-2xl"
                 />
