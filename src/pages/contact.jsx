@@ -1030,96 +1030,97 @@ export default function ContactPage() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
   const [footerData, setFooterData] = useState(null);
   const [contactData, setContactData] = useState({});
   const [banner, setBanner] = useState(null);
   const pageTitle = "Contact";
 
   // === Fetch Banner ===
- useEffect(() => {
-     const canvas = document.getElementById("smallCanvas");
-     if (!canvas) return;
- 
-     const ctx = canvas.getContext("2d");
- 
-     let w = (canvas.width = window.innerWidth);
-     let h = (canvas.height = 350);
- 
-     const points = [];
-     const POINT_COUNT = 30;
- 
-     for (let i = 0; i < POINT_COUNT; i++) {
-       points.push({
-         x: Math.random() * w,
-         y: Math.random() * h,
-         z: Math.random() * 1.8 + 1,
-         vx: Math.random() * 0.5 - 0.25,
-         vy: Math.random() * 0.5 - 0.25,
-       });
-     }
- 
-     function drawLine(p1, p2, opacity) {
-       ctx.strokeStyle = `rgba(110,190,255,${opacity})`;
-       ctx.lineWidth = 1.1;
- 
-       ctx.beginPath();
-       ctx.moveTo(p1.x, p1.y);
-       ctx.quadraticCurveTo(
-         (p1.x + p2.x) / 2,
-         (p1.y + p2.y) / 2 + Math.sin(Date.now() * 0.001) * 15,
-         p2.x,
-         p2.y
-       );
-       ctx.stroke();
-     }
- 
-     function animate() {
-       ctx.clearRect(0, 0, w, h);
- 
-       const gradient = ctx.createLinearGradient(0, 0, w, h);
-       gradient.addColorStop(0, "rgba(0,150,255,0.07)");
-       gradient.addColorStop(1, "rgba(0,255,255,0.05)");
-       ctx.fillStyle = gradient;
-       ctx.fillRect(0, 0, w, h);
- 
-       for (let i = 0; i < POINT_COUNT; i++) {
-         const p = points[i];
- 
-         p.x += p.vx * p.z;
-         p.y += p.vy * p.z;
- 
-         if (p.x < 0 || p.x > w) p.vx *= -1;
-         if (p.y < 0 || p.y > h) p.vy *= -1;
- 
-         ctx.beginPath();
-         ctx.arc(p.x, p.y, 2.5 * p.z, 0, Math.PI * 2);
-         ctx.fillStyle = `rgba(140,220,255,${0.35 * p.z})`;
-         ctx.shadowBlur = 12;
-         ctx.shadowColor = "#3ab4ff";
-         ctx.fill();
-         ctx.shadowBlur = 0;
- 
-         for (let j = i + 1; j < POINT_COUNT; j++) {
-           const p2 = points[j];
-           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
- 
-           if (dist < 180) drawLine(p, p2, 1 - dist / 180);
-         }
-       }
- 
-       requestAnimationFrame(animate);
-     }
- 
-     animate();
- 
-     const resize = () => {
-       w = canvas.width = window.innerWidth;
-     };
-     window.addEventListener("resize", resize);
- 
-     return () => window.removeEventListener("resize", resize);
-   }, []);
-   
+  useEffect(() => {
+    const canvas = document.getElementById("smallCanvas");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = 350);
+
+    const points = [];
+    const POINT_COUNT = 30;
+
+    for (let i = 0; i < POINT_COUNT; i++) {
+      points.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        z: Math.random() * 1.8 + 1,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 0.5 - 0.25,
+      });
+    }
+
+    function drawLine(p1, p2, opacity) {
+      ctx.strokeStyle = `rgba(110,190,255,${opacity})`;
+      ctx.lineWidth = 1.1;
+
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.quadraticCurveTo(
+        (p1.x + p2.x) / 2,
+        (p1.y + p2.y) / 2 + Math.sin(Date.now() * 0.001) * 15,
+        p2.x,
+        p2.y
+      );
+      ctx.stroke();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+
+      const gradient = ctx.createLinearGradient(0, 0, w, h);
+      gradient.addColorStop(0, "rgba(0,150,255,0.07)");
+      gradient.addColorStop(1, "rgba(0,255,255,0.05)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, w, h);
+
+      for (let i = 0; i < POINT_COUNT; i++) {
+        const p = points[i];
+
+        p.x += p.vx * p.z;
+        p.y += p.vy * p.z;
+
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.5 * p.z, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(140,220,255,${0.35 * p.z})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = "#3ab4ff";
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        for (let j = i + 1; j < POINT_COUNT; j++) {
+          const p2 = points[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+
+          if (dist < 180) drawLine(p, p2, 1 - dist / 180);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+    };
+    window.addEventListener("resize", resize);
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
 
   // === Fetch Contact Info ===
   useEffect(() => {
@@ -1151,10 +1152,37 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // const submitForm = async (e) => {
+  //   e.preventDefault();
+  //   setSubmitting(true);
+  //   setSuccess(null);
+
+  //   const endpoint =
+  //     dept === "hr"
+  //       ? "https://landing-page-yclw.vercel.app/api/contact"
+  //       : "https://landing-page-yclw.vercel.app/api/salescontact";
+
+  //   try {
+  //     const response = await axios.post(endpoint, form);
+  //     if (response.status === 201) {
+  //       setSuccess(true);
+  //       setForm({ firstName: "", email: "", phoneNumber: "", message: "" });
+  //     } else {
+  //       setSuccess(false);
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     setSuccess(false);
+  //   } finally {
+  //     setSubmitting(false);
+  //   }
+  // };
+
   const submitForm = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setSuccess(null);
+    setError(null);
 
     const endpoint =
       dept === "hr"
@@ -1163,15 +1191,32 @@ export default function ContactPage() {
 
     try {
       const response = await axios.post(endpoint, form);
-      if (response.status === 201) {
+
+      // Check for success based on your API response structure
+      if (response.data.success || response.status === 201) {
         setSuccess(true);
         setForm({ firstName: "", email: "", phoneNumber: "", message: "" });
       } else {
-        setSuccess(false);
+        // Handle API returning success: false with a message
+        setError(response.data.message || "Submission failed");
       }
     } catch (err) {
-      console.error(err);
-      setSuccess(false);
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (err.response) {
+        // Server responded with error status
+        errorMessage = err.response.data?.message
+          || err.response.data?.error
+          || `Server error: ${err.response.status}`;
+      } else if (err.request) {
+        // Request made but no response received
+        errorMessage = "No response from server. Please check your connection.";
+      } else {
+        // Something else happened
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }
@@ -1183,53 +1228,53 @@ export default function ContactPage() {
       <section className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center 
 bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
 
-  {/* Animated Canvas */}
-  <canvas
-    id="contactCanvas"
-    className="absolute inset-0 w-full h-full pointer-events-none z-5"
-  ></canvas>
+        {/* Animated Canvas */}
+        <canvas
+          id="contactCanvas"
+          className="absolute inset-0 w-full h-full pointer-events-none z-5"
+        ></canvas>
 
-  {/* Background Effects */}
-  <div className="absolute inset-0 z-5">
-    <div className="circuit-lines"></div>
-  </div>
-  <div className="absolute inset-0 z-5 pointer-events-none">
-    <div className="neon-dots"></div>
-  </div>
-  <div className="absolute inset-0 z-5 pointer-events-none">
-    <div className="floating-polygons"></div>
-  </div>
+        {/* Background Effects */}
+        <div className="absolute inset-0 z-5">
+          <div className="circuit-lines"></div>
+        </div>
+        <div className="absolute inset-0 z-5 pointer-events-none">
+          <div className="neon-dots"></div>
+        </div>
+        <div className="absolute inset-0 z-5 pointer-events-none">
+          <div className="floating-polygons"></div>
+        </div>
 
-  {/* Neon Bottom Glow */}
-  <div className="absolute bottom-0 left-0 w-full h-20 opacity-70 z-5">
-    <div className="neon-wave"></div>
-  </div>
+        {/* Neon Bottom Glow */}
+        <div className="absolute bottom-0 left-0 w-full h-20 opacity-70 z-5">
+          <div className="neon-wave"></div>
+        </div>
 
-  {/* CONTENT */}
-  <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
-    <motion.div
-      className="text-center max-w-3xl mx-auto"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-        <Typewriter
-          options={{
-            strings: ["Get in Touch", "Let's Talk", "We’d Love to Hear from You"],
-            autoStart: true,
-            loop: true,
-            delay: 50,
-          }}
-        />
-      </h1>
+        {/* CONTENT */}
+        <div className="relative z-20 w-full max-w-4xl mx-auto px-4 py-12 sm:py-16 lg:py-20">
+          <motion.div
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+              <Typewriter
+                options={{
+                  strings: ["Get in Touch", "Let's Talk", "We’d Love to Hear from You"],
+                  autoStart: true,
+                  loop: true,
+                  delay: 50,
+                }}
+              />
+            </h1>
 
-      <p className="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-        Ready to start your next project? We're here to help bring your ideas to life.
-      </p>
-    </motion.div>
-  </div>
-</section>
+            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+              Ready to start your next project? We're here to help bring your ideas to life.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
 
       {/* ==== Main Content ==== */}
@@ -1348,6 +1393,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                         name="firstName"
                         value={form.firstName}
                         onChange={handleChange}
+                        autoComplete="off"
                         required
                         className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
                         placeholder="John Doe"
@@ -1362,6 +1408,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                         name="email"
                         value={form.email}
                         onChange={handleChange}
+                        autoComplete="off"
                         required
                         className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
                         placeholder="john@example.com"
@@ -1369,7 +1416,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                     </div>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
@@ -1377,10 +1424,35 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                       name="phoneNumber"
                       value={form.phoneNumber}
                       onChange={handleChange}
+                     
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
-                      placeholder="+91 9876543210"
+                      placeholder="9876543210"
+                      autoComplete="off"
+                    />
+                  </div> */}
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      name="phoneNumber"
+                      value={form.phoneNumber}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^\d*$/.test(val)) {
+                          handleChange(e); // only numbers allowed
+                        }
+                      }}
+                      maxLength={10}
+                      className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                      placeholder="9876543210"
+                      autoComplete="off"
                     />
                   </div>
+
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1391,25 +1463,35 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                       name="message"
                       value={form.message}
                       onChange={handleChange}
+                      autoComplete="off"
                       required
                       className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 resize-none"
                       placeholder="Tell us about your project..."
                     ></textarea>
                   </div>
 
-                  {success !== null && (
+                  {/* Error Message */}
+                  {error && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className={`text-center font-medium ${
-                        success ? "text-green-600" : "text-red-600"
-                      }`}
+                      className="text-center font-medium text-red-600 bg-red-50 p-4 rounded-lg border border-red-200"
                     >
-                      {success
-                        ? "✅ Message sent successfully!"
-                        : "❌ Failed to send message. Please try again."}
+                      ❌ {error}
                     </motion.div>
                   )}
+
+                  {/* Success Message */}
+                  {success === true && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-center font-medium text-green-600 bg-green-50 p-4 rounded-lg border border-green-200"
+                    >
+                      ✅ Message sent successfully!
+                    </motion.div>
+                  )}
+
 
                   <button
                     type="submit"

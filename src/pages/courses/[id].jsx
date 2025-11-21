@@ -1869,6 +1869,7 @@ export default function CourseDetails() {
       try {
         setIsLoading(true);
         const res = await axios.get(`https://landing-page-yclw.vercel.app/api/internship/${id}`);
+        console.log("API Response:", res.data);
         if (res.data.success) {
           setInternshipData(res.data.data);
         }

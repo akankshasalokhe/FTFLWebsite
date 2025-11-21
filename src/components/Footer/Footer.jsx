@@ -606,7 +606,7 @@ import { useRouter } from "next/navigation";
 
 const VibrantFooter = () => {
   const [contactInfo, setContactInfo] = useState(null);
-  const [serviceInfo, setServiceInfo] = useState([]);
+  const [allModules, setAllModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -630,11 +630,57 @@ const VibrantFooter = () => {
     fetchContactInfo();
   }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .get("https://landing-page-yclw.vercel.app/api/service")
+  //     .then((res) => {
+  //       setServiceInfo(res.data.data);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, []);
   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/service")
       .then((res) => {
-        setServiceInfo(res.data.data);
+        if (res.data.data && res.data.data.length > 0) {
+          console.log("Fetched documents:", res.data.data);
+
+          // Get FIRST document for each module type (use find instead of filter)
+          const softwareDevDoc = res.data.data.find(doc =>
+            doc.module?.toLowerCase() === "software development"
+          );
+
+          const designingDoc = res.data.data.find(doc =>
+            doc.module?.toLowerCase() === "designing"
+          );
+
+          const videoEditingDoc = res.data.data.find(doc =>
+            doc.module?.toLowerCase() === "videoproduction" ||
+            doc.module?.toLowerCase() === "video production"
+          );
+
+          const marketingDoc = res.data.data.find(doc =>
+            doc.module?.toLowerCase() === "marketing"
+          );
+
+          // Set state for all modules
+          setAllModules({
+            softwareDevelopment: softwareDevDoc,
+            designing: designingDoc, // lowercase 'd'
+            videoProduction: videoEditingDoc, // consistent naming
+            marketing: marketingDoc
+          });
+
+          console.log("Filtered modules:", {
+            softwareDevelopment: softwareDevDoc,
+            designing: designingDoc,
+            videoProduction: videoEditingDoc,
+            marketing: marketingDoc
+          });
+
+        } else {
+          console.log("No documents found");
+        }
       })
       .catch((err) => console.error(err));
   }, []);
@@ -750,7 +796,7 @@ const VibrantFooter = () => {
             className="order-2"
           >
             <h4 className="text-base font-bold mb-3 text-white">Services</h4>
-            <ul className="space-y-2">
+            {/* <ul className="space-y-2">
               {serviceInfo.slice(0, 5).map((service) => (
                 <li key={service._id}>
                   <motion.div whileHover={{ x: 3 }}>
@@ -766,6 +812,75 @@ const VibrantFooter = () => {
                   </motion.div>
                 </li>
               ))}
+            </ul> */}
+            <ul className="space-y-2">
+              {allModules.softwareDevelopment && (
+                <li key={allModules.softwareDevelopment._id}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={`/services/${allModules.softwareDevelopment._id}`}
+                      scroll={false}
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" />
+                      {allModules.softwareDevelopment.title
+                        ?.toLowerCase()
+                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </Link>
+                  </motion.div>
+                </li>
+              )}
+
+              {allModules.designing && ( // lowercase 'd' to match state
+                <li key={allModules.designing._id}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={`/services/${allModules.designing._id}`}
+                      scroll={false}
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" />
+                      {allModules.designing.title
+                        ?.toLowerCase()
+                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </Link>
+                  </motion.div>
+                </li>
+              )}
+
+              {allModules.videoProduction && ( // changed to videoProduction
+                <li key={allModules.videoProduction._id}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={`/services/${allModules.videoProduction._id}`}
+                      scroll={false}
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" />
+                      {allModules.videoProduction.title
+                        ?.toLowerCase()
+                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </Link>
+                  </motion.div>
+                </li>
+              )}
+
+              {allModules.marketing && (
+                <li key={allModules.marketing._id}>
+                  <motion.div whileHover={{ x: 3 }}>
+                    <Link
+                      href={`/services/${allModules.marketing._id}`}
+                      scroll={false}
+                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" />
+                      {allModules.marketing.title
+                        ?.toLowerCase()
+                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </Link>
+                  </motion.div>
+                </li>
+              )}
             </ul>
           </motion.div>
 

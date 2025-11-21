@@ -1,708 +1,592 @@
-/* Navbar Base */
+/* === Navbar Base === */
 .navbar {
-  background:#e2e8f06a;
-  color: rgba(0, 0, 0, 0.819);
-  padding: 15px 20px;
   position: fixed;
-  top: 0;
+  top: 12px;
+  left: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
   z-index: 1000;
   transition: all 0.3s ease;
 }
 
-.navbar.scrolled {
-  background: rgba(255, 255, 255, 0.95);
-  color: #0a1f44;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 8px 20px;
-}
-
-.navbar.servicesExpanded {
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
 .navContainer {
+  width: 90%;
+  border-radius: 16px;
+  /* box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); */
+  padding: 0.6rem 5.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+  /* background: rgba(255, 255, 255, 0.7); */
+  /* backdrop-filter: blur(10px); */
+  transition: all 0.3s ease;
 }
 
-/* Logo */
+.scrolled {
+  background: white;
+  top: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  color: black !important;
+}
+
+
+
+
+/* === Logo === */
 .logo {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
   text-decoration: none;
-  color: inherit;
-  z-index: 1100;
+  transition: transform 0.2s ease;
+}
+
+.logo:focus {
+  /* outline: 2px solid #007bff; */
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .tagline {
-  font-size: 10px;
-  margin-top: -5px;
-  margin-left: 45px;
-  color: inherit;
+  font-size: 12px;
+  color: #555;
+  margin-top: -6px;
 }
 
-/* Hamburger Icon */
+/* === Hamburger === */
 .hamburger {
-  display: none;
+  display: block;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 2001;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.hamburger:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.hamburger:hover {
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
 .icon {
   font-size: 1.8rem;
-  color: inherit;
+  color: #f1eaea;
+  transition: color 0.2s ease;
 }
 
-/* Navigation Menu */
+/* === Menu === */
 .navMenu {
-  display: flex;
-  gap: 30px;
-  list-style: none;
-  margin: 0;
-  font-size: 16px;
+  display: none;
   align-items: center;
-  padding: 0;
+  gap: 1.5rem;
+  list-style: none;
+  transition: all 0.4s ease;
 }
 
-.navMenu li {
-  position: relative;
+.navMenu.active {
+  display: flex;
+}
+
+.scrolledMenu {
+  display: flex !important;
 }
 
 .navMenu li a,
 .navMenu li span {
   text-decoration: none;
-  color: inherit;
+  color: #fff;
   font-weight: 500;
-  padding: 5px 0;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
   cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
   position: relative;
-  display: inline-block;
 }
 
-.activeLink,
+
+
+.navMenu li a:focus,
+.navMenu li span:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
 .navMenu li a:hover,
 .navMenu li span:hover {
-  color: #0284c7;
+  color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
 }
 
-.activeLink::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #0284c7;
-  border-radius: 1px;
+.activeLink {
+  color: #007bff !important;
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
-/* Services Trigger */
-.servicesTrigger {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.dropdownArrow {
-  margin-left: 5px;
-  font-size: 12px;
-}
-
-/* Desktop Services Dropdown */
-.servicesDropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  min-width: 280px;
-  z-index: 1001;
-  animation: slideDown 0.3s ease;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.dropdownContent {
-  padding: 1rem 0;
-}
-
-.viewTitle {
-  padding: 0.5rem 1.5rem;
-  font-weight: 600;
-  color: #333;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 0.75rem;
-}
-
-.categoriesList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.categoryItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-}
-
-.categoryItem:hover {
-  background: #f8f9fa;
-  color: #2980b9;
-}
-
-.categoryName {
-  font-weight: 500;
-  color: #333;
-  font-size: 0.9rem;
-}
-
-.categoryArrow {
-  width: 12px;
-  height: 12px;
-  color: #666;
-}
-
-.viewHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  border-bottom: 1px solid #f0f0f0;
-  margin-bottom: 0.5rem;
-}
-
-.subServicesList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-}
-
-.subServiceItem {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  color: #666;
-  font-size: 0.875rem;
-  transition: all 0.3s ease;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-}
-
-.subIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  gap: 2px;
-  margin-left: 1rem;
-  margin-right: 2rem;
-}
-
-.subServiceItem:hover .subIcon {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
-}
-
-.subServiceItem:hover {
-  background: #f8f9fa;
-  color: #2980b9;
-}
-
-.subServiceName {
-  font-weight: 500;
-}
-
-/* Mobile Overlay */
-.mobileOverlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 900;
-}
-
-.mobileOverlay.active {
-  display: block;
-}
-
-/* Mobile Services Dropdown */
-.mobileServicesDropdown {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: white;
-  z-index: 1001;
-  overflow-y: auto;
-}
-
-.mobileDropdownContent {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.mobileViewHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  background: #f8f9fa;
-}
-
-.mobileViewTitle {
-  font-weight: 600;
-  color: #333;
-  font-size: 1.1rem;
-}
-
-.mobileCloseButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.mobileCloseButton:hover {
-  background: #e9ecef;
-}
-
-.closeIcon {
-  margin-top: 34px;
-  width: 32px;
-  height: 32px;
-  color: #666;
-  border: 1px solid #ddd;
-  background: #f8f9fa;
-  border-radius: 4px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mobileCategoriesList {
-  flex: 1;
-  padding: 1rem 0;
-}
-
-.mobileCategoryItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-bottom: 1px solid #f8f9fa;
-}
-
-.mobileCategoryItem:hover {
-  background: #f8f9fa;
-}
-
-.mobileCategoryName {
-  font-weight: 500;
-  color: #333;
-  font-size: 1rem;
-}
-
-.mobileCategoryArrow {
-  width: 14px;
-  height: 14px;
-  color: #666;
-}
-
-.mobileSubServicesList {
-  flex: 1;
-  padding: 1rem 0;
-}
-
-.mobileCategoryTitle {
-  padding: 1rem 1.5rem;
-  font-weight: 600;
-  color: #333;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #f0f0f0;
-  margin-bottom: 0.5rem;
-}
-
-.mobileSubServiceItem {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem 1.5rem;
-  text-decoration: none;
-  color: #666;
-  font-size: 0.95rem;
-  border-bottom: 1px solid #f8f9fa;
-  transition: all 0.3s ease;
-}
-
-.mobileSubServiceItem:hover {
-  background: #f8f9fa;
-  color: #2980b9;
-}
-
-.mobileSubIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-}
-
-.mobileSubServiceName {
-  font-weight: 500;
-}
-
-/* Mobile Navigation Icons */
-.navIcon {
-  margin-right: 12px;
-  font-size: 1.2rem;
-  color: #4a5568;
-}
-
-/* Enhanced Mobile Menu Styles */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  .navMenu {
-    flex-direction: column;
-    position: fixed;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 90vh;
-    background: #f7fafc; /* Light gray background */
-    backdrop-filter: blur(10px);
-    padding: 90px 0 30px;
-    gap: 0;
-    transition: top 0.3s ease;
-    z-index: 1000;
-    color: #2d3748;
-    overflow-y: auto;
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-
-  .navMenu.active {
-    top: 0;
-  }
-
-  .navMenu li {
-    width: 100%;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .navMenu li a,
-  .navMenu li span {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 18px 24px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #2d3748;
-    transition: all 0.3s ease;
-    border-left: 4px solid transparent;
-  }
-
-  .navMenu li a:hover,
-  .navMenu li span:hover {
-    background-color: #ebf8ff; /* Light blue background on hover */
-    color: #2b6cb0;
-    border-left-color: #3182ce; /* Blue border on left */
-    padding-left: 28px;
-  }
-
-  .activeLink {
-    background-color: #ebf8ff !important;
-    color: #2b6cb0 !important;
-    border-left-color: #3182ce !important;
-    font-weight: 600;
-  }
-
-  .activeLink::after {
-    display: none; /* Remove the underline on mobile */
-  }
-
-  .servicesTrigger {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .dropdownArrow {
-    margin-left: auto;
-  }
-
-  /* Hide desktop services dropdown on mobile */
-  .servicesDropdown {
-    display: none;
-  }
-  
-  .servicesContent {
-    display: none;
-  }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-  .navMenu {
-    padding-top: 80px;
-  }
-  
-  .navMenu li a,
-  .navMenu li span {
-    padding: 16px 20px;
-    font-size: 1rem;
-  }
-  
-  .navIcon {
-    font-size: 1.1rem;
-    margin-right: 10px;
-  }
-  
-  .logo {
-    max-width: 150px;
-  }
-  
-  .tagline {
-    font-size: 9px;
-    margin-left: 35px;
-  }
-  
-  .mobileServicesDropdown {
-    padding: 15px;
-  }
-  
-  .mobileSubServiceContent {
-    gap: 10px;
-  }
-  
-  .mobileSubServiceName {
-    font-size: 13px;
-  }
-}
-
-/* Accordion Styles */
-.accordionContainer {
-  min-width: 250px;
-  padding: 0.5rem 0;
-}
-
-.accordionItem {
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.accordionItem:last-child {
-  border-bottom: none;
-}
-
-.accordionHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  font-weight: 500;
-}
-
-.accordionHeader:hover {
-  background-color: #f8f9fa;
-}
-
-.accordionCategoryName {
-  color: #333;
-  font-size: 0.95rem;
-}
-
-.accordionIcon {
-  color: #666;
-  font-size: 0.8rem;
-}
-
-.accordionContent {
-  background-color: #fafafa;
-  border-left: 3px solid #007bff;
-}
-
-.accordionSubServiceItem {
-  display: block;
-  width: 100%;
-  padding: 0.6rem 1rem 0.6rem 1.5rem;
-  color: #555;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  border-bottom: 1px solid #f0f0f0;
-  box-sizing: border-box;
-  font-weight: 600;
-}
-
-.accordionSubServiceItem:hover {
-  background-color: #f0f0f0;
-  color: #000;
-  padding-left: 1.75rem;
-}
-
-.accordionSubServiceItem:last-child {
-  border-bottom: none;
-}
-
-/* Services Dropdown Positioning */
-.servicesDropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 0;
-  background: white;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e0e0e0;
-  border-top: none;
-  z-index: 1000;
-  min-width: 250px;
-}
-
+/* === Services Item === */
 .servicesItem {
   position: relative;
 }
 
-/* Mobile Accordion Styles */
-.mobileAccordionContainer {
+/* === Services Dropdown (Desktop) === */
+.servicesContent {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
   width: 100%;
+  /* max-width: 1100px; */
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  padding: 35px 50px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.mobileAccordionList {
+.servicesContent.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.serviceTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #007bff;
+  padding-bottom: 6px;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.serviceTitle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background: #007bff;
+  border-radius: 2px;
+}
+
+.subServiceItem {
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 8px 0;
+  border-radius: 4px;
+}
+
+.subServiceItem:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.subServiceItem:hover {
+  color: #007bff;
+  transform: translateX(4px);
+}
+
+.subServiceContent {
   display: flex;
-  flex-direction: column;
-}
-
-.mobileAccordionItem {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.mobileAccordionHeader {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  cursor: pointer;
-  background-color: white;
+  gap: 8px;
+}
+
+.subArrow {
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.subServiceItem:hover .subArrow {
+  transform: translateX(2px);
+}
+
+.subServiceName {
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
-.mobileAccordionCategoryName {
-  color: #333;
-  font-size: 1rem;
+/* === Dropdown Toggle Arrow === */
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+  transition: all 0.2s ease;
 }
 
-.mobileAccordionIcon {
+.dropdownToggle:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.arrow {
+  font-weight: bold;
+  color: #007bff;
+  transition: transform 0.3s ease;
+}
+
+.servicesExpanded .arrow {
+  transform: rotate(90deg);
+}
+
+/* === Loading and Error States === */
+.loadingState {
+  color: #666;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+}
+
+.errorState {
+  color: #dc3545;
+  padding: 1rem;
+  text-align: center;
+  background: rgba(220, 53, 69, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid #dc3545;
+}
+
+/* === Mobile Dropdown === */
+.mobileDropdown {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 2px solid #007bff;
+}
+
+.mobileServiceTitle {
+  font-weight: 600;
+  color: #007bff;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.mobileSubService {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.mobileSubService:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 1px;
+}
+
+.mobileSubService:hover {
+  color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+  transform: translateX(2px);
+}
+
+/* === Mobile Menu === */
+/* === Mobile Menu === */
+@media (max-width: 768px) {
+  .navContainer {
+    width: 90%;
+    border-radius: 0;
+    padding: 0.6rem 1rem;
+  }
+
+  .hamburger {
+    position: relative;
+    z-index: 2100;
+    right: 0;
+    margin-left: auto;
+  }
+
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    flex-direction: column;
+    background: #fff;
+    height: 100vh;
+    width: 80%;
+    max-width: 320px;
+    padding: 5rem 1.5rem 2rem;
+    transition: right 0.4s ease;
+    z-index: 2000;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  .navMenu.active {
+    right: 0;
+  }
+
+  .navMenu li {
+    width: 100%;
+  }
+
+  .navMenu li a,
+  .navMenu li span {
+    padding: 14px 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    margin: 3px 0;
+    color: #000;
+  }
+
+  .logo {
+    transform: scale(0.9);
+    transform-origin: left;
+  }
+
+  .servicesContent {
+    display: none;
+  }
+
+  .mobileDropdown {
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 2px solid #007bff;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .mobileServiceTitle {
+    font-weight: 600;
+    color: #007bff;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+  }
+
+  .mobileSubService {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .mobileSubService:hover {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+    transform: translateX(2px);
+  }
+}
+/* === Fix Close Icon Position for All Screens === */
+.hamburger {
+  position: relative;
+  right: 60px;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 769px) {
+  .hamburger {
+    position: absolute;
+    right: 2rem;
+    top: 1.2rem;
+  }
+}
+@media (min-width: 900px) and (max-width: 1100px) {
+  .navContainer {
+    padding: 0.6rem 3rem;
+    gap: 1rem;
+  }
+
+  .navMenu {
+    gap: 1rem;
+  }
+
+  .logo img {
+    width: 150px !important;
+    height: auto;
+  }
+}
+/* === Navbar link color on scroll === */
+.scrolled .navMenu li a,
+.scrolled .navMenu li span {
+  color: #000 !important;
+}
+
+/* === Keep close icon on right for all screens === */
+.hamburger {
+  position: absolute;
+  right: 2rem;
+  top: 1.2rem;
+  z-index: 2100;
+}
+
+/* Adjust mobile icon */
+@media (max-width: 768px) {
+  .hamburger {
+    right: 1rem;
+    top: 1rem;
+  }
+}
+
+
+
+
+/* Add these styles to your existing Navbar.module.css */
+
+/* Mobile menu background */
+.navMenu.active {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Navigation icons */
+.navIcon {
+  margin-right: 12px;
+  font-size: 18px;
+  width: 20px;
   color: #666;
 }
 
-.mobileAccordionContent {
-  background-color: #f8f9fa;
-  border-left: 3px solid #007bff;
+/* Active link styling with icon */
+.activeLink .navIcon {
+  color: #298cf3; /* Match your brand color */
 }
 
-.mobileAccordionSubServiceItem {
+/* Services arrow animation */
+.arrow.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+/* Mobile dropdown styling */
+.mobileDropdown {
+  background-color: #ffffff;
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile service items */
+.mobileServiceTitle {
+  color: #298cf3;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.mobileSubService {
   display: block;
-  width: 100%;
-  padding: 0.8rem 1.5rem 0.8rem 2rem;
+  padding: 12px 16px;
   color: #555;
   text-decoration: none;
-  font-size: 0.95rem;
-  border-bottom: 1px solid #e8e8e8;
-  transition: background-color 0.2s;
-  box-sizing: border-box;
-  font-weight: 600;
-}
-
-.mobileAccordionSubServiceItem:hover {
-  background-color: #f0f0f0;
-}
-
-.mobileAccordionSubServiceItem:last-child {
-  border-bottom: none;
-}
-
-.mobileViewHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease;
   background-color: #f8f9fa;
 }
 
-.mobileViewTitle {
-  font-weight: 600;
+.mobileSubService:hover {
+  background-color: #e9ecef;
+  color: #298cf3;
+}
+
+/* Mobile menu items */
+.navMenu li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
   color: #333;
-  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  margin: 4px 0;
 }
 
-.mobileCloseButton {
-  background: none;
-  border: none;
+.navMenu li a:hover {
+  background-color: #e9ecef;
+  color: #298cf3;
+}
+
+/* Services toggle button */
+.dropdownToggle {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #333;
   cursor: pointer;
-  padding: 0.25rem;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  margin: 4px 0;
+}
+
+.dropdownToggle:hover {
+  background-color: #e9ecef;
+  color: #298cf3;
+}
+
+/* Loading and error states */
+.loadingState, .errorState {
+  padding: 16px;
+  text-align: center;
   color: #666;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  margin: 8px 0;
 }
 
-.closeIcon {
-  font-size: 1.2rem;
+/* Mobile overlay */
+.mobileOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
 }
 
-/* Back Icon */
-.backIcon {
-  width: 12px;
-  height: 12px;
-  cursor: pointer;
+/* Ensure proper spacing for mobile */
+@media (max-width: 768px) {
+  .navMenu {
+    padding: 20px;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .navMenu li {
+    margin-bottom: 8px;
+  }
 }
