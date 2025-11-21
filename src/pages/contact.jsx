@@ -1393,6 +1393,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                         name="firstName"
                         value={form.firstName}
                         onChange={handleChange}
+                        autoComplete="off"
                         required
                         className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
                         placeholder="John Doe"
@@ -1407,6 +1408,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                         name="email"
                         value={form.email}
                         onChange={handleChange}
+                        autoComplete="off"
                         required
                         className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
                         placeholder="john@example.com"
@@ -1414,7 +1416,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                     </div>
                   </div>
 
-                  <div>
+                  {/* <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
@@ -1422,10 +1424,35 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                       name="phoneNumber"
                       value={form.phoneNumber}
                       onChange={handleChange}
+                     
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
-                      placeholder="+91 9876543210"
+                      placeholder="9876543210"
+                      autoComplete="off"
+                    />
+                  </div> */}
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      name="phoneNumber"
+                      value={form.phoneNumber}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (/^\d*$/.test(val)) {
+                          handleChange(e); // only numbers allowed
+                        }
+                      }}
+                      maxLength={10}
+                      className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500"
+                      placeholder="9876543210"
+                      autoComplete="off"
                     />
                   </div>
+
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1436,6 +1463,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                       name="message"
                       value={form.message}
                       onChange={handleChange}
+                      autoComplete="off"
                       required
                       className="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 resize-none"
                       placeholder="Tell us about your project..."
