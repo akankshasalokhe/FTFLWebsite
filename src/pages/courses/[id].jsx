@@ -1392,7 +1392,7 @@ const coursesData = [
       },
       {
         question: "Can I choose between online and offline mode?",
-        answer: "Yes, we offer both online and offline options. You can choose the mode that works best for you.",
+        answer: "No, the program is offered exclusively in offline mode because it provides hands-on experience and a real office culture.",
         icon: <FaMapMarkerAlt className="text-purple-500" />
       },
       {
@@ -2346,7 +2346,7 @@ export default function CourseDetails() {
                   </div>
                 </div>
 
-                <div className="flex justify-start items-center w-full gap-2">
+                {/* <div className="flex justify-start items-center w-full gap-2">
                   <FaMoneyBillWave className="text-blue-500"/>
                   <div className="flex items-center gap-2">
                   <span className="text-gray-600">Program Fee:</span>
@@ -2354,7 +2354,7 @@ export default function CourseDetails() {
                     <FaRupeeSign size={12} /> {internshipData.fee}
                   </span>
                   </div>
-                </div>
+                </div> */}
                 
                 <div className="flex items-center gap-2">
                   <FaUserGraduate  className="text-blue-500"/>
