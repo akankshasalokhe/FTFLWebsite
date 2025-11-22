@@ -2018,21 +2018,33 @@ export default function CourseDetails() {
       </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
-   <section
-  className="relative h-80 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
+  <section
+  className="relative h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
   style={{
     background: "linear-gradient(135deg, #021030, #032781, #01154b)",
   }}
 >
-  {/* Circuit Animation Layer */}
+  {/* Animated Circuit Background */}
   <div className="absolute inset-0 z-0 circuit-lines"></div>
 
-  {/* Your content here */}
-  <div className="relative z-10 text-white p-10">
-    <h1 className="text-3xl font-bold">Software Engineering Internship</h1>
-    <p className="mt-2 text-lg">Gain hands-on experience…</p>
+  {/* Glowing Nodes */}
+  <div className="circuit-nodes z-0">
+    <span className="circuit-node" style={{ top: "20%", left: "30%" }}></span>
+    <span className="circuit-node" style={{ top: "50%", left: "70%" }}></span>
+    <span className="circuit-node" style={{ top: "70%", left: "40%" }}></span>
+    <span className="circuit-node" style={{ top: "35%", left: "80%" }}></span>
+    <span className="circuit-node" style={{ top: "60%", left: "20%" }}></span>
+  </div>
+
+  {/* Content */}
+  <div className="relative z-10 text-white p-18 lg:p-30 text-center">
+    <h1 className="text-3xl lg:text-5xl font-bold text-center text-sky-300">{internshipData.title}</h1>
+    <p className="mt-3 text-md">{internshipData.description}</p>
   </div>
 </section>
+
+
+
 
 
 
