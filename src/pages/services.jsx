@@ -1106,7 +1106,6 @@ import { useState } from "react";
 export default function ServiceDetailPage() {
     const [open, setOpen] = useState(null);
 
-
   const steps = [
   {
     title: "Discovery",
@@ -1135,7 +1134,6 @@ export default function ServiceDetailPage() {
   },
 ];
 
-
 const tools = [
   { icon: <SiNextdotjs />, title: "Next.js" },
   { icon: <FaReact />, title: "React.js" },
@@ -1147,7 +1145,6 @@ const tools = [
   { icon: <FaGitAlt />, title: "Git" },
   { icon: <FaFigma />, title: "Figma" },
 ];
-
 
 const faqs = [
   {
@@ -1168,11 +1165,15 @@ const faqs = [
   }
 ];
 
-
   return (
     <>
       {/* ==== Hero Banner Section ==== */}
-           <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
+           <section className="relative overflow-hidden  py-24"
+             style={{
+    background:
+      "linear-gradient(135deg, #0a1444 0%, #1b2f67 35%, #2d4c8f 70%, #3d66a6 100%)",
+  }}
+>
       {/* ==== Animated Background Waves ==== */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Wave Layer 1 */}
@@ -1282,52 +1283,80 @@ const faqs = [
       </div>
     </section>
 
-
-    {/* ===========================
-     SECTION 2 — OVERVIEW (HERO MATCHED THEME)
+{/* ===========================
+     SECTION 2 — OVERVIEW (MATCHING WITH HERO)
 ============================== */}
-<section className="relative py-24 bg-gradient-to-br from-[#010b2a] via-[#021641] to-[#010d33] overflow-hidden">
+<section
+  className="
+    relative 
+    -mt-32
+    z-[5]
+    pb-0
+  "
+>
+  <div className="relative z-10">
 
-  {/* --- Subtle Circuit Pattern Background --- */}
-  <div className="absolute inset-0 opacity-[0.06] bg-[url('/circuit-pattern.svg')] bg-repeat"></div>
-
-  <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-    
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="relative p-12 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0px_20px_50px_rgba(0,0,0,0.4)]"
+      className="
+        relative 
+        w-full
+        p-12 
+
+        /* Modern Glass Card */
+        bg-white 
+        backdrop-blur-2xl 
+
+        /* Rounded Top Only */
+        rounded-t-3xl
+        rounded-b-none
+
+        /* Neon Border + Glow */
+        border border-white/10
+        shadow-[0px_20px_60px_rgba(0,0,0,0.5)]
+      "
     >
 
       {/* Neon Left Accent Line */}
-      <div className="absolute left-0 top-0 h-full w-[4px] bg-gradient-to-b from-blue-500 via-purple-500 to-cyan-400 rounded-full"></div>
+      <div className="absolute left-0 top-0 h-full w-[4px] 
+                      bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 
+                      rounded-full shadow-[0_0_20px_rgba(0,255,255,0.6)]"></div>
 
-      {/* Section Label (Figma Style) */}
-      <span className="absolute top-6 right-6 text-xs tracking-widest text-blue-300/80">
-        SECTION 02 • OVERVIEW
+      {/* Right Glow Strip */}
+      <div className="absolute right-0 top-0 h-full w-[3px] 
+                      bg-gradient-to-b from-transparent via-cyan-300/40 to-transparent 
+                      blur-[3px]"></div>
+
+      {/* Floating Glow Behind */}
+      <div className="absolute -top-10 right-10 w-40 h-40 bg-cyan-400/20 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-0 left-20 w-56 h-56 bg-purple-500/20 blur-3xl rounded-full"></div>
+
+      {/* Label */}
+      <span className="absolute top-6 right-6 text-xs tracking-widest text-cyan-300/80">
+        OVERVIEW
       </span>
 
-      {/* Right-side Glow Strip */}
-      <div className="absolute right-0 top-0 h-full w-[3px] bg-gradient-to-b from-transparent via-blue-400/40 to-transparent blur-[2px]"></div>
-
-      <h2 className="text-4xl font-bold text-white mb-6">
+      {/* Title */}
+      <h2 className="text-4xl font-bold text-white mb-6 drop-shadow-lg">
         Service Overview
       </h2>
 
-      <p className="text-blue-100/90 text-lg leading-relaxed">
+      {/* Content */}
+      <p className="text-gray-200 text-lg leading-relaxed">
         We provide complete digital solutions, blending modern technology with
         aesthetic experience. Our services are designed to help brands scale
         efficiently, offering tailored strategies and scalable architecture
         crafted for real-world growth.
+        <br /><br />
+        From innovative UI/UX to end-to-end development, our solutions are built
+        to deliver real impact — modern, fast, scalable, and future-ready.
       </p>
 
     </motion.div>
   </div>
 </section>
-
-
-
 
 
 {/* ===========================
@@ -1440,7 +1469,6 @@ const faqs = [
     </div>
   </div>
 </section>
-
 
 
 {/* =======================================
@@ -1669,8 +1697,6 @@ const faqs = [
 </section> */}
 
 
-
-
  <section className="relative py-24 bg-[#acd1edcd] overflow-hidden">
       {/* Background Gradient Blobs */}
       <div className="absolute top-0 right-0 w-72 h-72 bg-purple-200 opacity-40 blur-3xl rounded-full"></div>
@@ -1722,8 +1748,6 @@ const faqs = [
         </div>
       </div>
     </section>
-
-
 
 {/* ======================================================
     TOOLS & TECHNOLOGIES – VERSION 1 (CIRCULAR CLUSTER)
@@ -1784,8 +1808,6 @@ const faqs = [
         </div>
       </div>
     </section>
-
-
 
 {/* ===================================================
    WHY CHOOSE US – VERSION 3 (DIAGONAL RIBBON LAYOUT)
@@ -1873,6 +1895,185 @@ const faqs = [
   </div>
 </section>
 
+<section
+  style={{
+    padding: "90px 20px",
+    background: "linear-gradient(135deg, #030712, #0a1426, #0f1c33)",
+    position: "relative",
+  }}
+>
+  <style>{`
+    /* Border Animation */
+    @keyframes borderMove {
+      0% { stroke-dashoffset: 300; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    .service-card {
+      position: relative;
+      background: #0d1528;
+      padding: 32px 24px;
+      border-radius: 18px;
+      color: #e5e7eb;
+      transition: 0.45s ease;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      background: #13203b;
+    }
+
+    /* SVG border tracer */
+    .border-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .border-svg rect {
+      fill: none;
+      stroke: url(#gradient);
+      stroke-width: 2;
+      stroke-dasharray: 300;
+      animation: borderMove 3s linear infinite;
+      opacity: 0.8;
+    }
+
+    .icon-box {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: #3b82f6;
+      margin-bottom: 16px;
+    }
+
+    .grid-wrap {
+      max-width: 1250px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 600;
+      color: #f1f5f9;
+      letter-spacing: 0.3px;
+    }
+  `}</style>
+
+  {/* Title */}
+   <div className="text-center mb-12 relative z-10">
+    <h2 className="text-4xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+      Our Advanced Capabilities
+    </h2>
+    <p className="text-blue-200 mt-2 text-lg">
+      Explore the powerful solutions we offer under each service
+    </p>
+  </div>
+
+  {/* Grid */}
+  <div className="grid-wrap">
+    
+    {/* Card */}
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">⚙️</div>
+      <h3 className="title">Custom Web App Development</h3>
+    </div>
+
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">📊</div>
+      <h3 className="title">Admin Dashboards & CMS</h3>
+    </div>
+
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">🔐</div>
+      <h3 className="title">Authentication & User Roles</h3>
+    </div>
+
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">💬</div>
+      <h3 className="title">Real-Time Chat & Notifications</h3>
+    </div>
+
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">💳</div>
+      <h3 className="title">Payment Gateway Integration</h3>
+    </div>
+
+    <div className="service-card">
+      <svg className="border-svg">
+        <defs>
+          <linearGradient id="gradient">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#06b6d4" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="98%" height="98%" rx="16" />
+      </svg>
+      <div className="icon-box">🔗</div>
+      <h3 className="title">API Development & Integration</h3>
+    </div>
+
+  </div>
+</section>
 
  <section className="py-24 bg-[#f5f9ff] relative overflow-hidden">
       
@@ -1971,10 +2172,6 @@ const faqs = [
         </div>
       </div>
     </section>
-
-
-
-
     </>
   )
 }

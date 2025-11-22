@@ -319,7 +319,7 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
                 href="/services"
                 className={isActive("/services") ? styles.activeLink : ""}
@@ -327,7 +327,7 @@ const Navbar = () => {
               >
                 Service
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
 
