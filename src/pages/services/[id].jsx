@@ -1486,6 +1486,8 @@ export default function ServiceDetail() {
   const router = useRouter();
   const id = router.query?.id;
 
+  const [mobile, setMobile] = useState(false);
+
 
   const [serviceData, setServiceData] = useState({});
   const { question } = serviceData;
@@ -1552,6 +1554,17 @@ export default function ServiceDetail() {
 
     fetchFaq();
   }, [serviceData?.title]); // Add serviceData.title as dependency
+
+  useEffect(() => {
+  const handleResize = () => {
+    setMobile(window.innerWidth <= 768); // <768px = mobile
+  };
+
+  handleResize(); // initial call
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   if (loading) return <p>Loading...</p>;
   if (!serviceData) return <p>Service not found.</p>;
@@ -1657,6 +1670,7 @@ export default function ServiceDetail() {
           </motion.div>
 
           {/* ==== Right Image Section ==== */}
+          {mobile? null : (
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -1672,6 +1686,7 @@ export default function ServiceDetail() {
               <div className="absolute -bottom-6 -left-6 h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
             </div>
           </motion.div>
+          )}
         </div>
       </section>
 
