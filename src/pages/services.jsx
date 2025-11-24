@@ -1283,192 +1283,90 @@ const faqs = [
       </div>
     </section>
 
+
+    <section>
+
+   
+
 {/* ===========================
      SECTION 2 — OVERVIEW (MATCHING WITH HERO)
 ============================== */}
-<section
-  className="
-    relative 
-    -mt-32
-    z-[5]
-    pb-0
-  "
->
-  <div className="relative z-10">
 
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="
-        relative 
-        w-full
-        p-12 
+  
 
-        /* Modern Glass Card */
-        bg-white 
-        backdrop-blur-2xl 
+  <section className="w-full h-[400px] flex items-center relative overflow-hidden">
 
-        /* Rounded Top Only */
-        rounded-t-3xl
-        rounded-b-none
-
-        /* Neon Border + Glow */
-        border border-white/10
-        shadow-[0px_20px_60px_rgba(0,0,0,0.5)]
-      "
-    >
-
-      {/* Neon Left Accent Line */}
-      <div className="absolute left-0 top-0 h-full w-[4px] 
-                      bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 
-                      rounded-full shadow-[0_0_20px_rgba(0,255,255,0.6)]"></div>
-
-      {/* Right Glow Strip */}
-      <div className="absolute right-0 top-0 h-full w-[3px] 
-                      bg-gradient-to-b from-transparent via-cyan-300/40 to-transparent 
-                      blur-[3px]"></div>
-
-      {/* Floating Glow Behind */}
-      <div className="absolute -top-10 right-10 w-40 h-40 bg-cyan-400/20 blur-3xl rounded-full"></div>
-      <div className="absolute bottom-0 left-20 w-56 h-56 bg-purple-500/20 blur-3xl rounded-full"></div>
-
-      {/* Label */}
-      <span className="absolute top-6 right-6 text-xs tracking-widest text-cyan-300/80">
-        OVERVIEW
-      </span>
-
-      {/* Title */}
-      <h2 className="text-4xl font-bold text-white mb-6 drop-shadow-lg">
-        Service Overview
-      </h2>
-
-      {/* Content */}
-      <p className="text-gray-200 text-lg leading-relaxed">
-        We provide complete digital solutions, blending modern technology with
-        aesthetic experience. Our services are designed to help brands scale
-        efficiently, offering tailored strategies and scalable architecture
-        crafted for real-world growth.
-        <br /><br />
-        From innovative UI/UX to end-to-end development, our solutions are built
-        to deliver real impact — modern, fast, scalable, and future-ready.
-      </p>
-
-    </motion.div>
-  </div>
-</section>
-
-
-{/* ===========================
-    SECTION 3 — WHAT YOU WILL GET
-============================== */}
-<section className="relative py-24 bg-gradient-to-br from-[#031038] via-[#041b55] to-[#020d2e] overflow-hidden">
-
-  {/* Subtle circuit pattern */}
-  <div className="absolute inset-0 opacity-[0.05] bg-[url('/circuit-pattern.svg')] bg-repeat"></div>
-
-  {/* Soft glowing blob */}
-  <div className="absolute top-32 left-16 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full"></div>
-  <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 blur-3xl rounded-full"></div>
-
-  <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-    
-    {/* Section Title */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="text-center mb-16 relative"
-    >
-      {/* Neon small label */}
-      <span className="text-xs text-cyan-400 tracking-widest">
-        WHAT YOU WILL GET
-      </span>
-
-      <h2 className="text-4xl font-bold text-white mt-2">
-        Powerful Features Designed for Growth
-      </h2>
-    </motion.div>
-
-    {/* GRID */}
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-
-      {/* CARD 1 */}
+      {/* ===== Center Image (Bigger Size) ===== */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: -40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        whileHover={{ scale: 1.05 }}
-        className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 hover:border-cyan-400/60 transition-all shadow-[0_0_40px_rgba(0,255,255,0.08)]"
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute left-1/6 top-1/2 -translate-x-1 -translate-y-1/2 z-20"
       >
-        {/* neon top border */}
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-t-3xl"></div>
-
-        <div className="mb-4">
-          <div className="w-14 h-14 bg-cyan-500/20 rounded-2xl flex items-center justify-center">
-            <img src="/icons/rocket.svg" className="w-7" />
-          </div>
+        <div className="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white">
+          <img
+            src="/full stack web development overview.jpg"
+            alt="center"
+            className="w-full h-full object-cover"
+          />
         </div>
-
-        <h3 className="text-xl font-semibold text-white mb-3">
-          Fast Performance
-        </h3>
-        <p className="text-blue-100/80">
-          We build lightning-fast digital experiences that keep users engaged.
-        </p>
       </motion.div>
 
-      {/* CARD 2 */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
-        whileHover={{ scale: 1.05 }}
-        className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 hover:border-purple-400/60 transition-all shadow-[0_0_40px_rgba(150,0,255,0.08)]"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 rounded-t-3xl"></div>
+      {/* ===== Main Layout ===== */}
+      <div className="flex w-full h-full">
 
-        <div className="mb-4">
-          <div className="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center">
-            <img src="/icons/shield.svg" className="w-7" />
+        {/* ================= LEFT SIDE ================= */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-1/2 h-full relative"
+        >
+          <div className="absolute inset-0 flex">
+            <div className="w-1/2 h-full bg-gradient-to-b from-[#021030] via-[#032781] to-[#01154b]"></div>
+            <div className="w-1/2 h-full"></div>
           </div>
-        </div>
+        </motion.div>
 
-        <h3 className="text-xl font-semibold text-white mb-3">
-          Secure Architecture
-        </h3>
-        <p className="text-blue-100/80">
-          Enterprise-grade protection with robust security layers.
-        </p>
-      </motion.div>
+        {/* ================= RIGHT SIDE ================= */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-1/2 h-full bg-white p-10 flex flex-col justify-center"
+        >
 
-      {/* CARD 3 */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1 }}
-        whileHover={{ scale: 1.05 }}
-        className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 hover:border-blue-400/60 transition-all shadow-[0_0_40px_rgba(0,140,255,0.08)]"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 rounded-t-3xl"></div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.7 }}
+            className="text-4xl font-bold text-[#021030] mb-5"
+          >
+            Overview
+          </motion.h2>
 
-        <div className="mb-4">
-          <div className="w-14 h-14 bg-blue-500/20 rounded-2xl flex items-center justify-center">
-            <img src="/icons/tools.svg" className="w-7" />
-          </div>
-        </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.7 }}
+            className="text-gray-600 leading-relaxed text-lg me-20"
+          >
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem
+            ducimus soluta omnis placeat nulla neque hic, debitis ipsum
+            blanditiis vel aperiam cum deserunt recusandae odio quas. Illo
+            perferendis voluptatibus in sed unde adipisci eaque dolore sequi eum
+            deserunt? Ducimus quam id error unde nulla repellendus ipsam
+            distinctio ut nobis quod.
+          </motion.p>
 
-        <h3 className="text-xl font-semibold text-white mb-3">
-          Customizable Solutions
-        </h3>
-        <p className="text-blue-100/80">
-          Tailor-made modules that fit your business requirements.
-        </p>
-      </motion.div>
+        </motion.div>
+      </div>
+    </section>
 
-    </div>
-  </div>
-</section>
+
+
+
+
 
 
 {/* =======================================
@@ -2172,6 +2070,9 @@ const faqs = [
         </div>
       </div>
     </section>
+
+
+     </section>
     </>
   )
 }

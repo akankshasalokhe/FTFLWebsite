@@ -236,7 +236,7 @@ const Navbar = () => {
             </li>
 
             {/* Services */}
-            <li className={styles.servicesItem}>
+            {/* <li className={styles.servicesItem}>
               <span
                 onClick={handleServicesToggle}
                 className={styles.dropdownToggle}
@@ -244,7 +244,6 @@ const Navbar = () => {
                 Services <span className={styles.arrow}>›</span>
               </span>
 
-              {/* Mobile dropdown */}
               {isMobile && servicesExpanded && (
                 <div className={styles.mobileDropdown}>
                   {isLoadingServices ? (
@@ -272,7 +271,7 @@ const Navbar = () => {
                   )}
                 </div>
               )}
-            </li>
+            </li> */}
 
             <li>
               <Link
@@ -332,7 +331,7 @@ const Navbar = () => {
         </div>
 
         {/* === Desktop Services Dropdown === */}
-        {!isMobile && (
+        {/* {!isMobile && (
           <div
             className={`${styles.servicesContent} ${
               servicesExpanded ? styles.show : ""
@@ -365,7 +364,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-        )}
+        )} */}
       </nav>
     </>
   );
