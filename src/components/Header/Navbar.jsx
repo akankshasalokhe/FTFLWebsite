@@ -641,8 +641,8 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {/* Services - Moved after About */}
-            <li className={styles.servicesItem}>
+            {/* Services */}
+            {/* <li className={styles.servicesItem}>
               <span
                 onClick={handleServicesToggle}
                 className={styles.dropdownToggle}
@@ -656,7 +656,6 @@ const Navbar = () => {
                 )}
               </span>
 
-              {/* Mobile dropdown */}
               {isMobile && servicesExpanded && (
                 <div className={styles.mobileDropdown}>
                   {isLoadingServices ? (
@@ -684,7 +683,7 @@ const Navbar = () => {
                   )}
                 </div>
               )}
-            </li>
+            </li> */}
 
             {/* Rest of the navigation items */}
             <li>
@@ -741,7 +740,7 @@ const Navbar = () => {
         </div>
 
         {/* === Desktop Services Dropdown === */}
-        {!isMobile && (
+        {/* {!isMobile && (
           <div
             className={`${styles.servicesContent} ${
               servicesExpanded ? styles.show : ""
@@ -774,7 +773,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-        )}
+        )} */}
       </nav>
     </>
   );

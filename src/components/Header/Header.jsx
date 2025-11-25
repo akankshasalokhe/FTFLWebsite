@@ -1,366 +1,360 @@
-// "use client";
-
-// import React from "react";
-// import Link from "next/link";
-// import { motion } from "framer-motion";
-// import { useInView } from "react-intersection-observer";
-// import Styles from "./Header.module.css";
-
-// const HeroSection = () => {
-//   const [ref, inView] = useInView({
-//     threshold: 0.3,
-//     triggerOnce: true
-//   });
-
-//   return (
-//     <section
-//       ref={ref}
-//       className={`relative  text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden ${Styles.hero}`}
-//       style={{
-//         height: "calc(100vh - 80px)",
-//         minHeight: "500px",
-//         maxHeight: "1200px"
-//       }}
-//     >
-//       {/* Background Image with Enhanced Parallax Effect */}
-//       <motion.div
-//         className="absolute inset-0 bg-inherit bg-center z-0"
-//         style={{
-//           backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
-//           backgroundPosition: "center center",
-//           backgroundSize: "cover",
-//           backgroundRepeat: "no-repeat"
-//         }}
-//         initial={{ scale: 1.3, opacity: 0 }}
-//         animate={inView ? { scale: 1, opacity: 1 } : {}}
-//         transition={{
-//           duration: 1.5,
-//           ease: [0.16, 0.77, 0.47, 0.97],
-//           opacity: { duration: 1.2 }
-//         }}
-//       />
-
-//       {/* Gradient Overlay with Animation */}
-//       <motion.div
-//         className="absolute inset-0 z-10"
-//         style={{
-//           background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
-//         }}
-//         initial={{ opacity: 0 }}
-//         animate={inView ? { opacity: 1 } : {}}
-//         transition={{ duration: 1.2, delay: 0.3 }}
-//       />
-
-//       {/* Content */}
-//       <div className="relative z-20 h-full flex flex-col items-center justify-center">
-//         <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-//           <motion.div
-//             initial={{ y: 40, opacity: 0 }}
-//             animate={inView ? { y: 0, opacity: 1 } : {}}
-//             transition={{ duration: 0.8, delay: 0.5 }}
-//             className="mb-4 sm:mb-6 md:mb-8 w-full"
-//           >
-//             {/* <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-blue-900 bg-opacity-40 rounded-full backdrop-blur-sm mb-4 sm:mb-6 border border-blue-700">
-//               <span className="text-blue-300 font-medium text-sm sm:text-base">Innovating Since 2015</span>
-//             </div> */}
-
-//             <motion.h1
-//               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
-//             >
-//               <span className="block">FTFL Technology</span>
-//               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-//                 Turns visions into digital reality
-//               </span>
-//             </motion.h1>
-
-//             <motion.p
-//               className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl sm:max-w-3xl mx-auto text-gray-300 px-2 sm:px-4"
-//               initial={{ y: 20, opacity: 0 }}
-//               animate={inView ? { y: 0, opacity: 1 } : {}}
-//               transition={{ duration: 0.8, delay: 0.7 }}
-//             >
-//               We craft future-ready IT solutions that scale with your business — blending creativity, code, and cloud innovation.
-//             </motion.p>
-//           </motion.div>
-
-//           <motion.div
-//             className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 w-full px-2 sm:px-4"
-//             initial={{ opacity: 0 }}
-//             animate={inView ? { opacity: 1 } : {}}
-//             transition={{ duration: 0.8, delay: 0.9 }}
-//           >
-//             <Link
-//               href="#homeservices"
-//               className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base"
-//             >
-//               <span className="absolute inset-0 bg-gradient-to-r from-[#298cf3] to-blue-600 group-hover:from-blue-500 group-hover:to-cyan-600 transition-all duration-300"></span>
-//               <span id='#homeservices' className="relative flex items-center justify-center gap-2">
-//                 Explore Services
-//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
-//                   <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-//                 </svg>
-//               </span>
-//             </Link>
-
-//             <Link
-//               href="/about"
-//               className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base border-2 border-blue-400"
-//             >
-//               <span className="absolute inset-0 bg-blue-900 bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 backdrop-blur-sm"></span>
-//               <span className="relative flex items-center justify-center gap-2">
-//                 Learn More
-//                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
-//                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
-//                 </svg>
-//               </span>
-//             </Link>
-//           </motion.div>
-
-//           {/* Data Intelligence Particles */}
-//           {/* {[...Array(12)].map((_, i) => (
-//             <motion.div
-//               key={i}
-//               className="absolute text-[11px] text-indigo-500"
-//               style={{
-//                 top: `${Math.random() * 100}%`,
-//                 left: `${Math.random() * 100}%`,
-//               }}
-//               animate={{
-//                 scale: [1, 1.8, 1],
-//                 opacity: [0.3, 0.8, 0.3],
-//                 y: [0, 8, 0],
-//               }}
-//               transition={{
-//                 duration: 3 + Math.random() * 2,
-//                 repeat: Infinity,
-//                 delay: i * 0.25,
-//               }}
-//             >
-//               {['📉', '📊', '📈', '🎲', '🎯', '🎪', '🧮', '🔢'][i % 8]}
-//             </motion.div>
-//           ))} */}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroSection;
-
-
 "use client";
 
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Image from "next/image";
 import Styles from "./Header.module.css";
-
-const techIcons = [
-  { src: "/figma_6NJzfYy6_6.png", alt: "Figma" },
-  { src: "/firebaselogo-removebg-preview_pOBWUXwZ_.webp", alt: "Firebase" },
-  { src: "/gitlogo-removebg-preview_PjN9x6gkXM.webp", alt: "Git" },
-  { src: "/mongodblogo-removebg-preview_t9fAwxBGo.webp", alt: "MongoDB" },
-  { src: "/react_79V4wOS3A.png", alt: "React" },
-  { src: "/tailwindlogo-removebg-preview_PPTRgDTyH.webp", alt: "Tailwind" },
-  { src: "/download__41__NXrTLZLl7.jpg", alt: "Figma" },
-  { src: "/download__69__X9hr2xGYc.png", alt: "Photoshop" },
-  { src: "/flutterlogo-removebg-preview_8eq8F_2Dt.webp", alt: "Flutter" },
-];
 
 const HeroSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
-    triggerOnce: true,
+    triggerOnce: true
   });
 
   return (
-    // <section
-    //   ref={ref}
-    //   className={`relative text-white text-center overflow-hidden ${Styles.hero}`}
-    //   style={{
-    //     height: "calc(100vh - 80px)",
-    //     minHeight: "500px",
-    //   }}
-    // 
-   <section
-   ref={ref}
-  className="relative text-white text-center overflow-hidden pt-28 min-h-[650px] sm:min-h-[600px]"
->
-
-
-      {/* === Background Image Layer === */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+    <section
+      ref={ref}
+      className={`relative  text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden ${Styles.hero}`}
+      style={{
+        height: "calc(100vh - 80px)",
+        minHeight: "500px",
+        maxHeight: "1200px"
+      }}
+    >
+      {/* Background Image with Enhanced Parallax Effect */}
+      <motion.div
+        className="absolute inset-0 bg-inherit bg-center z-0"
         style={{
-          backgroundImage: `url('/download (4).jpeg')`,
-          // filter: "brightness(0.7) contrast(1.1)", 
-          transform: "scale(1.02)",
+          backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
+          backgroundPosition: "center center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat"
         }}
-      ></div>
-
-      {/* === Animated Blue Grid Overlay === */}
-      <div
-        className={`${Styles.networkGrid} absolute inset-0 z-[1] pointer-events-none`}
+        initial={{ scale: 1.3, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{
+          duration: 1.5,
+          ease: [0.16, 0.77, 0.47, 0.97],
+          opacity: { duration: 1.2 }
+        }}
       />
 
-      {/* === Glowing Floating Particles === */}
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={Styles.particle}
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              x: [0, Math.random() * 40 - 20],
-              y: [0, Math.random() * 40 - 20],
-              opacity: [0.3, 1, 0.3],
-              scale: [0.7, 1.3, 0.7],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* === Floating Tech Icons === */}
-      <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none">
-        {techIcons.map((icon, index) => (
-          <motion.div
-            key={index}
-            className={`${Styles.techIconWrapper} absolute`}
-            style={{
-              top: `${Math.random() * 80 + 10}%`,
-              left: `${Math.random() * 80 + 10}%`,
-            }}
-            animate={{
-              x: [Math.random() * 30 - 15, Math.random() * -30 + 15],
-              y: [Math.random() * 25 - 12, Math.random() * -25 + 12],
-              rotate: [0, 8, -8, 0],
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut",
-            }}
-          >
-            <div className={Styles.iconCircle}>
-              <Image
-                src={icon.src}
-                alt={icon.alt}
-                width={40}
-                height={40}
-                className={Styles.techIcon}
-                priority
-              />
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* === Blue Overlay Gradient === */}
+      {/* Gradient Overlay with Animation */}
       <motion.div
-        className="absolute inset-0 z-[4]"
+        className="absolute inset-0 z-10"
         style={{
-          background:
-            "linear-gradient(120deg, rgba(0, 26, 61, 0.85), rgba(0, 51, 102, 0.75), rgba(0, 102, 204, 0.55))",
+          background: "linear-gradient(135deg, rgba(7,24,43,0.85) 0%, rgba(23,64,110,0.7) 100%)",
         }}
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        transition={{ duration: 1, delay: 0.3 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
       />
 
-      {/* === Foreground Content === */}
-      <div className="relative z-[5] flex flex-col items-center justify-center h-full px-6">
-        <motion.h1
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight"
-          initial={{ y: 40, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <span className="block">FTFL Technology</span>
-          <span
-            className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 ${Styles.neonText}`}
+      {/* Content */}
+      <div className="relative z-20 h-full flex flex-col items-center justify-center">
+        <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={inView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mb-4 sm:mb-6 md:mb-8 w-full"
           >
-            Turns Visions Into Digital Reality
-          </span>
-        </motion.h1>
+            {/* <div className="inline-block px-3 py-1 sm:px-4 sm:py-2 bg-blue-900 bg-opacity-40 rounded-full backdrop-blur-sm mb-4 sm:mb-6 border border-blue-700">
+              <span className="text-blue-300 font-medium text-sm sm:text-base">Innovating Since 2015</span>
+            </div> */}
 
-        <motion.p
-          className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-8"
-          initial={{ y: 30, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.7 }}
-        >
-          We craft future-ready IT solutions that merge innovation, design, and
-          technology — driving your business into the digital future.
-        </motion.p>
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
+            >
+              <span className="block">FTFL Technology</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                Turns visions into digital reality
+              </span>
+            </motion.h1>
 
-        <motion.div
-          className="flex flex-col sm:flex-row justify-center items-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.9 }}
-        >
-          <Link
-            href="#homeservices"
-            className="relative group overflow-hidden px-6 py-3 rounded-lg font-semibold text-base sm:text-lg"
+            <motion.p
+              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl sm:max-w-3xl mx-auto text-gray-300 px-2 sm:px-4"
+              initial={{ y: 20, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              We craft future-ready IT solutions that scale with your business — blending creativity, code, and cloud innovation.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 w-full px-2 sm:px-4"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:from-cyan-400 group-hover:to-blue-600 transition-all duration-300"></span>
-            <span className="relative flex items-center justify-center gap-2">
-              Explore Services
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </Link>
+            <Link
+              href="#homeservices"
+              className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base"
+            >
+              <span className="absolute inset-0 bg-gradient-to-r from-[#298cf3] to-blue-600 group-hover:from-blue-500 group-hover:to-cyan-600 transition-all duration-300"></span>
+              <span id='#homeservices' className="relative flex items-center justify-center gap-2">
+                Explore Services
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </span>
+            </Link>
 
-          <Link
-            href="/about"
-            className="relative overflow-hidden group px-6 py-3 rounded-lg font-semibold text-base sm:text-lg border-2 border-blue-400"
-          >
-            <span className="absolute inset-0 bg-blue-900 bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 backdrop-blur-sm"></span>
-            <span className="relative flex items-center justify-center gap-2">
-              Learn More
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-          </Link>
-        </motion.div>
+            <Link
+              href="/about"
+              className="relative overflow-hidden group w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-lg font-semibold text-sm sm:text-base border-2 border-blue-400"
+            >
+              <span className="absolute inset-0 bg-blue-900 bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 backdrop-blur-sm"></span>
+              <span className="relative flex items-center justify-center gap-2">
+                Learn More
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
+                </svg>
+              </span>
+            </Link>
+          </motion.div>
+
+          {/* Data Intelligence Particles */}
+          {/* {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-[11px] text-indigo-500"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                scale: [1, 1.8, 1],
+                opacity: [0.3, 0.8, 0.3],
+                y: [0, 8, 0],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: i * 0.25,
+              }}
+            >
+              {['📉', '📊', '📈', '🎲', '🎯', '🎪', '🧮', '🔢'][i % 8]}
+            </motion.div>
+          ))} */}
+        </div>
       </div>
     </section>
   );
 };
 
 export default HeroSection;
+
+
+// "use client";
+
+// import React from "react";
+// import Link from "next/link";
+// import { motion } from "framer-motion";
+// import { useInView } from "react-intersection-observer";
+// import Image from "next/image";
+// import Styles from "./Header.module.css";
+
+// const techIcons = [
+//   { src: "/figma_6NJzfYy6_6.png", alt: "Figma" },
+//   { src: "/firebaselogo-removebg-preview_pOBWUXwZ_.webp", alt: "Firebase" },
+//   { src: "/gitlogo-removebg-preview_PjN9x6gkXM.webp", alt: "Git" },
+//   { src: "/mongodblogo-removebg-preview_t9fAwxBGo.webp", alt: "MongoDB" },
+//   { src: "/react_79V4wOS3A.png", alt: "React" },
+//   { src: "/tailwindlogo-removebg-preview_PPTRgDTyH.webp", alt: "Tailwind" },
+//   { src: "/download__41__NXrTLZLl7.jpg", alt: "Figma" },
+//   { src: "/download__69__X9hr2xGYc.png", alt: "Photoshop" },
+//   { src: "/flutterlogo-removebg-preview_8eq8F_2Dt.webp", alt: "Flutter" },
+// ];
+
+// const HeroSection = () => {
+//   const [ref, inView] = useInView({
+//     threshold: 0.3,
+//     triggerOnce: true,
+//   });
+
+//   return (
+//     <section
+//       ref={ref}
+//       className={`relative text-white text-center overflow-hidden ${Styles.hero}`}
+//       style={{
+//         height: "calc(100vh - 80px)",
+//         minHeight: "500px",
+//       }}
+//     >
+//       {/* === Background Image Layer === */}
+//       <div
+//         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+//         style={{
+//           backgroundImage: `url('/download (4).jpeg')`,
+//           // filter: "brightness(0.7) contrast(1.1)", 
+//           transform: "scale(1.02)",
+//         }}
+//       ></div>
+
+//       {/* === Animated Blue Grid Overlay === */}
+//       <div
+//         className={`${Styles.networkGrid} absolute inset-0 z-[1] pointer-events-none`}
+//       />
+
+//       {/* === Glowing Floating Particles === */}
+//       <div className="absolute inset-0 z-[2] pointer-events-none">
+//         {[...Array(20)].map((_, i) => (
+//           <motion.div
+//             key={i}
+//             className={Styles.particle}
+//             style={{
+//               top: `${Math.random() * 100}%`,
+//               left: `${Math.random() * 100}%`,
+//             }}
+//             animate={{
+//               x: [0, Math.random() * 40 - 20],
+//               y: [0, Math.random() * 40 - 20],
+//               opacity: [0.3, 1, 0.3],
+//               scale: [0.7, 1.3, 0.7],
+//             }}
+//             transition={{
+//               duration: 4 + Math.random() * 2,
+//               repeat: Infinity,
+//               ease: "easeInOut",
+//             }}
+//           />
+//         ))}
+//       </div>
+
+//       {/* === Floating Tech Icons === */}
+//       <div className="absolute inset-0 z-[3] overflow-hidden pointer-events-none">
+//         {techIcons.map((icon, index) => (
+//           <motion.div
+//             key={index}
+//             className={`${Styles.techIconWrapper} absolute`}
+//             style={{
+//               top: `${Math.random() * 80 + 10}%`,
+//               left: `${Math.random() * 80 + 10}%`,
+//             }}
+//             animate={{
+//               x: [Math.random() * 30 - 15, Math.random() * -30 + 15],
+//               y: [Math.random() * 25 - 12, Math.random() * -25 + 12],
+//               rotate: [0, 8, -8, 0],
+//               opacity: [0.5, 1, 0.5],
+//             }}
+//             transition={{
+//               duration: 5 + Math.random() * 2,
+//               repeat: Infinity,
+//               repeatType: "reverse",
+//               ease: "easeInOut",
+//             }}
+//           >
+//             <div className={Styles.iconCircle}>
+//               <Image
+//                 src={icon.src}
+//                 alt={icon.alt}
+//                 width={40}
+//                 height={40}
+//                 className={Styles.techIcon}
+//                 priority
+//               />
+//             </div>
+//           </motion.div>
+//         ))}
+//       </div>
+
+//       {/* === Blue Overlay Gradient === */}
+//       <motion.div
+//         className="absolute inset-0 z-[4]"
+//         style={{
+//           background:
+//             "linear-gradient(120deg, rgba(0, 26, 61, 0.85), rgba(0, 51, 102, 0.75), rgba(0, 102, 204, 0.55))",
+//         }}
+//         initial={{ opacity: 0 }}
+//         animate={inView ? { opacity: 1 } : {}}
+//         transition={{ duration: 1, delay: 0.3 }}
+//       />
+
+//       {/* === Foreground Content === */}
+//       <div className="relative z-[5] flex flex-col items-center justify-center h-full px-6">
+//         <motion.h1
+//           className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight"
+//           initial={{ y: 40, opacity: 0 }}
+//           animate={inView ? { y: 0, opacity: 1 } : {}}
+//           transition={{ duration: 0.8, delay: 0.5 }}
+//         >
+//           <span className="block">FTFL Technology</span>
+//           <span
+//             className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 ${Styles.neonText}`}
+//           >
+//             Turns Visions Into Digital Reality
+//           </span>
+//         </motion.h1>
+
+//         <motion.p
+//           className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-8"
+//           initial={{ y: 30, opacity: 0 }}
+//           animate={inView ? { y: 0, opacity: 1 } : {}}
+//           transition={{ duration: 0.8, delay: 0.7 }}
+//         >
+//           We craft future-ready IT solutions that merge innovation, design, and
+//           technology — driving your business into the digital future.
+//         </motion.p>
+
+//         <motion.div
+//           className="flex flex-col sm:flex-row justify-center items-center gap-4"
+//           initial={{ opacity: 0 }}
+//           animate={inView ? { opacity: 1 } : {}}
+//           transition={{ duration: 0.8, delay: 0.9 }}
+//         >
+//           <Link
+//             href="#homeservices"
+//             className="relative group overflow-hidden px-6 py-3 rounded-lg font-semibold text-base sm:text-lg"
+//           >
+//             <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:from-cyan-400 group-hover:to-blue-600 transition-all duration-300"></span>
+//             <span className="relative flex items-center justify-center gap-2">
+//               Explore Services
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 className="h-5 w-5"
+//                 viewBox="0 0 20 20"
+//                 fill="currentColor"
+//               >
+//                 <path
+//                   fillRule="evenodd"
+//                   d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0-1.414z"
+//                   clipRule="evenodd"
+//                 />
+//               </svg>
+//             </span>
+//           </Link>
+
+//           <Link
+//             href="/about"
+//             className="relative overflow-hidden group px-6 py-3 rounded-lg font-semibold text-base sm:text-lg border-2 border-blue-400"
+//           >
+//             <span className="absolute inset-0 bg-blue-900 bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300 backdrop-blur-sm"></span>
+//             <span className="relative flex items-center justify-center gap-2">
+//               Learn More
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 className="h-5 w-5"
+//                 viewBox="0 0 20 20"
+//                 fill="currentColor"
+//               >
+//                 <path
+//                   fillRule="evenodd"
+//                   d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+//                   clipRule="evenodd"
+//                 />
+//               </svg>
+//             </span>
+//           </Link>
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HeroSection;
 
 
 

@@ -938,21 +938,21 @@ export default function JobListings({ initialCategory = '' }) { // ← Accept pr
 
             <p className="text-gray-600 text-sm md:text-base mb-4">{job.about || job.description}</p>
 
-            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-5 text-xs md:text-sm">
-              <div className="flex items-center gap-1 md:gap-2">
-                <FiMapPin className="text-gray-400 flex-shrink-0" />
+            <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-5 text-xs md:text-sm font-bold">
+              <div className="flex items-center gap-1 md:gap-2 ">
+                <FiMapPin className="text-blue-700 flex-shrink-0" />
                 <span className="truncate">{job.location}</span>
               </div>
               <div className="flex items-center gap-1 md:gap-2">
-                <FiDollarSign className="text-gray-400 flex-shrink-0" />
+                <FiDollarSign className="text-blue-700 flex-shrink-0" />
                 <span className="truncate">{job.salary || 'Not specified'}</span>
               </div>
               <div className="flex items-center gap-1 md:gap-2">
-                <FiCalendar className="text-gray-400 flex-shrink-0" />
+                <FiCalendar className="text-blue-700 flex-shrink-0" />
                 <span>Posted: {formatDate(job.createdAt)}</span>
               </div>
               <div className="flex items-center gap-1 md:gap-2">
-                <FiClock className="text-gray-400 flex-shrink-0" />
+                <FiClock className="text-blue-700 flex-shrink-0" />
                 <span>Closes: {formatDate(job.applicationDeadline)}</span>
               </div>
             </div>

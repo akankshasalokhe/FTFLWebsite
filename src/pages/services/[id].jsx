@@ -1486,6 +1486,8 @@ export default function ServiceDetail() {
   const router = useRouter();
   const id = router.query?.id;
 
+  const [mobile, setMobile] = useState(false);
+
 
   const [serviceData, setServiceData] = useState({});
   const { question } = serviceData;
@@ -1552,6 +1554,17 @@ export default function ServiceDetail() {
 
     fetchFaq();
   }, [serviceData?.title]); // Add serviceData.title as dependency
+
+  useEffect(() => {
+  const handleResize = () => {
+    setMobile(window.innerWidth <= 768); // <768px = mobile
+  };
+
+  handleResize(); // initial call
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
 
   if (loading) return <p>Loading...</p>;
   if (!serviceData) return <p>Service not found.</p>;
@@ -1657,6 +1670,7 @@ export default function ServiceDetail() {
           </motion.div>
 
           {/* ==== Right Image Section ==== */}
+          {mobile? null : (
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -1667,11 +1681,12 @@ export default function ServiceDetail() {
               <img
                 src={serviceData?.mainImage || "tappay-front-img.png"}
                 alt={serviceData?.descriptionTitle || "Digital Innovation"}
-                className="h-[450px]"
+                className="h-[500px]"
               />
               <div className="absolute -bottom-6 -left-6 h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
             </div>
           </motion.div>
+          )}
         </div>
       </section>
 
@@ -1725,10 +1740,9 @@ export default function ServiceDetail() {
 
       {/* ==== What is "{Service Name}" Section ==== */}
 
-      <section className="pb-10 bg-gray-50 border-t border-gray-100">
+      {/* <section className="pb-10 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto lg:ps-0 px-6 sm:px-20 text-center">
 
-          {/* Title */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1739,7 +1753,6 @@ export default function ServiceDetail() {
             What is <span className="text-[#4379f7]">"{question?.title}"</span>?
           </motion.h2>
 
-          {/* Optional answers list */}
           {question?.answer?.length > 0 && (
             <motion.ul
               initial={{ opacity: 0, y: 20 }}
@@ -1754,189 +1767,114 @@ export default function ServiceDetail() {
             </motion.ul>
           )}
         </div>
-      </section>
+      </section> */}
 
+      <FtflProcess />
 
 
       {/* ==== Process Section ==== */}
-      {serviceData?.process?.length > 0 && (
-        <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-100/40 via-transparent to-transparent"></div>
+{/* {serviceData?.process?.length > 0 && (
+  <section className="relative bg-gradient-to-b from-blue-50 to-white py-24 overflow-hidden">
+    
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] 
+      from-blue-100/40 via-transparent to-transparent">
+    </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-            {/* Heading */}
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
-            >
-              Our <span className="text-blue-600">{serviceData?.title} </span>Process
-            </motion.h2>
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-16 sm:mb-20"
+      >
+        Our <span className="text-blue-600">{serviceData?.title} </span>Process
+      </motion.h2>
 
-            {/* Swiper */}
-            <Swiper
-              modules={[Pagination, Autoplay]}
-              pagination={{ clickable: true }}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              loop={true}
-              centeredSlides={true}
-              centeredSlidesBounds={true}
-              spaceBetween={35}
-              slidesPerView={1}
-              breakpoints={{
-                480: { slidesPerView: 1 },
-                640: { slidesPerView: 1.2 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-                1280: { slidesPerView: 4 },
-              }}
-              style={{ paddingBottom: "60px" }}
-            >
-              {serviceData?.process?.map((step, index) => (
-                <SwiperSlide key={index} className="flex justify-center">
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
+        loop={true}
+        centeredSlides={true}
+        centeredSlidesBounds={true}
+        spaceBetween={35}
+        slidesPerView={1}
+        breakpoints={{
+          480: { slidesPerView: 1 },
+          640: { slidesPerView: 1.2 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1280: { slidesPerView: 4 },
+        }}
+        style={{ paddingBottom: "60px" }}
+      >
+        {serviceData?.process?.map((step, index) => (
+          <SwiperSlide key={index} className="flex justify-center">
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: index * 0.15 }}
-                    viewport={{ once: true }}
-                    className="w-full flex flex-col items-center transition-all duration-300"
-                  >
-
-                    {/* Card */}
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                      className="
-                        h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
-                        bg-white/80 backdrop-blur-md
-                        border border-blue-100 
-                        shadow-lg rounded-2xl p-6
-                        hover:shadow-2xl hover:border-blue-300 
-                        flex flex-col w-full max-w-[280px] md:max-w-[300px] lg:max-w-[310px]
-                        transition-all duration-300
-                      "
-                    >
-
-                      {/* Icon */}
-                      {step.icon && (
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-5 shadow-md overflow-hidden">
-                          <img
-                            src={step.icon}
-                            alt={step.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      )}
-
-
-                      {/* Title */}
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
-                        {step.title}
-                      </h3>
-
-                      {/* Description */}
-                      <ul className="text-gray-600 text-sm  space-y-2 text-left flex-1 list-disc list-inside">
-                        {step.description?.map((point, i) => (
-                          <motion.li
-                            key={i}
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: i * 0.1 }}
-                          >
-                            {point}
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </motion.div>
-
-                  </motion.div>
-
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
-      )}
-
-      {/* ==== Why Choose Us Section ==== */}
-      {serviceData?.whyChooseUs?.description?.length > 0 && (
-        <section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
-          {/* Decorative background shapes */}
-          <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-300/20 rounded-full blur-2xl"></div>
-
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-14 relative z-10">
-            {/* === Left Image === */}
-            {serviceData?.whyChooseUs?.icon && (
-              <motion.div
-                initial={{ opacity: 0, x: -60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="w-full md:w-1/2 relative"
-              >
-                <div className="relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
-                  <img
-                    src={serviceData.whyChooseUs.icon}
-                    alt="Why Choose Us"
-                    className="w-full h-[420px] object-cover rounded-3xl hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-                {/* Subtle glowing ring accent */}
-                <div className="absolute -bottom-10 -left-8 w-40 h-40 bg-blue-300/40 rounded-full blur-2xl"></div>
-              </motion.div>
-            )}
-
-            {/* === Right Text Content === */}
             <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2 h-full flex flex-col justify-between"
+              className="w-full flex flex-col items-center transition-all duration-300"
             >
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
-                  Why Choose Us
-                </h2>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  We don’t just build digital products — we create lasting experiences.
-                  Here’s what sets us apart from the rest:
-                </p>
 
-                {/* Two Column Points */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {serviceData?.whyChooseUs?.description?.map((point, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.6 }}
-                      viewport={{ once: true }}
-                      className="flex items-start gap-4"
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                className="
+                  h-[560px] sm:h-[520px] md:h-[540px] lg:h-[600px] xl:h-[620px]
+                  bg-white/80 backdrop-blur-md
+                  border border-blue-100 
+                  shadow-lg rounded-2xl p-6
+                  hover:shadow-2xl hover:border-blue-300 
+                  flex flex-col w-full max-w-[280px] md:max-w-[300px] lg:max-w-[310px]
+                  transition-all duration-300
+                "
+              >
+
+                {step.icon && (
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 
+                    flex items-center justify-center mx-auto mb-5 shadow-md overflow-hidden">
+                    <img
+                      src={step.icon}
+                      alt={step.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 text-center">
+                  {step.title}
+                </h3>
+
+                <ul className="text-gray-600 text-sm space-y-2 text-left flex-1 list-disc list-inside">
+                  {step.description?.map((point, i) => (
+                    <motion.li
+                      key={i}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: i * 0.1 }}
                     >
-                      <div className="flex-shrink-0 mt-1">
-                        <CheckCircle className="text-[#4379f7] w-7 h-7" />
-                      </div>
-                      <div className="flex-1">
-                        <span className="text-lg font-medium text-gray-800 leading-relaxed">
-                          {point}
-                        </span>
-                      </div>
-                    </motion.div>
+                      {point}
+                    </motion.li>
                   ))}
-                </div>
-              </div>
+                </ul>
+
+              </motion.div>
+
             </motion.div>
-          </div>
-        </section>
-      )}
+
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  </section>
+)} */}
+
+
+     
 
       {/* ==== Benefits Section ==== */}
       {serviceData?.benefits?.length > 0 && (
@@ -2092,78 +2030,8 @@ export default function ServiceDetail() {
         </section>
       )}
 
-      {/* ==== Key Features Section ==== */}
-      {serviceData?.keyFeatures?.length > 0 && (
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
-          {/* ==== Animated Background ==== */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,232,255,0.08),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(124,77,255,0.08),transparent_60%)]"
-            ></motion.div>
-          </div>
 
-          {/* ==== Header ==== */}
-          <div className="relative z-10 text-center mb-16 px-6">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4"
-            >
-              Key Features
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-blue-100/80 max-w-2xl mx-auto"
-            >
-              Empower your platform with next-generation capabilities designed for scalability,
-              performance, and personalization.
-            </motion.p>
-          </div>
-
-          {/* ==== Feature Cards ==== */}
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
-            {serviceData?.keyFeatures?.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="relative bg-white/5 border border-white/10 hover:border-cyan-400/40 text-white rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_25px_rgba(0,0,0,0.3)] transition-all duration-500"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  {/* Icon */}
-                  {item.icon && (
-                    <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center shadow-inner shadow-cyan-500/30 overflow-hidden">
-                      <img
-                        src={item.icon}
-                        alt={item.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )}
-
-                  <h3 className="text-xl font-semibold">{item.title}</h3>
-                </div>
-                <p className="text-blue-100/80 leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* ==== AI Technologies Section ==== */}
+{/* ==== AI Technologies Section ==== */}
       {serviceData?.aiTechnologies?.length > 0 && (
         <section className="relative bg-gradient-to-b from-[#f8faff] via-[#f3f6ff] to-[#eef2ff] py-24 px-6 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-10 relative">
@@ -2259,9 +2127,241 @@ export default function ServiceDetail() {
           </div>
         </section>
       )}
+      
 
+      {/* {serviceData?.aiTechnologies?.length > 0 && (
+  <section
+    className="relative w-full py-32 bg-fixed bg-cover bg-center"
+    style={{
+      backgroundImage: `url(${serviceData.aiTechnologyImage})`,
+    }}
+  >
+    <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
 
-      <FtflProcess />
+    <div className="relative max-w-7xl mx-auto px-6 z-10">
+
+      <div className="text-center text-white mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold drop-shadow-lg">
+          AI Technologies We Use
+        </h2>
+        <p className="text-gray-200 mt-4 max-w-2xl mx-auto">
+          Intelligent, futuristic, and powerful AI innovations we rely on.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+
+        {serviceData?.aiTechnologies?.map((tech, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.5 }}
+            className="
+              relative p-8 rounded-3xl 
+              bg-white/5 backdrop-blur-xl
+              border border-white/10
+              overflow-hidden
+              cursor-pointer group
+            "
+          >
+
+            <div className="absolute inset-0 rounded-3xl 
+              border-[1.5px] border-transparent 
+              group-hover:border-cyan-400 
+              transition-all duration-500"></div>
+
+            <div className="absolute -inset-1 bg-gradient-to-r 
+              from-transparent via-cyan-400/20 to-transparent 
+              opacity-0 group-hover:opacity-100 
+              blur-xl transition-all duration-700"></div>
+
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,#6ee7ff_1px,transparent_1px)] 
+              bg-[size:18px_18px]"></div>
+
+            <div className="relative z-10 mb-6 w-16 h-16 rounded-2xl 
+              bg-gradient-to-br from-cyan-300/40 to-cyan-500/20 
+              flex items-center justify-center
+              shadow-[0_0_20px_rgba(0,255,255,0.3)]
+              group-hover:scale-110 transition duration-500
+            ">
+              {tech.icon && (
+                <img src={tech.icon} className="w-10 h-10" />
+              )}
+            </div>
+
+            <h3 className="text-xl font-semibold text-white mb-3 relative z-10">
+              {tech.description.split(":")[0]}
+            </h3>
+
+            <p className="text-gray-300 text-sm leading-relaxed relative z-10">
+              {tech.description.split(":").slice(1).join(":").trim()}
+            </p>
+
+            <motion.div
+              animate={{ y: [-4, 4, -4] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute inset-0"
+            ></motion.div>
+
+          </motion.div>
+        ))}
+
+      </div>
+    </div>
+  </section>
+)} */}
+      {/* ==== Key Features Section ==== */}
+      {serviceData?.keyFeatures?.length > 0 && (
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b] py-24">
+          {/* ==== Animated Background ==== */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,232,255,0.08),transparent_60%),radial-gradient(circle_at_80%_80%,rgba(124,77,255,0.08),transparent_60%)]"
+            ></motion.div>
+          </div>
+
+          {/* ==== Header ==== */}
+          <div className="relative z-10 text-center mb-16 px-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl md:text-5xl font-bold text-white mb-4"
+            >
+              Key Features
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-blue-100/80 max-w-2xl mx-auto"
+            >
+              Empower your platform with next-generation capabilities designed for scalability,
+              performance, and personalization.
+            </motion.p>
+          </div>
+
+          {/* ==== Feature Cards ==== */}
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
+            {serviceData?.keyFeatures?.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="relative bg-white/5 border border-white/10 hover:border-cyan-400/40 text-white rounded-2xl p-8 backdrop-blur-xl shadow-[0_0_25px_rgba(0,0,0,0.3)] transition-all duration-500"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  {/* Icon */}
+                  {item.icon && (
+                    <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center shadow-inner shadow-cyan-500/30 overflow-hidden">
+                      <img
+                        src={item.icon}
+                        alt={item.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-semibold">{item.title}</h3>
+                </div>
+                <p className="text-blue-100/80 leading-relaxed">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      
+
+ {/* ==== Why Choose Us Section ==== */}
+      {serviceData?.whyChooseUs?.description?.length > 0 && (
+        <section className="relative py-24 px-6 md:px-16 bg-gradient-to-r from-[#7eaee9] via-[#eef3ff] to-[#bad6f8f8] overflow-hidden">
+          {/* Decorative background shapes */}
+          <div className="absolute top-10 right-10 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-80 h-80 bg-blue-300/20 rounded-full blur-2xl"></div>
+
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-14 relative z-10">
+            {/* === Left Image === */}
+            {serviceData?.whyChooseUs?.icon && (
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="w-full md:w-1/2 relative"
+              >
+                <div className="relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <img
+                    src={serviceData.whyChooseUs.icon}
+                    alt="Why Choose Us"
+                    className="w-full h-[420px] object-cover rounded-3xl hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                {/* Subtle glowing ring accent */}
+                <div className="absolute -bottom-10 -left-8 w-40 h-40 bg-blue-300/40 rounded-full blur-2xl"></div>
+              </motion.div>
+            )}
+
+            {/* === Right Text Content === */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="w-full md:w-1/2 h-full flex flex-col justify-between"
+            >
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1d2c53] mb-4">
+                  Why Choose Us
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                  We don’t just build digital products — we create lasting experiences.
+                  Here’s what sets us apart from the rest:
+                </p>
+
+                {/* Two Column Points */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {serviceData?.whyChooseUs?.description?.map((point, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.6 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="flex-shrink-0 mt-1">
+                        <CheckCircle className="text-[#4379f7] w-7 h-7" />
+                      </div>
+                      <div className="flex-1">
+                        <span className="text-lg font-medium text-gray-800 leading-relaxed">
+                          {point}
+                        </span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
 
       {/* ==== Tools We Use Section ==== */}

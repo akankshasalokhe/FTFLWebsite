@@ -268,7 +268,7 @@ const MissionSection = () => {
       title: "Our Mission",
       description:
          "At FTFL Technology Pvt. Ltd., our mission to provide outstanding technological solutions that enable companies to thrive in the digital age. We are committed to provide dependable, effective, and scalable services in the areas of web development, mobile apps, digital marketing, and creative design—all of which are customized to satisfy particular corporate objectives. Our dedication to excellence, openness, and ongoing development serves as the foundation for our purpose. By combining strategic thinking, advanced technology, and customer-focused execution, we strive to create meaningful digital experiences that add value, inspire trust, and drive long-term success for our clients and partners worldwide",
-      image: "logos/ourmission.jpg",
+      image: "Our Mission.jpg",
     },
     {
       title: "Core Values",

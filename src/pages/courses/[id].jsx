@@ -1392,7 +1392,7 @@ const coursesData = [
       },
       {
         question: "Can I choose between online and offline mode?",
-        answer: "Yes, we offer both online and offline options. You can choose the mode that works best for you.",
+        answer: "No, the program is offered exclusively in offline mode because it provides hands-on experience and a real office culture.",
         icon: <FaMapMarkerAlt className="text-purple-500" />
       },
       {
@@ -2018,77 +2018,42 @@ export default function CourseDetails() {
       </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
-      <section className="relative h-80 sm:h-72 md:h-80 lg:h-96">
-        <Image
-          src={internshipData.bannerImage}
-          alt={internshipData.title}
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0 z-0"
-        />
-        <div className="absolute inset-0 bg-blue-600 opacity-70 z-0"></div>
-        <div className="w-full h-full flex items-center z-10 relative">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-white w-full pt-8 pb-8">
-            {/* Icon and Title - Fixed overlapping */}
-            <motion.div
-              className="flex items-start gap-3 sm:gap-4 mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-lg flex-shrink-0 mt-1">
-                <Image
-                  src={internshipData.mainImage}
-                  alt={internshipData.title}
-                  width={40}
-                  height={40}
-                  className="object-contain w-8 h-8 sm:w-10 sm:h-10"
-                />
-              </span>
-              <div className="flex-1 min-w-0">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight break-words">
-                  {internshipData.title}
-                </h1>
-              </div>
-            </motion.div>
+  <section
+  className="relative h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
+  style={{
+    background: "linear-gradient(135deg, #021030, #032781, #01154b)",
+  }}
+>
+  {/* Animated Circuit Background */}
+  <div className="absolute inset-0 z-0 circuit-lines"></div>
 
-            {/* Description */}
-            <motion.p
-              className="max-w-2xl mb-6 opacity-90 text-sm sm:text-base leading-relaxed line-clamp-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              {internshipData.description}
-            </motion.p>
+  {/* Glowing Nodes */}
+  <div className="circuit-nodes z-0">
+    <span className="circuit-node" style={{ top: "20%", left: "30%" }}></span>
+    <span className="circuit-node" style={{ top: "50%", left: "70%" }}></span>
+    <span className="circuit-node" style={{ top: "70%", left: "40%" }}></span>
+    <span className="circuit-node" style={{ top: "35%", left: "80%" }}></span>
+    <span className="circuit-node" style={{ top: "60%", left: "20%" }}></span>
+  </div>
 
-          
+  {/* Content */}
+  <div className="relative z-10 text-white p-18 lg:p-30 text-center">
+    <h1 className="text-3xl lg:text-5xl font-bold text-center text-sky-300">{internshipData.title}</h1>
+    <p className="mt-3 text-md">{internshipData.description}</p>
+  </div>
+</section>
 
 
-            {/* Download Button - Opens in new tab */}
-            <motion.div
-              className="flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <button
-                onClick={() => {
-                  if (internshipData.syllabusLink) {
-                    window.open(internshipData.syllabusLink, '_blank', 'noopener,noreferrer');
-                  } else {
-                    console.error('No syllabus link available');
-                    alert('Syllabus link not available');
-                  }
-                }}
-                className="border cursor-pointer border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition text-sm sm:text-base min-w-[140px]"
-              >
-                Download Syllabus
-              </button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+
+
+
+
+
+
+
+
+
+
 
       {/* Stats - Responsive grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 justify-center -mt-8 sm:-mt-10 relative z-10">
@@ -2381,7 +2346,7 @@ export default function CourseDetails() {
                   </div>
                 </div>
 
-                <div className="flex justify-start items-center w-full gap-2">
+                {/* <div className="flex justify-start items-center w-full gap-2">
                   <FaMoneyBillWave className="text-blue-500"/>
                   <div className="flex items-center gap-2">
                   <span className="text-gray-600">Program Fee:</span>
@@ -2389,7 +2354,7 @@ export default function CourseDetails() {
                     <FaRupeeSign size={12} /> {internshipData.fee}
                   </span>
                   </div>
-                </div>
+                </div> */}
                 
                 <div className="flex items-center gap-2">
                   <FaUserGraduate  className="text-blue-500"/>
@@ -2463,9 +2428,11 @@ export default function CourseDetails() {
             >
               <h3 className="text-lg font-bold text-blue-800 mb-3">Need help deciding?</h3>
               <p className="text-blue-700 mb-4">Talk to our program counsellor</p>
+              <Link href="/contact">
               <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-[#298cf3] to-blue-600 transition w-full">
                 Request a Callback
               </button>
+              </Link>
             </motion.div>
           </div>
         </div>

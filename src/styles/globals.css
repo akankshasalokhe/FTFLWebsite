@@ -225,3 +225,56 @@ video::-moz-media-controls {
   width: 100%;
   height: 100%;
 }
+
+
+
+
+
+
+/* Circuit animated background */
+.circuit-lines {
+  background-image: 
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px;
+  animation: moveCircuit 12s linear infinite;
+  opacity: 0.25;
+}
+
+@keyframes moveCircuit {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 200px 200px, -200px -200px;
+  }
+}
+
+/* Glowing nodes */
+.circuit-nodes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.circuit-node {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #00eaff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00eaff, 0 0 15px #00eaff;
+  animation: pulse 2.5s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
