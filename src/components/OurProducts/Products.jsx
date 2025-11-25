@@ -606,6 +606,40 @@ export default function ProductDetails() {
               transition={{ duration: 0.8, delay: index * 0.1 }}
               className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center mb-32 last:mb-0"
             >
+
+
+                     {/* Image - Alternates between right and left */}
+              <motion.div
+                className={`flex-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
+                initial={{ opacity: 0, x: isEven ? 60 : -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                 >
+                <div className="relative">
+                  {/* <div className="relative w-full max-w-md mx-auto aspect-[4/3] md:aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl"> */}
+                  <div className="relative w-full mx-auto 
+                    h-[460px] sm:h-[320px] md:h-auto 
+                    aspect-[4/3] md:aspect-[5/4]
+                    rounded-3xl overflow-hidden shadow-2xl">
+
+                    <Image
+                      src={product.mainImage}
+                      alt={product.title}
+                      fill
+                      className="object-contain transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={index === 0}
+                    />
+                    {/* Bottom shadow overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
+                  </div>
+                  {/* Decorative Element */}
+                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-100 rounded-xl -z-10"></div>
+                  <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-gray-100 rounded-xl -z-10"></div>
+                </div>
+              </motion.div>
+              
               {/* Content - Alternates between left and right */}
               <motion.div
                 className={`flex-1 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
@@ -718,30 +752,7 @@ export default function ProductDetails() {
                 </div>
               </motion.div>
 
-              {/* Image - Alternates between right and left */}
-              <motion.div
-                className={`flex-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
-                initial={{ opacity: 0, x: isEven ? 60 : -60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <div className="relative">
-                  <div className="relative w-full max-w-md mx-auto aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
-                    <Image
-                      src={product.mainImage}
-                      alt={product.title}
-                      fill
-                      className="object-contain transition-transform duration-700 hover:scale-105"
-                    />
-                    {/* Bottom shadow overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
-                  </div>
-                  {/* Decorative Element */}
-                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-blue-100 rounded-xl -z-10"></div>
-                  <div className="absolute -bottom-4 -left-4 w-14 h-14 bg-gray-100 rounded-xl -z-10"></div>
-                </div>
-              </motion.div>
+       
             </motion.div>
           );
         })}
