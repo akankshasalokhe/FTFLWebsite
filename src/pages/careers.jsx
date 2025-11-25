@@ -326,7 +326,7 @@ function Careers() {
 
 
        <div
-      className="relative h-[55vh] min-h-[420px] max-h-[550px] overflow-hidden 
+      className="relative h-[75vh] min-h-[420px] max-h-[550px] overflow-hidden 
       bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"
     >
       {/* Neon Bottom Wave */}

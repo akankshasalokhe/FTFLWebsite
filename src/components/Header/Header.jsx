@@ -176,14 +176,20 @@ const HeroSection = () => {
   });
 
   return (
-    <section
-      ref={ref}
-      className={`relative text-white text-center overflow-hidden ${Styles.hero}`}
-      style={{
-        height: "calc(100vh - 80px)",
-        minHeight: "500px",
-      }}
-    >
+    // <section
+    //   ref={ref}
+    //   className={`relative text-white text-center overflow-hidden ${Styles.hero}`}
+    //   style={{
+    //     height: "calc(100vh - 80px)",
+    //     minHeight: "500px",
+    //   }}
+    // 
+   <section
+   ref={ref}
+  className="relative text-white text-center overflow-hidden pt-28 min-h-[650px] sm:min-h-[600px]"
+>
+
+
       {/* === Background Image Layer === */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"

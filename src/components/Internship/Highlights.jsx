@@ -198,7 +198,7 @@ export default function WhatIsInternship() {
           viewport={{ once: true }}
           className="w-full h-full"
         >
-          <div className="w-full h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-blue-100">
+          <div className="w-full h-[300px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl border border-blue-100">
             <img
               src="Digital marketing works 24_7 even when you don’t….jpeg"
               alt="Corporate Internship"

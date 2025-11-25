@@ -1225,7 +1225,7 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-gray-50">
       {/* ==== Hero Banner ==== */}
-      <section className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center 
+      <section className="relative w-full h-[450px] md:h-[420px] text-white overflow-hidden flex items-center justify-center 
 bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
 
         {/* Animated Canvas */}
@@ -1432,7 +1432,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                       autoComplete="off"
                     />
                   </div> */}
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number
@@ -1496,7 +1496,7 @@ bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-[#298cf3] to-blue-600 text-white py-4 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
                   >
                     {submitting ? (
                       "Sending..."
