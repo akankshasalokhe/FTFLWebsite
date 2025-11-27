@@ -502,7 +502,7 @@ export default function ContactSectionAnimated() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center"
+      className="relative min-h-screen flex items-center justify-center mb-10"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",

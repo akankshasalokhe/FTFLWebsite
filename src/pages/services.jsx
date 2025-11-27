@@ -1100,11 +1100,14 @@ import { FiSearch, FiPenTool, FiCode, FiLayers, FiCheckCircle } from "react-icon
 import {FiArrowRight,FiChevronDown  } from "react-icons/fi";
 import { SiNextdotjs, SiMongodb, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { FaReact, FaNodeJs, FaAws, FaGitAlt, FaFigma } from "react-icons/fa";
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import ProcessSection from "@/components/Services/OurProcess";
 
 
 export default function ServiceDetailPage() {
     const [open, setOpen] = useState(null);
+     const [activeStep, setActiveStep] = useState(0);
+  const refs = useRef([]);
 
   const steps = [
   {
@@ -1133,6 +1136,29 @@ export default function ServiceDetailPage() {
     desc: "Deployment, optimization, and final quality assurance.",
   },
 ];
+
+const designSteps = [
+  {
+    title :"Research",
+    icon :<FiSearch className="text-blue-600 text-3xl" />,
+    desc:" Identify the target market and brand, investigate rivals, and establish the visual direction. "
+  },
+  {
+    title :"Concept Development",
+    icon :<FiCode className="text-indigo-600 text-3xl" />,
+    desc:" Generate ideas, produce preliminary Illustrator mockups, and show concepts to clients for their input.  "
+  },
+   {
+    title :"Evaluation",
+    icon :<FiLayers className="text-pink-600 text-3xl" />,
+    desc:"Test designs on various platforms, get input, and improve graphics using A/B testing, alignment, and contrast. "
+  },
+   {
+    title :"Delivery",
+    icon :<FiCheckCircle className="text-green-600 text-3xl" />,
+    desc:" Provide final assets in all necessary formats, make sure they are the right size, and offer post-support and brand guidelines. "
+  },
+]
 
 const tools = [
   { icon: <SiNextdotjs />, title: "Next.js" },
@@ -1164,6 +1190,32 @@ const faqs = [
     a: "We use modern stacks including React, Next.js, Node.js, MongoDB, AWS, and advanced UI frameworks."
   }
 ];
+
+
+ useEffect(() => {
+    const handleScroll = () => {
+      let closestIndex = 0;
+      let minDistance = Infinity;
+
+      refs.current.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        
+        // Section center distance from viewport top
+        const distance = Math.abs(rect.top - window.innerHeight / 2);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      // Set step strictly in order
+      setActiveStep(closestIndex);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -1283,89 +1335,97 @@ const faqs = [
       </div>
     </section>
 
-
     <section>
-
-   
-
 {/* ===========================
      SECTION 2 — OVERVIEW (MATCHING WITH HERO)
 ============================== */}
 
-  
+<section className="w-full h-auto lg:h-[430px] relative overflow-hidden bg-[#f7f8fc] ">
 
-  <section className="w-full h-[400px] flex items-center relative overflow-hidden">
+  {/* ======================= CENTER IMAGE ======================= */}
+  <motion.div
+  initial={{ opacity: 0, y: -40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+  className="
+    z-20 
+    flex justify-center 
+    lg:absolute 
+    lg:left-[23%] lg:top-1/2 
+    lg:-translate-x-1/4 lg:-translate-y-1/2 
+    mt-8 lg:mt-0
+  "
+>
+  <motion.div
+    animate={{ y: [0, -10, 0] }}
+    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+    whileHover={{ rotateX: 8, rotateY: -8, scale: 1.03 }}
+    className="
+      w-56 h-56 sm:w-64 sm:h-64 lg:w-90 lg:h-80
+      rounded-3xl overflow-hidden relative
+      bg-white/20 backdrop-blur-xl border border-white/40
 
-      {/* ===== Center Image (Bigger Size) ===== */}
-      <motion.div
-        initial={{ opacity: 0, y: -40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute left-1/6 top-1/2 -translate-x-1 -translate-y-1/2 z-20"
-      >
-        <div className="w-56 h-56 md:w-72 md:h-72 rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-white">
-          <img
-            src="/full stack web development overview.jpg"
-            alt="center"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </motion.div>
+      /* === 3D SHADOWS === */
+      shadow-[0_15px_40px_rgba(0,0,0,0.25)]
+      hover:shadow-[0_25px_60px_rgba(0,0,0,0.35)]
+      transition-all duration-500 ease-[cubic-bezier(.19,1,.22,1)]
 
-      {/* ===== Main Layout ===== */}
-      <div className="flex w-full h-full">
-
-        {/* ================= LEFT SIDE ================= */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-1/2 h-full relative"
-        >
-          <div className="absolute inset-0 flex">
-            <div className="w-1/2 h-full bg-gradient-to-b from-[#021030] via-[#032781] to-[#01154b]"></div>
-            <div className="w-1/2 h-full"></div>
-          </div>
-        </motion.div>
-
-        {/* ================= RIGHT SIDE ================= */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-1/2 h-full bg-white p-10 flex flex-col justify-center"
-        >
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="text-4xl font-bold text-[#021030] mb-5"
-          >
-            Overview
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.7 }}
-            className="text-gray-600 leading-relaxed text-lg me-20"
-          >
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem
-            ducimus soluta omnis placeat nulla neque hic, debitis ipsum
-            blanditiis vel aperiam cum deserunt recusandae odio quas. Illo
-            perferendis voluptatibus in sed unde adipisci eaque dolore sequi eum
-            deserunt? Ducimus quam id error unde nulla repellendus ipsam
-            distinctio ut nobis quod.
-          </motion.p>
-
-        </motion.div>
-      </div>
-    </section>
+      /* Glow outline */
+      before:content-['']
+      before:absolute before:inset-0
+      before:rounded-3xl
+      before:border-[2px] before:border-white/40
+      before:shadow-[0_0_40px_10px_rgba(255,255,255,0.15)]
+    "
+  >
+    <img
+      src="/full stack web development overview.jpg"
+      alt="center"
+      className="w-full h-full object-cover relative z-10"
+    />
+  </motion.div>
+</motion.div>
 
 
+  {/* ======================= DESKTOP LAYOUT ======================= */}
+  <div className="hidden lg:flex w-full h-[430px]">
 
+    {/* LEFT SIDE – PREMIUM VERTICAL STRIPES */}
+    <div className="w-1/2 h-full flex">
+      <div className="w-1/2 h-full bg-[#e3e7f3]"></div>
+      <div className="w-1/2 h-full bg-[#d6dbee]"></div>
+      {/* <div className="w-1/3 h-full bg-[#c9d0e7]"></div> */}
+    </div>
 
+    {/* RIGHT CONTENT SIDE */}
+    <div className="w-1/2 h-full bg-white ps-16 pe-12 py-10 flex flex-col justify-center shadow-inner">
+      <h2 className="text-4xl font-bold text-[#0e1630] mb-5">
+        Overview
+      </h2>
+
+      <p className="text-gray-600 leading-relaxed text-lg me-28">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id vitae itaque at repellendus saepe, molestias dolor impedit ipsa. Mollitia eaque molestias necessitatibus nostrum minima adipisci inventore nulla, tempore eligendi a ad rerum sequi porro placeat ut autem quam numquam deleniti!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam ullam cum aut, molestias voluptates eum doloremque, impedit unde inventore nihil doloribus optio earum non beatae autem. Consequuntur quae amet architecto!
+      </p>
+    </div>
+
+  </div>
+
+  {/* ======================= MOBILE LAYOUT ======================= */}
+  <div className="flex flex-col lg:hidden px-7 pt-10 pb-12 text-center mt-6">
+
+    <h2 className="text-3xl font-bold text-[#0e1630] mb-4">
+      Overview
+    </h2>
+
+    <p className="text-gray-600 leading-relaxed text-base">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, deserunt
+      optio! Similique ea a aut.
+    </p>
+
+  </div>
+
+</section>
 
 
 
@@ -1493,106 +1553,11 @@ const faqs = [
   </div>
 </section>
 
+
 {/* ======================================
      SECTION 5 – OUR PROCESS
      Alternating Timeline
 ====================================== */}
-
-{/* <section className="relative py-32 bg-[#eef7ff] overflow-hidden">
-  <div className="absolute top-20 right-10 w-72 h-72 bg-blue-200/70 blur-[120px] rounded-full"></div>
-  <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200/70 blur-[120px] rounded-full"></div>
-
-  <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
-
-    <motion.h2
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      className="text-4xl font-bold text-center text-gray-900 mb-20"
-    >
-      Our Process
-    </motion.h2>
-
-    <div className="relative w-full max-w-3xl mx-auto h-[600px]">
-
-      <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        transition={{ duration: 0.6 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 
-                   -translate-y-1/2 w-32 h-32 bg-gradient-to-br 
-                   from-blue-500 to-purple-600 rounded-full blur-xl opacity-70"
-      ></motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="absolute inset-0 rounded-full border-[6px] border-blue-300/40"
-      ></motion.div>
-
-      <svg
-        className="absolute inset-0 w-full h-full"
-        width="500" height="500"
-      >
-        <motion.circle
-          cx="50%" cy="50%" r="210"
-          fill="none"
-          stroke="url(#gradLine)"
-          strokeWidth="4"
-          strokeDasharray="800"
-          strokeDashoffset="800"
-          animate={{ strokeDashoffset: 0 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-        ></motion.circle>
-
-        <defs>
-          <linearGradient id="gradLine" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0ea5e9" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {steps.map((step, i) => {
-        const angle = (i / steps.length) * 360;
-        const radius = 230;
-
-        const x = radius * Math.cos((angle - 90) * (Math.PI / 180));
-        const y = radius * Math.sin((angle - 90) * (Math.PI / 180));
-
-        return (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: i * 0.2 }}
-            className="absolute"
-            style={{
-              top: `calc(50% + ${y}px)`,
-              left: `calc(50% + ${x}px)`,
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <div className="bg-white p-5 w-44 text-center shadow-xl rounded-2xl border border-gray-100 hover:-translate-y-2 transition-all duration-300">
-              <div className="w-14 h-14 mx-auto flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl shadow-inner mb-3">
-                {step.icon}
-              </div>
-
-              <h3 className="font-bold text-gray-800">{step.title}</h3>
-              <p className="text-xs text-gray-600 mt-1">{step.desc}</p>
-
-              <span className="mt-3 inline-block text-[11px] font-semibold 
-                text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-                STEP {i + 1}
-              </span>
-            </div>
-          </motion.div>
-        );
-      })}
-    </div>
-  </div>
-</section> */}
 
 
  <section className="relative py-24 bg-[#acd1edcd] overflow-hidden">
@@ -1646,6 +1611,70 @@ const faqs = [
         </div>
       </div>
     </section>
+
+
+  <section className="py-20 bg-[#f3f6ff]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+
+        {/* LEFT — Sticky Icons */}
+        <div className="relative">
+          <div className="sticky top-24 space-y-6">
+
+            {designSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                animate={{
+                  scale: activeStep === index ? 1.15 : 1,
+                  opacity: activeStep === index ? 1 : 0.45,
+                }}
+                transition={{ duration: 0.3 }}
+                className={`
+                  flex items-center gap-3 p-3 rounded-xl cursor-pointer
+                  ${activeStep === index ? "bg-white shadow-md" : ""}
+                `}
+              >
+                <div className="w-12 h-12 text-2xl flex items-center justify-center bg-blue-100 rounded-full">
+                  {step.icon}
+                </div>
+                <span
+                  className={`font-semibold text-gray-700 ${
+                    activeStep === index ? "text-blue-600" : ""
+                  }`}
+                >
+                  {step.title}
+                </span>
+              </motion.div>
+            ))}
+
+          </div>
+        </div>
+
+        {/* RIGHT — Scroll Sections */}
+        <div className="md:col-span-2 space-y-10">
+
+          {designSteps.map((step, index) => (
+            <div
+              key={index}
+              ref={(el) => (refs.current[index] = el)}
+              className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 h-[180px]"
+            >
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                {step.title}
+              </h2>
+              <p className="text-gray-600 leading-relaxed">
+                {step.desc}
+              </p>
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <ProcessSection />
+
 
 {/* ======================================================
     TOOLS & TECHNOLOGIES – VERSION 1 (CIRCULAR CLUSTER)
@@ -1735,63 +1764,58 @@ const faqs = [
   {/* Diagonal Ribbon Container */}
   <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
 
-    {/* DIAGONAL GRADIENT RIBBON */}
+    {/* Diagonal Ribbon */}
     <div className="absolute inset-0 -skew-y-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-20 rounded-3xl"></div>
 
-    {/* MAIN CONTENT OVERLAY */}
-    <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 py-12">
+    {/* MAIN CONTENT */}
+    <div className="relative grid grid-cols-1 md:grid-cols-4 gap-10 py-12">
 
       {[
         {
-          title: "Strategic Approach",
-          desc: "Every project is planned with research, insights and clarity to ensure success.",
-          icon: "💡",
+          title: "Build for Business",
+          icon: "🏢",
         },
         {
-          title: "Modern Technology",
-          desc: "We use advanced tools and frameworks to deliver performance-driven results.",
-          icon: "🚀",
-        },
-        {
-          title: "Fast Delivery",
-          desc: "We consistently meet deadlines with efficient processes and agile execution.",
+          title: "Optimized SEO & Speed",
           icon: "⚡",
         },
         {
-          title: "Dedicated Support",
-          desc: "We provide ongoing support to ensure your product evolves smoothly.",
-          icon: "🤝",
+          title: "Unique UI/UX Design",
+          icon: "🎨",
+        },
+        {
+          title: "Cloud & Hosting Deployment",
+          icon: "☁️",
         },
       ].map((item, index) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: index * 0.15 }}
           className="relative p-8 bg-white/90 backdrop-blur-xl rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] 
                      border border-white hover:-translate-y-3 hover:shadow-[0_18px_50px_rgba(0,0,0,0.12)] 
-                     transition-all duration-300"
+                     transition-all duration-300 text-center"
         >
           {/* Floating Icon */}
           <motion.div
-            animate={{ y: [0, -8, 0] }}
+            animate={{ y: [0, -10, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            className="text-4xl mb-4"
+            className="text-5xl mb-4"
           >
             {item.icon}
           </motion.div>
 
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-gray-900">
             {item.title}
           </h3>
-          <p className="text-gray-600 leading-relaxed">
-            {item.desc}
-          </p>
         </motion.div>
       ))}
     </div>
   </div>
 </section>
+
+
 
 <section
   style={{
