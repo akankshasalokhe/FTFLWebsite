@@ -832,7 +832,7 @@ const InternshipCourses = () => {
                 onMouseEnter={() => setHoveredCard(course._id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="relative w-[380px]  lg:w-[410px] lg:h-[300px] overflow-hidden">
+                <div className="relative w-full md:[390px]  lg:w-[410px] lg:h-[300px] overflow-hidden">
                   <img
                     src={course.mainImage}
                     alt={course.title}
