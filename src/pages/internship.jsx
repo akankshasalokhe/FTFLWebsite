@@ -141,9 +141,13 @@ const HeroSection = () => {
 
   return (
     <>
-     <div
+     {/* <div
       className="relative w-full h-64 sm:h-80 md:h-[370px] lg:h-[400px] 
       overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"
+    > */}
+      <div
+      className="relative w-full min-h-[55vh] sm:h-80 md:h-[370px] lg:h-[400px] 
+       overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"
     >
       {/* Canvas Animated Background */}
       <canvas
@@ -168,12 +172,17 @@ const HeroSection = () => {
       </div>
 
       {/* Text Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
+      {/* <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20"> */}
+     <div className="absolute inset-0 flex flex-col items-center 
+    justify-start pt-24 sm:justify-center sm:pt-0 
+    text-center px-4 z-20">
+
+
         <motion.h1
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 "
         >
           Your Journey{" "}
           <span className="text-blue-300 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">

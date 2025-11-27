@@ -1014,9 +1014,9 @@ const BlogPage = () => {
             transition={{ duration: 0.5 }}
             className="inline-block mb-6"
           >
-            <span className="mt-8 px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300">
+            {/* <span className="mt-8 px-8 py-3 rounded-lg bg-gradient-to-r from-[#298cf3] to-blue-600 text-white font-semibold hover:shadow-lg hover:scale-105 transition-transform duration-300">
               Latest Insights
-            </span>
+            </span> */}
           </motion.div>
 
           <motion.h1 // Changed to h1 for SEO

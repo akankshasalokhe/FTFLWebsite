@@ -129,7 +129,9 @@ const Blog = () => {
   return (
     <>
       {/* ✅ Banner Section */}
-      <div className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
+      {/* <div className="relative w-full md:h-[420px] text-white overflow-hidden flex items-center justify-center bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]"> */}
+      <div className="relative w-full min-h-[460px] md:h-[420px] text-white overflow-hidden flex items-center justify-center bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
+
 
   {/* Animated Canvas */}
   <canvas

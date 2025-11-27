@@ -30,9 +30,6 @@
   color: black !important;
 }
 
-
-
-
 /* === Logo === */
 .logo {
   display: flex;
@@ -82,9 +79,11 @@
 .navMenu {
   display: none;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.8rem; /* Reduced from 1.5rem to decrease gap between items */
   list-style: none;
   transition: all 0.4s ease;
+  margin-left: auto; /* Push menu to the right */
+  margin-right: 2rem; /* Add space from right edge */
 }
 
 .navMenu.active {
@@ -106,8 +105,6 @@
   border-radius: 6px;
   position: relative;
 }
-
-
 
 .navMenu li a:focus,
 .navMenu li span:focus {
@@ -306,13 +303,82 @@
   transform: translateX(2px);
 }
 
-/* === Mobile Menu === */
+/* === Desktop Styles === */
+@media (min-width: 769px) {
+  .navMenu {
+    display: flex; /* Ensure menu is visible on desktop */
+    gap: 0.8rem; /* Reduced gap between items */
+    margin-left: auto; /* Push to right */
+    margin-right: 2rem; /* Space from right edge */
+  }
+  
+  .hamburger {
+    position: absolute;
+    right: 2rem;
+    top: 1.2rem;
+  }
+
+   .arrow {
+    font-size: 16px !important; /* Increased from 12px */
+    margin-left: 6px !important;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1100px) {
+  .navContainer {
+    padding: 0.6rem 3rem;
+  }
+
+  .navMenu {
+    gap: 0.8rem; /* Consistent reduced gap */
+    margin-right: 1.5rem; /* Slightly less right margin on smaller screens */
+  }
+
+  .logo img {
+    width: 150px !important;
+    height: auto;
+  }
+}
+
 /* === Mobile Menu === */
 @media (max-width: 768px) {
+  /* White background for navbar container on mobile */
+  .navbar {
+    top: 0; /* Remove the top spacing */
+    background: white !important; /* Full width white background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
   .navContainer {
-    width: 90%;
+    width: 100%;
     border-radius: 0;
     padding: 0.6rem 1rem;
+    background: white !important; /* White background for entire nav container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: add shadow for better visibility */
+  }
+
+  /* White background for logo area */
+  .logo {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transform: scale(0.9);
+    transform-origin: left;
+  }
+
+  /* White background for hamburger */
+  .hamburger {
+    position: relative;
+    z-index: 2100;
+    right: 0;
+    margin-left: auto;
+    background: white !important;
+    border-radius: 6px;
+    padding: 10px;
+  }
+
+  /* Dark color for hamburger icon on white background */
+  .hamburger .icon {
+    color: #374151 !important; /* Dark gray for better contrast on white */
   }
 
   .hamburger {
@@ -336,6 +402,8 @@
     z-index: 2000;
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    gap: 0; /* Reset gap for mobile */
+    margin: 0; /* Reset margins for mobile */
   }
 
   .navMenu.active {
@@ -355,12 +423,7 @@
     width: 100%;
     border-radius: 8px;
     margin: 3px 0;
-    color: #000;
-  }
-
-  .logo {
-    transform: scale(0.9);
-    transform-origin: left;
+    color: #ffffff;
   }
 
   .servicesContent {
@@ -387,7 +450,7 @@
 
   .mobileSubService {
     text-decoration: none;
-    color: #333;
+    color: #fff;
     font-size: 0.9rem;
     padding: 8px 12px;
     border-radius: 4px;
@@ -401,6 +464,7 @@
     transform: translateX(2px);
   }
 }
+
 /* === Fix Close Icon Position for All Screens === */
 .hamburger {
   position: relative;
@@ -408,34 +472,6 @@
   margin-left: auto;
   display: flex;
   justify-content: flex-end;
-}
-
-@media (min-width: 769px) {
-  .hamburger {
-    position: absolute;
-    right: 2rem;
-    top: 1.2rem;
-  }
-}
-@media (min-width: 900px) and (max-width: 1100px) {
-  .navContainer {
-    padding: 0.6rem 3rem;
-    gap: 1rem;
-  }
-
-  .navMenu {
-    gap: 1rem;
-  }
-
-  .logo img {
-    width: 150px !important;
-    height: auto;
-  }
-}
-/* === Navbar link color on scroll === */
-.scrolled .navMenu li a,
-.scrolled .navMenu li span {
-  color: #000 !important;
 }
 
 /* === Keep close icon on right for all screens === */
@@ -446,6 +482,12 @@
   z-index: 2100;
 }
 
+.icon {
+  font-size: 1.8rem;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+
 /* Adjust mobile icon */
 @media (max-width: 768px) {
   .hamburger {
@@ -454,4 +496,184 @@
   }
 }
 
+/* === Navbar link color on scroll === */
+.scrolled .navMenu li a,
+.scrolled .navMenu li span {
+  color: #000 !important;
+}
 
+/* === Navigation icons - only for mobile === */
+.navIcon {
+  margin-right: 12px;
+  font-size: 18px;
+  width: 20px;
+  color: #fff;
+}
+
+/* Active link styling with icon */
+.activeLink .navIcon {
+  color: #298cf3;
+}
+
+/* Services arrow animation for mobile */
+.arrow.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+/* Better spacing for navbar items */
+.navMenu li {
+  margin: 0 2px; /* Reduced horizontal spacing between items */
+}
+
+.navMenu li a,
+.dropdownToggle {
+  padding: 8px 12px; /* Slightly reduced padding */
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  .navMenu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    flex-direction: column;
+    background: linear-gradient(to right, #021030, #032781, #01154b);
+    height: 100vh;
+    width: 80%;
+    max-width: 320px;
+    padding: 6rem 1.5rem 2rem;
+    transition: right 0.4s ease;
+    z-index: 2000;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .navMenu li {
+    margin: 8px 0;
+  }
+  
+  .navMenu li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 4px 0;
+  }
+
+  .navMenu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+
+  .dropdownToggle {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin: 4px 0;
+  }
+
+  .dropdownToggle:hover {
+    background-color: #e9ecef;
+    color: #298cf3;
+  }
+
+  .mobileDropdown {
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-left: 2px solid #007bff;
+    background: transparent !important;
+  }
+
+  .mobileServiceTitle {
+    font-weight: 600;
+    color: #007bff !important;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .mobileSubService {
+    text-decoration: none;
+    color: #ffffff !important;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: block;
+    background: transparent !important;
+  }
+
+  .mobileSubService:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 1px;
+  }
+
+  .mobileSubService:hover {
+    color: #007bff !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    transform: translateX(2px);
+  }
+
+  /* Mobile Menu Fix */
+  .navMenu {
+    background: linear-gradient(to right, #0a2a6a, #08235c, #0d3180);
+  }
+
+  .navMenu li a,
+  .navMenu li span {
+    padding: 8px 10px;
+    color: #ffffff !important;
+  }
+
+  /* Fix for services dropdown toggle */
+  .dropdownToggle {
+    color: #ffffff !important;
+    gap: 2px !important;
+    padding: 8px 10px !important;
+  }
+
+  .mobileDropdown {
+    background: transparent !important;
+    margin-left: 0.5rem;
+  }
+
+  .mobileServiceTitle {
+    color: #007bff !important;
+  }
+
+  .mobileSubService {
+    color: #ffffff !important;
+    padding: 8px 12px;
+  }
+
+  .servicesItem .dropdownToggle {
+    justify-content: space-start !important;
+  }
+  
+  .servicesItem .arrow {
+    margin-left: 4px !important;
+  }
+  
+  .servicesItem .navIcon {
+    margin-right: 8px !important;
+  }
+}

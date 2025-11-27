@@ -95,7 +95,7 @@ function ProductsPage() {
 
   return (
     <div>
-     <div className="relative w-full h-64 sm:h-80 md:h-[370px] lg:h-[400px] 
+     <div className="relative w-full h-74 sm:h-80 md:h-[370px] lg:h-[400px] 
       overflow-hidden bg-gradient-to-r from-[#021030] via-[#032781] to-[#01154b]">
 
       {/* Canvas Background Animation */}
@@ -121,7 +121,7 @@ function ProductsPage() {
       </div>
 
       {/* TEXT CONTENT */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
+      <div className="absolute mt-24 inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
 
         <motion.h1
           initial={{ opacity: 0, y: -15 }}
