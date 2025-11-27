@@ -2738,7 +2738,7 @@ return(
               <img
                 src={serviceData?.mainImage || "tappay-front-img.png"}
                 alt={serviceData?.descriptionTitle || "Digital Innovation"}
-                className="h-[500px]"
+                className="h-[450px]"
               />
               <div className="absolute -bottom-6 -left-6 h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
             </div>
