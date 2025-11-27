@@ -2877,7 +2877,7 @@ return(
               <img
                 src={item?.icon}
                 alt={item?.title}
-                className="w-10"
+                className="w-13"
               />
             </motion.div>
 
