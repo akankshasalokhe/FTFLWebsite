@@ -2699,9 +2699,8 @@ return(
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight text-white drop-shadow-lg justify-center">
+            <h1 className="text-5xl md:text-5xl font-bold leading-tight text-white drop-shadow-lg justify-center">
               <span className="text-[#00eaff]">{serviceData?.descriptionTitle}</span> <br />
-              {/* <span className="text-[#00eaff]">Into Digital Reality</span> */}
             </h1>
 
             {/* ===== Content from DB ===== */}
