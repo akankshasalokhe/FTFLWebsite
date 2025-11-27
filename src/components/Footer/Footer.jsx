@@ -713,7 +713,7 @@ const VibrantFooter = () => {
                 <li key={item.label}>
                   <Link
                     href={item.path}
-                    className="flex items-center gap-1.5 hover:text-blue-400 text-sm"
+                    className="flex items-center gap-1.5 hover:text-blue-400 text-md"
                   >
                     <FiArrowRight className="text-xs opacity-70" /> {item.label}
                   </Link>
@@ -726,51 +726,21 @@ const VibrantFooter = () => {
           <div className="order-2">
             <h4 className="text-base font-bold mb-3 text-white">Services</h4>
             <ul className="space-y-2">
-              {allModules.softwareDevelopment && (
-                <li key={allModules.softwareDevelopment._id}>
-                  <Link
-                    href={`/services/${allModules.softwareDevelopment._id}`}
-                    className="flex items-center gap-1.5 hover:text-blue-400 text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" />
-                    {allModules.softwareDevelopment.title}
-                  </Link>
-                </li>
-              )}
-              {allModules.designing && (
-                <li key={allModules.designing._id}>
-                  <Link
-                    href={`/services/${allModules.designing._id}`}
-                    className="flex items-center gap-1.5 hover:text-blue-400 text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" />
-                    {allModules.designing.title}
-                  </Link>
-                </li>
-              )}
-              {allModules.videoProduction && (
-                <li key={allModules.videoProduction._id}>
-                  <Link
-                    href={`/services/${allModules.videoProduction._id}`}
-                    className="flex items-center gap-1.5 hover:text-blue-400 text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" />
-                    {allModules.videoProduction.title}
-                  </Link>
-                </li>
-              )}
-              {allModules.marketing && (
-                <li key={allModules.marketing._id}>
-                  <Link
-                    href={`/services/${allModules.marketing._id}`}
-                    className="flex items-center gap-1.5 hover:text-blue-400 text-sm"
-                  >
-                    <FiArrowRight className="text-xs opacity-70" />
-                    {allModules.marketing.title}
-                  </Link>
-                </li>
-              )}
-            </ul>
+  {Object.values(allModules)?.map((module) => (
+    module && (
+      <li key={module._id}>
+        <Link
+          href={`/services/${module._id}`}
+          className="flex items-center gap-1.5 hover:text-blue-400 text-md"
+        >
+          <FiArrowRight className="text-xs opacity-70" />
+          {module.title}
+        </Link>
+      </li>
+    )
+  ))}
+</ul>
+ 
           </div>
 
           {/* Contact */}
@@ -786,7 +756,7 @@ const VibrantFooter = () => {
                     <p className="text-xs text-white/70">Loading...</p>
                   ) : (
                     <>
-                      <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-sm">
+                      <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-md">
                         +91 {contactInfo?.phone}
                       </Link>
                       <p className="text-sm text-white/70">{contactInfo?.workinghours}</p>
@@ -798,7 +768,7 @@ const VibrantFooter = () => {
                 <div className="bg-white text-[#01154b] p-1.5 rounded-full">
                   <MdEmail className="text-xs" />
                 </div>
-                <Link href="mailto:info@ftfltechnology.com" className="text-sm">
+                <Link href="mailto:info@ftfltechnology.com" className="text-md">
                   info@ftfltechnology.com
                 </Link>
               </li>
