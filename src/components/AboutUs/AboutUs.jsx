@@ -897,7 +897,7 @@ export default function AboutUsSection() {
                 <img
                   src="/About Image.jpg"
                   alt={item.title}
-                  className="w-[650px] h-[400px] object-cover rounded-2xl"
+                  className="w-[650px] h-[300px] lg:h-[400px] object-fill rounded-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
