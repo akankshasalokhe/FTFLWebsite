@@ -2535,6 +2535,7 @@ import axios from "axios";
 import ServiceProcess from "@/components/Services/OurProcess";
 import { serviceProcessData } from "@/data/ServiceProcessData";
 import Tilt from "react-parallax-tilt"; 
+import Link from "next/link";
 
 export default function ServiceDetailPage(){
 
@@ -2690,7 +2691,7 @@ return(
         </div>
 
         {/* ==== Foreground Content ==== */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-30 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center justify-between  lg:gap-30 relative z-10">
 
           {/* ==== Left Text Section ==== */}
           <motion.div
@@ -2699,14 +2700,13 @@ return(
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <h1 className="text-5xl md:text-5xl font-bold leading-tight text-white drop-shadow-lg justify-center">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight text-white drop-shadow-lg justify-center">
               <span className="text-[#00eaff]">{serviceData?.descriptionTitle}</span> <br />
             </h1>
 
             {/* ===== Content from DB ===== */}
             <p className="text-blue-100/90 max-w-md">
               {serviceData?.description?.content 
-                // "We build futuristic digital experiences using cutting-edge technology and creative innovation that set you apart."
               }
             </p>
 
@@ -2727,7 +2727,7 @@ return(
           </motion.div>
 
           {/* ==== Right Image Section ==== */}
-          {mobile? null : (
+          {/* {mobile? null : ( */}
           <motion.div
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -2738,12 +2738,12 @@ return(
               <img
                 src={serviceData?.mainImage || "tappay-front-img.png"}
                 alt={serviceData?.descriptionTitle || "Digital Innovation"}
-                className="h-[450px]"
+                className=" h-[400px] lg:h-[450px]"
               />
               <div className="absolute -bottom-6 -left-6 h-24 bg-cyan-500/40 rounded-3xl blur-xl opacity-70"></div>
             </div>
           </motion.div>
-          )}
+          {/* )} */}
         </div>
         
       </section>
@@ -3297,6 +3297,78 @@ return(
     </div>
   </section>
 )}
+
+
+<section className="relative py-24 px-6 overflow-hidden bg-white">
+  {/* Neon Glow Blobs */}
+  <div className="absolute top-10 left-10 w-72 h-72 bg-blue-400/30 blur-[150px] rounded-full"></div>
+  <div className="absolute bottom-10 right-10 w-72 h-72 bg-cyan-300/30 blur-[150px] rounded-full"></div>
+
+  <div className="max-w-6xl mx-auto relative z-10">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9, y: 40 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="
+        relative
+        backdrop-blur-xl 
+        bg-white/40
+        border border-blue-400/30 
+        rounded-3xl 
+        p-12 
+        shadow-[0_0_30px_rgba(0,150,255,0.2)]
+        text-center
+      "
+    >
+      {/* Neon Border Glow */}
+      <div className="absolute inset-0 rounded-3xl pointer-events-none   neon-glow"></div>
+
+      <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+        Ready to Transform Your Business?
+      </h2>
+
+      <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
+        Let's build fast, scalable, and stunning digital products tailored for your growth.
+      </p>
+
+      <Link href="/contact">
+        <motion.button
+          whileHover={{
+            scale: 1.07,
+            boxShadow: "0 0 30px rgba(0,180,255,0.7)",
+          }}
+          whileTap={{ scale: 0.97 }}
+          className="
+            px-10 py-4
+            bg-gradient-to-r from-blue-600 to-cyan-400
+            text-white 
+            font-semibold 
+            rounded-full 
+            shadow-[0_0_15px_rgba(0,180,255,0.5)]
+            transition-all 
+            duration-300 
+          "
+        >
+          Get Free Consultation
+        </motion.button>
+      </Link>
+    </motion.div>
+  </div>
+
+  {/* Neon Glow Animation KEYFRAME */}
+  <style>{`
+    .neon-glow {
+      animation: neonPulse 3s infinite ease-in-out;
+    }
+    @keyframes neonPulse {
+      0% { box-shadow: 0 0 15px rgba(0,150,255,0.3); }
+      50% { box-shadow: 0 0 32px rgba(0,180,255,0.7); }
+      100% { box-shadow: 0 0 15px rgba(0,150,255,0.3); }
+    }
+  `}</style>
+</section>
+
 
 
      
