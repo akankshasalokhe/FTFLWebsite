@@ -3184,7 +3184,7 @@ return(
           </div>
 
           {/* Title */}
-          <h3 className="text-xl md:text-2xl font-bold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors">
+          <h3 className="text-xl md:text-xl font-md text-gray-900 leading-snug group-hover:text-blue-600 transition-colors">
             {item.description}
           </h3>
 
