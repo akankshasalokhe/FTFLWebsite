@@ -111,7 +111,7 @@ export default function SoftwareUi({ steps }) {
               </div>
 
               {/* Step Number (Floating Label) */}
-              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-lg">
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-400 to-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full shadow-lg">
                 Step {index + 1}
               </span>
 
