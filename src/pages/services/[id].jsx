@@ -2690,7 +2690,7 @@ return(
         </div>
 
         {/* ==== Foreground Content ==== */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center gap-14 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-30 relative z-10">
 
           {/* ==== Left Text Section ==== */}
           <motion.div
@@ -2712,7 +2712,7 @@ return(
 
             {/* ===== Optional Points (only show if present) ===== */}
             {serviceData?.description?.points?.length > 0 && (
-              <ul className="text-blue-100/80 space-y-1 mt-3">
+              <ul className="text-blue-100/80 space-y-1 mt-3 ">
                 {serviceData.description.points.map((point, idx) => (
                   <li key={idx}>• {point}</li>
                 ))}
@@ -2732,7 +2732,7 @@ return(
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="relative me-0"
           >
             <div className="relative ">
               <img
@@ -2745,6 +2745,7 @@ return(
           </motion.div>
           )}
         </div>
+        
       </section>
 
       {/* ==== Overview Section ==== */}
