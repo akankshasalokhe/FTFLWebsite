@@ -303,26 +303,6 @@
   transform: translateX(2px);
 }
 
-/* === Desktop Styles === */
-@media (min-width: 769px) {
-  .navMenu {
-    display: flex; /* Ensure menu is visible on desktop */
-    gap: 0.8rem; /* Reduced gap between items */
-    margin-left: auto; /* Push to right */
-    margin-right: 2rem; /* Space from right edge */
-  }
-  
-  .hamburger {
-    position: absolute;
-    right: 2rem;
-    top: 1.2rem;
-  }
-
-   .arrow {
-    font-size: 16px !important; /* Increased from 12px */
-    margin-left: 6px !important;
-  }
-}
 
 @media (min-width: 900px) and (max-width: 1100px) {
   .navContainer {
@@ -541,6 +521,7 @@
 
 /* Mobile specific styles */
 @media (max-width: 768px) {
+  
   .navMenu {
     position: fixed;
     top: 0;
