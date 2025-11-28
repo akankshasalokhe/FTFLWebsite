@@ -931,34 +931,81 @@ export default function AboutUsSection() {
         ))}
 
         {/* Stats Section */}
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  viewport={{ once: true }}
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-20"
+>
+  {stats.map((stat, i) => (
+    <motion.div
+      key={i}
+      whileHover={{ scale: 1.08 }}
+      transition={{ type: "spring", stiffness: 220, damping: 12 }}
+      className="flex items-center justify-center"
+    >
+      {/* Outer Circle Card */}
+      <motion.div
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="
+          relative w-64 h-64 rounded-full 
+          bg-white/80 backdrop-blur-xl shadow-xl 
+          border border-blue-500/20
+          flex flex-col items-center justify-center
+          overflow-hidden group
+        "
+      >
+        {/* Rotating Light Ring Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-20"
-        >
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="relative group bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#298cf3] to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl"></div>
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-[#298cf3] to-blue-600 text-white text-2xl font-bold shadow-lg">
-                  {i + 1}
-                </div>
-                <h3 className="text-4xl font-extrabold text-gray-900">
-                  {stat.count}
-                  <span className="text-blue-600">+</span>
-                </h3>
-                <p className="text-lg font-medium text-gray-700">
-                  {stat.title}
-                </p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+          className="
+            absolute inset-0 rounded-full 
+            bg-gradient-to-br from-blue-600 via-transparent to-cyan-500 
+            opacity-20
+          "
+          style={{
+            maskImage: "radial-gradient(circle, transparent 55%, black 70%)",
+            WebkitMaskImage:
+              "radial-gradient(circle, transparent 55%, black 70%)"
+          }}
+        />
+
+        {/* Smooth Aura Pulse */}
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.1, 0.25, 0.1]
+          }}
+          transition={{ repeat: Infinity, duration: 2.5 }}
+          className="
+            absolute w-64 h-64 rounded-full 
+            bg-blue-500/20 blur-2xl
+          "
+        />
+
+        {/* Content */}
+        <h3 className="text-5xl font-extrabold mt-4 text-gray-900 relative z-10">
+          {stat.count}
+          <span className="text-blue-600">+</span>
+        </h3>
+
+        <p className="text-lg font-medium text-gray-700 mt-2 relative z-10">
+          {stat.title}
+        </p>
+      </motion.div>
+    </motion.div>
+  ))}
+</motion.div>
+
+
+
+
+
+
+        
       </div>
     </section>
   );
