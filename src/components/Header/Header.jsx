@@ -27,8 +27,8 @@ const HeroSection = () => {
         className="absolute inset-0 bg-inherit bg-center z-0"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')",
-          backgroundPosition: "center center",
-          backgroundSize: "cover",
+          // backgroundPosition: "center center",
+          backgroundSize:"cover",
           backgroundRepeat: "no-repeat"
         }}
         initial={{ scale: 1.3, opacity: 0 }}
@@ -52,7 +52,7 @@ const HeroSection = () => {
       />
 
       {/* Content */}
-      <div className="relative z-20 h-full flex flex-col items-center justify-center">
+      <div className="relative z-20 h-full flex flex-col items-center justify-center mt-10 lg:mt-0">
         <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <motion.div
             initial={{ y: 40, opacity: 0 }}
@@ -65,16 +65,16 @@ const HeroSection = () => {
             </div> */}
 
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 sm:mb-6 leading-tight px-2 sm:px-2"
             >
-              <span className="block">FTFL Technology</span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+              <span className="block text-5xl sm:mt-4">FTFL Technology</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 ">
                 Turns visions into digital reality
               </span>
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl sm:max-w-3xl mx-auto text-gray-300 px-2 sm:px-4"
+              className="text-base sm:text-sm md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl sm:max-w-3xl mx-auto text-gray-300 px-2 sm:px-4"
               initial={{ y: 20, opacity: 0 }}
               animate={inView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -84,7 +84,7 @@ const HeroSection = () => {
           </motion.div>
 
           <motion.div
-            className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 w-full px-2 sm:px-4"
+            className="hidden lg:flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 md:gap-6 w-full px-2 sm:px-4"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.9 }}

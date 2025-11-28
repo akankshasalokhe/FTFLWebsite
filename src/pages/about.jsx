@@ -171,6 +171,8 @@ import BoardMembers from "@/components/TeamMembers/TeamMembers";
 // import ContactForm from "@/components/ContactUs/ContactUs";
 import StorySection from "@/components/OurStory/OurStory";
 import OurJourney from "@/components/OurJourney/OurJourney";
+import Gallery from "@/components/Gallery/Gallery";
+import CompanyEventsGallery from "@/components/Events/Gallery";
 
 function About() {
   const controls = useAnimation();
@@ -421,7 +423,8 @@ function About() {
 
       <BoardMembers />
       {/* <WhyChooseUs /> */}
-      {/* <Gallery /> */}
+      {/* <CompanyEventsGallery /> */}
+      <Gallery />
       {/* <Testimonials /> */}
       {/* <ContactForm /> */}
     </div>
