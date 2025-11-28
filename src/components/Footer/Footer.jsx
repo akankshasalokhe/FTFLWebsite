@@ -638,7 +638,7 @@ const VibrantFooter = () => {
   //     })
   //     .catch((err) => console.error(err));
   // }, []);
-  useEffect(() => {
+   useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/service")
       .then((res) => {
