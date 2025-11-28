@@ -734,7 +734,7 @@ const VibrantFooter = () => {
           className="flex items-center gap-1.5 hover:text-blue-400 text-md"
         >
           <FiArrowRight className="text-xs opacity-70" />
-          {module.title}
+          {module.module}
         </Link>
       </li>
     )
