@@ -2624,6 +2624,33 @@ const serviceProcess = serviceProcessData[slug];
   return () => window.removeEventListener("resize", handleResize);
 }, []);
 
+const sliderRef = useRef(null);
+
+useEffect(() => {
+  const slider = sliderRef.current;
+  if (!slider) return;
+
+  let scrollAmount = 0;
+  const speed = 0.48; // smooth speed
+
+  const startAutoScroll = () => {
+    scrollAmount += speed;
+    slider.scrollLeft = scrollAmount;
+
+    // When reaching middle (duplicate boundary)
+    if (slider.scrollLeft >= slider.scrollWidth / 2) {
+      scrollAmount = 0;
+      slider.scrollLeft = 0;
+    }
+
+    requestAnimationFrame(startAutoScroll);
+  };
+
+  startAutoScroll();
+}, []);
+
+
+
 
   if (loading) return <p>Loading...</p>;
   if (!serviceData) return <p>Service not found.</p>;
@@ -2924,12 +2951,11 @@ return(
           Tools & <span className="text-blue-600">Technologies</span>
         </h2>
 
-        {/* Underline Accent */}
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: 140 }}
           transition={{ duration: 0.6 }}
-          className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-3 rounded-full"
+          className="h-1 bg-gradient-to-r from-blue-500 to-blue-500 mx-auto mt-3 rounded-full"
         ></motion.div>
 
         <p className="text-gray-600 mt-6 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -2937,64 +2963,67 @@ return(
         </p>
       </div>
 
-      {/* Chips Grid */}
-      <div className="flex flex-wrap justify-center gap-6">
+      {/* ===== MOBILE SLIDER (sm:hidden) ===== */}
+      <div className="overflow-hidden relative py-4 sm:hidden">
+        <motion.div
+          className="flex gap-6"
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            duration: 15,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          style={{ display: "flex", width: "max-content" }}
+        >
+          {[...serviceData.technology, ...serviceData.technology].map((tool, index) => (
+            <div
+              key={index}
+              className="
+                group relative px-7 py-4 
+                bg-white/70 backdrop-blur-md 
+                rounded-full flex items-center gap-3
+                shadow-[0_8px_30px_rgba(0,0,0,0.06)]
+                border border-gray-200/60
+                transition-all duration-300 
+                cursor-pointer flex-shrink-0
+              "
+            >
+              <img src={tool.icon} className="w-7 h-7" />
+              <span className="font-semibold text-gray-800 whitespace-nowrap">
+                {tool.title}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* ===== DESKTOP GRID (hidden on mobile) ===== */}
+      <div className="hidden sm:flex flex-wrap justify-center gap-4 mt-6">
         {serviceData.technology.map((tool, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.06 }}
             className="
               group relative px-7 py-4 
               bg-white/70 backdrop-blur-md 
               rounded-full flex items-center gap-3
               shadow-[0_8px_30px_rgba(0,0,0,0.06)]
               border border-gray-200/60
-              hover:border-blue-500/70 hover:shadow-[0_14px_35px_rgba(0,0,0,0.10)]
-              hover:bg-white/90 hover:-translate-y-1
-              transition-all duration-300 cursor-pointer
+              transition-all duration-300 
+              cursor-pointer
             "
           >
-            {/* Icon */}
-            <div className="relative">
-              <motion.div
-                animate={{ scale: [1, 1.15, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-70 transition"
-              ></motion.div>
-
-              <img
-                src={tool.icon}
-                alt={tool.title}
-                className="w-7 h-7 object-contain relative z-10"
-              />
-            </div>
-
-            {/* Title */}
-            <span className="font-semibold text-gray-800 text-base group-hover:text-blue-600 transition">
-              {tool.title}
-            </span>
-
-            {/* Hover Shine Line */}
-            <span
-              className="
-                absolute left-1/2 bottom-0 -translate-x-1/2 
-                w-0 h-[3px] 
-                bg-gradient-to-r from-blue-500 to-purple-500 
-                rounded-full opacity-0 
-                group-hover:w-3/4 group-hover:opacity-100 
-                transition-all duration-300
-              "
-            ></span>
-          </motion.div>
+            <img src={tool.icon} className="w-7 h-7" />
+            <span className="font-semibold text-gray-800">{tool.title}</span>
+          </div>
         ))}
       </div>
 
     </div>
   </section>
 )}
+
 
        {/* ==== Sub-Services ==== */}
        {serviceData?.subServices?.length > 0 && (
