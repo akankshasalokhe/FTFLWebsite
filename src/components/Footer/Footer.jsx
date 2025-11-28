@@ -674,7 +674,7 @@ const VibrantFooter = () => {
   if (!mounted) return null; // prevent SSR hydration errors
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-[#021030] via-[#032781] to-[#01154b] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8 ">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#021030] via-[#032781] to-[#01154b] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8  ">
       {/* Floating bubbles */}
       <div className="absolute inset-0 overflow-hidden">
         {[
