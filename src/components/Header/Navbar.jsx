@@ -642,7 +642,7 @@ const Navbar = () => {
             </li>
 
             {/* Services */}
-            {/* <li className={styles.servicesItem}>
+            <li className={styles.servicesItem}>
               <span
                 onClick={handleServicesToggle}
                 className={styles.dropdownToggle}
@@ -683,7 +683,7 @@ const Navbar = () => {
                   )}
                 </div>
               )}
-            </li> */}
+            </li>
 
             {/* Rest of the navigation items */}
             <li>
@@ -736,11 +736,20 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
+            {/* <li>
+              <Link
+                href="/services"
+                className={isActive("/services") ? styles.activeLink : ""}
+                onClick={closeMenu}
+              >
+                Service
+              </Link>
+            </li> */}
           </ul>
         </div>
 
         {/* === Desktop Services Dropdown === */}
-        {/* {!isMobile && (
+        {!isMobile && (
           <div
             className={`${styles.servicesContent} ${
               servicesExpanded ? styles.show : ""
@@ -773,7 +782,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-        )} */}
+        )}
       </nav>
     </>
   );

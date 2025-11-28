@@ -22,12 +22,13 @@ const Layout = ({ children, title, description, keywords }) => {
 
         <link rel="icon" type="image/jpeg" href="/FTFL.jpg" />
       </Head>
-
+      <div className='min-h-screen'>
       <Navbar />
       <ParallaxProvider>
         <main>{children}</main>
       </ParallaxProvider>
       <Footer />
+      </div>
     </>
   );
 };

@@ -594,22 +594,26 @@
 
 "use client";
 
-import { motion } from "framer-motion";
-import { FiSend, FiArrowRight } from "react-icons/fi";
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
-import { RiCustomerService2Fill } from "react-icons/ri";
-import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const VibrantFooter = () => {
+  const [mounted, setMounted] = useState(false);
   const [contactInfo, setContactInfo] = useState(null);
-  const [allModules, setAllModules] = useState([]);
+  const [allModules, setAllModules] = useState({});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const router = useRouter();
+
+  // Only render on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fetch contact info
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
@@ -617,11 +621,8 @@ const VibrantFooter = () => {
         const json = await res.json();
         if (json.success && json.data && json.data.length > 0) {
           setContactInfo(json.data[0]);
-        } else {
-          setError("No contact info available");
         }
       } catch (err) {
-        setError("Error connecting to server");
         console.error("Error fetching contact info:", err);
       } finally {
         setLoading(false);
@@ -630,79 +631,50 @@ const VibrantFooter = () => {
     fetchContactInfo();
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://landing-page-yclw.vercel.app/api/service")
-  //     .then((res) => {
-  //       setServiceInfo(res.data.data);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, []);
-   useEffect(() => {
+  // Fetch services/modules
+  useEffect(() => {
     axios
       .get("https://landing-page-yclw.vercel.app/api/service")
       .then((res) => {
         if (res.data.data && res.data.data.length > 0) {
-          console.log("Fetched documents:", res.data.data);
-
-          // Get FIRST document for each module type (use find instead of filter)
-          const softwareDevDoc = res.data.data.find(doc =>
-            doc.module?.toLowerCase() === "software development"
+          const softwareDevDoc = res.data.data.find(
+            (doc) => doc.module?.toLowerCase() === "software development"
+          );
+          const designingDoc = res.data.data.find(
+            (doc) => doc.module?.toLowerCase() === "designing"
+          );
+          const videoEditingDoc = res.data.data.find(
+            (doc) =>
+              doc.module?.toLowerCase() === "videoproduction" ||
+              doc.module?.toLowerCase() === "video production"
+          );
+          const marketingDoc = res.data.data.find(
+            (doc) => doc.module?.toLowerCase() === "marketing"
           );
 
-          const designingDoc = res.data.data.find(doc =>
-            doc.module?.toLowerCase() === "designing"
-          );
-
-          const videoEditingDoc = res.data.data.find(doc =>
-            doc.module?.toLowerCase() === "videoproduction" ||
-            doc.module?.toLowerCase() === "video production"
-          );
-
-          const marketingDoc = res.data.data.find(doc =>
-            doc.module?.toLowerCase() === "marketing"
-          );
-
-          // Set state for all modules
           setAllModules({
-            softwareDevelopment: softwareDevDoc,
-            designing: designingDoc, // lowercase 'd'
-            videoProduction: videoEditingDoc, // consistent naming
-            marketing: marketingDoc
-          });
-
-          console.log("Filtered modules:", {
             softwareDevelopment: softwareDevDoc,
             designing: designingDoc,
             videoProduction: videoEditingDoc,
-            marketing: marketingDoc
+            marketing: marketingDoc,
           });
-
-        } else {
-          console.log("No documents found");
         }
       })
       .catch((err) => console.error(err));
   }, []);
 
   const getSocialIcon = (url) => {
-    if (url.includes("facebook.com")) return <FaFacebook />;
-    if (url.includes("instagram.com")) return <FaInstagram />;
-    if (url.includes("linkedin.com")) return <FaLinkedin />;
-    if (url.includes("youtube.com")) return <FaYoutube />;
-    return <FiSend />;
+    if (url.includes("facebook.com")) return <FaFacebook className="text-[#1877F2]" />;
+    if (url.includes("instagram.com")) return <FaInstagram className="text-[#E1306C]" />;
+    if (url.includes("linkedin.com")) return <FaLinkedin className="text-[#0077B5]" />;
+    if (url.includes("youtube.com")) return <FaYoutube className="text-[#FF0000]" />;
+    return null;
   };
 
-  const getSocialClass = (url) => {
-    if (url.includes("facebook.com")) return "hover:bg-[#1877F2]";
-    if (url.includes("instagram.com")) return "hover:bg-[#E1306C]";
-    if (url.includes("linkedin.com")) return "hover:bg-[#0077B5]";
-    if (url.includes("youtube.com")) return "hover:bg-[#FF0000]";
-    return "hover:bg-gray-600";
-  };
+  if (!mounted) return null; // prevent SSR hydration errors
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-[#298CF3] to-[#0D5DB7] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#021030] via-[#032781] to-[#01154b] text-white pt-10 pb-6 px-4 sm:px-6 lg:px-8  ">
       {/* Floating bubbles */}
       <div className="absolute inset-0 overflow-hidden">
         {[
@@ -724,49 +696,10 @@ const VibrantFooter = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-lg border-2 border-white/20 rounded-xl p-5 mb-8 shadow-lg text-left"
-        >
-          <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
-            <div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-1">
-                Ready to Start your <span className="text-blue-900">Journey?</span>
-              </h3>
-              <p className="text-white/90 max-w-md text-xs sm:text-sm">
-                Let's create something extraordinary together. Our team is ready to bring your vision to life!!
-              </p>
-            </div>
-            <Link href="/contact" passHref>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center justify-center gap-2 
-             px-6 py-3 rounded-lg cursor-pointer
-             bg-gradient-to-r from-[#298cf3] to-blue-600 
-             text-white font-semibold text-sm sm:text-base 
-             hover:shadow-lg transition-transform duration-300"
-              >
-                Get Started
-                <FiArrowRight className="text-lg" />
-              </motion.button>
-
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Links - Updated for mobile layout */}
+        {/* Links */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 text-left">
-          {/* Company - 1st on mobile */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="order-1"
-          >
+          {/* Company */}
+          <div className="order-1">
             <h4 className="text-base font-bold mb-3 text-white flex items-center gap-1.5">
               Company
             </h4>
@@ -778,131 +711,52 @@ const VibrantFooter = () => {
                 { label: "Contact", path: "/contact" },
               ].map((item) => (
                 <li key={item.label}>
-                  <motion.div whileHover={{ x: 3 }}>
-                    <Link href={item.path} className="flex items-center gap-1.5 hover:text-blue-300 text-sm">
-                      <FiArrowRight className="text-xs opacity-70" /> {item.label}
-                    </Link>
-                  </motion.div>
+                  <Link
+                    href={item.path}
+                    className="flex items-center gap-1.5 hover:text-blue-400 text-md"
+                  >
+                    <FiArrowRight className="text-xs opacity-70" /> {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Services - 2nd on mobile */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="order-2"
-          >
+          {/* Services */}
+          <div className="order-2">
             <h4 className="text-base font-bold mb-3 text-white">Services</h4>
-            {/* <ul className="space-y-2">
-              {serviceInfo.slice(0, 5).map((service) => (
-                <li key={service._id}>
-                  <motion.div whileHover={{ x: 3 }}>
-                    <Link
-                      href={`/services/${service._id}`}
-                      scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
-                    >
-                      <FiArrowRight className="text-xs opacity-70" /> {service.title
-                        ?.toLowerCase()
-                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}{" "}
-                    </Link>
-                  </motion.div>
-                </li>
-              ))}
-            </ul> */}
             <ul className="space-y-2">
-              {allModules.softwareDevelopment && (
-                <li key={allModules.softwareDevelopment._id}>
-                  <motion.div whileHover={{ x: 3 }}>
+              {Object.values(allModules)?.map((module) => (
+                module && (
+                  <li key={module._id}>
                     <Link
-                      href={`/services/${allModules.softwareDevelopment._id}`}
-                      scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
+                      href={`/services/${module._id}`}
+                      className="flex items-center gap-1.5 hover:text-blue-400 text-md"
                     >
                       <FiArrowRight className="text-xs opacity-70" />
-                      {allModules.softwareDevelopment.title
-                        ?.toLowerCase()
-                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
+                      {module.module}
                     </Link>
-                  </motion.div>
-                </li>
-              )}
-
-              {allModules.designing && ( // lowercase 'd' to match state
-                <li key={allModules.designing._id}>
-                  <motion.div whileHover={{ x: 3 }}>
-                    <Link
-                      href={`/services/${allModules.designing._id}`}
-                      scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
-                    >
-                      <FiArrowRight className="text-xs opacity-70" />
-                      {allModules.designing.title
-                        ?.toLowerCase()
-                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
-                    </Link>
-                  </motion.div>
-                </li>
-              )}
-
-              {allModules.videoProduction && ( // changed to videoProduction
-                <li key={allModules.videoProduction._id}>
-                  <motion.div whileHover={{ x: 3 }}>
-                    <Link
-                      href={`/services/${allModules.videoProduction._id}`}
-                      scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
-                    >
-                      <FiArrowRight className="text-xs opacity-70" />
-                      {allModules.videoProduction.title
-                        ?.toLowerCase()
-                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
-                    </Link>
-                  </motion.div>
-                </li>
-              )}
-
-              {allModules.marketing && (
-                <li key={allModules.marketing._id}>
-                  <motion.div whileHover={{ x: 3 }}>
-                    <Link
-                      href={`/services/${allModules.marketing._id}`}
-                      scroll={false}
-                      className="flex items-center gap-1.5 hover:text-blue-300 text-sm"
-                    >
-                      <FiArrowRight className="text-xs opacity-70" />
-                      {allModules.marketing.title
-                        ?.toLowerCase()
-                        ?.replace(/\b\w/g, (c) => c.toUpperCase())}
-                    </Link>
-                  </motion.div>
-                </li>
-              )}
+                  </li>
+                )
+              ))}
             </ul>
-          </motion.div>
 
-          {/* Contact - 3rd on mobile (full width below Company & Services) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.4 }}
-            className="order-3 col-span-2 md:col-span-1 lg:col-span-1"
-          >
+          </div>
+
+          {/* Contact */}
+          <div className="order-3 col-span-2 md:col-span-1 lg:col-span-1">
             <h4 className="text-base font-bold mb-3 text-white">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
-                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
+                <div className="bg-white text-[#01154b] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdPhone className="text-xs" />
                 </div>
                 <div>
-                  {loading ? (
-                    <p className="text-xs">Loading...</p>
+                  {loading || !contactInfo ? (
+                    <p className="text-xs text-white/70">Loading...</p>
                   ) : (
                     <>
-                      <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-sm">
+                      <Link href={`tel:+${contactInfo?.phone}`} className="font-medium text-md">
                         +91 {contactInfo?.phone}
                       </Link>
                       <p className="text-sm text-white/70">{contactInfo?.workinghours}</p>
@@ -911,7 +765,7 @@ const VibrantFooter = () => {
                 </div>
               </li>
               <li className="flex items-center gap-2.5">
-                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full">
+                <div className="bg-white text-[#01154b] p-1.5 rounded-full">
                   <MdEmail className="text-xs" />
                 </div>
                 <Link href="mailto:info@ftfltechnology.com" className="text-md">
@@ -919,46 +773,36 @@ const VibrantFooter = () => {
                 </Link>
               </li>
               <li className="flex items-start gap-2.5 ">
-                <div className="bg-white text-[#0D5DB7] p-1.5 rounded-full shrink-0 mt-0.5">
+                <div className="bg-white text-[#01154b] p-1.5 rounded-full shrink-0 mt-0.5">
                   <MdLocationOn className="text-xs" />
                 </div>
                 <p className="text-sm">{contactInfo?.address}</p>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
-          {/* Connect - 4th on mobile (full width below Contact) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="order-4 col-span-2 md:col-span-1 lg:col-span-1"
-          >
+          {/* Social */}
+          <div className="order-4 col-span-2 md:col-span-1 lg:col-span-1">
             <h4 className="text-base font-bold mb-3 text-white">Connect</h4>
             <div className="flex gap-3 flex-wrap mb-4">
-              {contactInfo?.socialMediaLinks?.map((url, i) => (
-                <motion.a
-                  key={i}
-                  whileHover={{ y: -3, scale: 1.05 }}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-white/10 ${getSocialClass(url)} w-8 h-8 rounded-full flex items-center justify-center`}
-                >
-                  {getSocialIcon(url)}
-                </motion.a>
-              ))}
+              {!loading &&
+                contactInfo?.socialMediaLinks?.map((url, i) => (
+                  <a
+                    key={i}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center"
+                  >
+                    {getSocialIcon(url)}
+                  </a>
+                ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Bottom */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center gap-3"
-        >
+        <div className="border-t border-white/20 pt-4 flex flex-col md:flex-row justify-between items-center gap-3">
           <div className="flex items-center gap-1.5">
             <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-xs">F</span>
@@ -966,18 +810,19 @@ const VibrantFooter = () => {
             <p className="font-medium text-sm">FTFL Technology Pvt.Ltd</p>
           </div>
           <div className="flex gap-3 text-xs">
-            <Link href="/PrivacyPage" className="hover:text-blue-300">
+            <Link href="/PrivacyPage" className="hover:text-blue-400">
               Privacy
             </Link>
-            <Link href="/TermsPage" className="hover:text-blue-300">
-              Terms
+            <Link href="/TermsPage" className="hover:text-blue-400">
+              Terms & Condition
             </Link>
           </div>
           <p className="text-xs text-white/70">© 2025 All rights reserved</p>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );
 };
 
 export default VibrantFooter;
+

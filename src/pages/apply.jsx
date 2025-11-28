@@ -558,9 +558,9 @@ useEffect(() => {
                   >
                     <option value="">Select type</option>
                     <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
+                    {/* <option value="Part-time">Part-time</option>
                     <option value="Contract">Contract</option>
-                    <option value="Internship">Internship</option>
+                    <option value="Internship">Internship</option> */}
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

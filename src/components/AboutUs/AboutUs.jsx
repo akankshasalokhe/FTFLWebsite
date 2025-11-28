@@ -897,7 +897,7 @@ export default function AboutUsSection() {
                 <img
                   src="/About Image.jpg"
                   alt={item.title}
-                  className="w-[650px] h-[400px] object-cover rounded-2xl"
+                  className="w-[650px] h-[300px] lg:h-[400px] object-fill rounded-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
@@ -932,7 +932,7 @@ export default function AboutUsSection() {
 
         {/* Stats Section */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
