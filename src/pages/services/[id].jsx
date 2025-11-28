@@ -2747,7 +2747,7 @@ return(
             )}
 
             <div className="pt-4">
-              <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#00eaff] text-[#021030] font-semibold shadow-lg shadow-cyan-500/30 hover:scale-105 hover:bg-white transition-all">
+              <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#00eaff] text-[#021030] font-semibold shadow-lg shadow-cyan-500/30 hover:scale-105 hover:bg-white transition-all mb-5">
                 Get Started <FiArrowRight />
               </button>
             </div>
