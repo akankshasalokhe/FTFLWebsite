@@ -1484,35 +1484,7 @@ export default function SingleJobView() {
               </motion.div>
             )}
 
-            {/* Ready to Apply */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200"
-            >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FiBriefcase className="text-blue-600 text-2xl" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to apply?</h3>
-                <p className="text-gray-600 mb-5">
-                  Submit your application before{' '}
-                  <span className="font-medium">
-                    {formatDate(jobData.applicationDeadline || jobData.deadline)}
-                  </span>.
-                </p>
-                <Link href={`/apply?id=${jobData._id}`} passHref>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
-                  >
-                    Apply Now <FiBriefcase />
-                  </motion.button>
-                </Link>
-              </div>
-            </motion.div>
+            
 
             {/* Quick Facts */}
             <motion.div
@@ -1561,6 +1533,36 @@ export default function SingleJobView() {
                     </p>
                   </div>
                 </div>
+              </div>
+            </motion.div>
+
+            {/* Ready to Apply */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200"
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FiBriefcase className="text-blue-600 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to apply?</h3>
+                <p className="text-gray-600 mb-5">
+                  Submit your application before{' '}
+                  <span className="font-medium">
+                    {formatDate(jobData.applicationDeadline || jobData.deadline)}
+                  </span>.
+                </p>
+                <Link href={`/apply?id=${jobData._id}`} passHref>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+                  >
+                    Apply Now <FiBriefcase />
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </aside>
