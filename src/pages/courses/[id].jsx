@@ -2031,7 +2031,7 @@ export default function CourseDetails() {
 
       {/* Hero - Fixed layout for mobile */}
        <section
-        className="relative h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
+        className="relative mt-10 h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
         style={{
           background: "linear-gradient(135deg, #021030, #032781, #01154b)",
         }}
