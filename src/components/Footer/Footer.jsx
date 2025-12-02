@@ -823,10 +823,13 @@ const VibrantFooter = () => {
               Terms & Condition
             </Link>
           </div>
-          <p className="text-xs text-white/70">© 2025 All rights reserved</p>
+          {/* <p className="text-xs text-white/70">© 2025 All rights reserved</p> */}
+          <p className="text-xs text-white/70">
+            © {new Date().getFullYear()} All rights reserved
+          </p>
+
         </div>
-      </div>
-    </footer>
+      </div>    </footer>
   );
 };
 
