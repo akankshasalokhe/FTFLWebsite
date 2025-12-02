@@ -1258,7 +1258,7 @@ export default function BlogDetail() {
 
     if (loading) {
         return (
-            <div className="container text-center py-20">
+            <div className="container text-center py-35">
                 <p>Loading blog post...</p>
             </div>
         );
@@ -1348,7 +1348,7 @@ export default function BlogDetail() {
                 />
             </Head>
 
-            <nav className="navigation mt-20">
+            <nav className="navigation mt-25">
                 <Link href="/blog" className="nav-link">Home</Link>
                 <span className="nav-separator"> / </span>
                 <span className="nav-current">{blogData.title}</span>
