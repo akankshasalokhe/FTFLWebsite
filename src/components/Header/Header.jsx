@@ -17,8 +17,8 @@ const HeroSection = () => {
       ref={ref}
       className={`relative  text-white text-center px-4 sm:px-6 lg:px-8 overflow-hidden ${Styles.hero}`}
       style={{
-        height: "calc(100vh - 80px)",
-        minHeight: "500px",
+        height: "calc(100svh - 80px)",
+        minHeight: "600px",
         maxHeight: "1200px"
       }}
     >

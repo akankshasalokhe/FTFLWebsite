@@ -24,7 +24,7 @@
 
 //   const handleChange = (e) => {
 //     const { name, value } = e.target;
-    
+
 //     // Format phone number as user types
 //     if (name === "phoneNumber") {
 //       const formattedValue = formatPhoneNumber(value);
@@ -32,7 +32,7 @@
 //     } else {
 //       setFormData(prev => ({ ...prev, [name]: value }));
 //     }
-    
+
 //     if (errors[name]) {
 //       setErrors(prev => ({ ...prev, [name]: "" }));
 //     }
@@ -42,7 +42,7 @@
 //   const formatPhoneNumber = (value) => {
 //     // Remove all non-digit characters
 //     const cleaned = value.replace(/\D/g, '');
-    
+
 //     // Apply formatting based on length
 //     if (cleaned.length <= 3) {
 //       return cleaned;
@@ -55,37 +55,37 @@
 
 //   const validate = () => {
 //     const newErrors = {};
-    
+
 //     if (!formData.firstName.trim()) newErrors.firstName = "Name is required";
-    
+
 //     if (!formData.email.trim()) {
 //       newErrors.email = "Email is required";
 //     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
 //       newErrors.email = "Invalid email format";
 //     }
-    
+
 //     if (!formData.phoneNumber.trim()) {
 //       newErrors.phoneNumber = "Phone number is required";
 //     } else if (formData.phoneNumber.replace(/\D/g, '').length !== 10) {
 //       newErrors.phoneNumber = "Phone number must be 10 digits";
 //     }
-    
+
 //     if (!formData.message.trim()) newErrors.message = "Message is required";
-    
+
 //     return newErrors;
 //   };
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     const validationErrors = validate();
-    
+
 //     if (Object.keys(validationErrors).length > 0) {
 //       setErrors(validationErrors);
 //       return;
 //     }
 
 //     setIsSubmitting(true);
-    
+
 //     try {
 //       // Prepare data for API (remove dashes from phone number)
 //       const submissionData = {
@@ -502,7 +502,7 @@ export default function ContactSectionAnimated() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center mb-10"
+      className="relative min-h-screen flex items-center justify-center mb-0"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -570,28 +570,27 @@ export default function ContactSectionAnimated() {
               <form onSubmit={handleSubmit} className="space-y-4 relative">
                 {/* NAME */}
                 <div className="relative">
-  <label className="text-sm text-white/80 mb-2 block">Name</label>
-  <div className="relative">
-    <FiUser className="absolute left-4 top-4 text-white/50" />
-    <input
-      name="firstName"
-      value={values.firstName}
-      onChange={handleChange}
-      onFocus={() => setFocused((p) => ({ ...p, firstName: true }))}
-      onBlur={() => setFocused((p) => ({ ...p, firstName: false }))}
-      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${
-        errors.firstName ? "border-rose-400" : "border-white/10"
-      } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
-      placeholder=" "
-    />
-    {values.firstName.length === 0 && (
-      <div className="absolute left-8 top-6 text-white/40 pointer-events-none">
-        <TypewriterOverlay phrases={namePhrases} active={focused.firstName} />
-      </div>
-    )}
-  </div>
-  {errors.firstName && <p className="text-xs text-rose-400 mt-1">{errors.firstName}</p>}
-</div>
+                  <label className="text-sm text-white/80 mb-2 block">Name</label>
+                  <div className="relative">
+                    <FiUser className="absolute left-4 top-4 text-white/50" />
+                    <input
+                      name="firstName"
+                      value={values.firstName}
+                      onChange={handleChange}
+                      onFocus={() => setFocused((p) => ({ ...p, firstName: true }))}
+                      onBlur={() => setFocused((p) => ({ ...p, firstName: false }))}
+                      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${errors.firstName ? "border-rose-400" : "border-white/10"
+                        } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+                      placeholder=" "
+                    />
+                    {values.firstName.length === 0 && (
+                      <div className="absolute left-8 top-6 text-white/40 pointer-events-none">
+                        <TypewriterOverlay phrases={namePhrases} active={focused.firstName} />
+                      </div>
+                    )}
+                  </div>
+                  {errors.firstName && <p className="text-xs text-rose-400 mt-1">{errors.firstName}</p>}
+                </div>
 
                 {/* EMAIL */}
                 <div className="relative">
@@ -604,16 +603,15 @@ export default function ContactSectionAnimated() {
                       onChange={handleChange}
                       onFocus={() => setFocused((p) => ({ ...p, email: true }))}
                       onBlur={() => setFocused((p) => ({ ...p, email: false }))}
-                      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.email ? "border-rose-400" : "border-white/10"
-                      } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+                      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${errors.email ? "border-rose-400" : "border-white/10"
+                        } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
                       placeholder=" "
                       type="email"
                     />
                     <div className="absolute left-8 top-6 text-white/40 pointer-events-none">
-                    {values.email.length === 0 && (
-                      <TypewriterOverlay phrases={emailPhrases} active={focused.email} />
-                    )}
+                      {values.email.length === 0 && (
+                        <TypewriterOverlay phrases={emailPhrases} active={focused.email} />
+                      )}
                     </div>
                   </div>
                   {errors.email && <p className="text-xs text-rose-400 mt-1">{errors.email}</p>}
@@ -630,9 +628,8 @@ export default function ContactSectionAnimated() {
                       onChange={handleChange}
                       onFocus={() => setFocused((p) => ({ ...p, phoneNumber: true }))}
                       onBlur={() => setFocused((p) => ({ ...p, phoneNumber: false }))}
-                      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.phoneNumber ? "border-rose-400" : "border-white/10"
-                      } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+                      className={`w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border ${errors.phoneNumber ? "border-rose-400" : "border-white/10"
+                        } text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400`}
                       placeholder=" "
                     />
                     <div className="absolute left-8 top-6 text-white/40 pointer-events-none">
@@ -656,15 +653,14 @@ export default function ContactSectionAnimated() {
                       onFocus={() => setFocused((p) => ({ ...p, message: true }))}
                       onBlur={() => setFocused((p) => ({ ...p, message: false }))}
                       rows={5}
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border ${
-                        errors.message ? "border-rose-400" : "border-white/10"
-                      } text-white placeholder-transparent resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400`}
+                      className={`w-full pl-10 pr-4 py-3 rounded-lg bg-white/5 border ${errors.message ? "border-rose-400" : "border-white/10"
+                        } text-white placeholder-transparent resize-none focus:outline-none focus:ring-2 focus:ring-indigo-400`}
                       placeholder=" "
                     />
                     <div className="absolute left-10 top-6 text-white/40 pointer-events-none">
-                    {values.message.length === 0 && (
-                      <TypewriterOverlay phrases={messagePhrases} active={focused.message} />
-                    )}
+                      {values.message.length === 0 && (
+                        <TypewriterOverlay phrases={messagePhrases} active={focused.message} />
+                      )}
                     </div>
                   </div>
                   {errors.message && <p className="text-xs text-rose-400 mt-1">{errors.message}</p>}
@@ -679,9 +675,8 @@ export default function ContactSectionAnimated() {
                     whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full inline-flex items-center cursor-pointer justify-center gap-3 py-3 rounded-lg font-medium ${
-                      isSubmitting ? "bg-indigo-400" : "bg-gradient-to-r from-[#298cf3] to-blue-600"
-                    } text-white shadow-lg`}
+                    className={`w-full inline-flex items-center cursor-pointer justify-center gap-3 py-3 rounded-lg font-medium ${isSubmitting ? "bg-indigo-400" : "bg-gradient-to-r from-[#298cf3] to-blue-600"
+                      } text-white shadow-lg`}
                   >
                     {isSubmitting ? (
                       <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">

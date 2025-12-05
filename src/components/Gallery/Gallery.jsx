@@ -227,6 +227,22 @@ export default function Gallery() {
       ></motion.div>
 
       {/* Header */}
+      {/* <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+       className="text-center mb-12 "
+      >
+        <h2 className="text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">
+          Our Visual Gallery
+        </h2>
+        <p className="text-gray-600 max-w-xl mx-auto mt-3">
+          Dive into our world of creativity, innovation, and stunning visuals.
+        </p>
+      </motion.div> */}
+
+
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -234,10 +250,10 @@ export default function Gallery() {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h2 className="text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">
+        <h2 className="text-5xl lg:text-6xl xl:text-7xl font-extrabold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent leading-tight lg:leading-normal">
           Our Visual Gallery
         </h2>
-        <p className="text-gray-600 max-w-xl mx-auto mt-3">
+        <p className="text-gray-600 max-w-xl mx-auto mt-4 text-lg">
           Dive into our world of creativity, innovation, and stunning visuals.
         </p>
       </motion.div>

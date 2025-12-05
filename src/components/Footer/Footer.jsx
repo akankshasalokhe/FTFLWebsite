@@ -726,21 +726,21 @@ const VibrantFooter = () => {
           <div className="order-2">
             <h4 className="text-base font-bold mb-3 text-white">Services</h4>
             <ul className="space-y-2">
-  {Object.values(allModules)?.map((module) => (
-    module && (
-      <li key={module._id}>
-        <Link
-          href={`/services/${module._id}`}
-          className="flex items-center gap-1.5 hover:text-blue-400 text-md"
-        >
-          <FiArrowRight className="text-xs opacity-70" />
-          {module.module}
-        </Link>
-      </li>
-    )
-  ))}
-</ul>
- 
+              {Object.values(allModules)?.map((module) => (
+                module && (
+                  <li key={module._id}>
+                    <Link
+                      href={`/services/${module._id}`}
+                      className="flex items-center gap-1.5 hover:text-blue-400 text-md"
+                    >
+                      <FiArrowRight className="text-xs opacity-70" />
+                      {module.module}
+                    </Link>
+                  </li>
+                )
+              ))}
+            </ul>
+
           </div>
 
           {/* Contact */}
@@ -823,10 +823,13 @@ const VibrantFooter = () => {
               Terms & Condition
             </Link>
           </div>
-          <p className="text-xs text-white/70">© 2025 All rights reserved</p>
+          {/* <p className="text-xs text-white/70">© 2025 All rights reserved</p> */}
+          <p className="text-xs text-white/70">
+            © {new Date().getFullYear()} All rights reserved
+          </p>
+
         </div>
-      </div>
-    </footer>
+      </div>    </footer>
   );
 };
 

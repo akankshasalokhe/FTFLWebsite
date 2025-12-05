@@ -1372,46 +1372,49 @@ export default function SingleJobView() {
             )} */}
 
 
-{jobData.requiredSkills && (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.4 }}
-    className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8"
-  >
-    <div className="flex items-center gap-3 mb-6">
-      <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
-        <FiZap className="text-blue-600 text-xl" />
-      </div>
-      <h2 className="text-xl font-semibold text-gray-900">Required Skills</h2>
-    </div>
-    
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-      {jobData.requiredSkills
-        .slice(0, showAllSkills ? jobData.requiredSkills.length : 4)
-        .map((skill, i) => (
-          <div key={i} className="flex flex-col p-3 bg-gray-50 rounded-lg border border-gray-200 min-w-0">
-            <span className="font-medium text-gray-800 text-sm text-center truncate">{skill.title}</span>
-            {/* <span className={`text-xs px-2 py-0.5 rounded-full mt-1 w-fit mx-auto ${getSkillLevelColor(skill.level)}`}>
+            {jobData.requiredSkills && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white rounded-xl shadow-sm p-6 border border-gray-200 mb-8"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
+                    <FiZap className="text-blue-600 text-xl" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900">Required Skills</h2>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                  {jobData.requiredSkills
+                    .slice(0, showAllSkills ? jobData.requiredSkills.length : 4)
+                    .map((skill, i) => (
+                      <div key={i} className="flex flex-col p-3 bg-gray-50 rounded-lg border border-gray-200 min-w-0">
+                        {skill.icon && (
+                          <img src={skill.icon} alt={skill.title} className="w-8 h-8 mb-2 mx-auto" />
+                        )}
+                        <span className="font-medium text-gray-800 text-sm text-center truncate">{skill.title}</span>
+                        {/* <span className={`text-xs px-2 py-0.5 rounded-full mt-1 w-fit mx-auto ${getSkillLevelColor(skill.level)}`}>
               {skill.level}
             </span> */}
-          </div>
-        ))}
-    </div>
+                      </div>
+                    ))}
+                </div>
 
-    {/* Show More/Less Button */}
-    {jobData.requiredSkills.length > 4 && (
-      <div className="text-center mt-4">
-        <button
-          onClick={() => setShowAllSkills(!showAllSkills)}
-          className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
-        >
-          {showAllSkills ? 'Show Less' : `+${jobData.requiredSkills.length - 4} More`}
-        </button>
-      </div>
-    )}
-  </motion.div>
-)}
+                {/* Show More/Less Button */}
+                {jobData.requiredSkills.length > 4 && (
+                  <div className="text-center mt-4">
+                    <button
+                      onClick={() => setShowAllSkills(!showAllSkills)}
+                      className="text-blue-600 hover:text-blue-700 font-medium text-sm transition-colors"
+                    >
+                      {showAllSkills ? 'Show Less' : `+${jobData.requiredSkills.length - 4} More`}
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            )}
 
             {/* Requirements */}
             <motion.div
@@ -1460,23 +1463,23 @@ export default function SingleJobView() {
                     <div
                       key={i}
                       className={`flex gap-1 p-3 rounded-lg border ${benefit.highlight
-                          ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200'
-                          : 'bg-gray-50 border-gray-200'
+                        ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200'
+                        : 'bg-gray-50 border-gray-200'
                         }`}
                     >
                       <div
                         className={`p-3 w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${benefit.highlight
-                            ? 'bg-blue-100 text-blue-600'
-                            : 'bg-gray-100 text-gray-600'
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-gray-100 text-gray-600'
                           }`}
                       >
                         <img src={benefit.icon} alt={benefit.title} className="w-5 h-5" />
                       </div>
                       <div>
-                      <div className="text-gray-900 font-medium">{benefit.title}</div>
-                      {benefit.description && (
-                        <div className="text-gray-700 text-sm">{benefit.description}</div>
-                      )}
+                        <div className="text-gray-900 font-medium">{benefit.title}</div>
+                        {benefit.description && (
+                          <div className="text-gray-700 text-sm">{benefit.description}</div>
+                        )}
                       </div>
                     </div>
                   ))}

@@ -242,7 +242,7 @@ export default function WhatIsInternship() {
                 viewport={{ once: true }}
                 className="flex items-start gap-4 bg-white rounded-2xl p-5 shadow-md border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-600 text-white text-xl">
+                <div className="w-14 h-14 p-4 flex items-center justify-center rounded-lg bg-blue-600 text-white text-xl">
                   {b.icon}
                 </div>
                 <div>

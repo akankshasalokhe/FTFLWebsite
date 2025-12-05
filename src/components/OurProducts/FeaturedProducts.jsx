@@ -443,6 +443,7 @@ import { FaReact, FaNodeJs, FaAws, FaGitAlt, FaFigma } from "react-icons/fa";
 export default function ProductDetails() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productsData, setProductsData] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     axios
@@ -592,9 +593,27 @@ export default function ProductDetails() {
               <p className="text-lg text-blue-600 font-semibold mb-3">
                 {selectedProduct.subTitle}
               </p>
-              <p className="text-gray-600 mb-6 leading-relaxed text-justify">
-                {selectedProduct.description.substring(0, 150)}...
-              </p>
+              {/* <p className="text-gray-600 mb-6 leading-relaxed text-justify">
+                {selectedProduct.description}
+              </p> */}
+              <p
+        className={`
+          text-gray-600 mb-3 leading-relaxed text-justify
+          md:line-clamp-none 
+          ${isExpanded ? "line-clamp-none" : "line-clamp-3"} 
+          md:!line-clamp-none   /* desktop shows full always */
+        `}
+      >
+       {selectedProduct.description}
+      </p>
+
+      {/* Show More Button — only mobile */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="text-blue-600 font-medium md:hidden"
+      >
+        {isExpanded ? "Show less" : "Show more"}
+      </button>
 
               {/* <motion.ul
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6"

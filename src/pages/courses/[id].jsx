@@ -1241,7 +1241,7 @@ import {
   FaQuestionCircle,
   FaRupeeSign,
   FaUniversity,
-  FaUserGraduate ,
+  FaUserGraduate,
   FaCalendarAlt
 } from "react-icons/fa";
 import axios from "axios";
@@ -1477,47 +1477,47 @@ const CurriculumAccordion = ({ curriculum }) => {
           >
             <div className="px-6 pb-5">
               <ul className="space-y-3">
-  {item.topics.map((topic, j) => (
-    <div key={j}>
-      {topic.isWeek ? (
-        // WEEK TITLE BLOCK
-        <div className="mb-2">
-          <h4 className="font-semibold text-blue-700 text-lg flex items-center gap-2">
-            <FaLaptopCode className="text-blue-600" />
-            {topic.weekTitle}
-          </h4>
+                {item.topics.map((topic, j) => (
+                  <div key={j}>
+                    {topic.isWeek ? (
+                      // WEEK TITLE BLOCK
+                      <div className="mb-2">
+                        <h4 className="font-semibold text-blue-700 text-lg flex items-center gap-2">
+                          <FaLaptopCode className="text-blue-600" />
+                          {topic.weekTitle}
+                        </h4>
 
-          {/* Nested topics inside week */}
-          <ul className="ml-6 mt-2 space-y-2">
-            {topic.topics.map((subTopic, k) => (
-              <motion.li
-                key={k}
-                className="flex items-start text-gray-700"
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: k * 0.1 }}
-              >
-                <FaCheckCircle className="mt-1 mr-2 text-green-500" />
-                <span>{subTopic}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        // NORMAL TOPIC
-        <motion.li
-          className="flex items-start text-gray-700"
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: j * 0.1 }}
-        >
-          <FaCheckCircle className="mt-1 mr-2 text-green-500" />
-          <span>{topic}</span>
-        </motion.li>
-      )}
-    </div>
-  ))}
-</ul>
+                        {/* Nested topics inside week */}
+                        <ul className="ml-6 mt-2 space-y-2">
+                          {topic.topics.map((subTopic, k) => (
+                            <motion.li
+                              key={k}
+                              className="flex items-start text-gray-700"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: k * 0.1 }}
+                            >
+                              <FaCheckCircle className="mt-1 mr-2 text-green-500" />
+                              <span>{subTopic}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      // NORMAL TOPIC
+                      <motion.li
+                        className="flex items-start text-gray-700"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: j * 0.1 }}
+                      >
+                        <FaCheckCircle className="mt-1 mr-2 text-green-500" />
+                        <span>{topic}</span>
+                      </motion.li>
+                    )}
+                  </div>
+                ))}
+              </ul>
 
             </div>
           </div>
@@ -1956,45 +1956,57 @@ export default function CourseDetails() {
 
 
   const transformedCurriculum =
-  internshipData?.curriculum?.map((item, index) => {
-    let finalTopics = [];
+    internshipData?.curriculum?.map((item, index) => {
+      let finalTopics = [];
 
-    // Case 1: If weeklyPlan exists → push weekTitle + nested topics
-    if (item.weeklyPlan && Array.isArray(item.weeklyPlan)) {
-      finalTopics = item.weeklyPlan.map((week) => ({
-        isWeek: true,
-        weekTitle: week.weekTitle,
-        topics: week.topics || [],
-      }));
-    } else {
-      // Case 2: Fallback to simple description array
-      finalTopics = item.currDescription || [];
-    }
+      // Case 1: If weeklyPlan exists → push weekTitle + nested topics
+      if (item.weeklyPlan && Array.isArray(item.weeklyPlan)) {
+        finalTopics = item.weeklyPlan.map((week) => ({
+          isWeek: true,
+          weekTitle: week.weekTitle,
+          topics: week.topics || [],
+        }));
+      } else {
+        // Case 2: Fallback to simple description array
+        finalTopics = item.currDescription || [];
+      }
 
-    return {
-      step: index + 1,
-      title: item.currTitle,
-      icon: (
-        <img
-          src={item.currIcon}
-          alt={item.currTitle}
-          className="w-full h-full object-fit rounded-full"
-        />
-      ),
-      topics: finalTopics,
-    };
-  }) || [];
+      return {
+        step: index + 1,
+        title: item.currTitle,
+        icon: (
+          <img
+            src={item.currIcon}
+            alt={item.currTitle}
+            className="w-full h-full object-fit rounded-full"
+          />
+        ),
+        topics: finalTopics,
+      };
+    }) || [];
 
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Head>
+      {/* <Head>
         <title>{internshipData.title} | CareerBoost</title>
         <meta
           name="description"
           content={`${internshipData.title} detailed curriculum and modules`}
         />
+      </Head> */}
+      <Head>
+        {/* <title>{internshipData.title} | CareerBoost</title> */}
+        {/* <meta
+          name="description"
+          content={`${internshipData.title} detailed curriculum and modules`}
+        /> */}
       </Head>
+
+      {/* <h1 className="text-xl sm:text-3xl font-bold break-words whitespace-normal leading-tight px-4 mt-4 text-center">
+        {internshipData.title}
+      </h1> */}
+
 
 
       {/* Navigation - Fixed for mobile */}
@@ -2018,30 +2030,30 @@ export default function CourseDetails() {
       </nav> */}
 
       {/* Hero - Fixed layout for mobile */}
-  <section
-  className="relative h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
-  style={{
-    background: "linear-gradient(135deg, #021030, #032781, #01154b)",
-  }}
->
-  {/* Animated Circuit Background */}
-  <div className="absolute inset-0 z-0 circuit-lines"></div>
+       <section
+        className="relative mt-10 h-90 sm:h-72 md:h-80 lg:h-96 overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #021030, #032781, #01154b)",
+        }}
+      >
+        {/*  Animated Circuit Background  */}
+        <div className="absolute inset-0 z-0 circuit-lines"></div>
 
-  {/* Glowing Nodes */}
-  <div className="circuit-nodes z-0">
-    <span className="circuit-node" style={{ top: "20%", left: "30%" }}></span>
-    <span className="circuit-node" style={{ top: "50%", left: "70%" }}></span>
-    <span className="circuit-node" style={{ top: "70%", left: "40%" }}></span>
-    <span className="circuit-node" style={{ top: "35%", left: "80%" }}></span>
-    <span className="circuit-node" style={{ top: "60%", left: "20%" }}></span>
-  </div>
+        {/*  Glowing Nodes  */}
+        <div className="circuit-nodes z-0">
+          <span className="circuit-node" style={{ top: "20%", left: "30%" }}></span>
+          <span className="circuit-node" style={{ top: "50%", left: "70%" }}></span>
+          <span className="circuit-node" style={{ top: "70%", left: "40%" }}></span>
+          <span className="circuit-node" style={{ top: "35%", left: "80%" }}></span>
+          <span className="circuit-node" style={{ top: "60%", left: "20%" }}></span>
+        </div>
 
-  {/* Content */}
-  <div className="relative z-10 text-white p-18 lg:p-30 text-center">
-    <h1 className="text-3xl lg:text-5xl font-bold text-center text-sky-300">{internshipData.title}</h1>
-    <p className="mt-3 text-md">{internshipData.description}</p>
-  </div>
-</section>
+        {/* Content */}
+        <div className="relative z-10 text-white p-18 lg:p-30 text-center">
+          <h1 className="text-3xl lg:text-5xl font-bold text-center text-sky-300">{internshipData.title}</h1>
+          <p className="mt-3 text-md">{internshipData.description}</p>
+        </div>
+      </section> 
 
 
 
@@ -2118,22 +2130,21 @@ export default function CourseDetails() {
         <div className="md:col-span-2">
           {/* Tab Navigation */}
           <div className="border-b border-gray-200 mb-8 sticky top-15 lg:top-[75px] bg-white z-40">
-  <nav className="flex space-x-8 overflow-x-auto scrollbar-hide">
-    {['curriculum', 'reviews', 'faqs'].map((tab) => (
-      <button
-        key={tab}
-        onClick={() => setActiveTab(tab)}
-        className={`py-4 px-1 font-medium whitespace-nowrap text-sm border-b-2 ${
-          activeTab === tab
-            ? 'border-blue-500 text-blue-600'
-            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-        }`}
-      >
-        {tab.charAt(0).toUpperCase() + tab.slice(1)}
-      </button>
-    ))}
-  </nav>
-</div>
+            <nav className="flex space-x-8 overflow-x-auto scrollbar-hide">
+              {['curriculum', 'reviews', 'faqs'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`py-4 px-1 font-medium whitespace-nowrap text-sm border-b-2 ${activeTab === tab
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                >
+                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                </button>
+              ))}
+            </nav>
+          </div>
 
 
           {/* Tab Content */}
@@ -2220,56 +2231,56 @@ export default function CourseDetails() {
               </motion.section>
 
               {/* Outcomes */}
-             <motion.section
-  className="mb-12"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={fadeIn}
->
-  <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-    <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full"></span>
-    Program Benefits
-  </h2>
+              <motion.section
+                className="mb-12"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+              >
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                  <span className="w-2 h-6 bg-blue-600 mr-3 rounded-full"></span>
+                  Program Benefits
+                </h2>
 
-  <div className="grid sm:grid-cols-2 gap-6">
-    {internshipData.benefits.map((item, index) => {
-      const [mainTitle, description] = item.title.split(":");
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {internshipData.benefits.map((item, index) => {
+                    const [mainTitle, description] = item.title.split(":");
 
-      return (
-        <motion.div
-          key={index}
-          className="bg-white rounded-xl shadow p-6 hover:shadow-md transition"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-          transition={{ delay: index * 0.1 }}
-        >
-          <div className="flex items-start gap-3">
-            <img
-              src={item.icon}
-              alt={mainTitle}
-              className="w-10 h-10 object-contain mt-1"
-            />
+                    return (
+                      <motion.div
+                        key={index}
+                        className="bg-white rounded-xl shadow p-6 hover:shadow-md transition"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeIn}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <div className="flex items-start gap-3">
+                          <img
+                            src={item.icon}
+                            alt={mainTitle}
+                            className="w-10 h-10 object-contain mt-1"
+                          />
 
-            <div>
-              {/* Title */}
-              <h3 className="text-gray-800 font-bold text-lg">{mainTitle}</h3>
+                          <div>
+                            {/* Title */}
+                            <h3 className="text-gray-800 font-bold text-lg">{mainTitle}</h3>
 
-              {/* Description */}
-              {description && (
-                <p className="text-gray-600 text-sm mt-1">
-                  {description.trim()}
-                </p>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      );
-    })}
-  </div>
-</motion.section>
+                            {/* Description */}
+                            {description && (
+                              <p className="text-gray-600 text-sm mt-1">
+                                {description.trim()}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.section>
 
 
             </>
@@ -2339,10 +2350,10 @@ export default function CourseDetails() {
               <h3 className="text-xl font-bold text-gray-800 mb-4">Program Summary</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <FaCalendarAlt className="text-blue-500"/>
+                  <FaCalendarAlt className="text-blue-500" />
                   <div>
-                  <p className="text-gray-600">Duration:</p>
-                  <p className="font-semibold">{internshipData.durationDetails}</p>
+                    <p className="text-gray-600">Duration:</p>
+                    <p className="font-semibold">{internshipData.durationDetails}</p>
                   </div>
                 </div>
 
@@ -2355,36 +2366,36 @@ export default function CourseDetails() {
                   </span>
                   </div>
                 </div> */}
-                
+
                 <div className="flex items-center gap-2">
-                  <FaUserGraduate  className="text-blue-500"/>
+                  <FaUserGraduate className="text-blue-500" />
                   <div>
-                  <p className="text-gray-600">Education:</p>
-                  <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
-                    <span key={index} className="block">{item}</span>
-                  ))}</p>
+                    <p className="text-gray-600">Education:</p>
+                    <p className="font-semibold text-gray-800">{internshipData?.eligibility.map((item, index) => (
+                      <span key={index} className="block">{item}</span>
+                    ))}</p>
                   </div>
                 </div>
-           
+
                 <div className="space-y-4">
-               
-                <div className="flex items-center gap-3">
-                  <FaClock className="text-blue-500" />
-                  <div>
-                    <p className="text-sm text-gray-600">Schedule</p>
-                    <p className="font-semibold text-gray-800">{internshipData.schedule}</p>
+
+                  <div className="flex items-center gap-3">
+                    <FaClock className="text-blue-500" />
+                    <div>
+                      <p className="text-sm text-gray-600">Schedule</p>
+                      <p className="font-semibold text-gray-800">{internshipData.schedule}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <FaMapMarkerAlt className="text-blue-500" />
+                    <div>
+                      <p className="text-sm text-gray-600">Mode</p>
+                      <p className="font-semibold text-gray-800">{internshipData.mode}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <FaMapMarkerAlt className="text-blue-500" />
-                  <div>
-                    <p className="text-sm text-gray-600">Mode</p>
-                    <p className="font-semibold text-gray-800">{internshipData.mode}</p>
-                  </div>
-                </div>
-              </div>
                 <div className="pt-4 border-t border-gray-200">
-                  
+
                   <p className="text-center text-sm text-gray-500 mt-3">Limited seats available</p>
                 </div>
               </div>
@@ -2429,16 +2440,16 @@ export default function CourseDetails() {
               <h3 className="text-lg font-bold text-blue-800 mb-3">Need help deciding?</h3>
               <p className="text-blue-700 mb-4">Talk to our program counsellor</p>
               <Link href="/contact">
-              <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-[#298cf3] to-blue-600 transition w-full">
-                Request a Callback
-              </button>
+                <button className="bg-blue-600 text-white py-2 px-4 rounded-lg font-medium bg-gradient-to-r from-[#298cf3] to-blue-600 transition w-full">
+                  Request a Callback
+                </button>
               </Link>
             </motion.div>
           </div>
         </div>
       </div>
 
-  
+
 
 
       <section
@@ -2491,7 +2502,7 @@ export default function CourseDetails() {
       </section>
 
 
-  
+
     </div>
   );
 }
