@@ -3134,7 +3134,7 @@ return(
         {/* Icon */}
         <div className="icon-box">
           {item.icon?.includes("http") ? (
-            <img src={item.icon} className="w-9 h-9" alt="service-icon" />
+            <img src={item.icon} className="w-12 h-12" alt="service-icon" />
           ) : (
             item.icon   // emoji support
           )}
